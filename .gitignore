@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+src/my-sql-server/library.obj.mwb
+.gitignore
+src/my-sql-server/library.obj.mwb.bak
