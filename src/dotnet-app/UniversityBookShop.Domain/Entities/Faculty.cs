@@ -1,6 +1,6 @@
 namespace UniversityBookShop.Domain.Entities;
 
-public class Faculties
+public class Faculty
 {
     public int Id { get; set; }
     public string? Name { get; set; }

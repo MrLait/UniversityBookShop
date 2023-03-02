@@ -4,6 +4,6 @@ namespace UniversityBookShop.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<Faculties> Faculties { get; set; }
+    DbSet<Faculty> Faculties { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

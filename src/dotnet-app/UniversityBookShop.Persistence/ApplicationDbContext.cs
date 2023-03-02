@@ -7,7 +7,7 @@ namespace UniversityBookShop.Persistence;
 
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
-    public DbSet<Faculties> Faculties { get; set; }
+    public DbSet<Faculty> Faculties { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
