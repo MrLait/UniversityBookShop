@@ -17,7 +17,7 @@ public class GetAllFacultiesQueryHandler : IRequestHandler<GetAllFacultiesQuery,
     public async Task<List<FacultyDto>> Handle(GetAllFacultiesQuery request, CancellationToken cancellationToken)
     {
         var facultiesQuery = await _dbContext.Faculties
-            .Where(f => f.Id == request.Id)
+            //.Where(f => f.Id == request.Id) //ToDo delete
             .ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return facultiesQuery.Count > 0 ? facultiesQuery : new List<FacultyDto>(); // ToDo. I have to add failed message
