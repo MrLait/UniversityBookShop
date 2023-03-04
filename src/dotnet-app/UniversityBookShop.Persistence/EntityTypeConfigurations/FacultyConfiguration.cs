@@ -4,11 +4,12 @@ using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Persistence.EntityTypeConfigurations;
 
-public class FacultiesConfiguration : IEntityTypeConfiguration<Faculty>
+public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
 {
     public void Configure(EntityTypeBuilder<Faculty> builder)
     {
         builder.HasKey(f => f.Id);
         builder.Property(f => f.Name).HasColumnName("name").HasMaxLength(150);
+        builder.Property(f => f.UniversityId).HasColumnName("university_id");
     }
 }

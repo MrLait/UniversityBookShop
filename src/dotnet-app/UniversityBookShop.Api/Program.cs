@@ -27,7 +27,12 @@ services.AddCors(option =>
         policy.AllowAnyOrigin();
     });
 });
-services.AddSwaggerGen();
+services.AddSwaggerGen(config =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    config.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
