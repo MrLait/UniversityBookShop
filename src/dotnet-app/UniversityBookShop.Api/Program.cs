@@ -27,7 +27,7 @@ services.AddCors(option =>
         policy.AllowAnyOrigin();
     });
 });
-
+services.AddSwaggerGen();
 
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
@@ -44,12 +44,14 @@ using (var scope = app.Services.CreateScope())
         //ToDo
     }
 }
+app.UseSwagger();
+app.UseSwaggerUI(config =>
+{
+    config.RoutePrefix = string.Empty;
+    config.SwaggerEndpoint("swagger/v1/swagger.json", "University book shop API");
+});
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll"); //ToDo
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
+app.MapControllers();
 app.Run();
