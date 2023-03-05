@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Reflection.Emit;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Domain.Entities;
@@ -14,6 +15,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
     }

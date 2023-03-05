@@ -13,6 +13,10 @@ public class UniversityConfiguration : IEntityTypeConfiguration<University>
         builder.Property(f => f.Description).HasMaxLength(255);
         builder.Property(f => f.TotalBookPrice)
             .HasColumnName("total_book_price").HasColumnType("decimal(10, 2)");
-        //builder.Property(f => f.).HasColumnName("currency_code_id");
+
+        builder
+            .HasOne(u => u.CurrencyCodes)
+            .WithOne(c => c.University)
+            .HasForeignKey<CurrencyCode>(fk => fk.UniversitiesCurrencyCodesId);
     }
 }
