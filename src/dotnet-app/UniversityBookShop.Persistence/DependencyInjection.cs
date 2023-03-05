@@ -17,7 +17,10 @@ public static class DependencyInjection
                 new MySqlServerVersion(new Version(8, 0, 32)));
         });
 
-        var serviceCollection = services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+        var serviceCollection = services.AddScoped<IApplicationDbContext>
+        (
+            provider => provider.GetService<ApplicationDbContext>()!
+        );
         return services;
     }
 }
