@@ -10,7 +10,6 @@ namespace UniversityBookShop.Api.Controllers
     [Route("api/[controller]")]
     public class FacultyController : BaseController
     {
-        //GetAll
         [HttpGet]
         public async Task<ActionResult<List<FacultyDto>>> GetAll()
         {

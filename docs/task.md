@@ -39,7 +39,7 @@
         - кафедры
         - книги, структура должна быть совместима с no-sql, к которой ходим через отдельный api
 
-*clietn side rendering(делается через s3bucket.statick side rendering)*
+*client side rendering(делается через s3bucket.static side rendering)*
 
 *code first*
 ## Описание инфраструктуры Aws:
@@ -53,7 +53,7 @@
  - s3 Bucket
  - cloud formation - поднимать все выше перечисленное
  - vps
-# pipelin-ы: 
+# pipeline-ы:  
 - после пуша image, нужно получить изменения и запустить их на es2
 
     для этого нужно разобраться в и использовать:
@@ -71,4 +71,4 @@
             - isbn 
             - тип Action, если были изменения, то указываем какие.
             - текстовый файл записывается в s3bucket
-- лямды функии на ноде имеет свой pipeline
+- лямбды функции на ноде имеет свой pipeline
