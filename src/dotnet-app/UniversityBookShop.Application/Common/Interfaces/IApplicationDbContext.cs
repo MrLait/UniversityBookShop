@@ -6,5 +6,7 @@ public interface IApplicationDbContext
 {
     DbSet<Faculty> Faculties { get; set; }
     DbSet<University> Universities { get; set; }
+    DbSet<CurrencyCode> CurrencyCodes { get; set; }
+    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
