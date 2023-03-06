@@ -1,0 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using UniversityBookShop.Domain.Entities;
+
+namespace UniversityBookShop.Persistence.EntityTypeConfigurations;
+
+public class BookConfiguration : IEntityTypeConfiguration<Book>
+{
+    public void Configure(EntityTypeBuilder<Book> builder)
+    {
+        builder.HasKey(f => f.Id);
+        builder.Property(f => f.Isbn).HasMaxLength(17);
+        builder.Property(f => f.Name).HasMaxLength(150);
+        builder.Property(f => f.Author).HasMaxLength(150);
+        builder.Property(f => f.Price).HasColumnType("decimal(10, 2)");
+        builder.Property(f => f.CurrencyCodesBooksId).HasColumnName("currency_code_id");
+    }
+}

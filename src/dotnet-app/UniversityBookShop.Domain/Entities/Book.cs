@@ -6,7 +6,7 @@ public class Book
     public string? Isbn { get; set; }
     public string? Name { get; set; }
     public string? Author { get; set; }
-    // price decimal(10,2) 
     public decimal? Price { get; set; }
+    public int CurrencyCodesBooksId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
 }

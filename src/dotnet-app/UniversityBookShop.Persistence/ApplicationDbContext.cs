@@ -10,7 +10,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<University> Universities { get; set; } = null!;
     public DbSet<CurrencyCode> CurrencyCodes { get; set; } = null!;
-    
+    public DbSet<Book> Books { get; set; } = null!;
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)

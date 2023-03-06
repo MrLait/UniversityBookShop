@@ -13,15 +13,15 @@ namespace UniversityBookShop.Persistence.EntityTypeConfigurations
             builder.HasKey(f => f.Id);
             builder.Property(f => f.Code).HasMaxLength(3);
 
-            //modelBuilder
-            //            .Entity<User>()
-            //            .HasOne(u => u.Profile)
-            //            .WithOne(p => p.User)
-            //            .HasForeignKey<UserProfile>(p => p.UserKey);
             builder
                 .HasOne(c => c.University)
                 .WithOne(u => u.CurrencyCode)
                 .HasForeignKey<University>(fk => fk.CurrencyCodesUniversitiesId);
+
+            builder
+                .HasOne(c => c.Book)
+                .WithOne(u => u.CurrencyCode)
+                .HasForeignKey<Book>(fk => fk.CurrencyCodesBooksId);
         }
     }
 }
