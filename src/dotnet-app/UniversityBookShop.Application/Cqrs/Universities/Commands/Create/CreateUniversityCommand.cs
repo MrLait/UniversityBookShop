@@ -9,6 +9,7 @@ public class CreateUniversityCommand : IRequest<int>
     public int Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
+    public int CurrencyCodeId { get; set; }
 }
 
 public class CreateUniversityCommandHandler :
@@ -24,7 +25,8 @@ public class CreateUniversityCommandHandler :
         {
             Id = request.Id,
             Name = request.Name,
-            Description = request.Description
+            Description = request.Description,
+            CurrencyCodesUniversitiesId = request.CurrencyCodeId
         };
 
         await _dbContext.Universities.AddAsync(university, cancellationToken);
