@@ -1,10 +1,14 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
+import Header from "./components/UI/navbar/Header";
 
 function App() {
   return (
-    <div>
-      React app init
-    </div>
+    <BrowserRouter>
+      <Header />
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
