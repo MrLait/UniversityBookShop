@@ -1,13 +1,10 @@
-import { placeholder } from "@babel/types";
-import React, { useRef } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import UniversityApi from "../API/UniversityApiService";
 import { Currencies, universitiesField, universityField } from "../components/initialStates/initialStates";
 import CreateUniversityForm from "../components/pageComponents/University/CreateUniversityForm";
 import UniversityList from "../components/pageComponents/University/UniversityList";
-import MyButton from "../components/UI/button/MyButton";
-import MyInput from "../components/UI/input/MyInput";
 
 const Universities = () => {
 

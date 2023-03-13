@@ -1,4 +1,5 @@
 import React from "react";
+import MyButton from "../../UI/button/MyButton";
 
 const UniversityItem = ({ university, deleteUniversity }) => {
     return (
@@ -14,7 +15,7 @@ const UniversityItem = ({ university, deleteUniversity }) => {
             </div>
             <div>
                 <button onClick={() => deleteUniversity(university)} >delete</button>
-                <button> Vew faculties ToDo</button>
+                <MyButton onClick={university.faculties} > Vew faculties ToDo</MyButton>
                 <button> Vew purchased Books ToDo</button>
             </div>
         </div>
