@@ -16,4 +16,9 @@ export default class UniversityApi {
         const response = await universityBookShopApiInstance.delete(`University/${id}`)
         return response;
     }
+
+    static async post(university) {
+        const response = await universityBookShopApiInstance.post('University/', university)
+        return response;
+    }
 }
