@@ -1,6 +1,6 @@
 import React from "react";
 
-const UniversityItem = ({ university }) => {
+const UniversityItem = ({ university, deleteUniversity }) => {
     return (
         <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
             <div>
@@ -13,7 +13,7 @@ const UniversityItem = ({ university }) => {
                 </div>
             </div>
             <div>
-                <button> delete ToDo</button>
+                <button onClick={() => deleteUniversity(university)} >delete</button>
                 <button> Vew faculties ToDo</button>
                 <button> Vew purchased Books ToDo</button>
             </div>

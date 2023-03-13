@@ -5,7 +5,7 @@ const UniversityList = (props) => {
     return (
         <div>
             {props.universities.map(u =>
-                <UniversityItem key={u.id} university={u} />
+                <UniversityItem key={u.id} deleteUniversity={props.deleteUniversity} university={u} />
             )}
         </div>
     )

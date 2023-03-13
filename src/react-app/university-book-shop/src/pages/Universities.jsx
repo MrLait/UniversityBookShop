@@ -14,6 +14,22 @@ const Universities = () => {
         setUniversities(response.data)
     }
 
+    const deleteUniversity = async (university) => {
+        console.log(university.id);
+        await UniversityApi.delete(university.id)
+            .then(response => {
+                console.log(response);
+                if (response.status == 204) {
+                    setUniversities(universities.filter(u => u.id !== university.id))
+                }
+            }
+            ).catch(error => {
+                if (error.response.data) {
+                    console.log("ToDo Universities error");
+                }
+            })
+    }
+
     useEffect(() => {
         getUniversities();
     }, [])
@@ -24,7 +40,7 @@ const Universities = () => {
                 <button> Create university ToDo</button>
             </div>
             <div>
-                <UniversityList universities={universities} />
+                <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
             </div>
         </div>
     )
