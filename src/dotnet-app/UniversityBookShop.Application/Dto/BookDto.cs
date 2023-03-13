@@ -11,7 +11,7 @@ public class BookDto : IMapWith<Book>
     public string? Name { get; set; }
     public string? Author { get; set; }
     public decimal? Price { get; set; }
-    public CurrencyCode? CurrencyCode { get; set; }
+    public CurrencyCodeDto? CurrencyCode { get; set; }
 
     public void Mapping(Profile profile)
     {
