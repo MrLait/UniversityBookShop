@@ -2,17 +2,16 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import UniversityApi from "../API/UniversityApiService";
-import { Currencies, universitiesField, universityField } from "../components/initialStates/initialStates";
-import CreateUniversityForm from "../components/pageComponents/University/CreateUniversityForm";
-import UniversityList from "../components/pageComponents/University/UniversityList";
+import { universitiesField } from "../components/constants/initialStates";
+import CreateUniversity from "../components/screens/University/CreateUniversity";
+import CreateUniversityForm from "../components/screens/University/CreateUniversityForm";
+import UniversityList from "../components/screens/University/UniversityList";
 import MyButton from "../components/UI/button/MyButton";
 import MyModal from "../components/UI/modal/MyModal";
 
 const Universities = () => {
 
     const [universities, setUniversities] = useState(universitiesField)
-    const [universityModal, setUniversityModal] = useState(false);
-
     useEffect(() => {
         getUniversities();
     }, [])
@@ -25,7 +24,6 @@ const Universities = () => {
     const deleteUniversity = async (university) => {
         await UniversityApi.delete(university.id)
             .then(response => {
-                console.log(response);
                 if (response.status == 204) {
                     setUniversities(universities.filter(u => u.id !== university.id))
                 }
@@ -36,21 +34,11 @@ const Universities = () => {
                 }
             })
     }
-    const createUniversity = (university) => {
-        setUniversities([...universities, university])
-    }
 
     return (
         <div>
-            <MyButton>
-                Create university
-            </MyButton>
-            <MyModal visible={true}>
-                <CreateUniversityForm create={createUniversity} />
-            </MyModal>
-            <div>
-                <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
-            </div>
+            <CreateUniversity setUniversities={setUniversities} universities={universities} />
+            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
         </div >
     )
 }

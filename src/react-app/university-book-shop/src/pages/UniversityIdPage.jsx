@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, useParams } from 'react-router';
-import FacultyList from '../components/pageComponents/Faculty/FacultyList';
-import UniversityDescription from '../components/pageComponents/University/UniversityDescription';
+import FacultyList from '../components/screens/Faculty/FacultyList';
+import UniversityDescription from '../components/screens/University/UniversityDescription';
 
 const UniversityIdPage = () => {
 

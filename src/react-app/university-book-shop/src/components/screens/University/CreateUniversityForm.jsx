@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import UniversityApi from '../../../API/UniversityApiService'
-import { Currencies, universityField } from '../../initialStates/initialStates'
+import { Currencies, universityField } from '../../constants/initialStates'
 import MyButton from '../../UI/button/MyButton'
 import MyInput from '../../UI/input/MyInput'
 
@@ -9,7 +9,6 @@ const CreateUniversityForm = ({ create }) => {
 
     const postUniversity = async (e) => {
         e.preventDefault()
-        console.log("response");
         university.currencyCodeId = Currencies.Usd;
 
         await UniversityApi.post(university)
