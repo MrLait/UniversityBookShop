@@ -2,12 +2,19 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import UniversityApi from "../API/UniversityApiService";
-import { universitiesField } from "../components/initialStates/initialStates";
-import UniversityList from "../components/pageComponents/University/UniversityList";
+import { universitiesField } from "../components/constants/initialStates";
+import CreateUniversity from "../components/screens/University/CreateUniversity";
+import CreateUniversityForm from "../components/screens/University/CreateUniversityForm";
+import UniversityList from "../components/screens/University/UniversityList";
+import MyButton from "../components/UI/button/MyButton";
+import MyModal from "../components/UI/modal/MyModal";
 
 const Universities = () => {
 
     const [universities, setUniversities] = useState(universitiesField)
+    useEffect(() => {
+        getUniversities();
+    }, [])
 
     const getUniversities = async () => {
         const response = await UniversityApi.getAll()
@@ -15,34 +22,24 @@ const Universities = () => {
     }
 
     const deleteUniversity = async (university) => {
-        console.log(university.id);
         await UniversityApi.delete(university.id)
             .then(response => {
-                console.log(response);
                 if (response.status == 204) {
                     setUniversities(universities.filter(u => u.id !== university.id))
                 }
             }
             ).catch(error => {
                 if (error.response.data) {
-                    console.log("ToDo Universities error");
+                    //"ToDo Universities error"
                 }
             })
     }
 
-    useEffect(() => {
-        getUniversities();
-    }, [])
-
     return (
         <div>
-            <div>
-                <button> Create university ToDo</button>
-            </div>
-            <div>
-                <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
-            </div>
-        </div>
+            <CreateUniversity setUniversities={setUniversities} universities={universities} />
+            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+        </div >
     )
 }
 export default Universities;
