@@ -18,6 +18,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder
             .HasOne(pb => pb.PurchasedBookFaculty)
             .WithOne(b => b.Book)
-            .HasForeignKey<PurchasedBookFaculty>(fk => fk.BookPurchasedBookFacultyId);
+            .HasForeignKey<PurchasedBookFaculty>(fk => fk.BookPurchasedBookFacultyId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }

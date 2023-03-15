@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
-using UniversityBookShop.Application.Cqrs.PurchasedBookFaculty.Queries.Get;
+using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Create;
+using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Delete;
+using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get;
 using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers;
@@ -11,7 +13,21 @@ public class PurchasedBookFaculty : BaseController
     [HttpGet]
     public async Task<ActionResult<List<PurchasedBookFacultyDto>>> GetAll()
     {
-        var vm = await Mediator.Send(new GetAllPurchasedBooksFaculty());
+        var vm = await Mediator.Send(new GetAllPurchasedBooksFacultyQuery());
         return Ok(vm);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<int>> Create(CreatePurchasedBooksFacultyCommand command)
+    {
+        return Ok(await Mediator.Send(command));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await Mediator.Send(new DeletePurchasedBookFacultyCommand() { Id = id });
+        return NoContent();
+    }
+
 }
