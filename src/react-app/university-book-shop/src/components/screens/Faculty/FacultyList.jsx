@@ -1,4 +1,5 @@
 import React from 'react'
+import MyButton from '../../UI/button/MyButton'
 import FacultyItem from './FacultyItem'
 
 const FacultyList = ({ faculties }) => {
@@ -9,7 +10,12 @@ const FacultyList = ({ faculties }) => {
                 <FacultyItem faculties={faculties} />
                 :
                 <div>
-                    Faculty not found
+                    <div>
+                        Faculty not found
+                    </div>
+                    <div>
+                        <MyButton disabled>Add faculty ToDo?</MyButton>
+                    </div>
                 </div>
             }
         </div>
