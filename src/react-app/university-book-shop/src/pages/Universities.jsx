@@ -5,6 +5,8 @@ import UniversityApi from "../API/UniversityApiService";
 import { Currencies, universitiesField, universityField } from "../components/initialStates/initialStates";
 import CreateUniversityForm from "../components/pageComponents/University/CreateUniversityForm";
 import UniversityList from "../components/pageComponents/University/UniversityList";
+import MyButton from "../components/UI/button/MyButton";
+import MyModal from "../components/UI/modal/MyModal";
 
 const Universities = () => {
 
@@ -38,10 +40,14 @@ const Universities = () => {
         setUniversities([...universities, university])
     }
 
-
     return (
         <div>
-            <CreateUniversityForm create={createUniversity} />
+            <MyButton>
+                Create university
+            </MyButton>
+            <MyModal visible={true}>
+                <CreateUniversityForm create={createUniversity} />
+            </MyModal>
             <div>
                 <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
             </div>

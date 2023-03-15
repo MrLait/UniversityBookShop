@@ -1,29 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { routePaths, routePathsNavigate } from "../../../router/routes";
+import { routePathsNavigate } from "../../../router/routes";
 import MyButton from "../../UI/button/MyButton";
+import UniversityDescription from "./UniversityDescription";
 
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     return (
         <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
+            <UniversityDescription university={university} />
             <div>
-                <strong>
-                    University name: {university.name}
-                </strong>
-                <div>
-                    Description: {university.description}
-                </div>
-                <div>
-                    Total book price ToDO: 99999 currency code ToDo
-                </div>
-            </div>
-            <div>
-                <button onClick={() => deleteUniversity(university)} >delete</button>
+                <button onClick={() => deleteUniversity(university)} >
+                    Delete university
+                </button>
                 <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id,), { state: { university } })} >
-                    Open
+                    Open faculties
                 </MyButton>
-                <button> Vew purchased Books ToDo</button>
+                <button disabled>
+                    Vew purchased Books ToDo
+                </button>
             </div>
         </div>
     )

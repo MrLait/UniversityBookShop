@@ -1,5 +1,7 @@
 import React from 'react'
 import { useLocation, useParams } from 'react-router';
+import FacultyList from '../components/pageComponents/Faculty/FacultyList';
+import UniversityDescription from '../components/pageComponents/University/UniversityDescription';
 
 const UniversityIdPage = () => {
 
@@ -12,32 +14,9 @@ const UniversityIdPage = () => {
                 ?
                 <div>
                     <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
-                        <strong>
-                            University name: {state.university.name}
-                        </strong>
-                        <div>
-                            Description: {state.university.description}
-                        </div>
-                        <div>
-                            Total book price ToDO: 99999 currency code ToDo
-                        </div>
+                        <UniversityDescription university={state.university} />
                     </div>
-                    <div>
-                        {state.university.faculties.length
-                            ?
-                            <div>
-                                {state.university.faculties.map(f =>
-                                    <div key={f.id}>
-                                        Faculty name:  {f.name}
-                                    </div>
-                                )}
-                            </div>
-                            :
-                            <div>
-                                Faculty not found
-                            </div>
-                        }
-                    </div>
+                    <FacultyList faculties={state.university.faculties} />
                 </div>
                 :
                 <div> University not found</div>
