@@ -9,4 +9,5 @@ public class Book
     public decimal? Price { get; set; }
     public int CurrencyCodesBooksId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
+    public PurchasedBookFaculty? PurchasedBookFaculty { get; set; }
 }
