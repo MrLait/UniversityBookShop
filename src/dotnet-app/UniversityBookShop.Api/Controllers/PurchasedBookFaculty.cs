@@ -4,6 +4,7 @@ using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Create;
 using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Delete;
 using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get;
 using UniversityBookShop.Application.Dto;
+using UniversityBookShop.Application.Dto.Vm;
 
 namespace UniversityBookShop.Api.Controllers;
 
@@ -14,6 +15,13 @@ public class PurchasedBookFaculty : BaseController
     public async Task<ActionResult<List<PurchasedBookFacultyDto>>> GetAll()
     {
         var vm = await Mediator.Send(new GetAllPurchasedBooksFacultyQuery());
+        return Ok(vm);
+    }
+
+    [HttpGet("{facultyId}")]
+    public async Task<ActionResult<List<PurchasedBookByFacultyIdVm>>> GetAll(int facultyId)
+    {
+        var vm = await Mediator.Send(new GetPurchasedBooksByFacultyIdQuery() { FacultyId = facultyId });
         return Ok(vm);
     }
 
