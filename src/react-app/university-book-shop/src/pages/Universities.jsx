@@ -4,10 +4,7 @@ import { useState } from "react";
 import UniversityApi from "../API/UniversityApiService";
 import { universitiesField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
-import CreateUniversityForm from "../components/screens/University/CreateUniversityForm";
 import UniversityList from "../components/screens/University/UniversityList";
-import MyButton from "../components/UI/button/MyButton";
-import MyModal from "../components/UI/modal/MyModal";
 
 const Universities = () => {
 

@@ -10,9 +10,9 @@ const UniversityItem = ({ university, deleteUniversity }) => {
         <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
             <UniversityDescription university={university} />
             <div>
-                <button onClick={() => deleteUniversity(university)} >
+                <MyButton onClick={() => deleteUniversity(university)} >
                     Delete university
-                </button>
+                </MyButton>
                 <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id,), { state: { university } })} >
                     Open faculties
                 </MyButton>
