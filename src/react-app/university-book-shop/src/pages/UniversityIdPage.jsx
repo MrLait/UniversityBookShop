@@ -1,12 +1,11 @@
 import React from 'react'
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import FacultyList from '../components/screens/Faculty/FacultyList';
 import UniversityDescription from '../components/screens/University/UniversityDescription';
 
 const UniversityIdPage = () => {
 
     const state = useLocation().state
-    const universityId = useParams();
     console.log(state);
     return (
         <div >
