@@ -6,4 +6,6 @@ public class Faculty
     public string? Name { get; set; }
     public int? UniversityId { get; set; }
     public University? University { get; set; }
+    public PurchasedBookFaculty? PurchasedBookFaculty { get; set; }
+
 }
