@@ -3,9 +3,10 @@ import React from 'react'
 import MyButton from '../../UI/button/MyButton'
 import FacultyCard from './FacultyCard'
 import styles from './FacultyItem.module.css'
+
 const FacultyItem = ({ faculties }) => {
     return (
-        <div style={{ margin: 10, padding: 10 }}>
+        <div >
             <div>
                 <MyButton disabled>Add faculty ToDo?</MyButton>
             </div>

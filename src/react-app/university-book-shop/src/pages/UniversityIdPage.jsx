@@ -12,7 +12,7 @@ const UniversityIdPage = () => {
             {state
                 ?
                 <div>
-                    <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
+                    <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
                         <UniversityDescription university={state.university} />
                     </div>
                     <FacultyList faculties={state.university.faculties} />

@@ -7,7 +7,7 @@ import UniversityDescription from "./UniversityDescription";
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     return (
-        <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
+        <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
             <UniversityDescription university={university} />
             <div>
                 <MyButton onClick={() => deleteUniversity(university)} >

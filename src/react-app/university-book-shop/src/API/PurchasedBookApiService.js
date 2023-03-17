@@ -11,6 +11,11 @@ export default class PurchasedBookApiService {
         return response;
     }
 
+    static async getByFacultyId(facultyId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookFaculty}/${facultyId}`)
+        return response;
+    }
+
     // static async delete(id) {
     //     const response = await apiInstance.delete(`University/${id}`)
     //     return response;
