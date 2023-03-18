@@ -4,7 +4,7 @@ import AddBook from './AddBook';
 import styles from './Book.module.css';
 import BookDetails from './BookDetails';
 
-const Book = ({ book }) => {
+const Book = ({ book, purchasedBooks, setPurchasedBooks }) => {
     return (
         <div className={styles.myBook}>
             <div>
@@ -25,8 +25,11 @@ const Book = ({ book }) => {
                     <div >
                         <div> В спике если книга есть уже у другого факультета ты должен это отобразить, типо at your institute и цену поставить 0</div>
                         <hr />
-                        <div> , а если она уже куплена именно для твоего факультета написать purchased и убрать возможность её покупать, то есть по сути убрать кнопку</div>
-                        <AddBook book={book} />
+                        <AddBook
+                            book={book}
+                            purchasedBooks={purchasedBooks}
+                            setPurchasedBooks={setPurchasedBooks}
+                        />
                     </div>
                 </div>
             </div>
