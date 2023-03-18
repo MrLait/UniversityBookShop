@@ -6,7 +6,7 @@ import PurchasedBook from './PurchasedBook'
 
 const PurchasedBooks = ({ facultyId, isVisible }) => {
     const [purchasedBooks, setPurchasedBooks] = useState(purchasedBooksField);
-
+    console.log('PurchasedBooks: ', purchasedBooks);
     const getPurchasedBooks = async () => {
         const response = await PurchasedBookApiService.getByFacultyId(facultyId)
         setPurchasedBooks(response.data)
