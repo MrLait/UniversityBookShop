@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import UniversityApi from "../API/UniversityApiService";
+import UniversityApiService from "../API/UniversityApiService";
 import { universitiesField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
 import UniversityList from "../components/screens/University/UniversityList";
@@ -14,12 +14,12 @@ const Universities = () => {
     }, [])
 
     const getUniversities = async () => {
-        const response = await UniversityApi.getAll()
+        const response = await UniversityApiService.getAll()
         setUniversities(response.data)
     }
 
     const deleteUniversity = async (university) => {
-        await UniversityApi.delete(university.id)
+        await UniversityApiService.delete(university.id)
             .then(response => {
                 if (response.status == 204) {
                     setUniversities(universities.filter(u => u.id !== university.id))

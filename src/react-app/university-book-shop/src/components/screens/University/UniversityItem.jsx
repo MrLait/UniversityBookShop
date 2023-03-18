@@ -13,7 +13,7 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                 <MyButton onClick={() => deleteUniversity(university)} >
                     Delete university
                 </MyButton>
-                <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id,), { state: { university } })} >
+                <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
                     Open faculties
                 </MyButton>
                 <button disabled>

@@ -4,9 +4,8 @@ import FacultyList from '../components/screens/Faculty/FacultyList';
 import UniversityDescription from '../components/screens/University/UniversityDescription';
 
 const UniversityIdPage = () => {
-
     const state = useLocation().state
-    console.log(state);
+
     return (
         <div >
             {state
