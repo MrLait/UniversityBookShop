@@ -9,20 +9,21 @@ using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get;
 
-public class GetPurchasedBooksByFacultyIdQuery : IRequest<List<PurchasedBookByFacultyIdVm>>
+public class GetPurchasedBooksByUniversityIdQuery : IRequest<List<PurchasedBookFacultyDto>>
 {
-    public int FacultyId { get; set; }
+    public int UniversityId { get; set; }
 }
 
-public class GetPurchasedBooksByFacultyIdQueryHandler : IRequestHandler<GetPurchasedBooksByFacultyIdQuery, List<PurchasedBookByFacultyIdVm>>
+public class GetPurchasedBooksByUniversityIdQueryHandler : IRequestHandler<GetPurchasedBooksByUniversityIdQuery, List<PurchasedBookFacultyDto>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    public GetPurchasedBooksByFacultyIdQueryHandler(IApplicationDbContext dbContext, IMapper mapper) =>
+    public GetPurchasedBooksByUniversityIdQueryHandler(IApplicationDbContext dbContext, IMapper mapper) =>
         (_dbContext, _mapper) = (dbContext, mapper);
 
-    public async Task<List<PurchasedBookByFacultyIdVm>> Handle(GetPurchasedBooksByFacultyIdQuery request, CancellationToken cancellationToken)
+    public async Task<List<PurchasedBookFacultyDto>> Handle(GetPurchasedBooksByUniversityIdQuery request, CancellationToken cancellationToken)
     {
+
         var entities = await _dbContext.PurchasedBookFaculties
                         .Select(b => new PurchasedBookFaculty()
                         {
@@ -38,12 +39,18 @@ public class GetPurchasedBooksByFacultyIdQueryHandler : IRequestHandler<GetPurch
                                 CurrencyCode = b.Book.CurrencyCode,
                                 Price = b.Book.Price,
                             },
+                            Faculty = new Faculty()
+                            {
+                                Id = b.Faculty.Id,
+                                Name = b.Faculty.Name,
+                                UniversityId = b.Faculty.UniversityId,
+                            },
                         })
-                        .Where(p => p.FacultyPurchasedBookFacultyId == request.FacultyId)
+                        .Where(p => p.Faculty.UniversityId == request.UniversityId)
                         .ToListAsync(cancellationToken);
 
-        var query = _mapper.Map<List<PurchasedBookByFacultyIdVm>>(entities);
+        var query = _mapper.Map<List<PurchasedBookFacultyDto>>(entities);
 
-        return query.Count > 0 ? query : new List<PurchasedBookByFacultyIdVm>(); // ToDo. I have to add failed message
+        return query.Count > 0 ? query : new List<PurchasedBookFacultyDto>(); // ToDo. I have to add failed message
     }
 }

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import BookApiService from '../API/BookApiService';
 import Book from '../components/screens/Book/Book';
 import styles from './PurchaseBookByFacultyId.module.css';
-import { purchasedBooksField } from '../components/constants/initialStates';
 import { useParams } from 'react-router-dom';
 import PurchasedBookApiService from '../API/PurchasedBookApiService';
 
@@ -11,16 +10,19 @@ const PurchaseBookByFacultyId = () => {
     const [books, setBooks] = useState([]);
     const [purchasedBooks, setPurchasedBooks] = useState([]);
     const { faculty_id } = useParams()
+
     useEffect(() => {
         getBooks();
         getPurchasedBooks();
     }, [])
+
     console.log(books);
     console.log(purchasedBooks);
     const getBooks = async () => {
         const response = await BookApiService.getAll()
         setBooks(response.data);
     }
+
     const getPurchasedBooks = async () => {
         const response = await PurchasedBookApiService.getByFacultyId(faculty_id)
         setPurchasedBooks(response.data)

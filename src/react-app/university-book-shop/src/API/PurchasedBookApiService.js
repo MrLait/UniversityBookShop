@@ -12,7 +12,12 @@ export default class PurchasedBookApiService {
     }
 
     static async getByFacultyId(facultyId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookFaculty}/${facultyId}`)
+        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookByFacultyId}/${facultyId}`)
+        return response;
+    }
+
+    static async getByUniversityId(universityId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookByFacultyId}/${universityId}`)
         return response;
     }
 
