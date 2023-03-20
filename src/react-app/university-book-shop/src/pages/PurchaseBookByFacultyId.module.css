@@ -1,0 +1,9 @@
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.content {
+    margin: 0 5px;
+}

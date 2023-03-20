@@ -4,15 +4,14 @@ import FacultyList from '../components/screens/Faculty/FacultyList';
 import UniversityDescription from '../components/screens/University/UniversityDescription';
 
 const UniversityIdPage = () => {
-
     const state = useLocation().state
-    console.log(state);
+
     return (
         <div >
             {state
                 ?
                 <div>
-                    <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px' }}>
+                    <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
                         <UniversityDescription university={state.university} />
                     </div>
                     <FacultyList faculties={state.university.faculties} />

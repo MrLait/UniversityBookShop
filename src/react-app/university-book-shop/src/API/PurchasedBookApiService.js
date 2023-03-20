@@ -11,13 +11,25 @@ export default class PurchasedBookApiService {
         return response;
     }
 
-    // static async delete(id) {
-    //     const response = await apiInstance.delete(`University/${id}`)
-    //     return response;
-    // }
+    static async getByFacultyId(facultyId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookByFacultyId}/${facultyId}`)
+        return response;
+    }
 
-    // static async post(university) {
-    //     const response = await apiInstance.post('University/', university)
-    //     return response;
-    // }
+    static async getByUniversityId(universityId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.purchasedBookByUniversityId}/${universityId}`)
+        return response;
+    }
+
+    static async post(bookId, facultyId) {
+        const response = await apiInstance.post(`${BookShopApiUrls.purchasedBookFaculty}/`, { bookId, facultyId })
+        return response;
+    }
+
+    static async delete(id) {
+        const response = await apiInstance.delete(`${BookShopApiUrls.purchasedBookFaculty}/${id}`)
+        return response;
+    }
+
+
 }

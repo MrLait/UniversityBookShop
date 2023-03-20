@@ -5,7 +5,7 @@ const apiInstance = axios.create({
     baseURL: BookShopApiUrls.universityBookShopApiBaseURL
 });
 
-export default class UniversityApi {
+export default class UniversityApiService {
     static async getAll() {
         const response = await apiInstance.get(BookShopApiUrls.university)
         return response;
