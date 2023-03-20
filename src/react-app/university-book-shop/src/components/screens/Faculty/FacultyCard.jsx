@@ -9,11 +9,9 @@ import styles from './FacultyCard.module.css';
 const FacultyCard = ({ faculty }) => {
     const navigate = useNavigate();
     const [isPurchasedBooksVisible, setIsPurchasedBooksVisible] = useState(false);
-
     const showPurchasedBooks = () => {
         setIsPurchasedBooksVisible(prev => !prev)
     }
-
     return (
         <div >
             <div className={styles.myFacultyCard}>
@@ -22,7 +20,7 @@ const FacultyCard = ({ faculty }) => {
                 </strong>
                 <div >
                     <MyButton disabled>Delete faculty ToDo?</MyButton>
-                    <MyButton onClick={() => navigate(routePathsNavigate.SearchBookByFacultyId(faculty.id))}>
+                    <MyButton onClick={() => navigate(routePathsNavigate.SearchBookByFacultyId(faculty.id), { state: { universityId: faculty.universityId } })}>
                         Add book
                     </MyButton>
                     <MyButton onClick={showPurchasedBooks}>

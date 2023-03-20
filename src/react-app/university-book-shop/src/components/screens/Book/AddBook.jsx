@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
 import MyButton from '../../UI/button/MyButton';
 
-const AddBook = ({ book, purchasedBooks, setPurchasedBooks }) => {
+const AddBook = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId }) => {
     const { faculty_id } = useParams()
     const [isPurchased, setIsPurchased] = useState(false);
 
     useEffect(() => {
         findPurchasedBooks()
-    }, [purchasedBooks])
+    }, [purchasedBooksByFacultyId])
 
     const addBook = async (bookId) => {
         const response = await PurchasedBookApiService.post(bookId, faculty_id)
@@ -20,11 +20,11 @@ const AddBook = ({ book, purchasedBooks, setPurchasedBooks }) => {
             "facultyId": faculty_id,
             "book": book
         }
-        setPurchasedBooks([...purchasedBooks, purchasedBook])
+        setPurchasedBooksByFacultyId([...purchasedBooksByFacultyId, purchasedBook])
     }
 
     const findPurchasedBooks = () => {
-        purchasedBooks.map(pb => {
+        purchasedBooksByFacultyId.map(pb => {
             if (pb.bookId == book.id) {
                 setIsPurchased(true)
             }
@@ -33,7 +33,7 @@ const AddBook = ({ book, purchasedBooks, setPurchasedBooks }) => {
     return (
         <div>
             <div>
-                {purchasedBooks.length
+                {purchasedBooksByFacultyId.length
                     ?
                     <div>
                         {isPurchased

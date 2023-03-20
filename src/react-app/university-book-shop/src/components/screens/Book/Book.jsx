@@ -4,7 +4,9 @@ import AddBook from './AddBook';
 import styles from './Book.module.css';
 import BookDetails from './BookDetails';
 
-const Book = ({ book, purchasedBooks, setPurchasedBooks }) => {
+const Book = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId, isAtYourUniversity }) => {
+    console.log(book.isAtYourUniversity);
+    //console.log(isAtYourUniversity);
     return (
         <div className={styles.myBook}>
             <div>
@@ -18,20 +20,42 @@ const Book = ({ book, purchasedBooks, setPurchasedBooks }) => {
             </div>
             <div>
                 <hr />
-                <div className={styles.body}>
-                    <div >
-                        Price : {book.price} {book.currencyCode.code}
-                    </div>
-                    <div >
-                        <div> В спике если книга есть уже у другого факультета ты должен это отобразить, типо at your institute и цену поставить 0</div>
+                {book.isAtYourUniversity
+                    ?
+                    <div className={styles.body}>
+                        <div >
+                            Price : 0
+                        </div>
                         <hr />
-                        <AddBook
-                            book={book}
-                            purchasedBooks={purchasedBooks}
-                            setPurchasedBooks={setPurchasedBooks}
-                        />
+                        <div className={styles.atYourInst}>
+                            <div>
+                                At you institute
+                            </div>
+                            {/* <div>
+                                <AddBook
+                                    book={book}
+                                    purchasedBooksByFacultyId={purchasedBooksByFacultyId}
+                                    setPurchasedBooksByFacultyId={setPurchasedBooksByFacultyId}
+                                />
+                            </div> */}
+                        </div>
                     </div>
-                </div>
+                    :
+                    <div className={styles.body}>
+                        <div >
+                            Price : {book.price} {book.currencyCode.code}
+                        </div>
+                        <div >
+                            <hr />
+                            <AddBook
+                                book={book}
+                                purchasedBooksByFacultyId={purchasedBooksByFacultyId}
+                                setPurchasedBooksByFacultyId={setPurchasedBooksByFacultyId}
+                            />
+                        </div>
+                    </div>
+                }
+
             </div>
             <BookDetails book={book} />
         </div >

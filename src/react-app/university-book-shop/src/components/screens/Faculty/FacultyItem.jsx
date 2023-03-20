@@ -8,7 +8,9 @@ const FacultyItem = ({ faculties }) => {
     return (
         <div >
             <div>
-                <MyButton disabled>Add faculty ToDo?</MyButton>
+                <MyButton disabled>
+                    Add faculty ToDo?
+                </MyButton>
             </div>
             <div className={styles.myFacultyItemWrapper}>
                 {faculties.map(faculty =>
