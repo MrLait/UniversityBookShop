@@ -10,4 +10,8 @@ public class University
 
     public int CurrencyCodesUniversitiesId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
+
+    //One to One
+    public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
+
 }
