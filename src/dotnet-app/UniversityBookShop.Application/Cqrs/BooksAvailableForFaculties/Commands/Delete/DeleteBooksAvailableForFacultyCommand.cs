@@ -29,12 +29,11 @@ public class DeleteBooksAvailableForFacultyCommandHandler : IRequestHandler<Dele
         _dbContext.BooksAvailableForFaculties.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        //поверять последняя ли книга в универе если да то удалять из универа
-        var isLastBookInUniversity = _dbContext.BooksPurchasedByUniversities.Any(b => b.Id == entity.BooksPurchasedByUniversityId && b.BooksAvailableForFaculty.Count() == 0);
-        if (isLastBookInUniversity)
+        var isLastBookAtUniversity = _dbContext.BooksPurchasedByUniversities.Any(b => b.Id == entity.BooksPurchasedByUniversityId && b.BooksAvailableForFaculty.Count() == 0);
+        if (isLastBookAtUniversity)
         {
-            var bookInUniversity = await _dbContext.BooksPurchasedByUniversities.Where(u => u.Id == entity.BooksPurchasedByUniversityId).FirstOrDefaultAsync();
-            _dbContext.BooksPurchasedByUniversities.Remove(bookInUniversity);
+            var bookAtUniversity = await _dbContext.BooksPurchasedByUniversities.Where(u => u.Id == entity.BooksPurchasedByUniversityId).FirstOrDefaultAsync();
+            _dbContext.BooksPurchasedByUniversities.Remove(bookAtUniversity);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
         return Unit.Value;
