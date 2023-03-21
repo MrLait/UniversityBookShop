@@ -9,6 +9,8 @@ public interface IApplicationDbContext
     DbSet<CurrencyCode> CurrencyCodes { get; set; }
     DbSet<Book> Books { get; set; }
     DbSet<PurchasedBookFaculty> PurchasedBookFaculties { get; set; }
+    DbSet<BooksAvailableForFaculty> BooksAvailableForFaculties { get; set; }
+    DbSet<BooksPurchasedByUniversity> BooksPurchasedByUniversities { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

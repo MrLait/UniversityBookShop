@@ -16,5 +16,15 @@ public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
             .HasOne(pb => pb.PurchasedBookFaculty)
             .WithOne(f => f.Faculty)
             .HasForeignKey<PurchasedBookFaculty>(fk => fk.FacultyPurchasedBookFacultyId);
+
+        builder
+            .HasOne(ba => ba.BooksAvailableForFaculty)
+            .WithOne(f => f.Faculty)
+            .HasForeignKey<BooksAvailableForFaculty>(fk => fk.FacultyId);
+
+        builder
+            .HasOne<University>(u => u.University)
+            .WithMany(f => f.Faculties)
+            .HasForeignKey(fk => fk.UniversityId);
     }
 }

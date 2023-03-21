@@ -12,4 +12,7 @@ public class NotFoundException : Exception
 
     public NotFoundException(string name, object key)
         : base($"Entity \"{name}\"{key} not found.") { }
+
+    public NotFoundException(string name, object keyFirst, object keySecond)
+        : base($"Entity \"{name}\"{keyFirst}, {keySecond} not found.") { }
 }

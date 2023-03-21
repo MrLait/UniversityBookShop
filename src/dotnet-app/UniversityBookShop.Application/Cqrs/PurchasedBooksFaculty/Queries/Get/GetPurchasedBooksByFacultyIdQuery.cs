@@ -1,9 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using UniversityBookShop.Application.Common.Interfaces;
-using UniversityBookShop.Application.Dto;
 using UniversityBookShop.Application.Dto.Vm;
 using UniversityBookShop.Domain.Entities;
 
