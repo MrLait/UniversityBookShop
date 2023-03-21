@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
-using UniversityBookShop.Application.Cqrs.BooksPurchasedByUniversity.Queries.Get;
+using UniversityBookShop.Application.Cqrs.BooksPurchasedByUniversities.Queries.Get;
 using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers

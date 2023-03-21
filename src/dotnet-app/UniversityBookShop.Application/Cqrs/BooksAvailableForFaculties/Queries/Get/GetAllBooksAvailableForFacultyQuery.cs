@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Dto;
 
-namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculty.Queries.Get;
+namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries.Get;
 
 public class GetAllBooksAvailableForFacultyQuery : IRequest<List<BooksAvailableForFacultyDto>>
 {

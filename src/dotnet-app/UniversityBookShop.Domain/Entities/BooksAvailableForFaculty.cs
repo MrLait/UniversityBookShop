@@ -2,7 +2,7 @@ namespace UniversityBookShop.Domain.Entities;
 
 public class BooksAvailableForFaculty
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
     public int? BookId { get; set; }
     public int? FacultyId { get; set; }
     public bool? IsPurchased { get; set; }
