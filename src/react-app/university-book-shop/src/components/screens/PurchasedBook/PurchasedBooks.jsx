@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
+import BooksPurchasedByUniversityApiService from '../../../API/BooksPurchasedByUniversity';
 import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
 import { purchasedBooksField } from '../../constants/initialStates';
 import PurchasedBook from './PurchasedBook'
@@ -8,6 +10,7 @@ const PurchasedBooks = ({ facultyId, isVisible }) => {
     const [purchasedBooks, setPurchasedBooks] = useState(purchasedBooksField);
     const getPurchasedBooks = async () => {
         const response = await PurchasedBookApiService.getByFacultyId(facultyId)
+        // const resposeTwo = await BooksPurchasedByUniversityApiService.
         setPurchasedBooks(response.data)
     }
     useEffect(() => {
