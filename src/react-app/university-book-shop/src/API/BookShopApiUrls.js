@@ -5,5 +5,8 @@ export const BookShopApiUrls = {
     purchasedBookByFacultyId: 'PurchasedBookFaculty/Faculty',
     purchasedBookByUniversityId: 'PurchasedBookFaculty/University',
     book: 'Book',
+    booksAvailableForFaculty: 'BooksAvailableForFaculty',
+    purchaseBookToFaculty: 'BooksAvailableForFaculty/purchase',
+    booksPurchasedByUniversity: 'BooksPurchasedByUniversity',
 }
 
