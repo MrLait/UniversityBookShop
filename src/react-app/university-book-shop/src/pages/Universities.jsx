@@ -34,6 +34,8 @@ const Universities = () => {
 
     return (
         <div>
+            <p> при создании вылетает ошибка.Видимо после добавления полей count </p>
+
             <CreateUniversity setUniversities={setUniversities} universities={universities} />
             <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
         </div >

@@ -81,3 +81,9 @@ export const purchasedBookField = {
     "booksPurchasedByUniversityId": 0,
     "book": []
 }
+
+export const facultyField = {
+    "id": 0,
+    "name": "",
+    "universityId": 0
+}

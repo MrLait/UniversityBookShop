@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-
-
 import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
 import MyButton from '../../UI/button/MyButton';
 

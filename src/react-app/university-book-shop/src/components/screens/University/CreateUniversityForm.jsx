@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UniversityApi from '../../../API/UniversityApiService'
+import UniversityApiService from '../../../API/UniversityApiService'
 import { Currencies, universityField } from '../../constants/initialStates'
 import MyButton from '../../UI/button/MyButton'
 import MyInput from '../../UI/input/MyInput'
@@ -11,7 +11,7 @@ const CreateUniversityForm = ({ create }) => {
         e.preventDefault()
         university.currencyCodeId = Currencies.Usd;
 
-        await UniversityApi.post(university)
+        await UniversityApiService.post(university)
             .then(response => {
                 if (response.data && response.status == 200) {
 
