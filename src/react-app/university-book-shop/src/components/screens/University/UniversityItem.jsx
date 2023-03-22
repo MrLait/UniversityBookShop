@@ -8,9 +8,6 @@ const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     return (
         <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
-            - Отобразить общую стоимость купленных книг
-            - количество факультетов
-            - Количество книг
             <UniversityDescription university={university} />
             <div>
                 <MyButton onClick={() => deleteUniversity(university)} >

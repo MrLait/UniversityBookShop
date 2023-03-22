@@ -5,7 +5,9 @@ export const universitiesField = [
         "description": "",
         "faculties": [],
         "totalBookPrice": 0,
-        "currencyCode": 0
+        "currencyCode": 0,
+        "facultyCount": 0,
+        "bookCount": 0,
     }
 ]
 

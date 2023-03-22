@@ -12,6 +12,8 @@ public class UniversityDto : IMapWith<University>
     public IList<FacultyDto>? Faculties { get; set; }
     public decimal? TotalBookPrice { get; set; }
     public CurrencyCodeDto? CurrencyCode { get; set; }
+    public int FacultyCount { get; set; }
+    public int BookCount { get; set; }
 
     public void Mapping(Profile profile)
     {

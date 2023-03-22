@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Dto;
+using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Universities.Queries.Get;
 
@@ -22,10 +23,36 @@ public class GetAllUniversitiesQueryHandler :
 
     public async Task<List<UniversityDto>> Handle(GetAllUniversitiesQuery request, CancellationToken cancellationToken)
     {
-        var query = await _dbContext.Universities
+        var universities = await _dbContext.Universities
             .ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return query.Count > 0 ? query : new List<UniversityDto>(); // ToDo. I have to add failed message
+        await UpdateCountsAndPrice(universities);
+
+        return universities.Count > 0 ? universities : new List<UniversityDto>(); // ToDo. I have to add failed message
+    }
+
+    private async Task UpdateCountsAndPrice(List<UniversityDto> universities)
+    {
+        var purchasedBooks = new List<BooksPurchasedByUniversity>();
+
+        foreach (var u in universities)
+        {
+            purchasedBooks = await _dbContext.BooksPurchasedByUniversities
+                .Select(pb => new BooksPurchasedByUniversity()
+                {
+                    UniversityId = pb.UniversityId,
+                    BookId = pb.BookId,
+                    Book = new Book()
+                    {
+                        Price = pb.Book.Price
+                    }
+                })
+                .Where(pb => pb.UniversityId == u.Id).ToListAsync();
+
+            u.FacultyCount = u.Faculties.Count();
+            u.BookCount = purchasedBooks.Count();
+            u.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
+        }
     }
 }
