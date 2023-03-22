@@ -10,4 +10,8 @@ export default class BooksPurchasedByUniversityApiService {
         const response = await apiInstance.get(`${BookShopApiUrls.booksPurchasedByUniversity}/`)
         return response;
     }
+    static async getIsBookAtUniversity(bookId, universityId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.booksPurchasedByUniversity}/${bookId}/${universityId}`)
+        return response;
+    }
 }

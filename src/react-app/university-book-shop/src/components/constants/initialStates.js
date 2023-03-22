@@ -32,12 +32,6 @@ export const currencyCodeField = {
 }
 
 export const purchasedBooksField = [
-    // {
-    //     "id": 0,
-    //     "bookId": 0,
-    //     "facultyId": 0,
-    //     "book": []
-    // },
     {
         "id": 0,
         "bookId": 0,
@@ -55,3 +49,33 @@ export const purchasedBooksField = [
         }
     }
 ]
+
+export const booksAvailableForFacultyField = [
+    {
+        "id": 0,
+        "bookId": 0,
+        "facultyId": 0,
+        "isPurchased": false,
+        "booksPurchasedByUniversityId": 0,
+        "book": {
+            "id": 0,
+            "isbn": "",
+            "name": "",
+            "author": "",
+            "price": 0,
+            "currencyCode": {
+                "id": 0,
+                "code": ""
+            }
+        }
+    }
+]
+
+export const purchasedBookField = {
+    "id": 0,
+    "bookId": 0,
+    "facultyId": 0,
+    "isPurchased": false,
+    "booksPurchasedByUniversityId": 0,
+    "book": []
+}

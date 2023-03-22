@@ -24,6 +24,13 @@ namespace UniversityBookShop.Api.Controllers
             return Ok(vm);
         }
 
+        [HttpGet("{facultyId}/{bookId}")]
+        public async Task<ActionResult<BooksAvailableForFacultyDto>> GetByFacultyIdAndBookId(int facultyId, int bookId)
+        {
+            var vm = await Mediator.Send(new GetAvailableBooksByFacultyIdAndBookIdQuery() { FacultyId = facultyId, BookId = bookId });
+            return Ok(vm);
+        }
+
         [HttpPost("purchase/")]
         public async Task<ActionResult<int>> Create(PurchaseBooksAvailableForFacultyCommand command)
         {

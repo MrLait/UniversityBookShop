@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
-import BooksPurchasedByUniversityApiService from '../../../API/BooksPurchasedByUniversity';
-import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
-import { purchasedBooksField } from '../../constants/initialStates';
+import { booksAvailableForFacultyField } from '../../constants/initialStates';
 import PurchasedBook from './PurchasedBook'
 
 const PurchasedBooks = ({ facultyId, isVisible }) => {
-    const [purchasedBooks, setPurchasedBooks] = useState(purchasedBooksField);
+    const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
     const getPurchasedBooks = async () => {
-        const response = await PurchasedBookApiService.getByFacultyId(facultyId)
-        // const resposeTwo = await BooksPurchasedByUniversityApiService.
+        const response = await BooksAvailableForFacultyApiService.getByFacultyId(facultyId);
+        console.log(response.data);
         setPurchasedBooks(response.data)
     }
     useEffect(() => {
@@ -18,11 +16,12 @@ const PurchasedBooks = ({ facultyId, isVisible }) => {
             getPurchasedBooks()
         }
         else {
-            setPurchasedBooks(purchasedBooksField)
+            setPurchasedBooks(booksAvailableForFacultyField)
         }
     }, [isVisible])
 
     const deleteBookClick = (id) => {
+        console.log(id);
         setPurchasedBooks(
             purchasedBooks.filter(p => p.id !== id)
         )
