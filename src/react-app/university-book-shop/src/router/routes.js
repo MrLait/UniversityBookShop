@@ -3,7 +3,7 @@ import Universities from "../pages/Universities";
 import UniversityIdPage from "../pages/UniversityIdPage";
 
 export const routePaths = {
-    Universities: '/universities',
+    Universities: '/',
     University: '/university',
     UniversityId: '/university/:id',
     SearchBook: '/searchBook',
