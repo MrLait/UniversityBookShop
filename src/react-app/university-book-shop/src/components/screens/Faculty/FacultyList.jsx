@@ -11,8 +11,6 @@ const FacultyList = ({ faculties, setFaculties }) => {
     }
     return (
         <div>
-            <p>При обновлении страницы работает криво </p>
-
             {faculties.length
                 ?
                 <div className={styles.myFacultyItemWrapper}>

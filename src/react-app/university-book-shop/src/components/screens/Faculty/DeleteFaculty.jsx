@@ -7,7 +7,6 @@ import MyButton from '../../UI/button/MyButton'
 const DeleteFaculty = ({ faculty, removeFaculty }) => {
 
     const deleteFaculty = async () => {
-        console.log(faculty.id);
         await FacultyApiService.delete(faculty.id)
             .then(response => {
                 if (response.status == 204) {
