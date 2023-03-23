@@ -18,6 +18,13 @@ public class UniversityController : BaseController
         return Ok(vm);
     }
 
+    [HttpGet("{universityId}")]
+    public async Task<ActionResult<UniversityDto>> GetAll(int universityId)
+    {
+        var vm = await Mediator.Send(new GetUniversityByUniversityIdQuery() { UniversityId = universityId });
+        return Ok(vm);
+    }
+
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateUniversityCommand command)
     {

@@ -1,23 +1,39 @@
+// @ts-nocheck
 import React from 'react'
-import MyButton from '../../UI/button/MyButton'
-import FacultyItem from './FacultyItem'
+import CreateFaculty from './CreateFaculty'
+import FacultyCard from './FacultyCard'
+import styles from './FacultyItem.module.css'
 
-const FacultyList = ({ faculties }) => {
+const FacultyList = ({ faculties, setFaculties }) => {
+    const removeFaculty = (faculty) => {
+        console.log('FacultyList');
+        setFaculties(faculties.filter(f => f.id !== faculty.id))
+    }
     return (
         <div>
             {faculties.length
                 ?
-                <FacultyItem faculties={faculties} />
+                <div className={styles.myFacultyItemWrapper}>
+                    {faculties.map(faculty =>
+                        <FacultyCard
+                            key={faculty.id}
+                            faculty={faculty}
+                            removeFaculty={removeFaculty}
+                        />
+                    )}
+                </div>
                 :
                 <div>
                     <div>
                         Faculty not found
                     </div>
-                    <div>
-                        <MyButton disabled>Add faculty ToDo?</MyButton>
-                    </div>
+
                 </div>
             }
+            <CreateFaculty
+                faculties={faculties}
+                setFaculties={setFaculties}
+            />
         </div>
     )
 }

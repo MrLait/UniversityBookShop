@@ -10,8 +10,10 @@ const UniversityDescription = ({ university }) => {
                 Description: {university.description}
             </div>
             <div>
-                Total book price ToDO: 99999 currency code ToDo
+                Total book price: {university.totalBookPrice} {university.currencyCode.code}
             </div>
+            <div>Number of faculties: {university.facultyCount} </div>
+            <div>Number of books: {university.bookCount}</div>
         </div>
     )
 }

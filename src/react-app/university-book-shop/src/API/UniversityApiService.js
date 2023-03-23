@@ -10,6 +10,10 @@ export default class UniversityApiService {
         const response = await apiInstance.get(BookShopApiUrls.university)
         return response;
     }
+    static async getByUniversityId(universityId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.university}/${universityId}`)
+        return response;
+    }
 
     static async delete(id) {
         const response = await apiInstance.delete(`${BookShopApiUrls.university}/${id}`)

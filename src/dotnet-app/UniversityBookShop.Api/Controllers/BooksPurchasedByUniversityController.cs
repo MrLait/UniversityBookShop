@@ -14,5 +14,12 @@ namespace UniversityBookShop.Api.Controllers
             var vm = await Mediator.Send(new GetAllBooksPurchasedByUniversityQuery());
             return Ok(vm);
         }
+
+        [HttpGet("{bookId}/{universityId}")]
+        public async Task<ActionResult<bool>> GetIsBookAtUniversity(int bookId, int universityId)
+        {
+            var vm = await Mediator.Send(new GetIsBookAtUniversityQuery() { BookId = bookId, UniversityId = universityId });
+            return Ok(vm);
+        }
     }
 }

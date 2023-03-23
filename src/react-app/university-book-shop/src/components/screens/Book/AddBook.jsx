@@ -1,42 +1,32 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
 import MyButton from '../../UI/button/MyButton';
 
-const AddBook = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId }) => {
-    const { faculty_id } = useParams()
-    const [isPurchased, setIsPurchased] = useState(false);
+// const AddBook = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId, addBook }) => {
+const AddBook = ({ book, addBook }) => {
 
-    useEffect(() => {
-        findPurchasedBooks()
-    }, [purchasedBooksByFacultyId])
+    // const [isPurchased, setIsPurchased] = useState(false);
+    // console.log(purchasedBooksByFacultyId);
+    // useEffect(() => {
+    //     findPurchasedBooks()
+    // }, [purchasedBooksByFacultyId])
 
-    const addBook = async (bookId) => {
-        const response = await PurchasedBookApiService.post(bookId, faculty_id)
-        const purchasedBook = {
-            "id": response.data,
-            "bookId": bookId,
-            "facultyId": faculty_id,
-            "book": book
-        }
-        setPurchasedBooksByFacultyId([...purchasedBooksByFacultyId, purchasedBook])
-    }
-
-    const findPurchasedBooks = () => {
-        purchasedBooksByFacultyId.map(pb => {
-            if (pb.bookId == book.id) {
-                setIsPurchased(true)
-            }
-        })
-    }
+    // const findPurchasedBooks = () => {
+    //     purchasedBooksByFacultyId.map(pb => {
+    //         if (pb.bookId == book.id) {
+    //             setIsPurchased(true)
+    //         }
+    //     })
+    // }
     return (
         <div>
             <div>
-                {purchasedBooksByFacultyId.length
+                <MyButton onClick={() => addBook(book.id)}>Add</MyButton>
+                {/* {purchasedBooksByFacultyId.length
                     ?
                     <div>
-                        {isPurchased
+                        {purchasedBooksByFacultyId.isPurchased
                             ?
                             <div>Purchased</div>
                             :
@@ -44,8 +34,7 @@ const AddBook = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId
                         }
                     </div>
                     :
-                    <MyButton onClick={() => addBook(book.id)}>Add</MyButton>
-                }
+                } */}
             </div>
         </div >
     )
