@@ -3,16 +3,19 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Application.Common.Mappings;
+using UniversityBookShop.Application.Common.Models;
 using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Queries.Get;
 
-public class GetAllBooksQuery : IRequest<List<BookDto>>
+public class GetAllBooksQuery : IRequest<PaginatedList<BookDto>>
 {
+    public PaginationParams? PaginationParams { get; set; }
 }
 
 public class GetAllBooksQueryHandler :
-    IRequestHandler<GetAllBooksQuery, List<BookDto>>
+    IRequestHandler<GetAllBooksQuery, PaginatedList<BookDto>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -20,12 +23,12 @@ public class GetAllBooksQueryHandler :
     public GetAllBooksQueryHandler(IApplicationDbContext dbContext, IMapper mapper) =>
         (_dbContext, _mapper) = (dbContext, mapper);
 
-    public async Task<List<BookDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<BookDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.Books
-            .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+                            .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
+                            .PaginatedListAsync(request.PaginationParams.PageIndex, request.PaginationParams.PageSize, cancellationToken);
 
-        return query.Count > 0 ? query : new List<BookDto>(); // ToDo. I have to add failed message
+        return query.Items.Any() ? query : throw new Exception("Not found"); // ToDo. I have to add failed message
     }
 }

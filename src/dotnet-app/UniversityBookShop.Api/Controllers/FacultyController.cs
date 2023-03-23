@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Models;
 using UniversityBookShop.Application.Cqrs.Faculties.Commands.Create;
 using UniversityBookShop.Application.Cqrs.Faculties.Commands.Update;
 using UniversityBookShop.Application.Cqrs.Faculties.Queries.GetFaculties;
@@ -11,11 +13,21 @@ namespace UniversityBookShop.Api.Controllers
     public class FacultyController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<FacultyDto>>> GetAll()
+        public async Task<ActionResult<List<FacultyDto>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var query = new GetAllFacultiesQuery();
+            var query = new GetAllFacultiesQuery() { PaginationParams = paginationParams };
             var vm = await Mediator.Send(query);
-            return Ok(vm);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
+            return Ok(vm.Items);
+        }
+
+        [HttpGet("{universityId}")]
+        public async Task<ActionResult<List<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
+        {
+            var query = new GetFacultiesByUniversityIdQuery() { PaginationParams = paginationParams, UniversityId = universityId };
+            var vm = await Mediator.Send(query);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
+            return Ok(vm.Items);
         }
 
         [HttpPost]
