@@ -5,7 +5,10 @@ export const universitiesField = [
         "description": "",
         "faculties": [],
         "totalBookPrice": 0,
-        "currencyCode": 0,
+        "currencyCode": {
+            "id": 0,
+            "code": ""
+        },
         "facultyCount": 0,
         "bookCount": 0,
     }
@@ -18,7 +21,12 @@ export const universityField =
     "description": "",
     "faculties": [],
     "totalBookPrice": 0,
-    "currencyCodeId": 0
+    "currencyCode": {
+        "id": 0,
+        "code": ""
+    },
+    "bookCount": 0,
+    "facultyCount": 0,
 }
 
 export const Currencies = {

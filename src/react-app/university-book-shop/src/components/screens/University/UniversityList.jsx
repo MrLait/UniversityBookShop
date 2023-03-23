@@ -1,11 +1,11 @@
 import React from "react";
 import UniversityItem from "./UniversityItem";
 
-const UniversityList = (props) => {
+const UniversityList = ({ universities, deleteUniversity }) => {
     return (
         <div>
-            {props.universities.map(u =>
-                <UniversityItem key={u.id} deleteUniversity={props.deleteUniversity} university={u} />
+            {universities.map(u =>
+                <UniversityItem key={u.id} deleteUniversity={deleteUniversity} university={u} />
             )}
         </div>
     )

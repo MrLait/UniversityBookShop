@@ -19,6 +19,7 @@ const CreateUniversityForm = ({ create }) => {
                         ...university,
                         id: response.data
                     }
+                    console.log(newUniversity);
                     create(newUniversity);
                 }
 

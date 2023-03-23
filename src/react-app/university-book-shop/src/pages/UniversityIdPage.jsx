@@ -5,7 +5,9 @@ import UniversityDescription from '../components/screens/University/UniversityDe
 
 const UniversityIdPage = () => {
     const state = useLocation().state
+    const [university, setUniversity] = useState(state.university)
     const [faculties, setFaculties] = useState(state.university.faculties)
+
 
     return (
         <div >
@@ -13,8 +15,10 @@ const UniversityIdPage = () => {
                 ?
                 <div>
                     <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
-                        To Do GetUniversityById state
-                        <UniversityDescription university={state.university} />
+                        <h1>
+                            To Do GetUniversityById state
+                        </h1>
+                        <UniversityDescription university={university} />
                     </div>
                     <FacultyList
                         faculties={faculties}
