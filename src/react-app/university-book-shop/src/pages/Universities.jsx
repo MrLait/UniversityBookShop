@@ -7,15 +7,20 @@ import CreateUniversity from "../components/screens/University/CreateUniversity"
 import UniversityList from "../components/screens/University/UniversityList";
 
 const Universities = () => {
-
     const [universities, setUniversities] = useState(universitiesField)
+    const [paginationData, setPaginationData] = useState('');
     useEffect(() => {
-        getUniversities();
+        getUniversities(1, 3);
     }, [])
 
-    const getUniversities = async () => {
-        const response = await UniversityApiService.getAll()
+    const getUniversities = async (pageIndex, pageSize) => {
+        const response = await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
         setUniversities(response.data)
+        console.log(response.headers);
+        console.log(response.headers['x-pagination']);
+        console.log(response.headers['server']);
+        // setPaginationData(response.data)
+
     }
 
     const deleteUniversity = async (university) => {

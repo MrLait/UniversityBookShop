@@ -18,21 +18,26 @@ services.AddApplication();
 services.AddPersistence(builder.Configuration);
 services.AddControllers();
 
+var paginationHeaderCorsPolicy = "PaginationHeader";
+
 services.AddCors(option =>
 {
-    option.AddPolicy("AllowAll", policy =>
+    option.AddPolicy(paginationHeaderCorsPolicy, policy =>
     {
-        policy.AllowAnyHeader();
+        policy.WithExposedHeaders("x-pagination");
         policy.AllowAnyMethod();
         policy.AllowAnyOrigin();
     });
 });
+
 services.AddSwaggerGen(config =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     config.IncludeXmlComments(xmlPath);
 });
+
+
 
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
@@ -56,7 +61,10 @@ app.UseSwaggerUI(config =>
     config.SwaggerEndpoint("swagger/v1/swagger.json", "University book shop API");
 });
 
+
 app.UseHttpsRedirection();
-app.UseCors("AllowAll"); //ToDo
+app.UseCors(paginationHeaderCorsPolicy); //ToDo
+
+
 app.MapControllers();
 app.Run();
