@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Models;
 using UniversityBookShop.Application.Cqrs.Books.Commands.Create;
 using UniversityBookShop.Application.Cqrs.Books.Commands.Delete;
 using UniversityBookShop.Application.Cqrs.Books.Commands.Update;
@@ -12,10 +14,11 @@ namespace UniversityBookShop.Api.Controllers
     public class BookController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<BookDto>>> GetAll()
+        public async Task<ActionResult<List<BookDto>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAllBooksQuery());
-            return Ok(vm);
+            var vm = await Mediator.Send(new GetAllBooksQuery() { PaginationParams = paginationParams });
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
+            return Ok(vm.Items);
         }
 
         [HttpPost]

@@ -9,21 +9,23 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.Faculties.Queries.GetFaculties;
 
-public class GetAllFacultiesQuery : IRequest<PaginatedList<FacultyDto>>
+public class GetFacultiesByUniversityIdQuery : IRequest<PaginatedList<FacultyDto>>
 {
+    public int UniversityId { get; set; }
     public PaginationParams? PaginationParams { get; set; }
 }
 
-public class GetAllFacultiesQueryHandler : IRequestHandler<GetAllFacultiesQuery, PaginatedList<FacultyDto>>
+public class GetFacultiesByUniversityIdQueryHandler : IRequestHandler<GetFacultiesByUniversityIdQuery, PaginatedList<FacultyDto>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    public GetAllFacultiesQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetFacultiesByUniversityIdQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
         => (_dbContext, _mapper) = (dbContext, mapper);
 
-    public async Task<PaginatedList<FacultyDto>> Handle(GetAllFacultiesQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<FacultyDto>> Handle(GetFacultiesByUniversityIdQuery request, CancellationToken cancellationToken)
     {
         var paginatedFaculties = await _dbContext.Faculties
+                                            .Where(f => f.UniversityId == request.UniversityId)
                                             .ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
                                             .PaginatedListAsync(request.PaginationParams.PageIndex, request.PaginationParams.PageSize, cancellationToken);
 

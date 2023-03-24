@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Models;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Create;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Delete;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries.Get;
@@ -11,10 +13,11 @@ namespace UniversityBookShop.Api.Controllers
     public class BooksAvailableForFacultyController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<BooksAvailableForFacultyDto>>> GetAll()
+        public async Task<ActionResult<List<BooksAvailableForFacultyDto>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyQuery());
-            return Ok(vm);
+            var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyQuery() { PaginationParams = paginationParams });
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
+            return Ok(vm.Items);
         }
 
         [HttpGet("{facultyId}")]
