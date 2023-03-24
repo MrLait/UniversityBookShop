@@ -1,0 +1,22 @@
+.myBtn {
+    width: 230px;
+    border-radius: var(--button-rounded);
+    min-width: var(--button-height);
+    height: var(--button-height);
+    padding: 0 1.6em;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: var(--button-height);
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    white-space: nowrap;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.myBtn:hover {
+    color: var(--color-white);
+    background-color: #383838;
+}

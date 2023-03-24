@@ -2,25 +2,28 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import UniversityApiService from "../API/UniversityApiService";
-import { universitiesField } from "../components/constants/initialStates";
+import { paginationField, paginationHeader, universitiesField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
 import UniversityList from "../components/screens/University/UniversityList";
+import MyPagination from "../components/UI/pagination/MyPagination";
+import { getPagesArray } from "../unitls/pagination";
 
 const Universities = () => {
     const [universities, setUniversities] = useState(universitiesField)
-    const [paginationData, setPaginationData] = useState('');
+    const [paginationData, setPaginationData] = useState(paginationField);
+    const [pageSize, setPageSize] = useState(3);
+    const [pageIndex, setPageIndex] = useState(1);
+
     useEffect(() => {
-        getUniversities(1, 3);
+        getPaginatedUniversities(pageIndex, pageSize);
     }, [])
 
-    const getUniversities = async (pageIndex, pageSize) => {
-        const response = await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
-        setUniversities(response.data)
-        console.log(response.headers);
-        console.log(response.headers['x-pagination']);
-        console.log(response.headers['server']);
-        // setPaginationData(response.data)
-
+    const getPaginatedUniversities = async (pageIndex, pageSize) => {
+        await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
+            .then((response) => {
+                setUniversities(response.data)
+                setPaginationData(JSON.parse(response.headers[paginationHeader]));
+            })
     }
 
     const deleteUniversity = async (university) => {
@@ -36,11 +39,20 @@ const Universities = () => {
                 }
             })
     }
+    const changePage = (pageIndex) => {
+        setPageIndex(pageIndex)
+        getPaginatedUniversities(pageIndex, pageSize);
+    }
 
     return (
         <div>
             <CreateUniversity setUniversities={setUniversities} universities={universities} />
             <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+            <MyPagination
+                paginationData={paginationData}
+                pageIndex={pageIndex}
+                changePage={changePage}
+            />
         </div >
     )
 }

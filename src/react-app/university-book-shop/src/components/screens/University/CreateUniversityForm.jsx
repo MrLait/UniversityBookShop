@@ -10,16 +10,13 @@ const CreateUniversityForm = ({ create }) => {
     const postUniversity = async (e) => {
         e.preventDefault()
         university.currencyCodeId = Currencies.Usd;
-
         await UniversityApiService.post(university)
             .then(response => {
                 if (response.data && response.status == 200) {
-
                     const newUniversity = {
                         ...university,
                         id: response.data
                     }
-                    console.log(newUniversity);
                     create(newUniversity);
                 }
 

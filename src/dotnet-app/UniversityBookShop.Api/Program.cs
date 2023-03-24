@@ -24,7 +24,7 @@ services.AddCors(option =>
 {
     option.AddPolicy(paginationHeaderCorsPolicy, policy =>
     {
-        policy.WithExposedHeaders("x-pagination");
+        policy.AllowAnyHeader().WithExposedHeaders("x-pagination");
         policy.AllowAnyMethod();
         policy.AllowAnyOrigin();
     });

@@ -13,7 +13,7 @@ export default class UniversityApiService {
     }
 
     static async getAllWithPagination(pageIndex, pageSize) {
-        const response = await apiInstance.get(`${BookShopApiUrls.paginatedUniversities(pageIndex, pageSize)}`)
+        const response = await apiInstance.get(BookShopApiUrls.university, BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
         return response;
     }
 
