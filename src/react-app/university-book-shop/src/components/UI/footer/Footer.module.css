@@ -1,0 +1,38 @@
+.inner {
+  --innerWidth: auto;
+  width: 100%;
+  max-width: var(--innerWidth);
+  margin: 0 auto;
+  padding: 0 var(--pad-inner);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 120px;
+  padding-top: clamp(24px, 3vw, 48px);
+  font-size: 14px;
+  font-weight: 400;
+  background-image: linear-gradient(to right, rgb(var(--color-dots-rgb)) 0 10%, rgba(255, 255, 255, 0) 10%);
+  background-position: top;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+}
+
+.leftInner {}
+
+.rightInner {}
+
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 15px
+}
+
+.footerNav li {
+  list-style: none;
+  display: inline;
+  padding-right: 5px;
+}

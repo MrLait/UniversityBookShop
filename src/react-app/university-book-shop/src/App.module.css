@@ -1,28 +1,5 @@
-:root {
-    --button-rounded: 8px;
-    --button-rounded-full: 72px;
-    --button-height: 48px;
-    --color-primary: #222;
-    --color-primary-rgb: 34, 34, 34;
-    --bg-primary: #F8F8F8;
-    --bg-primary-rgb: 248, 248, 248;
-    --color-white: #fff;
-    --color-white-rgb: 255, 255, 255;
-    --button-pad: 24px;
-    --button-bg: var(--color-primary);
-    --button-color: var(--color-white);
-    --button-color-border: var(--bg-primary);
-    --button-height: 72px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.app {
-    width: 100%;
-    height: 100vh;
-    background-color: #F8F8F8;
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

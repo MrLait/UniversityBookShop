@@ -1,5 +1,4 @@
 .myBtn {
-    width: 230px;
     border-radius: var(--button-rounded);
     min-width: var(--button-height);
     height: var(--button-height);

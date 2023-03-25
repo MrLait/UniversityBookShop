@@ -1,0 +1,47 @@
+:root {
+    --button-rounded: 8px;
+    --button-rounded-full: 72px;
+    --button-height: 48px;
+    --color-primary: #222;
+    --color-primary-rgb: 34, 34, 34;
+    --bg-primary: #F8F8F8;
+    --text-size-primary: 16px;
+    --bg-primary-rgb: 248, 248, 248;
+    --color-white: #fff;
+    --color-white-rgb: 255, 255, 255;
+    --button-pad: 24px;
+    --button-bg: var(--color-primary);
+    --button-color: var(--color-white);
+    --button-color-border: var(--bg-primary);
+    --button-height: 72px;
+    --pad-inner: 52px;
+    --color-dots-rgb: 34, 34, 34;
+}
+
+
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: auto;
+    font-family: "apercu", sans-serif;
+    font-size: var(--text-size-primary);
+    font-weight: 300;
+    background: var(--bg-primary);
+    color: var(--color-primary);
+    line-height: 200%;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}

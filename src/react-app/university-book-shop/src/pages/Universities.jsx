@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -6,8 +7,7 @@ import { paginationField, paginationHeader, universitiesField } from "../compone
 import CreateUniversity from "../components/screens/University/CreateUniversity";
 import UniversityList from "../components/screens/University/UniversityList";
 import MyPagination from "../components/UI/pagination/MyPagination";
-import { getPagesArray } from "../unitls/pagination";
-
+import styles from './Universities.module.css'
 const Universities = () => {
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
@@ -45,7 +45,7 @@ const Universities = () => {
     }
 
     return (
-        <div>
+        <div className={styles.block}>
             <CreateUniversity setUniversities={setUniversities} universities={universities} />
             {universities.length === 0 ? <p>No universities found.</p> :
                 <>
