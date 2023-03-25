@@ -1,0 +1,7 @@
+.inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: clamp(35px, 3vw, 20px);
+}

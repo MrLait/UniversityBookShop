@@ -5,11 +5,13 @@ import styles from "./UniversityList.module.css"
 
 const UniversityList = ({ universities, deleteUniversity }) => {
     return (
-        <div>
+        <>
             {universities.map(u =>
-                <UniversityItem key={u.id} deleteUniversity={deleteUniversity} university={u} />
+                <div className={styles.university}>
+                    <UniversityItem key={u.id} deleteUniversity={deleteUniversity} university={u} />
+                </div>
             )}
-        </div>
+        </>
 
     )
 }

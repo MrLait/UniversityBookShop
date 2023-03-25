@@ -1,4 +1,6 @@
-.block {
-    margin-top: clamp(20px, 3vw, 50px);
-    margin-bottom: clamp(50px, 20vw, 200px);
+.university {
+    border-radius: var(--rounded-large);
+    background: var(--color-white);
+    overflow: hidden;
+    margin-bottom: 40px;
 }

@@ -14,8 +14,12 @@
     --button-color: var(--color-white);
     --button-color-border: var(--bg-primary);
     --button-height: 72px;
-    --pad-inner: 52px;
+    --pad-inner: 50px;
+    --margin-inner: 20px;
     --color-dots-rgb: 34, 34, 34;
+    --gutter: 20px;
+    --rounded-large: 1rem;
+    --ch-bg: #e9e9e9;
 }
 
 

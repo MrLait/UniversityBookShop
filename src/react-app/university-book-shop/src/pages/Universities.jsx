@@ -45,19 +45,45 @@ const Universities = () => {
     }
 
     return (
-        <div className={styles.block}>
-            <CreateUniversity setUniversities={setUniversities} universities={universities} />
-            {universities.length === 0 ? <p>No universities found.</p> :
-                <>
-                    <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+        <>
+            <div className={styles.contentHeader}>
+                <div className={styles.inner}>
+                    <div className={styles.createUniversity}>
+                        <div className={styles.heading}>
+                            <h3>
+                                Welcome to my website
+                                <br />
+                                where you can create universities, faculties, and manage book purchases.
+                            </h3>
+                        </div>
+                        <div className={styles.create}>
+                            <div className={styles.createLeft}>
+                                <CreateUniversity setUniversities={setUniversities} universities={universities} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.block}>
+                <div className={styles.inner}>
+                    <div className={styles.headingCenter}>
+                        <h3 className={styles.headingBig}>
+                            Universities
+                        </h3>
+                    </div>
+                    <div className={styles.universities}>
+                        {universities.length === 0 ? <p>No universities found.</p> :
+                            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+                        }
+                    </div>
                     <MyPagination
                         paginationData={paginationData}
                         pageIndex={pageIndex}
                         changePage={changePage}
                     />
-                </>
-            }
-        </div>
+                </div>
+            </div>
+        </>
     );
 }
 export default Universities;

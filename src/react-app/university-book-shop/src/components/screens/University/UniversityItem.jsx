@@ -9,17 +9,15 @@ import styles from "./UniversityItem.module.css";
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     return (
-        <div >
-            <div >
-                <UniversityDescription university={university} />
-                <div>
-                    <MyButton onClick={() => deleteUniversity(university)} >
-                        Delete university
-                    </MyButton>
-                    <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
-                        Open faculties
-                    </MyButton>
-                </div>
+        <div className={styles.inner}>
+            <UniversityDescription university={university} />
+            <div>
+                <MyButton onClick={() => deleteUniversity(university)} >
+                    Delete university
+                </MyButton>
+                <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
+                    Open faculties
+                </MyButton>
             </div>
         </div>
 
