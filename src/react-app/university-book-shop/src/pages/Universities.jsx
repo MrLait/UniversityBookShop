@@ -9,7 +9,7 @@ import MyPagination from "../components/UI/pagination/MyPagination";
 import { getPagesArray } from "../unitls/pagination";
 
 const Universities = () => {
-    const [universities, setUniversities] = useState(universitiesField)
+    const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(3);
     const [pageIndex, setPageIndex] = useState(1);
@@ -47,13 +47,17 @@ const Universities = () => {
     return (
         <div>
             <CreateUniversity setUniversities={setUniversities} universities={universities} />
-            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
-            <MyPagination
-                paginationData={paginationData}
-                pageIndex={pageIndex}
-                changePage={changePage}
-            />
-        </div >
-    )
+            {universities.length === 0 ? <p>No universities found.</p> :
+                <>
+                    <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+                    <MyPagination
+                        paginationData={paginationData}
+                        pageIndex={pageIndex}
+                        changePage={changePage}
+                    />
+                </>
+            }
+        </div>
+    );
 }
 export default Universities;

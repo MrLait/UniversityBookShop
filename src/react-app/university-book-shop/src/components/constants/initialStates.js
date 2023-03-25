@@ -97,9 +97,9 @@ export const facultyField = {
 }
 
 export const paginationField = {
-    "PageIndex": 0,
-    "TotalCount": 0,
-    "TotalPages": 0,
+    "PageIndex": 1,
+    "TotalCount": 1,
+    "TotalPages": 1,
     "IsPrevious": false,
     "IsNext": false
 }
