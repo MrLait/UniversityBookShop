@@ -2,6 +2,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { TransitionGroup } from "react-transition-group";
 import UniversityApiService from "../API/UniversityApiService";
 import { paginationField, paginationHeader, universitiesField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
@@ -71,11 +72,13 @@ const Universities = () => {
                             Universities
                         </h3>
                     </div>
-                    <div className={styles.universities}>
+                    {/* className={styles.universities} */}
+                    <div >
                         {universities.length === 0 ? <p>No universities found.</p> :
                             <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
                         }
                     </div>
+
                     <MyPagination
                         paginationData={paginationData}
                         pageIndex={pageIndex}

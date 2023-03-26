@@ -14,7 +14,7 @@
     --button-color: var(--color-white);
     --button-color-border: var(--bg-primary);
     --button-height: 72px;
-    --pad-inner: 50px;
+    --pad-inner: 70px;
     --margin-inner: 20px;
     --color-dots-rgb: 34, 34, 34;
     --gutter: 20px;
@@ -48,4 +48,76 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+
+.university {
+    border-radius: var(--rounded-large);
+    background: var(--color-white);
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.university-enter {
+    opacity: 0;
+}
+
+.university-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.university-exit {
+    opacity: 1;
+}
+
+.university-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.footer-enter {
+    opacity: 0;
+}
+
+.footer-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+    animation: moveDown 1s;
+}
+
+.footer-exit {
+    opacity: 1;
+}
+
+.footer-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+    animation: moveUp 1s;
+}
+
+@keyframes moveDown {
+    0% {
+        width: 600px;
+        height: 0px
+    }
+
+    100% {
+        width: 600px;
+        height: 140px
+    }
+}
+
+@keyframes moveUp {
+    100% {
+        width: 600px;
+        height: 0px
+    }
+
+    0% {
+        width: 600px;
+        height: 130px
+    }
+
+
 }

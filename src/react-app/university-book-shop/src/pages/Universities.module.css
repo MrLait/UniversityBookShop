@@ -12,11 +12,6 @@
 }
 
 .contentHeader {
-    /* 
-    background-color: #e9e9e9;
-    padding-bottom: 30px;
-    padding-top: 50px; */
-
     margin-bottom: clamp(30px, 6vw, 100px);
     padding-top: 71px;
     padding-bottom: clamp(30px, 6vw, 100px);
@@ -38,7 +33,6 @@
 }
 
 .headingCenter {
-    /* position: relative; */
     margin-bottom: clamp(40px, 2vw, 50px);
     font-weight: 400;
 }

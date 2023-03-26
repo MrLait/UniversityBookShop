@@ -1,6 +1,30 @@
+.universities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 40px;
+}
+
 .university {
     border-radius: var(--rounded-large);
     background: var(--color-white);
     overflow: hidden;
     margin-bottom: 40px;
+}
+
+.university-enter {
+    opacity: 0;
+}
+
+.university-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.university-exit {
+    opacity: 1;
+}
+
+.university-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
 }

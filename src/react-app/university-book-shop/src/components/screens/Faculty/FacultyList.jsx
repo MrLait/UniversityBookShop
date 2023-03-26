@@ -6,7 +6,6 @@ import styles from './FacultyItem.module.css'
 
 const FacultyList = ({ faculties, setFaculties }) => {
     const removeFaculty = (faculty) => {
-        console.log('FacultyList');
         setFaculties(faculties.filter(f => f.id !== faculty.id))
     }
     return (
