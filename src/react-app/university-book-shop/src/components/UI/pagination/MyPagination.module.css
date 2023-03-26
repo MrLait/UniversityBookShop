@@ -1,10 +1,12 @@
 .paginationWrapper {
-    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
+    justify-content: end
 }
 
 .paginationWrapper .page {
     margin: 2px;
+    align-items: flex-end
 }
 
 .page {

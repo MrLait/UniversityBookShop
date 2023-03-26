@@ -82,8 +82,8 @@ body {
 
 .footer-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
-    animation: moveDown 1s;
+    transition: opacity 300ms ease-in;
+    animation: moveDown .3s;
 }
 
 .footer-exit {
@@ -92,8 +92,8 @@ body {
 
 .footer-exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-in;
-    animation: moveUp 1s;
+    transition: opacity 300ms ease-in;
+    animation: moveUp .3s;
 }
 
 @keyframes moveDown {

@@ -12,7 +12,7 @@ import styles from './Universities.module.css'
 const Universities = () => {
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, setPageSize] = useState(4);
     const [pageIndex, setPageIndex] = useState(1);
 
     useEffect(() => {
@@ -72,18 +72,19 @@ const Universities = () => {
                             Universities
                         </h3>
                     </div>
-                    {/* className={styles.universities} */}
+                    <MyPagination
+                        paginationData={paginationData}
+                        pageIndex={pageIndex}
+                        changePage={changePage}
+                        className={styles.pagination}
+                    />
                     <div >
                         {universities.length === 0 ? <p>No universities found.</p> :
                             <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
                         }
                     </div>
 
-                    <MyPagination
-                        paginationData={paginationData}
-                        pageIndex={pageIndex}
-                        changePage={changePage}
-                    />
+
                 </div>
             </div>
         </>

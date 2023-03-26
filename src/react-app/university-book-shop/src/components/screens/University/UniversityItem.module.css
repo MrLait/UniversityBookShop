@@ -14,9 +14,6 @@
 
 .test {}
 
-
-
-
 .title {
     font-size: clamp(24px, 22px + 0.56vw, 32px);
     font-weight: bold;

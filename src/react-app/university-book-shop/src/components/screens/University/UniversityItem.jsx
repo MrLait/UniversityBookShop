@@ -11,20 +11,24 @@ import { useState } from "react";
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     const [onMouseEntered, setOnMouseEntered] = useState(false);
-    console.log(onMouseEntered);
     return (
         <div
             className={styles.inner}
             onMouseEnter={() => setOnMouseEntered(true)}
+            // onMouseOut={() => setOnMouseEntered(false)}
             onMouseLeave={() => setOnMouseEntered(false)}
         >
             <div className={styles.header}>
                 <div className={styles.title}>{university.name}</div>
                 <div className={styles.description}>{university.description}</div>
             </div>
+            <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
+                Open faculties
+            </MyButton>
+
             <CSSTransition
                 in={onMouseEntered}
-                timeout={1000}
+                timeout={290}
                 classNames="footer"
                 mountOnEnter
                 unmountOnExit
@@ -43,12 +47,9 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                 </div>
             </CSSTransition>
 
-            <MyButton onClick={() => deleteUniversity(university)} >
+            {/* <MyButton onClick={() => deleteUniversity(university)} >
                 Delete university
-            </MyButton>
-            <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
-                Open faculties
-            </MyButton>
+            </MyButton> */}
 
 
 
