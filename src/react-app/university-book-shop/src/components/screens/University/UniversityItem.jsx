@@ -2,33 +2,52 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { routePathsNavigate } from "../../../router/routes";
-import MyButton from "../../UI/button/MyButton";
-import UniversityDescription from "./UniversityDescription";
 import styles from "./UniversityItem.module.css";
 import { ReactComponent as OkLogo } from '../../../Assets/okSvg.svg';
-import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
+import { ReactComponent as GoTo } from '../../../Assets/goTo.svg';
+import { ReactComponent as ArrowCollapse } from '../../../Assets/arrowCollapse.svg';
+import { ReactComponent as ArrowExpand } from '../../../Assets/arrowExpand.svg';
+import { CSSTransition } from 'react-transition-group'
 import { useState } from "react";
+
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     const [onMouseEntered, setOnMouseEntered] = useState(false);
     return (
         <div
             className={styles.inner}
-            onMouseEnter={() => setOnMouseEntered(true)}
-            // onMouseOut={() => setOnMouseEntered(false)}
-            onMouseLeave={() => setOnMouseEntered(false)}
         >
+            <div className={styles.navbar}>
+                <div className={styles.navbarInner}>
+                    <a
+                        className={styles.rolloverGoTo}
+                        onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })}
+                    >
+                        <GoTo className={styles.goTo} />
+                    </a>
+                    <span className={styles.remove}
+                        onClick={() => deleteUniversity(university)} >
+                        X
+                    </span>
+                </div>
+            </div>
             <div className={styles.header}>
-                <div className={styles.title}>{university.name}</div>
+                <div
+                    className={styles.title}
+                    onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })}
+                >
+                    {university.name}</div>
                 <div className={styles.description}>{university.description}</div>
             </div>
-            <MyButton onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })} >
-                Open faculties
-            </MyButton>
-
+            <div onClick={() => setOnMouseEntered(prevState => !prevState)}>
+                {onMouseEntered
+                    ? <ArrowExpand />
+                    : <ArrowCollapse />
+                }
+            </div>
             <CSSTransition
                 in={onMouseEntered}
-                timeout={290}
+                timeout={270}
                 classNames="footer"
                 mountOnEnter
                 unmountOnExit
@@ -47,13 +66,8 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                 </div>
             </CSSTransition>
 
-            {/* <MyButton onClick={() => deleteUniversity(university)} >
-                Delete university
-            </MyButton> */}
 
-
-
-        </div>
+        </div >
 
     )
 }

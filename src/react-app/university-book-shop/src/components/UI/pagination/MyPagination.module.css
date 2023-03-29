@@ -27,36 +27,3 @@
     color: var(--color-white);
     background-color: #383838;
 }
-
-/* .myBtn {
-    background: none;
-    padding: 0 1.6em;
-    text-decoration: none;
-    color: black;
-    border: 1px solid var(--color-primary);
-    float: left;
-    border-radius: var(--button-rounded);
-
-}
-
-.myBtn .active {
-    background-color: #383838;
-    border-radius: var(--button-rounded);
-    padding: 0 1.6em;
-    color: white;
-
-}
-
-.myBtn button:hover:not(.active) {
-    color: var(--color-white);
-    background-color: #383838;
-} */
-
-/* border: none;
-    color: black;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px; */

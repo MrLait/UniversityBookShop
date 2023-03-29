@@ -9,7 +9,6 @@ const UniversityList = ({ universities, deleteUniversity }) => {
         <>
             <TransitionGroup className={styles.universities}>
                 {universities.map(u =>
-                    // <div key={u.id}>
                     <CSSTransition
                         key={u.id}
                         timeout={500}
@@ -21,7 +20,6 @@ const UniversityList = ({ universities, deleteUniversity }) => {
                             </div>
                         </div>
                     </CSSTransition>
-                    // </div>
                 )}
             </TransitionGroup>
 

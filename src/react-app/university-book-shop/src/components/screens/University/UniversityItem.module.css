@@ -2,6 +2,50 @@
     width: 100%;
     height: 100%;
     padding: clamp(35px, 3vw, 70px);
+    position: relative;
+}
+
+.navbar {
+    opacity: 0;
+    transition: 0.5s;
+    position: absolute;
+    display: flex;
+    right: 1em;
+    top: 1em;
+    gap: 1em;
+}
+
+.navbarInner {
+    display: flex;
+    right: 1em;
+    top: 1em;
+    gap: 1em;
+    align-items: center;
+}
+
+.rolloverGoTo {
+    display: flex;
+}
+
+.goTo {
+    cursor: pointer;
+}
+
+.remove {
+    cursor: pointer;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--button-rounded);
+    padding: 0 0.8em;
+}
+
+.remove:hover {
+    color: var(--color-white);
+    background-color: #383838;
+}
+
+.inner:hover .navbar {
+    opacity: 1;
+    transition: 0.5s;
 }
 
 .header {
@@ -12,12 +56,27 @@
 
 .footer {}
 
-.test {}
-
 .title {
     font-size: clamp(24px, 22px + 0.56vw, 32px);
     font-weight: bold;
     margin-bottom: clamp(5px, 50%, 15px);
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.title::after {
+    display: block;
+    width: 0px;
+    height: 2px;
+    background-color: var(--color-primary);
+    content: "";
+    transition: width 0.5s ease-out;
+}
+
+.title:hover:after,
+.title:focus:after {
+    width: 100%;
 }
 
 .description {
