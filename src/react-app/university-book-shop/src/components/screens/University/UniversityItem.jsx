@@ -39,36 +39,37 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                     {university.name}</div>
                 <div className={styles.description}>{university.description}</div>
             </div>
-            <div onClick={() => setOnMouseEntered(prevState => !prevState)}>
-                {onMouseEntered
-                    ? <ArrowExpand />
-                    : <ArrowCollapse />
-                }
-            </div>
-            <CSSTransition
-                in={onMouseEntered}
-                timeout={270}
-                classNames="footer"
-                mountOnEnter
-                unmountOnExit
-            >
-                <div className={styles.footer}>
-                    <ul className={styles.list}>
-                        <li>
-                            <OkLogo className={styles.okLogo} />
-                            The total cost of books purchased : {university.totalBookPrice} {university.currencyCode.code}
-                        </li>
-                        <li> <OkLogo className={styles.okLogo} />
-                            Number of faculties available : {university.facultyCount}</li>
-                        <li> <OkLogo className={styles.okLogo} />
-                            The number of books purchased : {university.bookCount}</li>
-                    </ul>
+            <div className={styles.footer}>
+                <CSSTransition
+                    in={onMouseEntered}
+                    timeout={270}
+                    classNames="footer"
+                    mountOnEnter
+                    unmountOnExit
+                >
+                    <div className={styles.footerInner}>
+                        <ul className={styles.list}>
+                            <li>
+                                <OkLogo className={styles.okLogo} />
+                                The total cost of books purchased : {university.totalBookPrice} {university.currencyCode.code}
+                            </li>
+                            <li> <OkLogo className={styles.okLogo} />
+                                Number of faculties available : {university.facultyCount}</li>
+                            <li> <OkLogo className={styles.okLogo} />
+                                The number of books purchased : {university.bookCount}</li>
+                        </ul>
+                    </div>
+                </CSSTransition>
+                <div
+                    className={styles.expandableBtn}
+                    onClick={() => setOnMouseEntered(prevState => !prevState)}>
+                    {onMouseEntered
+                        ? <ArrowExpand />
+                        : <ArrowCollapse />
+                    }
                 </div>
-            </CSSTransition>
-
-
+            </div>
         </div >
-
     )
 }
 export default UniversityItem;
