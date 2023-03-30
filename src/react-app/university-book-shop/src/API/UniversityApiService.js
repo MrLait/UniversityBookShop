@@ -6,10 +6,17 @@ const apiInstance = axios.create({
 });
 
 export default class UniversityApiService {
+
     static async getAll() {
         const response = await apiInstance.get(BookShopApiUrls.university)
         return response;
     }
+
+    static async getAllWithPagination(pageIndex, pageSize) {
+        const response = await apiInstance.get(BookShopApiUrls.university, BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
+        return response;
+    }
+
     static async getByUniversityId(universityId) {
         const response = await apiInstance.get(`${BookShopApiUrls.university}/${universityId}`)
         return response;

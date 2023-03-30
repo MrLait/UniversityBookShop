@@ -95,3 +95,13 @@ export const facultyField = {
     "name": "",
     "universityId": 0
 }
+
+export const paginationField = {
+    "PageIndex": 1,
+    "TotalCount": 1,
+    "TotalPages": 1,
+    "IsPrevious": false,
+    "IsNext": false
+}
+
+export const paginationHeader = 'x-pagination';

@@ -8,28 +8,22 @@ import UniversityDescription from '../components/screens/University/UniversityDe
 
 const UniversityIdPage = () => {
     const state = useLocation().state
-    //const [university, setUniversity] = useState(universityField)
     const [faculties, setFaculties] = useState(state.university.faculties)
 
-    // const getGaulties = async() ={
-    //     const response = await FacultyApiService.
-    // }
-    // const getUniversityById = async () => {
-    //     const response = await UniversityApiService.getByUniversityId(state.university.id);
-    //     setUniversity(response.data);
-    //     setFaculties(response.data.faculties)
-    // }
+    const getFacultiesByUniversityId = async (universityId) => {
+        const response = await FacultyApiService.getByUniversityId(universityId);
+        setFaculties(response.data);
+    }
 
-    // useEffect(() => {
-    //     getUniversityById()
-    // }, [])
+    useEffect(() => {
+        getFacultiesByUniversityId(state.university.id)
+    }, [])
 
     return (
         <div >
             {state
                 ?
                 <div>
-                    <h1>getByFacultyId</h1>
                     <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
                         <strong>
                             University name: {state.university.name}
@@ -46,7 +40,6 @@ const UniversityIdPage = () => {
                 :
                 <div> University not found</div>
             }
-
         </div >
     )
 }

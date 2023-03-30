@@ -6,8 +6,14 @@ const apiInstance = axios.create({
 });
 
 export default class FacultyApiService {
+
     static async getAll() {
         const response = await apiInstance.get(BookShopApiUrls.faculty)
+        return response;
+    }
+
+    static async getByUniversityId(universityId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.faculty}/${universityId}`)
         return response;
     }
 

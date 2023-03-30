@@ -11,9 +11,9 @@ const CreateUniversity = ({ universities, setUniversities }) => {
         setModalShow(false)
     }
     return (
-        <div>
+        <div >
             <MyButton onClick={setModalShow}>
-                Create university
+                Create University
             </MyButton>
             <MyModal modalShow={modalShow} setModalShow={setModalShow}>
                 <CreateUniversityForm create={createUniversity} />
