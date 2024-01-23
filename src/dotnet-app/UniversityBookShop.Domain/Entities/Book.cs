@@ -7,7 +7,8 @@ public class Book
     public string? Name { get; set; }
     public string? Author { get; set; }
     public decimal? Price { get; set; }
-    public int CurrencyCodesBooksId { get; set; }
+
+    public int? CurrencyCodesId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
 
     //One to One

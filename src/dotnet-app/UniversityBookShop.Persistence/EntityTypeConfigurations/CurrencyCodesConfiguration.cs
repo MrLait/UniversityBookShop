@@ -16,12 +16,12 @@ namespace UniversityBookShop.Persistence.EntityTypeConfigurations
             builder
                 .HasOne(c => c.University)
                 .WithOne(u => u.CurrencyCode)
-                .HasForeignKey<University>(fk => fk.CurrencyCodesUniversitiesId);
+                .HasForeignKey<University>(fk => fk.CurrencyCodesId);
 
             builder
                 .HasOne(c => c.Book)
                 .WithOne(u => u.CurrencyCode)
-                .HasForeignKey<Book>(fk => fk.CurrencyCodesBooksId);
+                .HasForeignKey<Book>(fk => fk.CurrencyCodesId);
         }
     }
 }

@@ -36,7 +36,7 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand>
         entity.Name = request.Name;
         entity.Author = request.Author;
         entity.Price = request.Price;
-        entity.CurrencyCodesBooksId = request.CurrencyCodeId;
+        entity.CurrencyCodesId = request.CurrencyCodeId;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;

@@ -26,7 +26,7 @@ public class CreateUniversityCommandHandler :
             Id = request.Id,
             Name = request.Name,
             Description = request.Description,
-            CurrencyCodesUniversitiesId = request.CurrencyCodeId
+            CurrencyCodesId = request.CurrencyCodeId
         };
 
         await _dbContext.Universities.AddAsync(university, cancellationToken);

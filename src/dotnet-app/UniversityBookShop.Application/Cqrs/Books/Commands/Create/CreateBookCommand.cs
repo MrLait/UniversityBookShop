@@ -28,7 +28,7 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
             Name = request.Name,
             Author = request.Author,
             Price = request.Price,
-            CurrencyCodesBooksId = request.CurrencyCodeId
+            CurrencyCodesId = request.CurrencyCodeId
         };
         await _dbContext.Books.AddAsync(book, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);

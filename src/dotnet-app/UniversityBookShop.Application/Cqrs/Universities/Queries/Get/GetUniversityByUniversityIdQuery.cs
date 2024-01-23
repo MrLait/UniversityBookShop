@@ -29,7 +29,7 @@ public class GetUniversityByUniversityIdQueryHandler : IRequestHandler<GetUniver
                         .Where(u => u.Id == request.UniversityId)
                         .FirstOrDefaultAsync();
         await _dbContext.Faculties.Where(f => f.UniversityId == university.Id).LoadAsync();
-        await _dbContext.CurrencyCodes.Where(c => c.Id == university.CurrencyCodesUniversitiesId).LoadAsync();
+        await _dbContext.CurrencyCodes.Where(c => c.Id == university.CurrencyCodesId).LoadAsync();
 
         var query = _mapper.Map<UniversityDto>(university);
         await UpdateCountsAndPrice(query);
