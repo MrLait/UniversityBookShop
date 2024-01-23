@@ -11,6 +11,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<University> Universities { get; set; } = null!;
     public DbSet<CurrencyCode> CurrencyCodes { get; set; } = null!;
     public DbSet<Book> Books { get; set; } = null!;
+    public DbSet<PurchasedBookFaculty> PurchasedBookFaculties { get; set; } = null!;
+    public DbSet<BooksAvailableForFaculty> BooksAvailableForFaculties { get; set; } = null!;
+    public DbSet<BooksPurchasedByUniversity> BooksPurchasedByUniversities { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

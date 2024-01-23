@@ -11,5 +11,20 @@ public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
         builder.HasKey(f => f.Id);
         builder.Property(f => f.Name).HasColumnName("name").HasMaxLength(150);
         builder.Property(f => f.UniversityId).HasColumnName("university_id");
+
+        builder
+            .HasOne(pb => pb.PurchasedBookFaculty)
+            .WithOne(f => f.Faculty)
+            .HasForeignKey<PurchasedBookFaculty>(fk => fk.FacultyPurchasedBookFacultyId);
+
+        builder
+            .HasOne(ba => ba.BooksAvailableForFaculty)
+            .WithOne(f => f.Faculty)
+            .HasForeignKey<BooksAvailableForFaculty>(fk => fk.FacultyId);
+
+        builder
+            .HasOne<University>(u => u.University)
+            .WithMany(f => f.Faculties)
+            .HasForeignKey(fk => fk.UniversityId);
     }
 }

@@ -1,0 +1,19 @@
+.myBook {
+    border: 2px solid teal;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 16px;
+    width: 280px;
+}
+
+.body {
+    text-align: right;
+}
+
+.body div {
+    margin-right: 10px;
+}
+
+.atYourInst {
+    display: flex;
+}
