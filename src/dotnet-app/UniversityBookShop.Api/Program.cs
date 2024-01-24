@@ -38,6 +38,7 @@ services.AddSwaggerGen(config =>
 });
 
 var app = builder.Build();
+
 // REGISTER MIDDLEWARE HERE
 using (var scope = app.Services.CreateScope())
 {
@@ -52,6 +53,7 @@ using (var scope = app.Services.CreateScope())
         //ToDo
     }
 }
+
 app.UseSwagger();
 app.UseSwaggerUI(config =>
 {

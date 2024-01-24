@@ -118,6 +118,18 @@ namespace UniversityBookShop.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("currency_codes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "$"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "€"
+                        });
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Faculty", b =>

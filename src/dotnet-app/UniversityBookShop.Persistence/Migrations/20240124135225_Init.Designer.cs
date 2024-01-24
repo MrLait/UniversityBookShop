@@ -11,7 +11,7 @@ using UniversityBookShop.Persistence;
 namespace UniversityBookShop.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240123200556_Init")]
+    [Migration("20240124135225_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,7 +33,6 @@ namespace UniversityBookShop.Persistence.Migrations
                         .HasColumnType("varchar(150)");
 
                     b.Property<int?>("CurrencyCodesId")
-                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("currency_code_id");
 
@@ -122,6 +121,18 @@ namespace UniversityBookShop.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("currency_codes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "$"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "€"
+                        });
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Faculty", b =>
@@ -204,9 +215,7 @@ namespace UniversityBookShop.Persistence.Migrations
                 {
                     b.HasOne("UniversityBookShop.Domain.Entities.CurrencyCode", "CurrencyCode")
                         .WithOne("Book")
-                        .HasForeignKey("UniversityBookShop.Domain.Entities.Book", "CurrencyCodesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UniversityBookShop.Domain.Entities.Book", "CurrencyCodesId");
 
                     b.Navigation("CurrencyCode");
                 });

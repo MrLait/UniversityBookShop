@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace UniversityBookShop.Persistence.Migrations
 {
     /// <inheritdoc />
@@ -42,7 +44,7 @@ namespace UniversityBookShop.Persistence.Migrations
                     Author = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
-                    currency_code_id = table.Column<int>(type: "int", nullable: false)
+                    currency_code_id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,8 +53,7 @@ namespace UniversityBookShop.Persistence.Migrations
                         name: "FK_Books_currency_codes_currency_code_id",
                         column: x => x.currency_code_id,
                         principalTable: "currency_codes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -182,6 +183,15 @@ namespace UniversityBookShop.Persistence.Migrations
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "currency_codes",
+                columns: new[] { "Id", "Code" },
+                values: new object[,]
+                {
+                    { 1, "$" },
+                    { 2, "€" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_currency_code_id",
