@@ -25,7 +25,7 @@ public class UniversityController : BaseController
     public async Task<ActionResult<UniversityDto>> GetAll(int universityId)
     {
         var vm = await Mediator.Send(new GetUniversityByUniversityIdQuery() { UniversityId = universityId });
-        return Ok(vm);
+        return vm != null ? Ok(vm) : BadRequest();
     }
 
     [HttpPost]

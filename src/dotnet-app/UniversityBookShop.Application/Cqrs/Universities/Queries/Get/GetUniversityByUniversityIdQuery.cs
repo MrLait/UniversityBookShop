@@ -28,6 +28,7 @@ public class GetUniversityByUniversityIdQueryHandler : IRequestHandler<GetUniver
         var university = await _dbContext.Universities
                         .Where(u => u.Id == request.UniversityId)
                         .FirstOrDefaultAsync();
+
         await _dbContext.Faculties.Where(f => f.UniversityId == university.Id).LoadAsync();
         await _dbContext.CurrencyCodes.Where(c => c.Id == university.CurrencyCodesId).LoadAsync();
 

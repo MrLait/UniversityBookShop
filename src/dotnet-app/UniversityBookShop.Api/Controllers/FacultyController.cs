@@ -27,7 +27,7 @@ namespace UniversityBookShop.Api.Controllers
             var query = new GetFacultiesByUniversityIdQuery() { PaginationParams = paginationParams, UniversityId = universityId };
             var vm = await Mediator.Send(query);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
-            return Ok(vm.Items);
+            return vm != null ? Ok(vm.Items): BadRequest();
         }
 
         [HttpPost]

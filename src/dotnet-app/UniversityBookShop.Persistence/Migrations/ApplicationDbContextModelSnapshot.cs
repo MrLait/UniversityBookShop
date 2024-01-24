@@ -48,7 +48,7 @@ namespace UniversityBookShop.Persistence.Migrations
 
                     b.HasIndex("CurrencyCodesId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksAvailableForFaculty", b =>
@@ -151,7 +151,7 @@ namespace UniversityBookShop.Persistence.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.PurchasedBookFaculty", b =>
@@ -205,7 +205,7 @@ namespace UniversityBookShop.Persistence.Migrations
 
                     b.HasIndex("CurrencyCodesId");
 
-                    b.ToTable("Universities");
+                    b.ToTable("Universities", (string)null);
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Book", b =>

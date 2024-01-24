@@ -29,7 +29,7 @@ public class GetFacultiesByUniversityIdQueryHandler : IRequestHandler<GetFaculti
                                             .ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
                                             .PaginatedListAsync(request.PaginationParams.PageIndex, request.PaginationParams.PageSize, cancellationToken);
 
-        return paginatedFaculties.Items.Any() ? paginatedFaculties : throw new Exception("Not found"); // ToDo. I have to add failed message
+        return paginatedFaculties.Items.Any() ? paginatedFaculties : null; // ToDo. I have to add failed message
     }
 }
 

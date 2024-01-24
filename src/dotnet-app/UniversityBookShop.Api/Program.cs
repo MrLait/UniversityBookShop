@@ -1,4 +1,6 @@
+using FluentValidation.AspNetCore;
 using System.Reflection;
+using UniversityBookShop.Api.Filters;
 using UniversityBookShop.Application;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
@@ -16,7 +18,9 @@ services.AddAutoMapper(config =>
 
 services.AddApplication();
 services.AddPersistence(builder.Configuration);
-services.AddControllers();
+services.AddControllers(configure: options =>
+    options.Filters.Add<ApiExceptionFilterAttribute>());
+services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 var paginationHeaderCorsPolicy = "PaginationHeader";
 

@@ -30,8 +30,10 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
             Price = request.Price,
             CurrencyCodesId = request.CurrencyCodeId
         };
+
         await _dbContext.Books.AddAsync(book, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
+
         return book.Id;
     }
 }

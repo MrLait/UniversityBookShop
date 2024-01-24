@@ -32,7 +32,7 @@ public class GetAllUniversitiesQueryHandler :
 
         await UpdateCountsAndPrice(query.Items);
 
-        return query.Items.Any() ? query : throw new Exception("Not found"); // ToDo. I have to add failed message
+        return query.Items.Any() ? query : null; // ToDo. I have to add failed message
     }
 
     private async Task UpdateCountsAndPrice(List<UniversityDto> universities)
