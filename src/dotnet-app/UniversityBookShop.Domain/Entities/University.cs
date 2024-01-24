@@ -8,7 +8,7 @@ public class University
     public IList<Faculty>? Faculties { get; set; }
     public decimal? TotalBookPrice { get; set; }
 
-    public int CurrencyCodesUniversitiesId { get; set; }
+    public int? CurrencyCodesId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
 
     //One to One

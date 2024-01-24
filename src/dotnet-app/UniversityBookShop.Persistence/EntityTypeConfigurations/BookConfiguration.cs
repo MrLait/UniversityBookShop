@@ -13,7 +13,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.Property(f => f.Name).HasMaxLength(150);
         builder.Property(f => f.Author).HasMaxLength(150);
         builder.Property(f => f.Price).HasColumnType("decimal(10, 2)");
-        builder.Property(f => f.CurrencyCodesBooksId).HasColumnName("currency_code_id");
+        builder.Property(f => f.CurrencyCodesId).HasColumnName("currency_code_id");
 
         builder
             .HasOne(pb => pb.PurchasedBookFaculty)
@@ -30,5 +30,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .HasOne(ba => ba.BooksPurchasedByUniversity)
             .WithOne(f => f.Book)
             .HasForeignKey<BooksPurchasedByUniversity>(fk => fk.BookId);
+
+        builder.HasIndex(x => x.CurrencyCodesId).IsUnique(false);
     }
 }
