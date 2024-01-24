@@ -37,8 +37,6 @@ services.AddSwaggerGen(config =>
     config.IncludeXmlComments(xmlPath);
 });
 
-
-
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
 using (var scope = app.Services.CreateScope())

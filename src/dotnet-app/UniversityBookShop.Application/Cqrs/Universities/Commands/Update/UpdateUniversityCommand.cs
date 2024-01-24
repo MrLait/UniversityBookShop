@@ -32,7 +32,7 @@ public class UpdateUniversityCommandHandler : IRequestHandler<UpdateUniversityCo
         entity.Id = request.Id;
         entity.Name = request.Name;
         entity.Description = request.Description;
-        entity.CurrencyCodesUniversitiesId = request.CurrencyCodeId;
+        entity.CurrencyCodesId = request.CurrencyCodeId;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;
