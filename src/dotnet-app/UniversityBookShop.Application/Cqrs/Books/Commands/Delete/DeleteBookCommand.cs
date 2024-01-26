@@ -18,12 +18,10 @@ public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
 
     public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
     {
-        var entity =
-            await _dbContext.Books.FindAsync(new object[] { request.Id });
+        var entity = await _dbContext.Books.FindAsync(new object[] { request.Id });
+
         if (entity == null || entity.Id != request.Id)
-        {
             throw new NotFoundException(nameof(Book), request.Id);
-        }
 
         _dbContext.Books.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);

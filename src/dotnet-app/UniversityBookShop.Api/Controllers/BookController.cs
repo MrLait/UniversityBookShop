@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Models;
@@ -14,11 +13,10 @@ namespace UniversityBookShop.Api.Controllers
     public class BookController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<BookDto>>> GetAll([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<ServiceResult<PaginatedList<BookDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
             var vm = await Mediator.Send(new GetAllBooksQuery() { PaginationParams = paginationParams });
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
-            return Ok(vm.Items);
+            return Ok(vm);
         }
 
         [HttpPost]

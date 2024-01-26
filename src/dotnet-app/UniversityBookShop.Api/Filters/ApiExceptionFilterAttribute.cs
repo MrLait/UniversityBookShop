@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using System;
 using System.ComponentModel.DataAnnotations;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Models;
 using ValidationException = UniversityBookShop.Application.Common.Exceptions.ValidationException;
@@ -40,11 +41,11 @@ namespace UniversityBookShop.Api.Filters
                 return;
             }
 
-            //if (!context.ModelState.IsValid)
-            //{
-            //    HandleInvalidModelStateException(context);
-            //    return;
-            //}
+            if (!context.ModelState.IsValid)
+            {
+                //HandleInvalidModelStateException(context);
+                return;
+            }
 
             HandleUnknownException(context);
         }
@@ -60,7 +61,6 @@ namespace UniversityBookShop.Api.Filters
             if (context.Exception is DbUpdateException exception)
             {
             }
-            context.ExceptionHandled = false;
         }
 
         private void HandleMySqlException(ExceptionContext context)
@@ -74,13 +74,19 @@ namespace UniversityBookShop.Api.Filters
                 context.ExceptionHandled = true;
                 return;
             }
-            context.ExceptionHandled = false;
 
         }
 
         private void HandleNotFoundException(ExceptionContext context)
         {
-            throw new NotImplementedException();
+            if(context.Exception is NotFoundException exception)
+            {
+                var exceptionMessage = exception.Message;
+                var details = ServiceResult.Failed(ServiceError.CustomMessage(exceptionMessage, ServiceStatusCodeConstants.NotFoundStatusCode));
+                context.Result = new NotFoundObjectResult(details);
+                context.ExceptionHandled = true;
+                return;
+            }
         }
 
         private void HandleValidationException(ExceptionContext context)

@@ -1,17 +1,14 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Application.Cqrs.Books.Commands.AbstractValidator;
 using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Commands.Create;
 
-public class CreateBookCommand : IRequest<int>
+public class CreateBookCommand : BookCommandBase, IRequest<int>
 {
-    public int Id { get; set; }
-    public string? Isbn { get; set; }
-    public string? Name { get; set; }
-    public string? Author { get; set; }
-    public decimal? Price { get; set; }
-    public int CurrencyCodeId { get; set; }
 }
 
 public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
@@ -19,11 +16,14 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
     private protected IApplicationDbContext _dbContext;
     public CreateBookCommandHandler(IApplicationDbContext dbContext) =>
         _dbContext = dbContext;
+
     public async Task<int> Handle(CreateBookCommand request, CancellationToken cancellationToken)
     {
+        var currencyCodeExists = await _dbContext.CurrencyCodes.AnyAsync(c => c.Id == request.CurrencyCodeId, cancellationToken);
+        if (!currencyCodeExists) throw new NotFoundException(nameof(CurrencyCode), request.CurrencyCodeId);
+
         var book = new Book
         {
-            Id = request.Id,
             Isbn = request.Isbn,
             Name = request.Name,
             Author = request.Author,
@@ -33,7 +33,6 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
 
         await _dbContext.Books.AddAsync(book, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
         return book.Id;
     }
 }
