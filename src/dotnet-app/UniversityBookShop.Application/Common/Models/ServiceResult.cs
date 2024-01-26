@@ -28,6 +28,8 @@
         }
 
         public static ServiceResult Failed(ServiceError error) => new(error);
+        public static ServiceResult<T> Failed<T>(T data, ServiceError error) => new(data, error);
+
 
         public static ServiceResult<T> Success<T>(T value) => new(value);
 

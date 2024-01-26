@@ -20,7 +20,9 @@ services.AddApplication();
 services.AddPersistence(builder.Configuration);
 services.AddControllers(configure: options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
-services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+//.AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+//services.AddFluentValidationAutoValidation();
+    //.AddFluentValidationClientsideAdapters();
 
 var paginationHeaderCorsPolicy = "PaginationHeader";
 

@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
+using System;
 using System.ComponentModel.DataAnnotations;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Models;
+using ValidationException = UniversityBookShop.Application.Common.Exceptions.ValidationException;
 
 namespace UniversityBookShop.Api.Filters
 {
@@ -16,17 +20,9 @@ namespace UniversityBookShop.Api.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(MySqlException), HandleMySqlException },
+                { typeof(DbUpdateException), HandleDbUpdateException },
             };
-        }
-
-        private void HandleNotFoundException(ExceptionContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void HandleValidationException(ExceptionContext context)
-        {
-            throw new NotImplementedException();
         }
 
         public override void OnException(ExceptionContext context)
@@ -51,6 +47,51 @@ namespace UniversityBookShop.Api.Filters
             //}
 
             HandleUnknownException(context);
+        }
+
+        private void HandleDbUpdateException(ExceptionContext context)
+        {
+            if(context.Exception.InnerException is MySqlException mySqlException) 
+            {
+                context.Exception = mySqlException;
+                HandleMySqlException(context);
+            }
+
+            if (context.Exception is DbUpdateException exception)
+            {
+            }
+            context.ExceptionHandled = false;
+        }
+
+        private void HandleMySqlException(ExceptionContext context)
+        {
+            if (context.Exception is MySqlException sqlException)
+            {
+                var exceptionMessage = sqlException.Message;
+                var statusCode = sqlException.Number;
+                var details = ServiceResult.Failed(ServiceError.CustomMessage(exceptionMessage, statusCode));
+                context.Result = new NotFoundObjectResult(details);
+                context.ExceptionHandled = true;
+                return;
+            }
+            context.ExceptionHandled = false;
+
+        }
+
+        private void HandleNotFoundException(ExceptionContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void HandleValidationException(ExceptionContext context)
+        {
+            if(context.Exception is ValidationException exception)
+            {
+                var details = ServiceResult.Failed(exception.Errors, ServiceError.Validation);
+                context.Result = new BadRequestObjectResult(details);
+            }
+
+            context.ExceptionHandled = true;
         }
 
         private static void HandleUnknownException(ExceptionContext context)

@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using UniversityBookShop.Application.Common.Constants;
+
 namespace UniversityBookShop.Application.Common.Models
 {
-    public static class ServiceErrorConstants
-    {
-        public const string DefaultError = "An exception occured.";
-        public const string NotFound = "The requested data was not found on this server.";
-    }
-
-    public static class ServiceStatusCodeConstants
-    {
-        public const int DefaultStatusCode = 999;
-        public const int NotFoundStatusCode = 404;
-    }
-
     public class ServiceError
     {
         public string Message { get; }
@@ -23,8 +10,13 @@ namespace UniversityBookShop.Application.Common.Models
         public ServiceError(string message, int statusCode) => 
             (Message, StatusCode) = (message, statusCode);
 
-        public static ServiceError DefaultError => new ServiceError(ServiceErrorConstants.DefaultError, ServiceStatusCodeConstants.DefaultStatusCode);
+        public static ServiceError DefaultError => new ServiceError(ServiceErrorConstants.DefaultError,     ServiceStatusCodeConstants.DefaultStatusCode);
+        public static ServiceError NotFound     => new ServiceError(ServiceErrorConstants.NotFound,         ServiceStatusCodeConstants.NotFoundStatusCode);
+        public static ServiceError Validation   => new ServiceError(ServiceErrorConstants.ValidationError,  ServiceStatusCodeConstants.ValidationtStatusCode);
 
-        public static ServiceError NotFound => new ServiceError(ServiceErrorConstants.NotFound, ServiceStatusCodeConstants.NotFoundStatusCode);
+        public static ServiceError CustomMessage(string message, int statusCode)
+        {
+            return new ServiceError(message, statusCode);
+        }
     }
 }
