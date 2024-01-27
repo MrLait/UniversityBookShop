@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using UniversityBookShop.Application.Common.Constants;
-using UniversityBookShop.Application.Cqrs.Books.Commands.AbstractValidator;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Commands.Update
 {

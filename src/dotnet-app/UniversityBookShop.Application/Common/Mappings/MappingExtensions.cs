@@ -1,4 +1,4 @@
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.Pagination;
 
 namespace UniversityBookShop.Application.Common.Mappings;
 

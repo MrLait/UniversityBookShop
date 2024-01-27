@@ -1,0 +1,11 @@
+﻿using UniversityBookShop.Application.Common.Models.AbstractValidators;
+
+namespace UniversityBookShop.Application.Cqrs.Faculties.Commands.Create
+{
+    public class CreateFacultyCommandValidation: AbstractFacultyCommandValidation<CreateFacultyCommand>
+    {
+        public CreateFacultyCommandValidation()
+        {
+        }
+    }
+}

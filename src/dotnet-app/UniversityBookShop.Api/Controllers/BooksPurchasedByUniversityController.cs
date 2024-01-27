@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Cqrs.BooksPurchasedByUniversities.Queries.Get;
 using UniversityBookShop.Application.Dto;
 

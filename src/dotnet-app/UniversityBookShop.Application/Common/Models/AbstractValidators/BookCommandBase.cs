@@ -1,4 +1,4 @@
-﻿namespace UniversityBookShop.Application.Cqrs.Books.Commands.AbstractValidator
+﻿namespace UniversityBookShop.Application.Common.Models.AbstractValidators
 {
     public class BookCommandBase
     {

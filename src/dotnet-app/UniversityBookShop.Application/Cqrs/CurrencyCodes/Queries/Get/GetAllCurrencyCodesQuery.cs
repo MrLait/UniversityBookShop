@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.CurrencyCodes.Queries.Get;

@@ -1,27 +1,29 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
 using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Faculties.Commands.Create;
 
-public class CreateFacultyCommand : IRequest<int>
+public class CreateFacultyCommand : FacultyCommandBase, IRequest<int>
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public int? UniversityId { get; set; }
 }
 
 public class CreateFacultiesCommandHandler : IRequestHandler<CreateFacultyCommand, int>
 {
     private readonly IApplicationDbContext _dbContext;
-    public CreateFacultiesCommandHandler(IApplicationDbContext dbContext) =>
-    (_dbContext) = (dbContext);
+    public CreateFacultiesCommandHandler(IApplicationDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<int> Handle(CreateFacultyCommand request, CancellationToken cancellationToken)
     {
+        var universityExists = await _dbContext.Universities
+            .FirstOrDefaultAsync(c => c.Id == request.UniversityId, cancellationToken)
+            ?? throw new NotFoundException(nameof(University), request.UniversityId);
+
         var faculty = new Faculty
         {
-            Id = request.Id,
             Name = request.Name,
             UniversityId = request.UniversityId
         };

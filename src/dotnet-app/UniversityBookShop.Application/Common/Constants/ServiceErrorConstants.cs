@@ -9,7 +9,6 @@
         public const string GreaterThanZero = "{PropertyName} should be more than zero";
         public const string MustBeLessThan= "{PropertyName} must be less than {MaxLength} characters.";
         public const string PrecisionScale = "{PropertyName} should be a number with precision {ExpectedPrecision} and scale {ExpectedScale}";
-
-
+        public const string PaginationMaxPageSizeError = "{PropertyName} more than {ComparisonValue} - maximum page size";
     }
 }

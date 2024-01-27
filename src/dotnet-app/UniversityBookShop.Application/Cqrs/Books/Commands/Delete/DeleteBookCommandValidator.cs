@@ -3,9 +3,9 @@ using UniversityBookShop.Application.Common.Constants;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Commands.Delete;
 
-public class DeleteBookCommandValidation : AbstractValidator<DeleteBookCommand>
+public class DeleteBookCommandValidator : AbstractValidator<DeleteBookCommand>
 {
-    public DeleteBookCommandValidation()
+    public DeleteBookCommandValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)

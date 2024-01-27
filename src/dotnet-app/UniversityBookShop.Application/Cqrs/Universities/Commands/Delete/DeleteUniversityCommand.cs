@@ -18,7 +18,7 @@ public class DeleteUniversityCommandHandler : IRequestHandler<DeleteUniversityCo
     public async Task<Unit> Handle(DeleteUniversityCommand request, CancellationToken cancellationToken)
     {
         var entity =
-            await _dbContext.Universities.FindAsync(new object[] { request.Id });
+            await _dbContext.Universities.FindAsync(new object[] { request.Id }, cancellationToken);
         if (entity == null || entity.Id != request.Id)
         {
             throw new NotFoundException(nameof(University), request.Id);

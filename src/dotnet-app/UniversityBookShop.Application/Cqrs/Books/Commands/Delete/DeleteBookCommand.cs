@@ -18,7 +18,7 @@ public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
 
     public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Books.FindAsync(new object[] { request.Id });
+        var entity = await _dbContext.Books.FindAsync(new object[] { request.Id }, cancellationToken);
 
         if (entity == null || entity.Id != request.Id)
             throw new NotFoundException(nameof(Book), request.Id);

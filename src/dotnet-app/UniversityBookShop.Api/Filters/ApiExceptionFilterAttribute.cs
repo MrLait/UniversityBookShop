@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Exceptions;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using ValidationException = UniversityBookShop.Application.Common.Exceptions.ValidationException;
 
 namespace UniversityBookShop.Api.Filters
@@ -58,8 +58,9 @@ namespace UniversityBookShop.Api.Filters
                 HandleMySqlException(context);
             }
 
-            if (context.Exception is DbUpdateException exception)
+            if (context.Exception is DbUpdateException)
             {
+                HandleUnknownException(context);
             }
         }
 

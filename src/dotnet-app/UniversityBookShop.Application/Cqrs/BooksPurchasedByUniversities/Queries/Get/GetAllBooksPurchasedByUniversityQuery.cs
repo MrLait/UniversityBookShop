@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.BooksPurchasedByUniversities.Queries.Get;

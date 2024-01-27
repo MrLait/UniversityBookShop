@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using UniversityBookShop.Application.Common.Constants;
 
-namespace UniversityBookShop.Application.Cqrs.Books.Commands.AbstractValidator
+namespace UniversityBookShop.Application.Common.Models.AbstractValidators
 {
-    public class AbstractBookCommandValidator<T> : AbstractValidator<T> where T : BookCommandBase
+    public abstract class AbstractBookCommandValidator<T> : AbstractValidator<T> where T : BookCommandBase
     {
         public AbstractBookCommandValidator()
         {

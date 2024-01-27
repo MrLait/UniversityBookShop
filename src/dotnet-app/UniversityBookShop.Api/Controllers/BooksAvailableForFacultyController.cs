@@ -1,7 +1,8 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.Pagination;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Create;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Delete;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries.Get;
@@ -12,12 +13,21 @@ namespace UniversityBookShop.Api.Controllers
     [Route("api/[controller]")]
     public class BooksAvailableForFacultyController : BaseController
     {
+        /// <summary>
+        /// Get all books available to all faculties.
+        /// </summary>
+        /// <param name="paginationParams"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<BooksAvailableForFacultyDto>>> GetAll([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<ServiceResult<List<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyQuery() { PaginationParams = paginationParams });
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
-            return Ok(vm.Items);
+            var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyWithPaginationQuery()
+            { 
+                PageIndex = paginationParams.PageIndex, 
+                PageSize = paginationParams.PageSize 
+            });
+
+            return Ok(vm);
         }
 
         [HttpGet("{facultyId}")]

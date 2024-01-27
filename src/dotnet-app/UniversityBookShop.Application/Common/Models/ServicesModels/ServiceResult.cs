@@ -1,4 +1,4 @@
-﻿namespace UniversityBookShop.Application.Common.Models
+﻿namespace UniversityBookShop.Application.Common.Models.ServicesModels
 {
 
     public class ServiceResult<T> : ServiceResult
@@ -29,11 +29,11 @@
 
         public static ServiceResult Failed(ServiceError error) => new(error);
         public static ServiceResult<T> Failed<T>(T data, ServiceError error) => new(data, error);
+        public static ServiceResult<T> Failed<T>(ServiceError error) => new(error);
 
 
         public static ServiceResult<T> Success<T>(T value) => new(value);
 
-        public static ServiceResult<T> Failed<T>(ServiceError error) => new(error);
 
     }
 

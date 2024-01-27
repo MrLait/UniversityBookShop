@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace UniversityBookShop.Application.Common.Models;
+namespace UniversityBookShop.Application.Common.Models.Pagination;
 
 public class PaginatedList<T> : PaginationMetadata
 {

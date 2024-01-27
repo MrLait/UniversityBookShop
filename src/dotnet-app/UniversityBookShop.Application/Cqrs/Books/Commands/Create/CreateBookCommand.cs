@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
-using UniversityBookShop.Application.Cqrs.Books.Commands.AbstractValidator;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
 using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Commands.Create;

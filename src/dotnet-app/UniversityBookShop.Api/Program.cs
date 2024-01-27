@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using System.Reflection;
 using UniversityBookShop.Api.Filters;
 using UniversityBookShop.Application;
@@ -42,6 +43,7 @@ services.AddSwaggerGen(config =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     config.IncludeXmlComments(xmlPath);
 });
+services.AddFluentValidationRulesToSwagger();
 
 var app = builder.Build();
 
@@ -54,7 +56,7 @@ using (var scope = app.Services.CreateScope())
         var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
         DbInitializer.Initializer(context);
     }
-    catch (Exception e)
+    catch (Exception)
     {
         //ToDo
     }
