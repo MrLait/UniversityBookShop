@@ -3,9 +3,9 @@ using UniversityBookShop.Application.Common.Constants;
 
 namespace UniversityBookShop.Application.Common.Models.AbstractValidators
 {
-    public abstract class AbstractFacultyCommandValidation<T> : AbstractValidator<T> where T : FacultyCommandBase
+    public abstract class AbstractFacultyCommandValidator<T> : AbstractValidator<T> where T : FacultyCommandBase
     {
-        public AbstractFacultyCommandValidation()
+        public AbstractFacultyCommandValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)

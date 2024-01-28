@@ -11,7 +11,7 @@ using UniversityBookShop.Persistence;
 namespace UniversityBookShop.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240124135225_Init")]
+    [Migration("20240128151726_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -163,20 +163,18 @@ namespace UniversityBookShop.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BookPurchasedBookFacultyId")
-                        .HasColumnType("int")
-                        .HasColumnName("book_id");
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("FacultyPurchasedBookFacultyId")
-                        .HasColumnType("int")
-                        .HasColumnName("faculty_id");
+                    b.Property<int?>("FacultyId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookPurchasedBookFacultyId")
+                    b.HasIndex("BookId")
                         .IsUnique();
 
-                    b.HasIndex("FacultyPurchasedBookFacultyId")
+                    b.HasIndex("FacultyId")
                         .IsUnique();
 
                     b.ToTable("purchased_books_faculty", (string)null);
@@ -269,11 +267,11 @@ namespace UniversityBookShop.Persistence.Migrations
                 {
                     b.HasOne("UniversityBookShop.Domain.Entities.Book", "Book")
                         .WithOne("PurchasedBookFaculty")
-                        .HasForeignKey("UniversityBookShop.Domain.Entities.PurchasedBookFaculty", "BookPurchasedBookFacultyId");
+                        .HasForeignKey("UniversityBookShop.Domain.Entities.PurchasedBookFaculty", "BookId");
 
                     b.HasOne("UniversityBookShop.Domain.Entities.Faculty", "Faculty")
                         .WithOne("PurchasedBookFaculty")
-                        .HasForeignKey("UniversityBookShop.Domain.Entities.PurchasedBookFaculty", "FacultyPurchasedBookFacultyId");
+                        .HasForeignKey("UniversityBookShop.Domain.Entities.PurchasedBookFaculty", "FacultyId");
 
                     b.Navigation("Book");
 

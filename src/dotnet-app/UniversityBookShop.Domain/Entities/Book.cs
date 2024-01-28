@@ -12,7 +12,7 @@ public class Book
     public CurrencyCode? CurrencyCode { get; set; }
 
     //One to One
-    public BooksAvailableForFaculty? BooksAvailableForFaculty { get; set; }
     public PurchasedBookFaculty? PurchasedBookFaculty { get; set; }
+    public BooksAvailableForFaculty? BooksAvailableForFaculty { get; set; }
     public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
 }

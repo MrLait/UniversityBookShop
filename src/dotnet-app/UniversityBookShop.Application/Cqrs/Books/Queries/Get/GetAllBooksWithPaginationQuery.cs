@@ -9,7 +9,8 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Queries.Get;
 
-public class GetAllBooksWithPaginationQuery : PaginationParams, IRequest<ServiceResult<PaginatedList<BookDto>>>
+public class GetAllBooksWithPaginationQuery : PaginationParams,
+    IRequest<ServiceResult<PaginatedList<BookDto>>>
 {
 }
 

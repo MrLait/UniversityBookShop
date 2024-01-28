@@ -15,7 +15,7 @@ public class PurchasedBookByUniversityIdVm : IMapWith<PurchasedBookFaculty>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<PurchasedBookFaculty, PurchasedBookByUniversityIdVm>()
-        .ForMember(pb => pb.BookId, opt => opt.MapFrom(src => src.BookPurchasedBookFacultyId))
-        .ForMember(pb => pb.FacultyId, opt => opt.MapFrom(src => src.FacultyPurchasedBookFacultyId));
+        .ForMember(pb => pb.BookId, opt => opt.MapFrom(src => src.FacultyId))
+        .ForMember(pb => pb.FacultyId, opt => opt.MapFrom(src => src.BookId));
     }
 }

@@ -15,5 +15,6 @@ public class BooksAvailableForFacultyConfiguration : IEntityTypeConfiguration<Bo
             .HasOne<BooksPurchasedByUniversity>(bp => bp.BooksPurchasedByUniversity)
             .WithMany(f => f.BooksAvailableForFaculty)
             .HasForeignKey(fk => fk.BooksPurchasedByUniversityId);
+
     }
 }

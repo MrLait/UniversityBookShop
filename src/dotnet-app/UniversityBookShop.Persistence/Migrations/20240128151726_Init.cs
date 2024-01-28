@@ -165,20 +165,20 @@ namespace UniversityBookShop.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    book_id = table.Column<int>(type: "int", nullable: true),
-                    faculty_id = table.Column<int>(type: "int", nullable: true)
+                    BookId = table.Column<int>(type: "int", nullable: true),
+                    FacultyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_purchased_books_faculty", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_purchased_books_faculty_Books_book_id",
-                        column: x => x.book_id,
+                        name: "FK_purchased_books_faculty_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_purchased_books_faculty_Faculties_faculty_id",
-                        column: x => x.faculty_id,
+                        name: "FK_purchased_books_faculty_Faculties_FacultyId",
+                        column: x => x.FacultyId,
                         principalTable: "Faculties",
                         principalColumn: "Id");
                 })
@@ -233,15 +233,15 @@ namespace UniversityBookShop.Persistence.Migrations
                 column: "university_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_purchased_books_faculty_book_id",
+                name: "IX_purchased_books_faculty_BookId",
                 table: "purchased_books_faculty",
-                column: "book_id",
+                column: "BookId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_purchased_books_faculty_faculty_id",
+                name: "IX_purchased_books_faculty_FacultyId",
                 table: "purchased_books_faculty",
-                column: "faculty_id",
+                column: "FacultyId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

@@ -2,7 +2,7 @@
 
 namespace UniversityBookShop.Application.Cqrs.Faculties.Commands.Create
 {
-    public class CreateFacultyCommandValidation: AbstractFacultyCommandValidation<CreateFacultyCommand>
+    public class CreateFacultyCommandValidation: AbstractFacultyCommandValidator<CreateFacultyCommand>
     {
         public CreateFacultyCommandValidation()
         {

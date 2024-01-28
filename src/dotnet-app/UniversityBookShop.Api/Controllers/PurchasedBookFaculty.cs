@@ -14,7 +14,7 @@ public class PurchasedBookFaculty : BaseController
     [HttpGet]
     public async Task<ActionResult<List<PurchasedBookFacultyDto>>> GetAll()
     {
-        var vm = await Mediator.Send(new GetAllPurchasedBooksFacultyQuery());
+        var vm = await Mediator.Send(new GetAllPurchasedBooksFacultyWithPaginationQuery());
         return Ok(vm);
     }
 
@@ -28,7 +28,7 @@ public class PurchasedBookFaculty : BaseController
     [HttpGet("university/{id}")]
     public async Task<ActionResult<List<PurchasedBookFacultyDto>>> GetByUniversityId(int id)
     {
-        var vm = await Mediator.Send(new GetPurchasedBooksByUniversityIdQuery() { UniversityId = id });
+        var vm = await Mediator.Send(new GetPurchasedBooksByUniversityIdWithPaginationQuery() { UniversityId = id });
         return Ok(vm);
     }
 

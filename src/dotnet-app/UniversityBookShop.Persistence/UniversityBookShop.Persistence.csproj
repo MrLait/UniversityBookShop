@@ -15,4 +15,7 @@
     <ProjectReference Include="..\UniversityBookShop.Domain\UniversityBookShop.Domain.csproj" />
     <ProjectReference Include="..\UniversityBookShop.Application\UniversityBookShop.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>
