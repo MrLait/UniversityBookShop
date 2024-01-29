@@ -13,17 +13,7 @@ public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
         builder.Property(f => f.UniversityId).HasColumnName("university_id");
 
         builder
-            .HasOne(pb => pb.PurchasedBookFaculty)
-            .WithOne(f => f.Faculty)
-            .HasForeignKey<PurchasedBookFaculty>(fk => fk.FacultyId);
-
-        builder
-            .HasOne(ba => ba.BooksAvailableForFaculty)
-            .WithOne(f => f.Faculty)
-            .HasForeignKey<BooksAvailableForFaculty>(fk => fk.FacultyId);
-
-        builder
-            .HasOne<University>(u => u.University)
+            .HasOne(u => u.University)
             .WithMany(f => f.Faculties)
             .HasForeignKey(fk => fk.UniversityId);
     }

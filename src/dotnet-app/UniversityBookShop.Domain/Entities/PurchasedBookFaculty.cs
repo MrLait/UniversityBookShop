@@ -4,7 +4,7 @@ public class PurchasedBookFaculty
 {
     public int Id { get; set; }
 
-    //One to One
+    //One to Many
     public int? BookId { get; set; }
     public Book? Book { get; set; }
 

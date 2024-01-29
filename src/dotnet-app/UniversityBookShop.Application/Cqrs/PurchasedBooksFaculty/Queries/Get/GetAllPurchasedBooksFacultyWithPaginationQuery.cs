@@ -12,6 +12,10 @@ namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get;
 public class GetAllPurchasedBooksFacultyWithPaginationQuery : PaginationParams,
     IRequest<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>
 {
+    public GetAllPurchasedBooksFacultyWithPaginationQuery(PaginationParams paginationParams)
+    {
+        SetPaginationParams(paginationParams);
+    }
 }
 
 public class GetAllPurchasedBooksFacultyQueryHandler : IRequestHandler<GetAllPurchasedBooksFacultyWithPaginationQuery, ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>
@@ -23,11 +27,11 @@ public class GetAllPurchasedBooksFacultyQueryHandler : IRequestHandler<GetAllPur
 
     public async Task<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>> Handle(GetAllPurchasedBooksFacultyWithPaginationQuery request, CancellationToken cancellationToken)
     {
-        var query = await _dbContext.PurchasedBookFaculties
+        PaginatedList<PurchasedBookFacultyDto> query = await _dbContext.PurchasedBookFaculties
             .ProjectTo<PurchasedBookFacultyDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 
-        return query.Items.Any() ? ServiceResult.Success(query): ServiceResult.Failed(query, ServiceError.NotFound);
+        return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed(query, ServiceError.NotFound);
     }
 }
 

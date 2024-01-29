@@ -13,6 +13,10 @@ namespace UniversityBookShop.Application.Cqrs.Universities.Queries.Get;
 
 public class GetAllUniversitiesWithPaginationQuery : PaginationParams, IRequest<ServiceResult<PaginatedList<UniversityDto>>>
 {
+    public GetAllUniversitiesWithPaginationQuery(PaginationParams paginationParams)
+    {
+        SetPaginationParams(paginationParams);
+    }
 }
 
 public class GetAllUniversitiesWithPaginationQueryHandler :
@@ -30,31 +34,31 @@ public class GetAllUniversitiesWithPaginationQueryHandler :
                             .ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
                             .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 
-        await UpdateCountsAndPrice(query.Items); // To do - make a selection of universities and faculties in one request, and not in a foreach.
+        //await UpdateCountsAndPrice(query.Items); // To do - make a selection of universities and faculties in one request, and not in a foreach.
 
         return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed(query, ServiceError.NotFound);
     }
 
-    private async Task UpdateCountsAndPrice(List<UniversityDto> universities)
-    {
-        var purchasedBooks = new List<BooksPurchasedByUniversity>();
-        foreach (var u in universities)
-        {
-            purchasedBooks = await _dbContext.BooksPurchasedByUniversities
-                .Select(pb => new BooksPurchasedByUniversity()
-                {
-                    UniversityId = pb.UniversityId,
-                    BookId = pb.BookId,
-                    Book = new Book()
-                    {
-                        Price = pb.Book.Price
-                    }
-                })
-                .Where(pb => pb.UniversityId == u.Id).ToListAsync();
+    //private async Task UpdateCountsAndPrice(List<UniversityDto> universities)
+    //{
+    //    var purchasedBooks = new List<BooksPurchasedByUniversity>();
+    //    foreach (var u in universities)
+    //    {
+    //        purchasedBooks = await _dbContext.BooksPurchasedByUniversities
+    //            .Select(pb => new BooksPurchasedByUniversity()
+    //            {
+    //                UniversityId = pb.UniversityId,
+    //                BookId = pb.BookId,
+    //                Book = new Book()
+    //                {
+    //                    Price = pb.Book.Price
+    //                }
+    //            })
+    //            .Where(pb => pb.UniversityId == u.Id).ToListAsync();
 
-            u.FacultyCount = u.Faculties.Count;
-            u.BookCount = purchasedBooks.Count();
-            u.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
-        }
-    }
+    //        u.FacultyCount = u.Faculties.Count;
+    //        u.BookCount = purchasedBooks.Count();
+    //        u.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
+    //    }
+    //}
 }

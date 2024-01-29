@@ -24,11 +24,7 @@ namespace UniversityBookShop.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ServiceResult<List<FacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var query = new GetAllFacultiesWithPaginationQuery()
-            { 
-                PageIndex = paginationParams.PageIndex,
-                PageSize = paginationParams.PageSize,
-            };
+            var query = new GetAllFacultiesWithPaginationQuery(paginationParams);
             var vm = await Mediator.Send(query);
 
             return Ok(vm);
@@ -41,11 +37,9 @@ namespace UniversityBookShop.Api.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
         {
-            var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery() 
+            var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams) 
             { 
                 UniversityId = universityId,
-                PageIndex = paginationParams.PageIndex,
-                PageSize = paginationParams.PageSize,
             });
 
             return Ok(vm);

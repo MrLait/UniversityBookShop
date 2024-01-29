@@ -21,12 +21,7 @@ public class UniversityController : BaseController
     [HttpGet]
     public async Task<ActionResult<ServiceResult<List<UniversityDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
     {
-        var vm = await Mediator.Send(new GetAllUniversitiesWithPaginationQuery()
-        {
-            PageIndex =  paginationParams.PageIndex,
-            PageSize = paginationParams.PageSize,
-        });
-
+        var vm = await Mediator.Send(new GetAllUniversitiesWithPaginationQuery(paginationParams) { PageIndex = paginationParams.PageIndex, PageSize =paginationParams.PageSize});
         return Ok(vm);
     }
 

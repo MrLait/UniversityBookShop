@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using UniversityBookShop.Application.Common.Constants;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
 
 namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get
 {
-    public class GetPurchasedBooksByFacultyIdQueryValidator : AbstractValidator<GetPurchasedBooksByFacultyIdQuery>
+    public class GetPurchasedBooksByFacultyIdWithPaginationQueryValidator : AbstractPaginationValidator<GetPurchasedBooksByFacultyIdWithPaginationQuery>
     {
-        public GetPurchasedBooksByFacultyIdQueryValidator()
+        public GetPurchasedBooksByFacultyIdWithPaginationQueryValidator()
         {
             RuleFor(x => x.FacultyId)
                 .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)

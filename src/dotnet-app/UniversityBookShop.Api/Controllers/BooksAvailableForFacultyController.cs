@@ -22,9 +22,9 @@ namespace UniversityBookShop.Api.Controllers
         public async Task<ActionResult<ServiceResult<List<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
             var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyWithPaginationQuery()
-            { 
-                PageIndex = paginationParams.PageIndex, 
-                PageSize = paginationParams.PageSize 
+            {
+                PageIndex = paginationParams.PageIndex,
+                PageSize = paginationParams.PageSize
             });
 
             return Ok(vm);

@@ -10,5 +10,8 @@
         public const string MustBeLessThan= "{PropertyName} must be less than {MaxLength} characters.";
         public const string PrecisionScale = "{PropertyName} should be a number with precision {ExpectedPrecision} and scale {ExpectedScale}";
         public const string PaginationMaxPageSizeError = "{PropertyName} more than {ComparisonValue} - maximum page size";
+
+        public const string BookPurchaseUniversityError = "This book for this university has already been purchased";
+        public const string BookPurchaseFacultyError = "This book for this faculty has already been purchased";
     }
 }

@@ -10,8 +10,5 @@ public class PurchasedBookFacultyConfiguration : IEntityTypeConfiguration<Purcha
     {
         builder.ToTable("purchased_books_faculty");
         builder.HasKey(f => f.Id);
-
-        builder.HasIndex(x => x.FacultyId).IsUnique(false);
-        builder.HasIndex(x => x.BookId).IsUnique(false);
     }
 }

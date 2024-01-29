@@ -11,6 +11,10 @@ namespace UniversityBookShop.Application.Cqrs.Faculties.Queries.GetFaculties;
 
 public class GetAllFacultiesWithPaginationQuery : PaginationParams, IRequest<ServiceResult<PaginatedList<FacultyDto>>>
 {
+    public GetAllFacultiesWithPaginationQuery(PaginationParams paginationParams)
+    {
+        SetPaginationParams(paginationParams);
+    }
 }
 
 public class GetAllFacultiesQueryHandler : IRequestHandler<GetAllFacultiesWithPaginationQuery, ServiceResult<PaginatedList<FacultyDto>>>

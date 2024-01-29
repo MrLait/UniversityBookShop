@@ -12,7 +12,7 @@ public class BooksAvailableForFacultyDto : IMapWith<BooksAvailableForFaculty>
     public bool? IsPurchased { get; set; }
     public int? BooksPurchasedByUniversityId { get; set; }
 
-    // One to One
+    // One to Many
     public BookDto? Book { get; set; }
     public FacultyDto? Faculty { get; set; }
 

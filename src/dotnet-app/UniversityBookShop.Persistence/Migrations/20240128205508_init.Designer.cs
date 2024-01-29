@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityBookShop.Persistence;
 
@@ -10,9 +11,11 @@ using UniversityBookShop.Persistence;
 namespace UniversityBookShop.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240128205508_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,56 +52,6 @@ namespace UniversityBookShop.Persistence.Migrations
                     b.HasIndex("CurrencyCodesId");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksAvailableForFaculty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BooksPurchasedByUniversityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsPurchased")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("BooksPurchasedByUniversityId");
-
-                    b.HasIndex("FacultyId");
-
-                    b.ToTable("books_available_for_faculty", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksPurchasedByUniversity", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("books_purchased_by_university", (string)null);
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.CurrencyCode", b =>
@@ -209,42 +162,6 @@ namespace UniversityBookShop.Persistence.Migrations
                     b.Navigation("CurrencyCode");
                 });
 
-            modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksAvailableForFaculty", b =>
-                {
-                    b.HasOne("UniversityBookShop.Domain.Entities.Book", "Book")
-                        .WithMany("BooksAvailableForFaculty")
-                        .HasForeignKey("BookId");
-
-                    b.HasOne("UniversityBookShop.Domain.Entities.BooksPurchasedByUniversity", "BooksPurchasedByUniversity")
-                        .WithMany("BooksAvailableForFaculty")
-                        .HasForeignKey("BooksPurchasedByUniversityId");
-
-                    b.HasOne("UniversityBookShop.Domain.Entities.Faculty", "Faculty")
-                        .WithMany("BooksAvailableForFaculty")
-                        .HasForeignKey("FacultyId");
-
-                    b.Navigation("Book");
-
-                    b.Navigation("BooksPurchasedByUniversity");
-
-                    b.Navigation("Faculty");
-                });
-
-            modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksPurchasedByUniversity", b =>
-                {
-                    b.HasOne("UniversityBookShop.Domain.Entities.Book", "Book")
-                        .WithMany("BooksPurchasedByUniversity")
-                        .HasForeignKey("BookId");
-
-                    b.HasOne("UniversityBookShop.Domain.Entities.University", "University")
-                        .WithMany("BooksPurchasedByUniversity")
-                        .HasForeignKey("UniversityId");
-
-                    b.Navigation("Book");
-
-                    b.Navigation("University");
-                });
-
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Faculty", b =>
                 {
                     b.HasOne("UniversityBookShop.Domain.Entities.University", "University")
@@ -280,16 +197,7 @@ namespace UniversityBookShop.Persistence.Migrations
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Book", b =>
                 {
-                    b.Navigation("BooksAvailableForFaculty");
-
-                    b.Navigation("BooksPurchasedByUniversity");
-
                     b.Navigation("PurchasedBookFaculty");
-                });
-
-            modelBuilder.Entity("UniversityBookShop.Domain.Entities.BooksPurchasedByUniversity", b =>
-                {
-                    b.Navigation("BooksAvailableForFaculty");
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.CurrencyCode", b =>
@@ -301,15 +209,11 @@ namespace UniversityBookShop.Persistence.Migrations
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.Faculty", b =>
                 {
-                    b.Navigation("BooksAvailableForFaculty");
-
                     b.Navigation("PurchasedBookFaculty");
                 });
 
             modelBuilder.Entity("UniversityBookShop.Domain.Entities.University", b =>
                 {
-                    b.Navigation("BooksPurchasedByUniversity");
-
                     b.Navigation("Faculties");
                 });
 #pragma warning restore 612, 618

@@ -11,6 +11,7 @@ public class AddBooksAvailableForFacultyCommand : IRequest<int>, IMapWith<BooksA
     public int? BookId { get; set; }
     public int? FacultyId { get; set; }
     public int? UniversityId { get; set; }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<AddBooksAvailableForFacultyCommand, BooksAvailableForFaculty>()

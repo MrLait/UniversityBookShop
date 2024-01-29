@@ -18,7 +18,7 @@ public class DeletePurchasedBookFacultyCommandHandler : IRequestHandler<DeletePu
 
     public async Task<Unit> Handle(DeletePurchasedBookFacultyCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.PurchasedBookFaculties.FindAsync(new object[] { request.Id });
+        var entity = await _dbContext.PurchasedBookFaculties.FindAsync(new object[] { request.Id }, cancellationToken);
 
         if (entity == null || entity.Id != request.Id)
         {

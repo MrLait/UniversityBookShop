@@ -3,7 +3,7 @@ using UniversityBookShop.Application.Common.Constants;
 
 namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Delete
 {
-    public class DeletePurchasedBookFacultyCommandValidator: AbstractValidator<DeletePurchasedBookFacultyCommand>
+    public class DeletePurchasedBookFacultyCommandValidator : AbstractValidator<DeletePurchasedBookFacultyCommand>
     {
         public DeletePurchasedBookFacultyCommandValidator()
         {

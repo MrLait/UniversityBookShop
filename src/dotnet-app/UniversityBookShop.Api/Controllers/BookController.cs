@@ -28,7 +28,7 @@ namespace UniversityBookShop.Api.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ServiceResult<PaginatedList<BookDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAllBooksWithPaginationQuery() { PageIndex = paginationParams.PageIndex, PageSize = paginationParams.PageSize });
+            var vm = await Mediator.Send(new GetAllBooksWithPaginationQuery(paginationParams));
             return Ok(vm);
         }
 

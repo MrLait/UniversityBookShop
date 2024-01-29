@@ -40,25 +40,25 @@ public class GetUniversityByUniversityIdQueryHandler : IRequestHandler<GetUniver
         return ServiceResult.Success(query); 
     }
 
-    private async Task UpdateCountsAndPrice(UniversityDto university)
-    {
-        var purchasedBooks = new List<BooksPurchasedByUniversity>();
+    //private async Task UpdateCountsAndPrice(UniversityDto university)
+    //{
+    //    var purchasedBooks = new List<BooksPurchasedByUniversity>();
 
-        purchasedBooks = await _dbContext.BooksPurchasedByUniversities
-            .Select(pb => new BooksPurchasedByUniversity()
-            {
-                UniversityId = pb.UniversityId,
-                BookId = pb.BookId,
-                Book = new Book()
-                {
-                    Price = pb.Book.Price
-                }
-            })
-            .Where(pb => pb.UniversityId == university.Id).ToListAsync();
+    //    purchasedBooks = await _dbContext.BooksPurchasedByUniversities
+    //        .Select(pb => new BooksPurchasedByUniversity()
+    //        {
+    //            UniversityId = pb.UniversityId,
+    //            BookId = pb.BookId,
+    //            Book = new Book()
+    //            {
+    //                Price = pb.Book.Price
+    //            }
+    //        })
+    //        .Where(pb => pb.UniversityId == university.Id).ToListAsync();
 
-        university.FacultyCount = university.Faculties.Count();
-        university.BookCount = purchasedBooks.Count();
-        university.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
-    }
+    //    university.FacultyCount = university.Faculties.Count();
+    //    university.BookCount = purchasedBooks.Count();
+    //    university.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
+    //}
 
 }
