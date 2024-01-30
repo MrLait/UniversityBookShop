@@ -10,7 +10,5 @@ public class PurchasedBookFacultyConfiguration : IEntityTypeConfiguration<Purcha
     {
         builder.ToTable("purchased_books_faculty");
         builder.HasKey(f => f.Id);
-        builder.Property(f => f.BookPurchasedBookFacultyId).HasColumnName("book_id");
-        builder.Property(f => f.FacultyPurchasedBookFacultyId).HasColumnName("faculty_id");
     }
 }

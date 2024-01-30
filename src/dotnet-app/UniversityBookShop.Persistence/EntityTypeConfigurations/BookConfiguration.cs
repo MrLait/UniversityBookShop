@@ -15,22 +15,6 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.Property(f => f.Price).HasColumnType("decimal(10, 2)");
         builder.Property(f => f.CurrencyCodesId).HasColumnName("currency_code_id");
 
-        builder
-            .HasOne(pb => pb.PurchasedBookFaculty)
-            .WithOne(b => b.Book)
-            .HasForeignKey<PurchasedBookFaculty>(fk => fk.BookPurchasedBookFacultyId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
-
-        builder
-            .HasOne(ba => ba.BooksAvailableForFaculty)
-            .WithOne(f => f.Book)
-            .HasForeignKey<BooksAvailableForFaculty>(fk => fk.BookId);
-
-        builder
-            .HasOne(ba => ba.BooksPurchasedByUniversity)
-            .WithOne(f => f.Book)
-            .HasForeignKey<BooksPurchasedByUniversity>(fk => fk.BookId);
-
         builder.HasIndex(x => x.CurrencyCodesId).IsUnique(false);
     }
 }

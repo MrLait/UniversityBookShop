@@ -13,7 +13,7 @@ public static class DependencyInjection
         var connectionString = configuration["DbConnection"];
         services.AddDbContext<ApplicationDbContext>(option =>
         {
-            option.UseMySql(connectionString, // ToDo
+            option.UseMySql(connectionString,
                 new MySqlServerVersion(new Version(8, 0, 32)));
         });
 

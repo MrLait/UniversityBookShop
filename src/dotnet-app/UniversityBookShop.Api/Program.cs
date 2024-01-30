@@ -1,4 +1,7 @@
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using System.Reflection;
+using UniversityBookShop.Api.Constants;
+using UniversityBookShop.Api.Filters;
 using UniversityBookShop.Application;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
@@ -6,8 +9,8 @@ using UniversityBookShop.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
 //REGISTER SERVICES HERE
-//services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
@@ -16,7 +19,8 @@ services.AddAutoMapper(config =>
 
 services.AddApplication();
 services.AddPersistence(builder.Configuration);
-services.AddControllers();
+services.AddControllers(configure: options =>
+    options.Filters.Add<ApiExceptionFilterAttribute>());
 
 var paginationHeaderCorsPolicy = "PaginationHeader";
 
@@ -36,8 +40,10 @@ services.AddSwaggerGen(config =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     config.IncludeXmlComments(xmlPath);
 });
+services.AddFluentValidationRulesToSwagger();
 
 var app = builder.Build();
+
 // REGISTER MIDDLEWARE HERE
 using (var scope = app.Services.CreateScope())
 {
@@ -47,16 +53,17 @@ using (var scope = app.Services.CreateScope())
         var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
         DbInitializer.Initializer(context);
     }
-    catch (Exception e)
+    catch (Exception)
     {
         //ToDo
     }
 }
+
 app.UseSwagger();
 app.UseSwaggerUI(config =>
 {
     config.RoutePrefix = string.Empty;
-    config.SwaggerEndpoint("swagger/v1/swagger.json", "University book shop API");
+    config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
 });
 
 

@@ -1,7 +1,10 @@
-using System.Text.Json;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
-using UniversityBookShop.Application.Common.Models;
+using UniversityBookShop.Application.Common.Models.Pagination;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.Faculties.Commands.Create;
 using UniversityBookShop.Application.Cqrs.Faculties.Commands.Update;
 using UniversityBookShop.Application.Cqrs.Faculties.Queries.GetFaculties;
@@ -9,46 +12,65 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route(RoutingConstants.ApiController)]
     public class FacultyController : BaseController
     {
+        /// <summary>
+        /// Get all Faculties.
+        /// </summary>
         [HttpGet]
-        public async Task<ActionResult<List<FacultyDto>>> GetAll([FromQuery] PaginationParams paginationParams)
+        [SwaggerResponse(StatusCodes.Status200OK)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ServiceResult<PaginatedList<FacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var query = new GetAllFacultiesQuery() { PaginationParams = paginationParams };
+            var query = new GetAllFacultiesWithPaginationQuery(paginationParams);
             var vm = await Mediator.Send(query);
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
-            return Ok(vm.Items);
+
+            return Ok(vm);
+        }
+        /// <summary>
+        /// Get all faluties by university id.
+        /// </summary>
+        [HttpGet(RoutingConstants.UniversityId)]
+        public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
+        {
+            var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams) 
+            { 
+                UniversityId = universityId,
+            });
+
+            return Ok(vm);
         }
 
-        [HttpGet("{universityId}")]
-        public async Task<ActionResult<List<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
-        {
-            var query = new GetFacultiesByUniversityIdQuery() { PaginationParams = paginationParams, UniversityId = universityId };
-            var vm = await Mediator.Send(query);
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize((PaginationMetadata)vm));
-            return Ok(vm.Items);
-        }
-
+        /// <summary>
+        /// Create faculty.
+        /// </summary>
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] CreateFacultyCommand command)
+        public async Task<ActionResult<ServiceResult<int>>> Create([FromBody] CreateFacultyCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
+        /// <summary>
+        /// Update faculty.
+        /// </summary>
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateFacultyCommand command)
+        public async Task<ActionResult<ServiceResult<Unit>>> Update(UpdateFacultyCommand command)
         {
-            await Mediator.Send(command);
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        /// <summary>
+        /// Delete faculty by id.
+        /// </summary>
+        [HttpDelete(RoutingConstants.Id)]
+        public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
         {
             var command = new DeleteFacultyCommand() { Id = id };
-            await Mediator.Send(command);
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
     }
 }

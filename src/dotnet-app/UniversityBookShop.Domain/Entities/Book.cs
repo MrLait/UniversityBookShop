@@ -11,8 +11,7 @@ public class Book
     public int? CurrencyCodesId { get; set; }
     public CurrencyCode? CurrencyCode { get; set; }
 
-    //One to One
-    public BooksAvailableForFaculty? BooksAvailableForFaculty { get; set; }
-    public PurchasedBookFaculty? PurchasedBookFaculty { get; set; }
-    public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
+    //One to Many
+    public List<PurchasedBookFaculty>? PurchasedBookFaculty { get; set; }
+    public List<BooksAvailableForFaculty>? BooksAvailableForFaculty { get; set; }
 }

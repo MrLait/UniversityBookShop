@@ -11,8 +11,8 @@ public class NotFoundException : Exception
         : base(message, innerException) { }
 
     public NotFoundException(string name, object key)
-        : base($"Entity \"{name}\"{key} not found.") { }
+        : base($"Entity with name: '{name}'; Id: '{key}' was not found.") { }
 
     public NotFoundException(string name, object keyFirst, object keySecond)
-        : base($"Entity \"{name}\"{keyFirst}, {keySecond} not found.") { }
+        : base($"Entity with name: '{name}'; First id: '{keyFirst}'; Second id: '{keySecond}' was not found.") { }
 }

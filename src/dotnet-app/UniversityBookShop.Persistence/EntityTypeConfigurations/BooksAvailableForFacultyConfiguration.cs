@@ -10,10 +10,5 @@ public class BooksAvailableForFacultyConfiguration : IEntityTypeConfiguration<Bo
     {
         builder.ToTable("books_available_for_faculty");
         builder.HasKey(f => f.Id);
-
-        builder
-            .HasOne<BooksPurchasedByUniversity>(bp => bp.BooksPurchasedByUniversity)
-            .WithMany(f => f.BooksAvailableForFaculty)
-            .HasForeignKey(fk => fk.BooksPurchasedByUniversityId);
     }
 }
