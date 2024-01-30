@@ -33,9 +33,12 @@ public class CreatePurchasedBookFacultyCommandHandler : IRequestHandler<CreatePu
         var facultyExist = await _dbContext.Faculties
             .SingleOrDefaultAsync(c => c.Id == request.FacultyId, cancellationToken)
             ?? throw new NotFoundException(nameof(Faculty), request.FacultyId!);
-        var isBookExist = await _dbContext.Books
-            .AnyAsync(c => c.Id == request.BookId, cancellationToken);
-        if (!isBookExist) throw new NotFoundException(nameof(Book), request.BookId!);
+
+        var curBookPrice = await _dbContext.Books
+            .Where(x => x.Id == request.BookId)
+            .Select(x => x.Price)
+            .FirstOrDefaultAsync(cancellationToken)
+            ?? throw new NotFoundException(nameof(Book), request.BookId!);
 
         var isPurchasedThisFaculty = await _dbContext.PurchasedBookFaculties
                 .AnyAsync(p => p.BookId == request.BookId && p.FacultyId == request.FacultyId, cancellationToken);
@@ -63,7 +66,23 @@ public class CreatePurchasedBookFacultyCommandHandler : IRequestHandler<CreatePu
         await _dbContext.PurchasedBookFaculties.AddAsync(purchasedBookFaculty, cancellationToken);
         await _dbContext.BooksAvailableForFaculties.AddAsync(booksAvailableForFaculty, cancellationToken);
 
+        await UpdateTotalBookPriceAsync(universityId, curBookPrice, cancellationToken);
+
         await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(purchasedBookFaculty.Id);
+    }
+
+    private async Task UpdateTotalBookPriceAsync(
+        int? universityId, decimal? curBookPrice, CancellationToken cancellationToken)
+    {
+        var university = await _dbContext.Universities
+            .Where(u => u.Id == universityId)
+            .Include(x => x.CurrencyCode)
+            .Include(x => x.Faculties)
+            .FirstOrDefaultAsync(cancellationToken)
+        ?? throw new NotFoundException(nameof(University), universityId ?? 0);
+
+        university.TotalBookPrice = await _dbContext.PurchasedBookFaculties
+            .SumAsync(x => x.Book!.Price, cancellationToken) + (curBookPrice ?? 0m);
     }
 }

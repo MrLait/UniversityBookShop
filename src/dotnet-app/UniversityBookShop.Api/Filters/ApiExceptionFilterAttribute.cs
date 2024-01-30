@@ -43,7 +43,6 @@ namespace UniversityBookShop.Api.Filters
 
             if (!context.ModelState.IsValid)
             {
-                //HandleInvalidModelStateException(context);
                 return;
             }
 

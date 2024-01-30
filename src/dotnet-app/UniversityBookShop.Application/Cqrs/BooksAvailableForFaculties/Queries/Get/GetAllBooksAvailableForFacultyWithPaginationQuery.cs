@@ -9,7 +9,8 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries.Get;
 
-public class GetAllBooksAvailableForFacultyWithPaginationQuery : PaginationParams, IRequest<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>
+public class GetAllBooksAvailableForFacultyWithPaginationQuery : PaginationParams, 
+    IRequest<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>
 {
     public GetAllBooksAvailableForFacultyWithPaginationQuery(PaginationParams paginationParams)
     {
@@ -18,7 +19,8 @@ public class GetAllBooksAvailableForFacultyWithPaginationQuery : PaginationParam
 }
 
 public class GetAllBooksQueryHandler :
-    IRequestHandler<GetAllBooksAvailableForFacultyWithPaginationQuery, ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>
+    IRequestHandler<GetAllBooksAvailableForFacultyWithPaginationQuery,
+        ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -26,7 +28,8 @@ public class GetAllBooksQueryHandler :
     public GetAllBooksQueryHandler(IApplicationDbContext dbContext, IMapper mapper) =>
         (_dbContext, _mapper) = (dbContext, mapper);
 
-    public async Task<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>> Handle(GetAllBooksAvailableForFacultyWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>> Handle(
+        GetAllBooksAvailableForFacultyWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.BooksAvailableForFaculties
                             .ProjectTo<BooksAvailableForFacultyDto>(_mapper.ConfigurationProvider)

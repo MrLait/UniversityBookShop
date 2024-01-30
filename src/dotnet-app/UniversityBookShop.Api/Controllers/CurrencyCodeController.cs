@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.CurrencyCodes.Queries.Get;
@@ -7,7 +8,8 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers;
 
-[Route("api/[controller]")]
+[ApiController]
+[Route(RoutingConstants.ApiController)]
 public class CurrencyCodeController : BaseController
 {
     /// <summary>

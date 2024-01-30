@@ -1,14 +1,11 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Dto;
-using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Faculties.Queries.GetFaculties;
 
@@ -20,7 +17,6 @@ public class GetFacultiesByUniversityIdQuery : PaginationParams, IRequest<Servic
     {
         SetPaginationParams(paginationParams);
     }
-
 }
 
 public class GetFacultiesByUniversityIdQueryHandler : IRequestHandler<GetFacultiesByUniversityIdQuery, ServiceResult<PaginatedList<FacultyDto>>>

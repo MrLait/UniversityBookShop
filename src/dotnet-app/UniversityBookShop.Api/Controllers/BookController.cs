@@ -1,5 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -11,7 +13,8 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route(RoutingConstants.ApiController)]
     public class BookController : BaseController
     {
         /// <summary>
@@ -31,12 +34,12 @@ namespace UniversityBookShop.Api.Controllers
             var vm = await Mediator.Send(new GetAllBooksWithPaginationQuery(paginationParams));
             return Ok(vm);
         }
-
+        
         /// <summary>
         /// Create new book.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateBookCommand command)
+        public async Task<ActionResult<ServiceResult<int>>> Create(CreateBookCommand command)
         {
             return Ok(await Mediator.Send(command));
 
@@ -46,20 +49,18 @@ namespace UniversityBookShop.Api.Controllers
         /// Update an existing book.
         /// </summary>
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateBookCommand command)
+        public async Task<ActionResult<ServiceResult<Unit>>> Update(UpdateBookCommand command)
         {
-            await Mediator.Send(command);
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
         /// Delete book.
         /// </summary>
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete(RoutingConstants.Id)]
+        public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
         {
-            await Mediator.Send(new DeleteBookCommand() { Id = id });
-            return NoContent();
+            return Ok(await Mediator.Send(new DeleteBookCommand() { Id = id }));
         }
     }
 }

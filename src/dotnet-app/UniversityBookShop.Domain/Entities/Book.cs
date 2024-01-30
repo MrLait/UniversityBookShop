@@ -14,5 +14,4 @@ public class Book
     //One to Many
     public List<PurchasedBookFaculty>? PurchasedBookFaculty { get; set; }
     public List<BooksAvailableForFaculty>? BooksAvailableForFaculty { get; set; }
-    //public List<BooksPurchasedByUniversity>? BooksPurchasedByUniversity { get; set; }
 }

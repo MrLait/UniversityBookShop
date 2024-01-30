@@ -1,6 +1,7 @@
-using System.Text.Json;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -11,7 +12,8 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route(RoutingConstants.ApiController)]
     public class FacultyController : BaseController
     {
         /// <summary>
@@ -22,7 +24,7 @@ namespace UniversityBookShop.Api.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ServiceResult<List<FacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<ServiceResult<PaginatedList<FacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
             var query = new GetAllFacultiesWithPaginationQuery(paginationParams);
             var vm = await Mediator.Send(query);
@@ -32,10 +34,8 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all faluties by university id.
         /// </summary>
-        [HttpGet("{universityId}")]
-        [SwaggerResponse(StatusCodes.Status200OK)]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
+        [HttpGet(RoutingConstants.UniversityId)]
+        public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
         {
             var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams) 
             { 
@@ -49,9 +49,7 @@ namespace UniversityBookShop.Api.Controllers
         /// Create faculty.
         /// </summary>
         [HttpPost]
-        [SwaggerResponse(StatusCodes.Status200OK)]
-        [SwaggerResponse(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<int>> Create([FromBody] CreateFacultyCommand command)
+        public async Task<ActionResult<ServiceResult<int>>> Create([FromBody] CreateFacultyCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -60,28 +58,19 @@ namespace UniversityBookShop.Api.Controllers
         /// Update faculty.
         /// </summary>
         [HttpPut]
-        [SwaggerResponse(StatusCodes.Status204NoContent)]
-        [SwaggerResponse(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(UpdateFacultyCommand command)
+        public async Task<ActionResult<ServiceResult<Unit>>> Update(UpdateFacultyCommand command)
         {
-            await Mediator.Send(command);
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
         /// Delete faculty by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete("{id}")]
-        [SwaggerResponse(StatusCodes.Status204NoContent)]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete(RoutingConstants.Id)]
+        public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
         {
             var command = new DeleteFacultyCommand() { Id = id };
-            await Mediator.Send(command);
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
     }
 }

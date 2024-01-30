@@ -7,7 +7,6 @@ using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Dto;
-using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Universities.Queries.Get;
 
@@ -34,31 +33,29 @@ public class GetAllUniversitiesWithPaginationQueryHandler :
                             .ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
                             .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 
-        //await UpdateCountsAndPrice(query.Items); // To do - make a selection of universities and faculties in one request, and not in a foreach.
+        await UpdateCountsAndPrice(query.Items, cancellationToken);
 
         return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed(query, ServiceError.NotFound);
     }
 
-    //private async Task UpdateCountsAndPrice(List<UniversityDto> universities)
-    //{
-    //    var purchasedBooks = new List<BooksPurchasedByUniversity>();
-    //    foreach (var u in universities)
-    //    {
-    //        purchasedBooks = await _dbContext.BooksPurchasedByUniversities
-    //            .Select(pb => new BooksPurchasedByUniversity()
-    //            {
-    //                UniversityId = pb.UniversityId,
-    //                BookId = pb.BookId,
-    //                Book = new Book()
-    //                {
-    //                    Price = pb.Book.Price
-    //                }
-    //            })
-    //            .Where(pb => pb.UniversityId == u.Id).ToListAsync();
+    private async Task UpdateCountsAndPrice(List<UniversityDto> universities, CancellationToken cancellationToken)
+    {
+        var universitiesId = universities.Select(u => u.Id).ToList();
 
-    //        u.FacultyCount = u.Faculties.Count;
-    //        u.BookCount = purchasedBooks.Count();
-    //        u.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
-    //    }
-    //}
+        var purchasedBooksQuery = _dbContext.PurchasedBookFaculties
+            .Where(x => universitiesId.Contains((int)x.Faculty!.UniversityId));
+        var groupedBookCountsQuery = purchasedBooksQuery
+            .GroupBy(x => x.Faculty!.UniversityId)
+            .Select(group => new { UniversityId = group.Key, BookCount = group.Count() });
+        var bookCountsList = await groupedBookCountsQuery.ToListAsync(cancellationToken);
+
+        foreach (var university in universities)
+        {
+            university.FacultyCount = university.Faculties?.Count ?? 0;
+
+            var bookCountInfo = bookCountsList
+                .FirstOrDefault(x => x.UniversityId == university.Id);
+            university.BookCount = bookCountInfo?.BookCount ?? 0;
+        }
+    }
 }

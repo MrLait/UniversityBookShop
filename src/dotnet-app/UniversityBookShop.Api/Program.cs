@@ -1,6 +1,6 @@
-using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using System.Reflection;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Filters;
 using UniversityBookShop.Application;
 using UniversityBookShop.Application.Common.Interfaces;
@@ -9,8 +9,8 @@ using UniversityBookShop.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
 //REGISTER SERVICES HERE
-//services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
@@ -21,9 +21,6 @@ services.AddApplication();
 services.AddPersistence(builder.Configuration);
 services.AddControllers(configure: options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
-//.AddFluentValidation(x => x.AutomaticValidationEnabled = false);
-//services.AddFluentValidationAutoValidation();
-    //.AddFluentValidationClientsideAdapters();
 
 var paginationHeaderCorsPolicy = "PaginationHeader";
 
@@ -66,7 +63,7 @@ app.UseSwagger();
 app.UseSwaggerUI(config =>
 {
     config.RoutePrefix = string.Empty;
-    config.SwaggerEndpoint("swagger/v1/swagger.json", "University book shop API");
+    config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
 });
 
 

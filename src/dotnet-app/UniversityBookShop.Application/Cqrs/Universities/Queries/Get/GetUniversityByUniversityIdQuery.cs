@@ -32,33 +32,16 @@ public class GetUniversityByUniversityIdQueryHandler : IRequestHandler<GetUniver
                         .FirstOrDefaultAsync(cancellationToken: cancellationToken)
             ?? throw new NotFoundException(nameof(University), request.UniversityId);
 
-        //await _dbContext.Faculties.Where(f => f.UniversityId == university.Id).LoadAsync(cancellationToken: cancellationToken);
-        //await _dbContext.CurrencyCodes.Where(c => c.Id == university.CurrencyCodesId).LoadAsync(cancellationToken: cancellationToken);
-
         var query = _mapper.Map<UniversityDto>(university);
-        //await UpdateCountsAndPrice(query); // ToDo. check this method
+        await UpdateFacultyAndBookCounts(query, cancellationToken);
         return ServiceResult.Success(query); 
     }
 
-    //private async Task UpdateCountsAndPrice(UniversityDto university)
-    //{
-    //    var purchasedBooks = new List<BooksPurchasedByUniversity>();
-
-    //    purchasedBooks = await _dbContext.BooksPurchasedByUniversities
-    //        .Select(pb => new BooksPurchasedByUniversity()
-    //        {
-    //            UniversityId = pb.UniversityId,
-    //            BookId = pb.BookId,
-    //            Book = new Book()
-    //            {
-    //                Price = pb.Book.Price
-    //            }
-    //        })
-    //        .Where(pb => pb.UniversityId == university.Id).ToListAsync();
-
-    //    university.FacultyCount = university.Faculties.Count();
-    //    university.BookCount = purchasedBooks.Count();
-    //    university.TotalBookPrice = purchasedBooks.Sum(pb => pb.Book.Price);
-    //}
-
+    private async Task UpdateFacultyAndBookCounts(UniversityDto university, CancellationToken cancellationToken)
+    {
+        university.FacultyCount = university.Faculties?.Count ?? 0;
+        university.BookCount = await _dbContext.PurchasedBookFaculties
+            .Where(x => x.Faculty!.UniversityId == university.Id)
+            .CountAsync(cancellationToken);
+    }
 }

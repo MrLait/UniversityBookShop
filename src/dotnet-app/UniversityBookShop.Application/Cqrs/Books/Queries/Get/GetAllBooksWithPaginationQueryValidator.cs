@@ -6,7 +6,6 @@ namespace UniversityBookShop.Application.Cqrs.Books.Queries.Get
     {
         public GetAllBooksWithPaginationQueryValidator()
         {
-            
         }
     }
 }

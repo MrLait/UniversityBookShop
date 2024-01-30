@@ -14,5 +14,4 @@ public class BooksAvailableForFaculty
 
     public int? UniversityId { get; set; }
     public University? University { get; set; }
-    //public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
 }

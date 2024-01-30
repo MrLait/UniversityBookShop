@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using UniversityBookShop.Application.Common.Constants;
-using UniversityBookShop.Application.Common.Models.AbstractValidators;
 
-namespace UniversityBookShop.Application.Cqrs.Universities.Commands.Update
+namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Delete
 {
-    public class UpdateUniversityCommandValidator: AbstractUniversityCommandValidator<UpdateUniversityCommand>
+    public class DeleteBooksAvailableForFacultyCommandValidator: AbstractValidator<DeleteBooksAvailableForFacultyCommand>
     {
-        public UpdateUniversityCommandValidator()
+        public DeleteBooksAvailableForFacultyCommandValidator()
         {
             RuleFor(x => x.Id)
                 .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)

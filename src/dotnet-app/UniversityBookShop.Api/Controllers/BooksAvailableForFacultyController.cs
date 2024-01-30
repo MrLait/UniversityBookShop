@@ -1,5 +1,5 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -10,49 +10,54 @@ using UniversityBookShop.Application.Dto;
 
 namespace UniversityBookShop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route(RoutingConstants.ApiController)]
     public class BooksAvailableForFacultyController : BaseController
     {
         /// <summary>
-        /// Get all books available to all faculties.
+        /// Get all available books to all faculties.
         /// </summary>
-        /// <param name="paginationParams"></param>
-        /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<List<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
             var query = new GetAllBooksAvailableForFacultyWithPaginationQuery(paginationParams);
             return Ok(await Mediator.Send(query));
         }
 
-        [HttpGet("{facultyId}")]
-        public async Task<ActionResult<List<BooksAvailableForFacultyDto>>> GetByFacultyId(int facultyId)
+        /// <summary>
+        /// Get all available books by faculty id. 
+        /// </summary>
+        [HttpGet(RoutingConstants.FacultyId)]
+        public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAvailableBooksByFacultyIdQuery() { FacultyId = facultyId });
-            return Ok(vm);
+            var query = new GetAvailableBooksByFacultyIdWithPaginationQuery(facultyId, paginationParams);
+            return Ok(await Mediator.Send(query));
         }
 
-        [HttpGet("{facultyId}/{bookId}")]
-        public async Task<ActionResult<BooksAvailableForFacultyDto>> GetByFacultyIdAndBookId(int facultyId, int bookId)
+        /// <summary>
+        /// Get all available books by faculty id and book id. 
+        /// </summary>
+        [HttpGet(RoutingConstants.FacultyIdBookId)]
+        public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyIdAndBookId(int facultyId, int bookId, [FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAvailableBooksByFacultyIdAndBookIdQuery() { FacultyId = facultyId, BookId = bookId });
-            return Ok(vm);
+            var query = new GetAvailableBooksByFacultyIdAndBookIdWithPaginationQuery(facultyId, bookId, paginationParams);
+            return Ok(await Mediator.Send(query));
         }
 
-        //[HttpPost("purchase/")]
-        //public async Task<ActionResult<int>> Create(PurchaseBooksAvailableForFacultyCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-        //}
-
-        [HttpPost("add/")]
-        public async Task<ActionResult<int>> Create(AddBooksAvailableForFacultyCommand command)
+        /// <summary>
+        /// Add a book for a faculty.
+        /// </summary>
+        [HttpPost(RoutingConstants.Add)]
+        public async Task<ActionResult<ServiceResult<int>>> Create(AddBooksAvailableForFacultyCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<int>> Delete(int id)
+        /// <summary>
+        /// Remove a book for a faculty.
+        /// </summary>
+        [HttpDelete(RoutingConstants.Id)]
+        public async Task<ActionResult<ServiceResult<int>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteBooksAvailableForFacultyCommand() { Id = id }));
         }
