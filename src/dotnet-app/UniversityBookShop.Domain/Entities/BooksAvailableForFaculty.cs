@@ -12,6 +12,7 @@ public class BooksAvailableForFaculty
     public int? FacultyId { get; set; }
     public Faculty? Faculty { get; set; }
 
-    public int? BooksPurchasedByUniversityId { get; set; }
-    public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
+    public int? UniversityId { get; set; }
+    public University? University { get; set; }
+    //public BooksPurchasedByUniversity? BooksPurchasedByUniversity { get; set; }
 }

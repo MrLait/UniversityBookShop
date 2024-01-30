@@ -11,6 +11,10 @@ namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries
 
 public class GetAllBooksAvailableForFacultyWithPaginationQuery : PaginationParams, IRequest<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>
 {
+    public GetAllBooksAvailableForFacultyWithPaginationQuery(PaginationParams paginationParams)
+    {
+        SetPaginationParams(paginationParams);
+    }
 }
 
 public class GetAllBooksQueryHandler :

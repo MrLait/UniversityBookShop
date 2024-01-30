@@ -28,7 +28,7 @@ public class GetAvailableBooksByFacultyIdQueryHandler : IRequestHandler<GetAvail
                             FacultyId = b.FacultyId,
                             BookId = b.BookId,
                             IsPurchased = b.IsPurchased,
-                            BooksPurchasedByUniversityId = b.BooksPurchasedByUniversityId,
+                            UniversityId = b.UniversityId,
                             Book = new Book()
                             {
                                 Id = b.Book.Id,

@@ -12,6 +12,5 @@ public class University
 
     //One to Many
     public IList<Faculty>? Faculties { get; set; }
-    public List<BooksPurchasedByUniversity>? BooksPurchasedByUniversity { get; set; }
-
+    public IList<BooksAvailableForFaculty>? BooksAvailableForFaculties { get; set; }
 }

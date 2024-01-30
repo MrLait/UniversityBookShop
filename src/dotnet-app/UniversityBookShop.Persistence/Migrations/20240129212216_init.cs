@@ -82,6 +82,31 @@ namespace UniversityBookShop.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "books_purchased_by_university",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UniversityId = table.Column<int>(type: "int", nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_books_purchased_by_university", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_books_purchased_by_university_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_books_purchased_by_university_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Faculties",
                 columns: table => new
                 {
@@ -89,15 +114,48 @@ namespace UniversityBookShop.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    university_id = table.Column<int>(type: "int", nullable: true)
+                    UniversityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Faculties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Faculties_Universities_university_id",
-                        column: x => x.university_id,
+                        name: "FK_Faculties_Universities_UniversityId",
+                        column: x => x.UniversityId,
                         principalTable: "Universities",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "books_available_for_faculty",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IsPurchased = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: true),
+                    FacultyId = table.Column<int>(type: "int", nullable: true),
+                    UniversityId = table.Column<int>(type: "int", nullable: true),
+                    BooksPurchasedByUniversityId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_books_available_for_faculty", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_books_available_for_faculty_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_books_available_for_faculty_Faculties_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculties",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_books_available_for_faculty_books_purchased_by_university_Bo~",
+                        column: x => x.BooksPurchasedByUniversityId,
+                        principalTable: "books_purchased_by_university",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -142,9 +200,34 @@ namespace UniversityBookShop.Persistence.Migrations
                 column: "currency_code_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Faculties_university_id",
+                name: "IX_books_available_for_faculty_BookId",
+                table: "books_available_for_faculty",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_books_available_for_faculty_BooksPurchasedByUniversityId",
+                table: "books_available_for_faculty",
+                column: "BooksPurchasedByUniversityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_books_available_for_faculty_FacultyId",
+                table: "books_available_for_faculty",
+                column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_books_purchased_by_university_BookId",
+                table: "books_purchased_by_university",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_books_purchased_by_university_UniversityId",
+                table: "books_purchased_by_university",
+                column: "UniversityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Faculties_UniversityId",
                 table: "Faculties",
-                column: "university_id");
+                column: "UniversityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_purchased_books_faculty_BookId",
@@ -166,13 +249,19 @@ namespace UniversityBookShop.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "books_available_for_faculty");
+
+            migrationBuilder.DropTable(
                 name: "purchased_books_faculty");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "books_purchased_by_university");
 
             migrationBuilder.DropTable(
                 name: "Faculties");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Universities");

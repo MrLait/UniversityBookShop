@@ -10,7 +10,6 @@ public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
     {
         builder.HasKey(f => f.Id);
         builder.Property(f => f.Name).HasColumnName("name").HasMaxLength(150);
-        builder.Property(f => f.UniversityId).HasColumnName("university_id");
 
         builder
             .HasOne(u => u.University)

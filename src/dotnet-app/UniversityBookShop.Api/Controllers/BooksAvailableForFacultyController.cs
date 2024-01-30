@@ -21,13 +21,8 @@ namespace UniversityBookShop.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResult<List<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetAllBooksAvailableForFacultyWithPaginationQuery()
-            {
-                PageIndex = paginationParams.PageIndex,
-                PageSize = paginationParams.PageSize
-            });
-
-            return Ok(vm);
+            var query = new GetAllBooksAvailableForFacultyWithPaginationQuery(paginationParams);
+            return Ok(await Mediator.Send(query));
         }
 
         [HttpGet("{facultyId}")]
@@ -44,11 +39,11 @@ namespace UniversityBookShop.Api.Controllers
             return Ok(vm);
         }
 
-        [HttpPost("purchase/")]
-        public async Task<ActionResult<int>> Create(PurchaseBooksAvailableForFacultyCommand command)
-        {
-            return Ok(await Mediator.Send(command));
-        }
+        //[HttpPost("purchase/")]
+        //public async Task<ActionResult<int>> Create(PurchaseBooksAvailableForFacultyCommand command)
+        //{
+        //    return Ok(await Mediator.Send(command));
+        //}
 
         [HttpPost("add/")]
         public async Task<ActionResult<int>> Create(AddBooksAvailableForFacultyCommand command)

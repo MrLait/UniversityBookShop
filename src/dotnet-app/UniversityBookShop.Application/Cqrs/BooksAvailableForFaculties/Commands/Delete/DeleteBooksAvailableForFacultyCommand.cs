@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
 
@@ -29,13 +28,13 @@ public class DeleteBooksAvailableForFacultyCommandHandler : IRequestHandler<Dele
         _dbContext.BooksAvailableForFaculties.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        var isLastBookAtUniversity = _dbContext.BooksPurchasedByUniversities.Any(b => b.Id == entity.BooksPurchasedByUniversityId && b.BooksAvailableForFaculty.Count() == 0);
-        if (isLastBookAtUniversity)
-        {
-            var bookAtUniversity = await _dbContext.BooksPurchasedByUniversities.Where(u => u.Id == entity.BooksPurchasedByUniversityId).FirstOrDefaultAsync();
-            _dbContext.BooksPurchasedByUniversities.Remove(bookAtUniversity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
+        //var isLastBookAtUniversity = _dbContext.BooksPurchasedByUniversities.Any(b => b.Id == entity.UniversityId && b.BooksAvailableForFaculty.Count() == 0);
+        //if (isLastBookAtUniversity)
+        //{
+        //    var bookAtUniversity = await _dbContext.BooksPurchasedByUniversities.Where(u => u.Id == entity.UniversityId).FirstOrDefaultAsync();
+        //    _dbContext.BooksPurchasedByUniversities.Remove(bookAtUniversity);
+            //await _dbContext.SaveChangesAsync(cancellationToken);
+        //}
         return Unit.Value;
     }
 }

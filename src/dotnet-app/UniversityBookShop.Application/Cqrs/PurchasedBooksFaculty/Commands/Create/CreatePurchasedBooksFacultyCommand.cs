@@ -48,7 +48,21 @@ public class CreatePurchasedBookFacultyCommandHandler : IRequestHandler<CreatePu
 
         var purchasedBookFaculty = _mapper.Map<PurchasedBookFaculty>(request);
 
+        var isBookAvailableForFacultyPurchased = await _dbContext.BooksAvailableForFaculties
+                .AnyAsync(baf => baf.BookId == request.BookId && baf.FacultyId == request.FacultyId && baf.IsPurchased == true, cancellationToken);
+        if (isBookAvailableForFacultyPurchased) return ServiceResult.Failed<int>(ServiceError.BookPurchaseFacultyError);
+
+        var booksAvailableForFaculty = new BooksAvailableForFaculty
+        {
+            BookId = request.BookId,
+            FacultyId = request.FacultyId,
+            IsPurchased = true,
+            UniversityId = universityId
+        };
+
         await _dbContext.PurchasedBookFaculties.AddAsync(purchasedBookFaculty, cancellationToken);
+        await _dbContext.BooksAvailableForFaculties.AddAsync(booksAvailableForFaculty, cancellationToken);
+
         await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(purchasedBookFaculty.Id);
     }

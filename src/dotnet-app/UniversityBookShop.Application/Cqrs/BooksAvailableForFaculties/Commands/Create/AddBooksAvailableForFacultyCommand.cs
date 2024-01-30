@@ -15,7 +15,7 @@ public class AddBooksAvailableForFacultyCommand : IRequest<int>, IMapWith<BooksA
     public void Mapping(Profile profile)
     {
         profile.CreateMap<AddBooksAvailableForFacultyCommand, BooksAvailableForFaculty>()
-        .ForMember(c => c.BooksPurchasedByUniversityId, opt => opt.MapFrom(src => src.UniversityId));
+        .ForMember(c => c.UniversityId, opt => opt.MapFrom(src => src.UniversityId));
     }
 }
 
