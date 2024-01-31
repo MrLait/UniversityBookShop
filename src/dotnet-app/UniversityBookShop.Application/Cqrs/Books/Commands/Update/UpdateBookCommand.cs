@@ -22,25 +22,23 @@ public class UpdateBookCommandHandler :
 
     public async Task<ServiceResult<Unit>> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Books
-            .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
-
-        if (entity == null || entity.Id != request.Id)
-            throw new NotFoundException(nameof(Book), request.Id);
-
         var currencyCodeExists = await _dbContext.CurrencyCodes
             .AnyAsync(c => c.Id == request.CurrencyCodeId, cancellationToken);
         if (!currencyCodeExists)
             throw new NotFoundException(nameof(CurrencyCode), request.CurrencyCodeId);
 
-        entity.Id = request.Id;
-        entity.Isbn = request.Isbn;
-        entity.Name = request.Name;
-        entity.Author = request.Author;
-        entity.Price = request.Price;
-        entity.CurrencyCodesId = request.CurrencyCodeId;
+        int entity = await _dbContext.Books
+            .Where(x => x.Id == request.Id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.Isbn, request.Isbn)
+                .SetProperty(x => x.Name, request.Name)
+                .SetProperty(x => x.Author, request.Author)
+                .SetProperty(x => x.Price, request.Price)
+                .SetProperty(x => x.CurrencyCodesId, request.CurrencyCodeId), cancellationToken);
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        if (entity == 0)
+            throw new NotFoundException(nameof(Book), request.Id);
+
         return ServiceResult.Success(Unit.Value);
     }
 }

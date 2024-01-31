@@ -21,8 +21,8 @@ namespace UniversityBookShop.Api.Controllers
         /// Get all books with pagination.
         /// </summary>
         /// <response code="200">Success</response>
-        /// <response code="400">Bad reques.Validation exception.</response>
-        /// <response code="404">Resoure not found</response>
+        /// <response code="400">Bad request.Validation exception.</response>
+        /// <response code="404">Resource not found</response>
         /// <response code="500">Server error</response>
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK)]
@@ -34,7 +34,7 @@ namespace UniversityBookShop.Api.Controllers
             var vm = await Mediator.Send(new GetAllBooksWithPaginationQuery(paginationParams));
             return Ok(vm);
         }
-        
+
         /// <summary>
         /// Create new book.
         /// </summary>

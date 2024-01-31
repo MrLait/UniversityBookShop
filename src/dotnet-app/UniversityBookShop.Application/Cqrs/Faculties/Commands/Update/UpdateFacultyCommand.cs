@@ -23,21 +23,20 @@ public class UpdateFacultyCommandHandler :
 
     public async Task<ServiceResult<Unit>> Handle(UpdateFacultyCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Faculties
-            .FirstOrDefaultAsync(faculty => faculty.Id == request.Id, cancellationToken);
+        var universityExists = await _dbContext.Universities
+            .AnyAsync(c => c.Id == request.UniversityId, cancellationToken);
+        if(!universityExists)
+            throw new NotFoundException(nameof(University), request.UniversityId);
 
-        if (entity == null || entity.Id != request.Id)
+        var entity = await _dbContext.Faculties
+            .Where(faculty => faculty.Id == request.Id)
+            .ExecuteUpdateAsync(x => x
+            .SetProperty(x => x.Name, request.Name)
+            .SetProperty(x => x.UniversityId, request.UniversityId), cancellationToken);
+
+        if (entity == 0)
             throw new NotFoundException(nameof(Faculty), request.Id);
 
-        var universityExists = await _dbContext.Universities
-            .FirstOrDefaultAsync(c => c.Id == request.UniversityId, cancellationToken)
-            ?? throw new NotFoundException(nameof(University), request.UniversityId);
-
-        entity.Id = request.Id;
-        entity.Name = request.Name;
-        entity.UniversityId = request.UniversityId;
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(Unit.Value);
     }
 }

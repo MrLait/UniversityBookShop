@@ -1,6 +1,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Application.Common.Models.Pagination;
@@ -32,8 +33,9 @@ public class GetAllBooksQueryHandler :
         GetAllBooksAvailableForFacultyWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.BooksAvailableForFaculties
-                            .ProjectTo<BooksAvailableForFacultyDto>(_mapper.ConfigurationProvider)
-                            .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
+            .AsNoTracking()
+            .ProjectTo<BooksAvailableForFacultyDto>(_mapper.ConfigurationProvider)
+            .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 
         return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed(query, ServiceError.NotFound);
     }

@@ -37,6 +37,7 @@ public class GetAvailableBooksByFacultyIdAndBookIdQueryHandler :
         GetAvailableBooksByFacultyIdAndBookIdWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.BooksAvailableForFaculties
+            .AsNoTracking()
             .Where(x => x.FacultyId == request.FacultyId && x.BookId == request.BookId)
             .Include(x => x.Book)
                 .ThenInclude(x => x!.CurrencyCode)
