@@ -17,28 +17,25 @@ public class UpdateUniversityCommandHandler :
     IRequestHandler<UpdateUniversityCommand, ServiceResult<Unit>>
 {
     private readonly IApplicationDbContext _dbContext;
-    public UpdateUniversityCommandHandler(IApplicationDbContext dbContext) =>
-        _dbContext = dbContext;
+    public UpdateUniversityCommandHandler(IApplicationDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<ServiceResult<Unit>> Handle(UpdateUniversityCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _dbContext.Universities
-            .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
-
-        if (entity == null || entity.Id != request.Id)
-            throw new NotFoundException(nameof(University), request.Id);
-
-        var currencyCodeExists = await _dbContext.CurrencyCodes.AnyAsync(c => c.Id == request.CurrencyCodeId, cancellationToken);
-
+        var currencyCodeExists = await _dbContext.CurrencyCodes
+            .AnyAsync(c => c.Id == request.CurrencyCodeId, cancellationToken);
         if (!currencyCodeExists)
             throw new NotFoundException(nameof(CurrencyCode), request.CurrencyCodeId);
 
-        entity.Id = request.Id;
-        entity.Name = request.Name;
-        entity.Description = request.Description;
-        entity.CurrencyCodesId = request.CurrencyCodeId;
+        var entity = await _dbContext.Universities
+            .Where(u => u.Id == request.Id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.Name, request.Name)
+                .SetProperty(x => x.Description, request.Description)
+                .SetProperty(x => x.CurrencyCodesId, request.CurrencyCodeId), cancellationToken);
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        if (entity == 0)
+            throw new NotFoundException(nameof(University), request.Id);
+
         return ServiceResult.Success(Unit.Value);
     }
 }

@@ -23,6 +23,7 @@ public class GetAllCurrencyCodesHandler : IRequestHandler<GetAllCurrencyCodesQue
     public async Task<ServiceResult<List<CurrencyCodeDto>>> Handle(GetAllCurrencyCodesQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.CurrencyCodes
+            .AsNoTracking()
             .ProjectTo<CurrencyCodeDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 

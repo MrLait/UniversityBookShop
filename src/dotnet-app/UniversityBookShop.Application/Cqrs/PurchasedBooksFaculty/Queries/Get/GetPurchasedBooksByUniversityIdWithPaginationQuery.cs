@@ -30,6 +30,7 @@ public class GetPurchasedBooksByUniversityIdQueryHandler : IRequestHandler<GetPu
     public async Task<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>> Handle(GetPurchasedBooksByUniversityIdWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.PurchasedBookFaculties
+            .AsNoTracking()
             .Where(x => x.Faculty!.UniversityId == request.UniversityId)
             .Include(x => x.Book)
                 .ThenInclude(x => x!.CurrencyCode)

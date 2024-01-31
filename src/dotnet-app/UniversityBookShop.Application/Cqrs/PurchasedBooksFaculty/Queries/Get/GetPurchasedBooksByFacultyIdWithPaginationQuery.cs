@@ -34,6 +34,7 @@ public class GetPurchasedBooksByFacultyIdQueryHandler : IRequestHandler<GetPurch
         if (!facultyExist) return ServiceResult.Failed<PaginatedList<PurchasedBookByFacultyIdVm>>(ServiceError.NotFound);
 
         var query = await _dbContext.PurchasedBookFaculties
+            .AsNoTracking()
             .Where(x => x.FacultyId == request.FacultyId)
             .Include(x => x.Book)
                 .ThenInclude(x => x.CurrencyCode)

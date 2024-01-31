@@ -30,8 +30,9 @@ public class GetAllUniversitiesWithPaginationQueryHandler :
     public async Task<ServiceResult<PaginatedList<UniversityDto>>> Handle(GetAllUniversitiesWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.Universities
-                            .ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
-                            .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
+            .AsNoTracking()
+            .ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
+            .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 
         await UpdateCountsAndPrice(query.Items, cancellationToken);
 

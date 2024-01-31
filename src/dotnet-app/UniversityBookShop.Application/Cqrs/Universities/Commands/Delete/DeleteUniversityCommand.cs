@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -20,12 +21,12 @@ public class DeleteUniversityCommandHandler :
     public async Task<ServiceResult<Unit>> Handle(DeleteUniversityCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Universities
-            .FindAsync(new object[] { request.Id }, cancellationToken);
-        if (entity == null || entity.Id != request.Id)
+            .Where(x => x.Id == request.Id)
+            .ExecuteDeleteAsync(cancellationToken);
+
+        if (entity == 0)
             throw new NotFoundException(nameof(University), request.Id);
 
-        _dbContext.Universities.Remove(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(Unit.Value);
     }
 }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Application.Common.Models.Pagination;
@@ -27,6 +28,7 @@ public class GetAllFacultiesQueryHandler : IRequestHandler<GetAllFacultiesWithPa
     public async Task<ServiceResult<PaginatedList<FacultyDto>>> Handle(GetAllFacultiesWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = await _dbContext.Faculties
+            .AsNoTracking()
             .ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageIndex, request.PageSize, cancellationToken);
 

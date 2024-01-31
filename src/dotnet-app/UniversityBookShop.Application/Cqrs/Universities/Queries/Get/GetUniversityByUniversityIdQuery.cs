@@ -26,10 +26,11 @@ public class GetUniversityByUniversityIdQueryHandler : IRequestHandler<GetUniver
     {
 
         var university = await _dbContext.Universities
-                        .Where(u => u.Id == request.UniversityId)
-                        .Include(x => x.CurrencyCode)
-                        .Include(x => x.Faculties)
-                        .FirstOrDefaultAsync(cancellationToken: cancellationToken)
+            .AsNoTracking()
+            .Where(u => u.Id == request.UniversityId)
+            .Include(x => x.CurrencyCode)
+            .Include(x => x.Faculties)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken)
             ?? throw new NotFoundException(nameof(University), request.UniversityId);
 
         var query = _mapper.Map<UniversityDto>(university);
