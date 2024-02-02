@@ -8,7 +8,6 @@ export const routePaths = {
     UniversityId: '/university/:id',
     SearchBook: '/searchBook',
     SearchBookByFacultyId: '/searchBook/:faculty_id',
-    Test: '/searchBook/:faculty_id',
 }
 export const routePathsNavigate = {
     UniversityId(id) {

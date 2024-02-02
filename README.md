@@ -23,8 +23,12 @@ This project is developed using technologies such as .NET 6, MySqlServer, React,
 2. backend.Api url: http://localhost:5108
 3. frontend url: http://localhost:3000
 
-## How to run app's
-1. Go to backend folder and use command: dotnet run
-2. Go to frontend folder and use command: npm start
+## How to run app's 
+There are two ways:
+1. Using scripts
+   - Run script: Go to folder scripts and run UniversityBookShop.Api.Bat
+2. Use command  
+   - Go to backend folder and use command: dotnet run
+   - Go to frontend folder and use command: npm start
 
 Open Preview (Ctrl+Shift+V)
