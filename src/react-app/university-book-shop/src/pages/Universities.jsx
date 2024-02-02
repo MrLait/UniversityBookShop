@@ -22,17 +22,22 @@ const Universities = () => {
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
             .then((response) => {
-                setUniversities(response.data)
-                setPaginationData(JSON.parse(response.headers[paginationHeader]));
+                var isSucceeded = response.data.isSucceeded;
+                //"ToDo isSucceeded = false"
+                if (isSucceeded) {
+                    setUniversities(response.data.data.items)
+                    setPaginationData(response.data);
+                }
             })
     }
 
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
-                if (response.status == 204) {
+                if (response.status == 200 && response.data.isSucceeded) {
                     setUniversities(universities.filter(u => u.id !== university.id))
                 }
+                //"ToDo isSucceeded = false"
             }
             ).catch(error => {
                 if (error.response.data) {

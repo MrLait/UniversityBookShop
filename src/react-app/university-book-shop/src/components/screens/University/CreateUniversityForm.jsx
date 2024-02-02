@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import UniversityApiService from '../../../API/UniversityApiService'
 import { Currencies, universityField } from '../../constants/initialStates'
@@ -15,7 +16,7 @@ const CreateUniversityForm = ({ create }) => {
                 if (response.data && response.status == 200) {
                     const newUniversity = {
                         ...university,
-                        id: response.data
+                        id: response.data.data
                     }
                     create(newUniversity);
                     setUniversity(universityField);
