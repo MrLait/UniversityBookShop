@@ -28,7 +28,46 @@
 
 .headerMainRight {
     display: flex;
-    gap: 12px;
+    gap: 50px;
     height: var(--sf-height);
     margin-left: 20px;
+    margin-right: 20px;
+}
+
+.headerMainLeft {
+    font-size: clamp(24px, 22px + 0.56vw, 32px);
+    font-weight: normal;
+}
+
+.header .title {
+    background-image: linear-gradient(to right, rgb(var(--color-underlined)) 0%, rgba(var(--color-underlined), 0.3) 33%);
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: 100% 2px;
+}
+
+.title {
+    color: var(--color-primary);
+    font-size: clamp(24px, 22px + 0.56vw, 32px);
+    font-weight: normal;
+    margin-bottom: clamp(5px, 50%, 15px);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.title::after {
+    display: block;
+    width: 0px;
+    height: 2px;
+    background-color: var(--color-primary);
+    content: "";
+    transition: width 0.5s ease-out, background-color 0.5s ease-out;
+}
+
+.title:hover:after {
+    width: 100%;
 }
