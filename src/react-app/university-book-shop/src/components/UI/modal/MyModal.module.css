@@ -1,16 +1,23 @@
 .myModal {
+    --pad-modal: 30px;
+    --pad-large-modal: 50px;
+    --modal-alpha: 0.7;
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     display: flex;
-    background: rgba(0, 0, 0, 0.4);
-    height: 100vh;
-    width: 100vw;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    height: auto;
+    padding: var(--pad-modal);
+    background-color: rgba(0, 0, 0, var(--modal-alpha));
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 0;
     transition: 0.5s;
     pointer-events: none;
+    z-index: 10;
 }
 
 .myModalContent {

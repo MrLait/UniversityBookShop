@@ -14,9 +14,7 @@ const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
     const [onMouseEntered, setOnMouseEntered] = useState(false);
     return (
-        <div
-            className={styles.inner}
-        >
+        <div className={styles.inner}>
             <div className={styles.navbar}>
                 <div className={styles.navbarInner}>
                     <a

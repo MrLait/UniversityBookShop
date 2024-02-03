@@ -79,8 +79,7 @@
     text-decoration: none;
     display: inline-block;
     width: fit-content;
-    word-wrap: break-word;
-    word-break: break-all;
+    overflow-wrap: anywhere;
 }
 
 .title::after {
@@ -99,8 +98,9 @@
 .description {
     font-size: clamp(24px, 10px + 0.56vw, 32px);
     font-weight: 200;
-    word-wrap: break-word;
-    word-break: break-all;
+    overflow-wrap: anywhere;
+    /* word-wrap: break-word;
+    word-break: break-all; */
 }
 
 .list li {
