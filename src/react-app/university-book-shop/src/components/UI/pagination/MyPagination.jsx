@@ -13,7 +13,6 @@ const MyPagination = ({ paginationData, pageIndex, changePage }) => {
                     <span
                         key={p}
                         className={pageIndex === p ? `${styles.page} ${styles.pageCurrent}` : styles.page}
-                        // onClick={() => changePage(p)}
                         onClick={() => changePage(p)}>
                         {p}
                     </span>

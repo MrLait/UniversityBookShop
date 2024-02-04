@@ -12,7 +12,7 @@ const UniversityList = ({ universities, deleteUniversity }) => {
                 {visibleUniversities.map(u =>
                     <CSSTransition
                         key={u.id}
-                        timeout={500}
+                        timeout={600}
                         classNames="university"
                     >
                         <div>

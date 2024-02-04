@@ -72,20 +72,13 @@ button {
     font-size: var(--text-size-primary)
 }
 
-.university {
-    border-radius: var(--rounded-large);
-    background: var(--color-white);
-    overflow: hidden;
-    margin-bottom: 40px;
-}
-
 .university-enter {
     opacity: 0;
 }
 
 .university-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity 600ms ease-in;
 }
 
 .university-exit {
@@ -94,7 +87,8 @@ button {
 
 .university-exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-in;
+    display: none;
+    transition: opacity 600ms ease-out;
 }
 
 .footer-enter {
