@@ -1,9 +1,8 @@
 .textInput {
     width: 100%;
     display: block;
-    min-height: var(--min-height-input);
+    min-height: var(--height-input);
     max-height: var(--max-height-input);
-    /* height: var(--min-height-input); */
     padding: 0 var(--pad-input);
     background: var(--bg-input);
     border: 0;
@@ -12,7 +11,6 @@
     transition: all .3s ease-in-out;
     resize: none;
     overflow-y: hidden;
-    width: 500px;
 }
 
 .message {

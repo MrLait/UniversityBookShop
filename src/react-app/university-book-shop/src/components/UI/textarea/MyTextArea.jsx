@@ -1,9 +1,15 @@
 // @ts-nocheck
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './MyTextArea.module.css'
 
-const MyTextArea = ({ error, ...props }) => {
+const MyTextArea = ({ error, isOpen, ...props }) => {
     const [textareaHeight, setTextareaHeight] = useState('var(--min-height-input)');
+
+    useEffect(() => {
+        if (!isOpen) {
+            setTextareaHeight('var(--min-height-input)');
+        }
+    }, [isOpen]);
 
     const handleInput = (e) => {
         const target = e.target;

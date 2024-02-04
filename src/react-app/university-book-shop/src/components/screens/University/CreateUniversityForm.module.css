@@ -1,6 +1,7 @@
 .createUniversity {
     position: relative;
     width: 100%;
+    min-height: var(--min-height-login);
     border-radius: var(--rounded-large);
     overflow: hidden;
 }
@@ -61,19 +62,16 @@
     display: flex;
     justify-content: space-between;
     min-height: var(--min-height-login);
+
 }
 
 .header {
+    flex: 1;
     background: var(--bg-3rd);
 }
 
-.title {
-    margin-bottom: 1.5em;
-    font-size: var(--text-size-large);
-    font-weight: normal;
-}
-
 .body {
+    flex: 2;
     background: var(--bg-white);
 }
 
@@ -83,6 +81,12 @@
     justify-content: space-between;
     height: 100%;
     padding: var(--pad-large-modal);
+}
+
+.title {
+    margin-bottom: 1.5em;
+    font-size: var(--text-size-large);
+    font-weight: normal;
 }
 
 .grid {

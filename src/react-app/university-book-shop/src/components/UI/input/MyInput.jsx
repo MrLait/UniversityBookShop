@@ -3,7 +3,6 @@ import React from 'react'
 import styles from './MyInput.module.css'
 
 const MyInput = ({ error, ...props }) => {
-    console.log(styles.message)
     var rootStyles = [styles.textInput];
     if (error) {
         rootStyles.push(styles.borderColorError)

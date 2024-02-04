@@ -108,6 +108,7 @@ const CreateUniversityForm = ({ modalShow, create }) => {
                                                     University description (*)
                                                 </label>
                                                 <MyTextArea
+                                                    isOpen={modalShow}
                                                     error={descriptionError}
                                                     value={university.description}
                                                     onChange={e => setUniversity({ ...university, description: e.target.value })}
