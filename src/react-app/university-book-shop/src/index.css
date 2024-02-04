@@ -34,6 +34,8 @@
     --border-input: #e9e9e9;
     --color-errors: #FA5D29;
     --text-size-small: 12px;
+    --min-height-input: 32px;
+    --max-height-input: 1000px;
 }
 
 *:before,

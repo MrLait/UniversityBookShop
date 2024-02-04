@@ -4,6 +4,7 @@ import UniversityApiService from '../../../API/UniversityApiService'
 import { Currencies, universityField } from '../../constants/initialStates'
 import MyButton from '../../UI/button/MyButton'
 import MyInput from '../../UI/input/MyInput'
+import MyTextArea from '../../UI/textarea/MyTextArea'
 import styles from './CreateUniversityForm.module.css'
 
 const CreateUniversityForm = ({ modalShow, create }) => {
@@ -106,7 +107,7 @@ const CreateUniversityForm = ({ modalShow, create }) => {
                                                 <label className={styles.formFieldLabel}>
                                                     University description (*)
                                                 </label>
-                                                <MyInput
+                                                <MyTextArea
                                                     error={descriptionError}
                                                     value={university.description}
                                                     onChange={e => setUniversity({ ...university, description: e.target.value })}
