@@ -1,0 +1,125 @@
+.createUniversity {
+    position: relative;
+    width: 100%;
+    border-radius: var(--rounded-large);
+    overflow: hidden;
+}
+
+.contentTabs {
+    position: relative;
+}
+
+.loading {
+    --spinner-bg: rgba(255, 255, 255, 0.2);
+    --spinner-color: #fff;
+    --loading-msg: #fff;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, var(--modal-alpha));
+    transform: scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    z-index: 5;
+}
+
+.loadingWhite {
+    --spinner-bg: rgba(0, 0, 0, 0.2);
+    --spinner-color: var(--color-primary);
+    --loading-msg: #222;
+    background-color: var(--bg-primary);
+}
+
+.loading.loadingActive {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.loadingSpinner {
+    pointer-events: none;
+    width: 2.5em;
+    height: 2.5em;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-color: var(--spinner-bg);
+    border-top-color: var(--spinner-color);
+    border-radius: 50%;
+    animation: loadingSpinnerAnimation .6s linear infinite;
+}
+
+.active {
+    display: block;
+}
+
+.createUniversityContainer {
+    display: flex;
+    justify-content: space-between;
+    min-height: var(--min-height-login);
+}
+
+.header {
+    background: var(--bg-3rd);
+}
+
+.title {
+    margin-bottom: 1.5em;
+    font-size: var(--text-size-large);
+    font-weight: normal;
+}
+
+.body {
+    background: var(--bg-white);
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: var(--pad-large-modal);
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(var(--grid-rows, 1), 1fr);
+    grid-template-columns: repeat(var(--grid-columns, 12), 1fr);
+    gap: var(--grid-gutter, var(--gutter));
+}
+
+.gridCol {
+    grid-column: auto/span 12;
+}
+
+.formField {
+    position: relative;
+    width: 100%;
+}
+
+.formFieldLabel {
+    display: block;
+    margin-bottom: 8px;
+    line-height: 100%;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 300;
+    color: #a7a7a7;
+}
+
+
+@keyframes loadingSpinnerAnimation {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.blackButton {
+    background-color: var(--button-bg);
+    color: var(--button-color);
+    width: 100%;
+}

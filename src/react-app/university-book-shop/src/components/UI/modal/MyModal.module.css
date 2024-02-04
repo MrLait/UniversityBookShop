@@ -15,15 +15,20 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     opacity: 0;
-    transition: 0.5s;
+    transition: all .4s;
     pointer-events: none;
     z-index: 10;
 }
 
 .myModalContent {
-    padding: 25px;
-    background: white;
-    border-radius: 16px;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    margin: auto 0;
+    /* transition: opacity .6s .2s; */
+    /* padding: 25px; */
+    /* background: white; */
+    /* border-radius: 16px; */
 }
 
 .myModal.active {
