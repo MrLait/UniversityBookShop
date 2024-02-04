@@ -3,13 +3,15 @@ import React, { useState } from 'react'
 import MyButton from '../../UI/button/MyButton'
 import MyModal from '../../UI/modal/MyModal'
 import CreateUniversityForm from './CreateUniversityForm'
+import { incrementPaginationTotalCount } from '../../../unitls/pagination'
 
-const CreateUniversity = ({ universities, setUniversities }) => {
+const CreateUniversity = ({ paginationData, setPaginationData, universities, setUniversities }) => {
     const [modalShow, setModalShow] = useState(false)
 
     const createUniversity = (university) => {
         setUniversities([...universities, university])
         setModalShow(false)
+        incrementPaginationTotalCount(setPaginationData)
     }
     return (
         <div >
@@ -24,3 +26,5 @@ const CreateUniversity = ({ universities, setUniversities }) => {
 }
 
 export default CreateUniversity
+
+

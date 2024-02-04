@@ -5,10 +5,11 @@ import styles from "./UniversityList.module.css"
 import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
 import { TransitionGroup } from "react-transition-group";
 const UniversityList = ({ universities, deleteUniversity }) => {
+    const visibleUniversities = universities.slice(0, 4);
     return (
         <>
             <TransitionGroup className={styles.universities}>
-                {universities.map(u =>
+                {visibleUniversities.map(u =>
                     <CSSTransition
                         key={u.id}
                         timeout={500}
@@ -22,9 +23,7 @@ const UniversityList = ({ universities, deleteUniversity }) => {
                     </CSSTransition>
                 )}
             </TransitionGroup>
-
         </>
-
     )
 }
 export default UniversityList;

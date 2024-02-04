@@ -6,3 +6,22 @@ export const getPagesArray = (totalPages) => {
     }
     return pagesArray;
 }
+
+export const incrementPaginationTotalCount = (setPaginationData) => {
+
+    setPaginationData((prevPaginationData) => ({
+        ...prevPaginationData,
+        totalCount: prevPaginationData.totalCount + 1,
+    }));
+    return setPaginationData;
+}
+
+export const decrementPaginationTotalCount = (setPaginationData) => {
+
+    setPaginationData((prevPaginationData) => ({
+        ...prevPaginationData,
+        totalCount: prevPaginationData.totalCount - 1,
+    }));
+    return setPaginationData;
+}
+

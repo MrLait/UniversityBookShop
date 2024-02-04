@@ -2,6 +2,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { TransitionGroup } from "react-transition-group";
 import UniversityApiService from "../API/UniversityApiService";
 import { paginationField, paginationHeader, universitiesField } from "../components/constants/initialStates";
@@ -9,15 +10,21 @@ import CreateUniversity from "../components/screens/University/CreateUniversity"
 import UniversityList from "../components/screens/University/UniversityList";
 import MyPagination from "../components/UI/pagination/MyPagination";
 import styles from './Universities.module.css'
+import { decrementPaginationTotalCount } from '../unitls/pagination'
+import { routePathsNavigate } from "../router/routes"
 const Universities = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { pageIndex } = useParams();
+    const rootPageIndex = parseInt(location.state?.pageIndex || pageIndex) || 1;
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
-    const [pageIndex, setPageIndex] = useState(1);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
-        getPaginatedUniversities(pageIndex, pageSize);
-    }, [])
+        getPaginatedUniversities(rootPageIndex, pageSize);
+    }, [rootPageIndex, isDeleted]);
 
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
@@ -26,7 +33,7 @@ const Universities = () => {
                 //"ToDo isSucceeded = false"
                 if (isSucceeded) {
                     setUniversities(response.data.data.items)
-                    setPaginationData(response.data);
+                    setPaginationData(response.data.data);
                 }
             })
     }
@@ -36,6 +43,8 @@ const Universities = () => {
             .then(response => {
                 if (response.status == 200 && response.data.isSucceeded) {
                     setUniversities(universities.filter(u => u.id !== university.id))
+                    decrementPaginationTotalCount(setPaginationData);
+                    setIsDeleted(!isDeleted);
                 }
                 //"ToDo isSucceeded = false"
             }
@@ -46,8 +55,8 @@ const Universities = () => {
             })
     }
     const changePage = (pageIndex) => {
-        setPageIndex(pageIndex)
         getPaginatedUniversities(pageIndex, pageSize);
+        navigate(routePathsNavigate.UniversitiesPage(pageIndex), { state: { pageIndex } });
     }
 
     return (
@@ -64,7 +73,9 @@ const Universities = () => {
                         </div>
                         <div className={styles.create}>
                             <div className={styles.createLeft}>
-                                <CreateUniversity setUniversities={setUniversities} universities={universities} />
+                                <CreateUniversity
+                                    setPaginationData={setPaginationData} paginationData={paginationData}
+                                    setUniversities={setUniversities} universities={universities} />
                             </div>
                         </div>
                     </div>
@@ -79,7 +90,7 @@ const Universities = () => {
                     </div>
                     <MyPagination
                         paginationData={paginationData}
-                        pageIndex={pageIndex}
+                        pageIndex={rootPageIndex}
                         changePage={changePage}
                         className={styles.pagination}
                     />
@@ -88,8 +99,6 @@ const Universities = () => {
                             <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
                         }
                     </div>
-
-
                 </div>
             </div>
         </>
