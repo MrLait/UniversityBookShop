@@ -5,26 +5,26 @@ import { useState } from "react";
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { TransitionGroup } from "react-transition-group";
 import UniversityApiService from "../API/UniversityApiService";
-import { paginationField, paginationHeader, universitiesField } from "../components/constants/initialStates";
+import { paginationField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
 import UniversityList from "../components/screens/University/UniversityList";
 import MyPagination from "../components/UI/pagination/MyPagination";
 import styles from './Universities.module.css'
 import { decrementPaginationTotalCount } from '../unitls/pagination'
 import { routePathsNavigate } from "../router/routes"
+
 const Universities = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { pageIndex } = useParams();
-    const rootPageIndex = parseInt(location.state?.pageIndex || pageIndex) || 1;
+    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
     const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
-        getPaginatedUniversities(rootPageIndex, pageSize);
-    }, [rootPageIndex, isDeleted]);
+        getPaginatedUniversities(defaultPageIndex, pageSize);
+    }, [defaultPageIndex, isDeleted]);
 
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
@@ -90,7 +90,7 @@ const Universities = () => {
                     </div>
                     <MyPagination
                         paginationData={paginationData}
-                        pageIndex={rootPageIndex}
+                        pageIndex={defaultPageIndex}
                         changePage={changePage}
                         className={styles.pagination}
                     />

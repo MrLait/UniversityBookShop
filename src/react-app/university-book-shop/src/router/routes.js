@@ -7,7 +7,7 @@ export const routePaths = {
     UniversitiesPage: '/page',
     UniversitiesPageIndex: '/page/:pageIndex',
     University: '/university',
-    UniversityId: '/university/:id',
+    UniversityId: '/university/:UniversityId',
     SearchBook: '/searchBook',
     SearchBookByFacultyId: '/searchBook/:faculty_id',
 }

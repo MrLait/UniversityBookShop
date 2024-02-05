@@ -62,8 +62,8 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                     className={styles.expandableBtn}
                     onClick={() => setOnMouseEntered(prevState => !prevState)}>
                     {onMouseEntered
-                        ? <ArrowExpand />
-                        : <ArrowCollapse />
+                        ? <ArrowCollapse />
+                        : <ArrowExpand />
                     }
                 </div>
             </div>
