@@ -3,9 +3,9 @@ using UniversityBookShop.Application.Common.Constants;
 
 namespace UniversityBookShop.Application.Cqrs.Universities.Queries.Get
 {
-    public class GetUniversityByUniversityIdQueryValidator: AbstractValidator<GetUniversityByUniversityIdQuery>
+    public class GetUniversityByUniversityIdWithPaginatedFacultiesQueryValidator : AbstractValidator<GetUniversityByUniversityIdWithPaginatedFacultiesQuery>
     {
-        public GetUniversityByUniversityIdQueryValidator()
+        public GetUniversityByUniversityIdWithPaginatedFacultiesQueryValidator()
         {
             RuleFor(x => x.UniversityId)
                 .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)

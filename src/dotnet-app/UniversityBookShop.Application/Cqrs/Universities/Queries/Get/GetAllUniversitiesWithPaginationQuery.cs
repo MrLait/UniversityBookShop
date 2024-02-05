@@ -14,6 +14,8 @@ public class GetAllUniversitiesWithPaginationQuery : PaginationParams, IRequest<
 {
     public GetAllUniversitiesWithPaginationQuery(PaginationParams paginationParams)
     {
+        PageIndex = paginationParams.PageIndex;
+        PageSize = paginationParams.PageSize;
         SetPaginationParams(paginationParams);
     }
 }
