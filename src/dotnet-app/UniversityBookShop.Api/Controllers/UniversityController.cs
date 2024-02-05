@@ -1,4 +1,3 @@
-using System.Text.Json;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,6 +10,7 @@ using UniversityBookShop.Application.Cqrs.Universities.Commands.Delete;
 using UniversityBookShop.Application.Cqrs.Universities.Commands.Update;
 using UniversityBookShop.Application.Cqrs.Universities.Queries.Get;
 using UniversityBookShop.Application.Dto;
+using UniversityBookShop.Application.Dto.Vm;
 
 namespace UniversityBookShop.Api.Controllers;
 
@@ -19,24 +19,24 @@ namespace UniversityBookShop.Api.Controllers;
 public class UniversityController : BaseController
 {
     /// <summary>
-    /// Get all universities.
+    /// Get all universities with university pagination.
     /// </summary>
     [HttpGet]
     public async Task<ActionResult<ServiceResult<PaginatedList<UniversityDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
     {
-        var vm = await Mediator.Send(new GetAllUniversitiesWithPaginationQuery(paginationParams) { PageIndex = paginationParams.PageIndex, PageSize =paginationParams.PageSize});
+        var vm = await Mediator.Send(new GetAllUniversitiesWithPaginationQuery(paginationParams));
         return Ok(vm);
     }
 
     /// <summary>
-    /// Get university by university id.
+    /// Get university by university id with paginated faculties.
     /// </summary>
     [HttpGet(RoutingConstants.UniversityId)]
     [SwaggerResponse(StatusCodes.Status200OK)]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ServiceResult<UniversityDto>>> GetAll(int universityId)
+    public async Task<ActionResult<ServiceResult<UniversityWithPaginatedFacultiesVm>>> GetAll(int universityId, [FromQuery] PaginationParams paginationParams)
     {
-        var vm = await Mediator.Send(new GetUniversityByUniversityIdQuery() { UniversityId = universityId });
+        var vm = await Mediator.Send(new GetUniversityByUniversityIdWithPaginatedFacultiesQuery(universityId, paginationParams));
         return Ok(vm);
     }
 

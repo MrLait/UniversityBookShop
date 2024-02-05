@@ -35,7 +35,7 @@ namespace UniversityBookShop.Api.Controllers
         /// Get all faluties by university id.
         /// </summary>
         [HttpGet(RoutingConstants.UniversityId)]
-        public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId([FromQuery] PaginationParams paginationParams, int universityId)
+        public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
         {
             var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams) 
             { 
