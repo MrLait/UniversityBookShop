@@ -14,14 +14,14 @@ const CreateUniversity = ({ paginationData, setPaginationData, universities, set
         incrementPaginationTotalCount(setPaginationData)
     }
     return (
-        <div >
+        < >
             <MyButton onClick={setModalShow}>
                 Create University
             </MyButton>
             <MyModal modalShow={modalShow} setModalShow={setModalShow}>
                 <CreateUniversityForm modalShow={modalShow} create={createUniversity} />
             </MyModal>
-        </div>
+        </>
     )
 }
 

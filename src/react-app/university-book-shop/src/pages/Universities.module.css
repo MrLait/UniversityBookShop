@@ -3,6 +3,13 @@
     margin-bottom: clamp(50px, 20vw, 200px);
 }
 
+.contentHeader {
+    margin-bottom: clamp(30px, 6vw, 100px);
+    padding-top: 71px;
+    padding-bottom: clamp(30px, 6vw, 100px);
+    background: var(--ch-bg, transparent);
+}
+
 .inner {
     width: 100%;
     max-width: var(--innerWidth);
@@ -10,13 +17,6 @@
     padding: 0 var(--pad-inner);
 }
 
-.contentHeader {
-    margin-bottom: clamp(30px, 6vw, 100px);
-    padding-top: 71px;
-    padding-bottom: clamp(30px, 6vw, 100px);
-    background: var(--ch-bg, transparent);
-
-}
 
 .createUniversity {
     display: grid;

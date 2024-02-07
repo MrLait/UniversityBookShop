@@ -3,7 +3,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { TransitionGroup } from "react-transition-group";
 import UniversityApiService from "../API/UniversityApiService";
 import { paginationField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";

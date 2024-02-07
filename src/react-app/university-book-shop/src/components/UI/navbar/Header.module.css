@@ -1,6 +1,10 @@
-.header {
+.header {}
+
+.headerUniversities {
     background: var(--ch-bg, transparent);
 }
+
+.headerUniversity {}
 
 .inner {
     width: 100%;

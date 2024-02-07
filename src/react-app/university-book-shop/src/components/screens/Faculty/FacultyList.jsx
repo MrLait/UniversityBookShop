@@ -9,18 +9,20 @@ const FacultyList = ({ faculties, setFaculties }) => {
         setFaculties(faculties.filter(f => f.id !== faculty.id))
     }
     return (
-        <div>
+        <>
             {faculties.length
                 ?
-                <div className={styles.myFacultyItemWrapper}>
+                <ul className={styles.gridSites}>
                     {faculties.map(faculty =>
-                        <FacultyCard
-                            key={faculty.id}
-                            faculty={faculty}
-                            removeFaculty={removeFaculty}
-                        />
+                        <li className={styles.li} key={faculty.id}>
+                            <FacultyCard
+                                key={faculty.id}
+                                faculty={faculty}
+                                removeFaculty={removeFaculty}
+                            />
+                        </li>
                     )}
-                </div>
+                </ul>
                 :
                 <div>
                     <div>
@@ -33,7 +35,7 @@ const FacultyList = ({ faculties, setFaculties }) => {
                 faculties={faculties}
                 setFaculties={setFaculties}
             />
-        </div>
+        </>
     )
 }
 

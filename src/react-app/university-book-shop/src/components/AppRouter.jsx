@@ -6,14 +6,15 @@ import { routePaths, routes } from "../router/routes";
 
 const AppRouter = () => {
     return (
-        <div>
+        // ToDo content  
+        <section className="content">
             <Routes>
                 {routes.map(route =>
                     <Route key={route.path} path={route.path} element={<route.element />} />
                 )}
                 <Route path="*" element={< Navigate to={routePaths.Universities} />} />
             </Routes>
-        </div>
+        </section>
     )
 }
 export default AppRouter;

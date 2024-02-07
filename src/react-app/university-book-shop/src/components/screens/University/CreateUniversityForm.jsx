@@ -13,6 +13,7 @@ const CreateUniversityForm = ({ modalShow, create }) => {
     const [nameError, setNameError] = useState('')
     const [descriptionError, setDescriptionError] = useState('')
     const [loading, setLoading] = useState(false);
+    const rootStyles = [styles.loading]
 
     const postUniversity = async (e) => {
         e.preventDefault()
@@ -31,7 +32,6 @@ const CreateUniversityForm = ({ modalShow, create }) => {
                     setNameError('');
                     setDescriptionError('');
                 }
-
             }).catch(error => {
                 if (error.response.status == 400) {
                     const validationErrors = error.response.data;
@@ -57,7 +57,6 @@ const CreateUniversityForm = ({ modalShow, create }) => {
         }
     }, [modalShow]);
 
-    const rootStyles = [styles.loading]
     if (loading) {
         rootStyles.push(styles.loadingActive);
         rootStyles.push(styles.loadingWhite);

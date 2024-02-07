@@ -1,17 +1,22 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import { routePaths } from '../../../router/routes';
 import styles from './Header.module.css'
 const Header = () => {
+    const pathname = useLocation().pathname
+    const headerStyle = pathname === routePaths.Universities
+        ? styles.headerUniversities
+        : styles.headerUniversity;
+
     return (
-        <div className={styles.header}>
+        <div className={`${styles.header} ${headerStyle}`}>
             <div className={styles.inner}>
                 <div className={styles.headerMain}>
-                    <div className={styles.headerMainLeft} >
+                    <Nav.Link className={`${styles.headerMainLeft} ${styles.title}`} href={routePaths.Universities} >
                         University book shop app
-                    </div>
+                    </Nav.Link>
                     <div className={styles.headerBlank}></div>
                     <div className={styles.headerMainRight}>
                         <Nav.Link className={styles.title} href={routePaths.Universities}>

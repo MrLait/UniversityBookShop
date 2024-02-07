@@ -1,4 +1,4 @@
-.createUniversity {
+.root {
     position: relative;
     width: 100%;
     min-height: var(--min-height-login);
@@ -42,7 +42,6 @@
     visibility: visible;
 }
 
-
 .loadingSpinner {
     pointer-events: none;
     width: 2.5em;
@@ -58,11 +57,10 @@
     display: block;
 }
 
-.createUniversityContainer {
+.container {
     display: flex;
     justify-content: space-between;
     min-height: var(--min-height-login);
-
 }
 
 .header {

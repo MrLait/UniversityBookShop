@@ -72,6 +72,10 @@ button {
     font-size: var(--text-size-primary)
 }
 
+.a {
+    cursor: pointer;
+}
+
 .university-enter {
     opacity: 0;
 }

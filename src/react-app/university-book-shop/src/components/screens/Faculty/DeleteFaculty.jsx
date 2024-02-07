@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import FacultyApiService from '../../../API/FacultyApiService'
 import { facultyField } from '../../constants/initialStates'
 import MyButton from '../../UI/button/MyButton'
+import styles from "./DeleteFaculty.module.css";
 
 const DeleteFaculty = ({ faculty, removeFaculty }) => {
 
@@ -15,9 +16,15 @@ const DeleteFaculty = ({ faculty, removeFaculty }) => {
             })
     }
     return (
-        <div>
-            <MyButton onClick={deleteFaculty}> Delete faculty</MyButton>
-        </div>
+        <>
+            <div>
+                {/* <MyButton onClick={deleteFaculty}> Delete faculty</MyButton> */}
+                <span className={styles.remove}
+                    onClick={deleteFaculty}>
+                    x
+                </span>
+            </div>
+        </>
     )
 }
 

@@ -5,46 +5,77 @@ import FacultyApiService from '../API/FacultyApiService';
 import UniversityApiService from '../API/UniversityApiService';
 import { facultyField, universityField } from '../components/constants/initialStates';
 import FacultyList from '../components/screens/Faculty/FacultyList';
-import UniversityDescription from '../components/screens/University/UniversityDescription';
 import { paginationField } from "../components/constants/initialStates";
+import styles from './UniversityIdPage.module.css'
 
 const UniversityIdPage = () => {
     const navigate = useNavigate();
     const { pageIndex } = useParams();
-    const { universityId } = useParams();
+    const universityId = parseInt(useParams().UniversityId);
+    const universityState = useLocation().state?.university;
     const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
+    const [pageSize, setPageSize] = useState(4);
     const defaultFaculties = useLocation().state?.university?.faculties || [];
     const [faculties, setFaculties] = useState(defaultFaculties)
+    const [university, setUniversity] = useState(universityState);
+    const [paginationData, setPaginationData] = useState(paginationField);
 
-    const getFacultiesByUniversityId = async (universityId) => {
-        const response = await FacultyApiService.getByUniversityId(universityId);
-        setFaculties(response.data);
+    const getUniversityByUniversityIdAndWithPaginatedFaculties = async (universityId, pageIndex, pageSize) => {
+        await UniversityApiService
+            .getUniversityByUniversityIdWithPaginatedFaculties(universityId, pageIndex, pageSize)
+            .then(response => {
+                var isSucceeded = response.data.isSucceeded;
+                //ToDo if false;
+                if (isSucceeded) {
+                    const data = response.data.data;
+                    const facultiesWithPagination = data.facultiesWithPagination;
+
+                    setUniversity(data)
+                    setPaginationData(facultiesWithPagination);
+                    setFaculties(facultiesWithPagination.items);
+                }
+            })
     }
 
     useEffect(() => {
-        getFacultiesByUniversityId(state.university.id)
+        getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, defaultPageIndex, pageSize);
     }, [])
 
     return (
-        <div >
-            {state
+        <div className={styles.block}>
+            {university
                 ?
-                <div>
-                    <div style={{ border: '2px solid teal', padding: '15px', marginTop: '15px', borderRadius: "16px" }}>
-                        <strong>
-                            University name: {state.university.name}
-                        </strong>
-                        <div>
-                            Description: {state.university.description}
+                <>
+                    <div className={`${styles.contentHeader} ${styles.textCenter}`}>
+                        <div className={styles.inner}>
+                            <div className={styles.headerTop}>
+                                <h1 className={`${styles.headerTopText} ${styles.upperCase}`}>
+                                    University
+                                    <br />
+                                    {university.name}
+                                </h1>
+                            </div>
+                            <div className={styles.headerBottom}>
+                                <span className={styles.headerBotText}>
+                                    {university.description}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <FacultyList
-                        faculties={faculties}
-                        setFaculties={setFaculties}
-                    />
-                </div>
+                    <div className={styles.contentBody}>
+                        <div className={styles.inner}>
+                            <FacultyList
+                                faculties={faculties}
+                                setFaculties={setFaculties}
+                            />
+                        </div>
+                    </div>
+
+                </>
                 :
-                <div> University not found</div>
+                <div className={styles.inner}>
+                    <div> University not found</div>
+                </div>
             }
         </div >
     )
