@@ -6,6 +6,7 @@ import UniversityApiService from '../API/UniversityApiService';
 import { facultyField, universityField } from '../components/constants/initialStates';
 import FacultyList from '../components/screens/Faculty/FacultyList';
 import { paginationField } from "../components/constants/initialStates";
+import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
 import styles from './UniversityIdPage.module.css'
 
 const UniversityIdPage = () => {
@@ -46,8 +47,8 @@ const UniversityIdPage = () => {
             {university
                 ?
                 <>
-                    <div className={`${styles.contentHeader} ${styles.textCenter}`}>
-                        <div className={styles.inner}>
+                    <div className={styles.inner}>
+                        <div className={`${styles.contentHeaderTop} ${styles.textCenter}`}>
                             <div className={styles.headerTop}>
                                 <h1 className={`${styles.headerTopText} ${styles.upperCase}`}>
                                     University
@@ -61,6 +62,19 @@ const UniversityIdPage = () => {
                                 </span>
                             </div>
                         </div>
+                        <div className={styles.contentHeaderBot} >
+                            <div className={styles.headerBotFlexLeft}>
+                                <strong>{university?.facultiesWithPagination?.totalCount} </strong>
+                                number of faculties available.
+                            </div>
+                            <div className={styles.headerBotFlexRight}>
+                                <CreateFaculty
+                                    btnStyles={styles.blackButton}
+                                    faculties={faculties}
+                                    setFaculties={setFaculties}
+                                />
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.contentBody}>
                         <div className={styles.inner}>
@@ -70,7 +84,6 @@ const UniversityIdPage = () => {
                             />
                         </div>
                     </div>
-
                 </>
                 :
                 <div className={styles.inner}>

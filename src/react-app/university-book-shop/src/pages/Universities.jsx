@@ -15,7 +15,7 @@ import { routePathsNavigate } from "../router/routes"
 const Universities = () => {
     const navigate = useNavigate();
     const { pageIndex } = useParams();
-    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
+    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex || 1);
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);

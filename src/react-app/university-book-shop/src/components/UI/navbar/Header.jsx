@@ -3,10 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import { routePaths } from '../../../router/routes';
+import { matchPath } from 'react-router';
 import styles from './Header.module.css'
 const Header = () => {
     const pathname = useLocation().pathname
-    const headerStyle = pathname === routePaths.Universities
+
+    const routesToMatch = [
+        routePaths.Universities,
+        routePaths.UniversitiesPageIndex
+    ];
+
+    const isMatchingRoute = routesToMatch.some((route) => {
+        const regex = new RegExp(`^${route.replace(/:[^/]+/g, '[^/]+')}$`);
+        return regex.test(pathname);
+    });
+
+    const headerStyle = isMatchingRoute
         ? styles.headerUniversities
         : styles.headerUniversity;
 
