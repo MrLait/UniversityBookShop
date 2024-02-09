@@ -2,15 +2,35 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { routePathsNavigate } from '../../../router/routes';
-import PurchasedBooks from '../PurchasedBook/PurchasedBooks';
 import DeleteFaculty from './DeleteFaculty';
 import styles from './FacultyCard.module.css';
 import { ReactComponent as ArrowDirectionLeft } from '../../../Assets/arrow_direction_left.svg';
-
+import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
 
 const FacultyCard = ({ faculty, removeFaculty }) => {
     const navigate = useNavigate();
     const [isPurchasedBooksVisible, setIsPurchasedBooksVisible] = useState(false);
+
+    const getPurchasedBooks = async (facultyId) => {
+        await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
+            .then((response) => {
+                var isSucceeded = response.data.isSucceeded;
+                if (response.status === 200 && isSucceeded) {
+                    navigate(routePathsNavigate.FacultyBooksByFacultyId(faculty.universityId, faculty.id))
+                }
+                if (isSucceeded == false && response.data.error.statusCode === 404) {
+                    setIsPurchasedBooksVisible(true);
+                }
+            });
+    }
+
+    const togglePurchasedBooksVisibility = async (facultyId) => {
+        if (isPurchasedBooksVisible) {
+            setIsPurchasedBooksVisible(false);
+        } else {
+            await getPurchasedBooks(facultyId);
+        }
+    };
 
     return (
         <>
@@ -46,21 +66,28 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                         <strong>Open purchased book</strong>
                         <a
                             className={styles.rolloverArrowDirectionLeft}
-                            onClick={() => setIsPurchasedBooksVisible(prev => !prev)}>
+                            onClick={() => togglePurchasedBooksVisibility(faculty.id)
+                            }
+                        // onClick={() =>
+                        //     navigate(routePathsNavigate.FacultyBooksByFacultyId(faculty.universityId, faculty.id))
+                        // }
+                        >
                             <ArrowDirectionLeft className={styles.arrowDirectionLeft} />
                         </a>
                     </li>
+                    {isPurchasedBooksVisible ?
+                        <li className={`${styles.footer} ${styles.li}`}>
+                            <strong>There is not purchased books.</strong>
+                        </li>
+                        :
+                        <></>
+                    }
                 </ul>
-                <h1></h1>
-                <div >
-                    <ul>
-                        <PurchasedBooks
-                            facultyId={faculty.id}
-                            isVisible={isPurchasedBooksVisible}
-                        />
-                    </ul>
-                </div>
-            </div>
+                {/* <PurchasedBooksList
+                    facultyId={faculty.id}
+                    isVisible={isPurchasedBooksVisible}
+                /> */}
+            </div >
         </>
     )
 }

@@ -22,6 +22,7 @@ const UniversityIdPage = () => {
     const [faculties, setFaculties] = useState(defaultFaculties)
     const [university, setUniversity] = useState(universityState);
     const [paginationData, setPaginationData] = useState(paginationField);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     const getUniversityByUniversityIdAndWithPaginatedFaculties = async (universityId, pageIndex, pageSize) => {
         await UniversityApiService
@@ -42,13 +43,12 @@ const UniversityIdPage = () => {
 
     useEffect(() => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, defaultPageIndex, pageSize);
-    }, [])
+    }, [isDeleted])
 
     const changePage = (pageIndex) => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, pageIndex, pageSize);
         navigate(routePathsNavigate.FacultiesPage(universityId, pageIndex), { state: { pageIndex } });
     }
-
 
     return (
         <div className={styles.block}>
@@ -72,7 +72,7 @@ const UniversityIdPage = () => {
                         </div>
                         <div className={styles.contentHeaderBot} >
                             <div className={styles.headerBotFlexLeft}>
-                                <strong>{university?.facultiesWithPagination?.totalCount} </strong>
+                                <strong>{faculties?.length} </strong>
                                 number of faculties available.
                             </div>
                             <div className={styles.headerBotFlexRight}>
@@ -95,6 +95,9 @@ const UniversityIdPage = () => {
                         <div className={styles.inner}>
                             <FacultyList
                                 pageSize={pageSize}
+                                setPaginationData={setPaginationData}
+                                setIsDeleted={setIsDeleted}
+                                isDeleted={isDeleted}
                                 faculties={faculties}
                                 setFaculties={setFaculties}
                             />
