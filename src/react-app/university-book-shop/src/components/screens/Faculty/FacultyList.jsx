@@ -22,7 +22,7 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
                             key={faculty.id}
                             timeout={600}
                             classNames="pagination">
-                            <div className={styles.li} key={faculty.id}>
+                            <div key={faculty.id}>
                                 <FacultyCard
                                     key={faculty.id}
                                     faculty={faculty}
@@ -34,7 +34,7 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
                 </TransitionGroup>
                 :
                 <div>
-                    Faculty not found
+                    There are no facilities
                 </div>
             }
         </>

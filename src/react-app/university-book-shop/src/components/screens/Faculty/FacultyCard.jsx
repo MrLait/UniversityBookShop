@@ -47,7 +47,6 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                             removeFaculty={removeFaculty}
                         />
                     </div>
-
                 </div>
                 <ul className={styles.footer}>
                     <li className={`${styles.footer} ${styles.li}`}>
@@ -66,11 +65,7 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                         <strong>Open purchased book</strong>
                         <a
                             className={styles.rolloverArrowDirectionLeft}
-                            onClick={() => togglePurchasedBooksVisibility(faculty.id)
-                            }
-                        // onClick={() =>
-                        //     navigate(routePathsNavigate.FacultyBooksByFacultyId(faculty.universityId, faculty.id))
-                        // }
+                            onClick={() => togglePurchasedBooksVisibility(faculty.id)}
                         >
                             <ArrowDirectionLeft className={styles.arrowDirectionLeft} />
                         </a>
@@ -83,10 +78,6 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                         <></>
                     }
                 </ul>
-                {/* <PurchasedBooksList
-                    facultyId={faculty.id}
-                    isVisible={isPurchasedBooksVisible}
-                /> */}
             </div >
         </>
     )

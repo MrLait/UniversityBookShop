@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
 import { booksAvailableForFacultyField } from '../../constants/initialStates';
-import PurchasedBookItem from './PurchasedBookItem'
+import PurchasedBookCard from './PurchasedBookCard'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
@@ -25,7 +25,6 @@ const PurchasedBooksList = ({ setBooksCount, facultyId }) => {
     }, [])
 
     const deleteBookClick = (id) => {
-        console.log(id);
         setPurchasedBooks(
             purchasedBooks.filter(p => p.id !== id)
         )
@@ -37,19 +36,24 @@ const PurchasedBooksList = ({ setBooksCount, facultyId }) => {
                 ?
                 <TransitionGroup className={styles.gridSites}>
                     {purchasedBooks.map(b =>
-                        < >
-                            <PurchasedBookItem
-                                purchasedBookId={b.id}
-                                book={b.book}
-                                deleteClick={deleteBookClick}
-                            />
-                        </>)
-                    }
+                        <CSSTransition
+                            key={b.id}
+                            timeout={600}
+                            classNames="pagination">
+                            <div key={b.id}>
+                                <PurchasedBookCard
+                                    purchasedBookId={b.id}
+                                    book={b.book}
+                                    deleteClick={deleteBookClick}
+                                />
+                            </div>
+                        </CSSTransition>
+                    )}
                 </TransitionGroup>
                 :
                 <div>
                     <hr />
-                    There is no books
+                    There are no books
                 </div>
             }
         </>

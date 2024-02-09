@@ -1,13 +1,21 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import PurchasedBooksList from '../components/screens/PurchasedBook/PurchasedBooksList'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import styles from './PurchasedBooksByFacultyId.module.css'
 import FacultyApiService from '../API/FacultyApiService'
+import MyPagination from '../components/UI/pagination/MyPagination'
+import { paginationField } from "../components/constants/initialStates";
 
 const PurchasedBooksByFacultyId = () => {
+    //ToDo page routes
+    const { pageIndex } = useParams();
+    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
     const [faculty, setFaculty] = useState('');
     const [booksCount, setBooksCount] = useState(0);
+    const [paginationData, setPaginationData] = useState(paginationField);
+    const [pageSize, setPageSize] = useState(4);
+
     const facultyId = parseInt(useParams().faculty_id || 0);
 
     const getFacultyByFacultyId = async (facultyId) => {
@@ -41,7 +49,7 @@ const PurchasedBooksByFacultyId = () => {
                 <div className={styles.contentHeaderBot} >
                     <div className={styles.headerBotFlexLeft}>
                         <strong>{booksCount} </strong>
-                        number of books available.
+                        number of available books.
                     </div>
                     <div className={styles.headerBotFlexRight}>
                     </div>
@@ -49,6 +57,12 @@ const PurchasedBooksByFacultyId = () => {
             </div>
             <div className={styles.contentBody}>
                 <div className={styles.inner}>
+                    <MyPagination
+                        paginationData={paginationData}
+                        pageIndex={defaultPageIndex}
+                        // changePage={changePage}
+                        className={styles.pagination}
+                    />
                     <PurchasedBooksList
                         setBooksCount={setBooksCount}
                         facultyId={facultyId} />

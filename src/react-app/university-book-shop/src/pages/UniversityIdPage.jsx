@@ -82,15 +82,15 @@ const UniversityIdPage = () => {
                                 />
                             </div>
                         </div>
-                        <MyPagination
-                            paginationData={paginationData}
-                            pageIndex={defaultPageIndex}
-                            changePage={changePage}
-                            className={styles.pagination}
-                        />
                     </div>
                     <div className={styles.contentBody}>
                         <div className={styles.inner}>
+                            <MyPagination
+                                paginationData={paginationData}
+                                pageIndex={defaultPageIndex}
+                                changePage={changePage}
+                                className={styles.pagination}
+                            />
                             <FacultyList
                                 pageSize={pageSize}
                                 setPaginationData={setPaginationData}
