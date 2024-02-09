@@ -32,19 +32,28 @@ namespace UniversityBookShop.Api.Controllers
             return Ok(vm);
         }
         /// <summary>
+        /// Get faculty by id
+        /// </summary>
+        [HttpGet(RoutingConstants.Faculty.FacultyId)]
+        public async Task<ActionResult<FacultyDto>> GetByFacultyId(int facultyId)
+        {
+            var vm = await Mediator.Send(new GetFacultyByIdQuery(facultyId));
+
+            return Ok(vm);
+        }
+        /// <summary>
         /// Get all faluties by university id.
         /// </summary>
-        [HttpGet(RoutingConstants.UniversityId)]
+        [HttpGet(RoutingConstants.Faculty.UniversityId)]
         public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
         {
-            var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams) 
-            { 
+            var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams)
+            {
                 UniversityId = universityId,
             });
 
             return Ok(vm);
         }
-
         /// <summary>
         /// Create faculty.
         /// </summary>
