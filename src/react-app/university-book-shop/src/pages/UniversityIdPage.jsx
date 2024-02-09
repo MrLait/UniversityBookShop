@@ -1,9 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import FacultyApiService from '../API/FacultyApiService';
 import UniversityApiService from '../API/UniversityApiService';
-import { facultyField, universityField } from '../components/constants/initialStates';
 import FacultyList from '../components/screens/Faculty/FacultyList';
 import { paginationField } from "../components/constants/initialStates";
 import MyPagination from "../components/UI/pagination/MyPagination"

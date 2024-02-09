@@ -9,6 +9,7 @@ export const BookShopApiUrls = {
     purchaseBookToFaculty: 'BooksAvailableForFaculty/purchase',
     booksPurchasedByUniversity: 'BooksPurchasedByUniversity',
     faculty: 'Faculty',
+    facultiesByUniversityId: 'Faculty/university',
     getPaginationParams
 }
 

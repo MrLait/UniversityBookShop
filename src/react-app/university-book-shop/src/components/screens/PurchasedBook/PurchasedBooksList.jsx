@@ -7,15 +7,16 @@ import PurchasedBookItem from './PurchasedBookItem'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-const PurchasedBooksList = ({ facultyId }) => {
+const PurchasedBooksList = ({ setBooksCount, facultyId }) => {
     const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
     const getPurchasedBooks = async () => {
         await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
             .then((response) => {
                 var isSucceeded = response.data.isSucceeded;
                 if (response.status === 200 && isSucceeded) {
-
-                    setPurchasedBooks(response.data.data.items)
+                    const books = response.data.data.items;
+                    setPurchasedBooks(books)
+                    setBooksCount(books.length)
                 }
             });
     }
