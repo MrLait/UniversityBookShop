@@ -20,7 +20,8 @@ public class GetPurchasedBooksByFacultyIdWithPaginationQuery : PaginationParams,
     }
 }
 
-public class GetPurchasedBooksByFacultyIdQueryHandler : IRequestHandler<GetPurchasedBooksByFacultyIdWithPaginationQuery, ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>
+public class GetPurchasedBooksByFacultyIdQueryHandler :
+    IRequestHandler<GetPurchasedBooksByFacultyIdWithPaginationQuery, ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
