@@ -6,8 +6,10 @@ import UniversityApiService from '../API/UniversityApiService';
 import { facultyField, universityField } from '../components/constants/initialStates';
 import FacultyList from '../components/screens/Faculty/FacultyList';
 import { paginationField } from "../components/constants/initialStates";
+import MyPagination from "../components/UI/pagination/MyPagination"
 import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
 import styles from './UniversityIdPage.module.css'
+import { routePathsNavigate } from '../router/routes';
 
 const UniversityIdPage = () => {
     const navigate = useNavigate();
@@ -42,6 +44,12 @@ const UniversityIdPage = () => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, defaultPageIndex, pageSize);
     }, [])
 
+    const changePage = (pageIndex) => {
+        getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, pageIndex, pageSize);
+        navigate(routePathsNavigate.FacultiesPage(universityId, pageIndex), { state: { pageIndex } });
+    }
+
+
     return (
         <div className={styles.block}>
             {university
@@ -75,6 +83,12 @@ const UniversityIdPage = () => {
                                 />
                             </div>
                         </div>
+                        <MyPagination
+                            paginationData={paginationData}
+                            pageIndex={defaultPageIndex}
+                            changePage={changePage}
+                            className={styles.pagination}
+                        />
                     </div>
                     <div className={styles.contentBody}>
                         <div className={styles.inner}>

@@ -4,10 +4,11 @@ import UniversityIdPage from "../pages/UniversityIdPage";
 
 export const routePaths = {
     Universities: '/',
-    UniversitiesPage: '/page',
-    UniversitiesPageIndex: '/page/:pageIndex',
+    Page: '/page',
+    PageIndex: '/page/:pageIndex',
     University: '/university',
     UniversityId: '/university/:UniversityId',
+    UniversityIdPageIndex: `/university/:UniversityId/page/:pageIndex`,
     SearchBook: '/searchBook',
     SearchBookByFacultyId: '/searchBook/:faculty_id',
 }
@@ -18,14 +19,20 @@ export const routePathsNavigate = {
     SearchBookByFacultyId(faculty_id) {
         return (`${routePaths.SearchBook}/${faculty_id}`)
     },
+
     UniversitiesPage(pageIndex) {
-        return (`${routePaths.UniversitiesPage}/${pageIndex}`)
+        return (`${routePaths.Page}/${pageIndex}`)
+    },
+
+    FacultiesPage(universityId, pageIndex) {
+        return (`${routePaths.University}/${universityId}${routePaths.Page}/${pageIndex}`)
     }
 }
 
 export const routes = [
     { path: routePaths.Universities, element: Universities },
-    { path: routePaths.UniversitiesPageIndex, element: Universities },
+    { path: routePaths.PageIndex, element: Universities },
     { path: routePaths.UniversityId, element: UniversityIdPage },
+    { path: routePaths.UniversityIdPageIndex, element: UniversityIdPage },
     { path: routePaths.SearchBookByFacultyId, element: PurchaseBookByFacultyId },
 ]

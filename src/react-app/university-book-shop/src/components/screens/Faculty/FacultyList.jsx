@@ -31,10 +31,6 @@ const FacultyList = ({ faculties, setFaculties }) => {
 
                 </div>
             }
-            <CreateFaculty
-                faculties={faculties}
-                setFaculties={setFaculties}
-            />
         </>
     )
 }
