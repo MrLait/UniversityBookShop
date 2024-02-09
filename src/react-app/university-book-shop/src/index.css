@@ -76,20 +76,20 @@ button {
     cursor: pointer;
 }
 
-.university-enter {
+.pagination-enter {
     opacity: 0;
 }
 
-.university-enter-active {
+.pagination-enter-active {
     opacity: 1;
     transition: opacity 600ms ease-in;
 }
 
-.university-exit {
+.pagination-exit {
     opacity: 1;
 }
 
-.university-exit-active {
+.pagination-exit-active {
     opacity: 0;
     display: none;
     transition: opacity 600ms ease-out;

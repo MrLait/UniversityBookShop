@@ -4,13 +4,14 @@ import MyButton from '../../UI/button/MyButton'
 import MyModal from '../../UI/modal/MyModal'
 import CreateFacultyForm from './CreateFacultyForm'
 import styles from './CreateFaculty.module.css'
-
-const CreateFaculty = ({ btnStyles, faculties, setFaculties }) => {
+import { incrementPaginationTotalCount } from '../../../unitls/pagination'
+const CreateFaculty = ({ setPaginationData, btnStyles, faculties, setFaculties }) => {
     const [modalShow, setModalShow] = useState(false)
 
     const createFaculty = (faculty) => {
         setFaculties([...faculties, faculty])
         setModalShow(false)
+        incrementPaginationTotalCount(setPaginationData)
     }
 
     return (

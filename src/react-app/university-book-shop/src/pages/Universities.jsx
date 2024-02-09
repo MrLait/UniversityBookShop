@@ -95,7 +95,9 @@ const Universities = () => {
                     />
                     <div >
                         {universities.length === 0 ? <p>No universities found.</p> :
-                            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+                            <UniversityList
+                                pageSize={pageSize}
+                                deleteUniversity={deleteUniversity} universities={universities} />
                         }
                     </div>
                 </div>

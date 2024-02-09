@@ -2,10 +2,9 @@
 import React from "react";
 import UniversityItem from "./UniversityItem";
 import styles from "./UniversityList.module.css"
-import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
-import { TransitionGroup } from "react-transition-group";
-const UniversityList = ({ universities, deleteUniversity }) => {
-    const visibleUniversities = universities.slice(0, 4);
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+const UniversityList = ({ pageSize, universities, deleteUniversity }) => {
+    const visibleUniversities = universities.slice(0, pageSize);
     return (
         <>
             <TransitionGroup className={styles.universities}>
@@ -13,8 +12,7 @@ const UniversityList = ({ universities, deleteUniversity }) => {
                     <CSSTransition
                         key={u.id}
                         timeout={600}
-                        classNames="university"
-                    >
+                        classNames="pagination">
                         <div>
                             <div className={styles.university}>
                                 <UniversityItem deleteUniversity={deleteUniversity} university={u} />

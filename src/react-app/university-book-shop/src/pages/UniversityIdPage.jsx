@@ -77,6 +77,7 @@ const UniversityIdPage = () => {
                             </div>
                             <div className={styles.headerBotFlexRight}>
                                 <CreateFaculty
+                                    setPaginationData={setPaginationData}
                                     btnStyles={styles.blackButton}
                                     faculties={faculties}
                                     setFaculties={setFaculties}
@@ -93,6 +94,7 @@ const UniversityIdPage = () => {
                     <div className={styles.contentBody}>
                         <div className={styles.inner}>
                             <FacultyList
+                                pageSize={pageSize}
                                 faculties={faculties}
                                 setFaculties={setFaculties}
                             />
