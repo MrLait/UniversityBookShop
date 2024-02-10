@@ -22,8 +22,8 @@ export default class BooksAvailableForFacultyApiService {
         return response;
     }
 
-    static async post(bookId, facultyId, universityId) {
-        const response = await apiInstance.post(`${BookShopApiUrls.purchaseBookToFaculty}/`, { bookId, facultyId, universityId })
+    static async postAddBook(bookId, facultyId) {
+        const response = await apiInstance.post(`${BookShopApiUrls.purchaseBookToFaculty}/`, { bookId, facultyId })
         return response;
     }
 

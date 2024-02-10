@@ -35,5 +35,5 @@
 .contentBody {
     position: relative;
     margin-bottom: clamp(40px, 5vw, 96px);
-    font-weight: 400;
+    font-weight: 300;
 }

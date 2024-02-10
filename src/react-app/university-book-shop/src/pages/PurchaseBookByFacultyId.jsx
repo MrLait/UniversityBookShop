@@ -2,9 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BookApiService from '../API/BookApiService';
-import Book from '../components/screens/Book/Book';
+import Book from '../components/screens/Book/BookCard';
 import styles from './PurchaseBookByFacultyId.module.css';
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
+import BookList from '../components/screens/Book/BookList'
+import PurchasedBookApiService from '../API/PurchasedBookApiService';
+import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants'
 
 const PurchaseBookByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
@@ -15,50 +18,97 @@ const PurchaseBookByFacultyId = () => {
     useEffect(() => {
         getBooks();
     }, [])
-    const updateBooksIsPurchased = (books) => {
-        Promise.all(books.map(b => {
-            return BooksAvailableForFacultyApiService.getByFacultyIdBookId(facultyId, b.id)
-                .then(response => {
-                    const isSucceeded = response.data.isSucceeded;
-                    var data = response.data.data;
-                    if (isSucceeded) {
-                        var isPurchased = data.items[0].isPurchased
-                        return { ...b, isPurchased }
-                    }
-                    return b;
-                })
-        }))
-            .then(updatedBooks => {
-                setBooks(updatedBooks);
-                console.log(updatedBooks);
-            })
-    }
 
     const getBooks = async () => {
-        await BookApiService.getAll()
+        await BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId)
             .then((response) => {
                 const data = response.data.data.items;
                 setBooks(data)
-                setIsGetFilteredBook(true);
-                updateBooksIsPurchased(data);
             })
     }
 
+    const postPurchaseBook = async (bookId, facultyId) => {
+        await PurchasedBookApiService.postPurchaseBookForFaculty(bookId, facultyId)
+            .then(response => {
+                var isSucceeded = response.data.isSucceeded;
+                if (isSucceeded) {
+                    const updateBookStatus = books.map(book => {
+                        if (bookId === book.id) {
+                            return {
+                                ...book,
+                                purchaseStatus: purchaseStatusConstants.bookPurchasedByCurrentFaculty
+                            }
+                        }
+                        return book;
+                    })
+                    setBooks(updateBookStatus)
+                }
+            })
+    }
+
+    const postAddBook = async (bookId, facultyId) => {
+        await BooksAvailableForFacultyApiService.postAddBook(bookId, facultyId)
+            .then(response => {
+                var isSucceeded = response.data.isSucceeded;
+                if (isSucceeded) {
+                    const updateBookStatus = books.map(book => {
+                        if (bookId === book.id) {
+                            return {
+                                ...book,
+                                purchaseStatus: purchaseStatusConstants.bookAddedByCurrentFaculty
+                            }
+                        }
+                        return book;
+                    })
+                    setBooks(updateBookStatus)
+                }
+            })
+    }
+
+    const buyBook = (bookId) => {
+        postPurchaseBook(bookId, facultyId)
+    }
+
+    const addBook = (bookId) => {
+        postAddBook(bookId, facultyId)
+    }
+
     return (
-        <div>
-            <div className={styles.wrap}>
-                {books.map(b =>
-                    <div key={b.id} className={styles.content} >
-                        <div>Hello {b.id} </div>
-                        <Book
-                            book={b}
-                            isGetFilteredBook={isGetFilteredBook}
-                            setIsGetFilteredBook={setIsGetFilteredBook}
-                        />
+        <div className={styles.block}>
+            {books
+                ?
+                <>
+                    <div className={styles.inner}>
+                        <div className={`${styles.contentHeaderTop} ${styles.textCenter}`}>
+                            <div className={styles.headerTop}>
+                                <h1 className={`${styles.headerTopText} ${styles.upperCase}`}>
+                                    Books
+                                </h1>
+                            </div>
+                        </div>
+                        <div className={styles.contentHeaderBot} >
+                            <div className={styles.headerBotFlexLeft}>
+                                <strong>{books?.length} </strong>
+                                number of books available.
+                            </div>
+                        </div>
                     </div>
-                )}
-            </div>
-        </div>
+                    <div className={styles.contentBody}>
+                        <div className={styles.inner}>
+                            <BookList
+                                books={books}
+                                buyBook={buyBook}
+                                addBook={addBook}
+                            />
+                        </div>
+                    </div>
+                </>
+                :
+                <div className={styles.inner}>
+                    <div>There are no books.</div>
+                </div>
+            }
+        </div >
     )
 }
 
