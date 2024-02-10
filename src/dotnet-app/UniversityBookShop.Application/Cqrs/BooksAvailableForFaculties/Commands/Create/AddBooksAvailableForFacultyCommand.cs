@@ -14,12 +14,12 @@ public class AddBooksAvailableForFacultyCommand :
 {
     public int? BookId { get; set; }
     public int? FacultyId { get; set; }
-    public int? UniversityId { get; set; }
+    //public int? UniversityId { get; set; }
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<AddBooksAvailableForFacultyCommand, BooksAvailableForFaculty>()
-        .ForMember(c => c.UniversityId, opt => opt.MapFrom(src => src.UniversityId));
+        profile.CreateMap<AddBooksAvailableForFacultyCommand, BooksAvailableForFaculty>();
+        //.ForMember(c => c.UniversityId, opt => opt.MapFrom(src => src.UniversityId));
     }
 }
 
@@ -42,15 +42,12 @@ public class AddBooksAvailableForFacultyCommandHandler : IRequestHandler<AddBook
             .SingleOrDefaultAsync(c => c.Id == request.FacultyId, cancellationToken)
             ?? throw new NotFoundException(nameof(Faculty), request.FacultyId!);
 
-        if(facultyExist.UniversityId != request.UniversityId)
-            return ServiceResult.Failed<int>(ServiceError.ThereIsNoUniversityForFaculty);
-
         var isAdded = await _dbContext.BooksAvailableForFaculties
             .AnyAsync(x => x.BookId == request.BookId && x.FacultyId == request.FacultyId, cancellationToken);
         if (isAdded) return ServiceResult.Failed<int>(ServiceError.EntityAlreadyExists);
 
         var purchasedBook = _mapper.Map<BooksAvailableForFaculty>(request);
-
+        purchasedBook.UniversityId = facultyExist.UniversityId;
         purchasedBook.IsPurchased = facultyExist.PurchasedBookFaculty != null &&
                             facultyExist.PurchasedBookFaculty.Any(x => x.BookId == request.BookId);
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
+using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Delete;
 
@@ -22,11 +23,39 @@ public class DeleteBooksAvailableForFacultyCommandHandler :
     {
         var entity = await _dbContext.BooksAvailableForFaculties
             .Where(x => x.Id == request.Id)
-            .ExecuteDeleteAsync(cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken) 
+            ?? throw new NotFoundException(nameof(BooksAvailableForFaculties), request.Id);
 
-        if (entity == 0)
-            throw new NotFoundException(nameof(BooksAvailableForFaculties), request.Id);
+        var isLast = await _dbContext.BooksAvailableForFaculties
+            .CountAsync(x => x.BookId == entity.BookId && x.UniversityId == entity.UniversityId, cancellationToken) == 1;
 
+        _dbContext.BooksAvailableForFaculties.Remove(entity);
+        if (isLast)
+        {
+            var purchasedBookEntity = await _dbContext.PurchasedBookFaculties
+                .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
+                .FirstOrDefaultAsync(cancellationToken)
+            ?? throw new NotFoundException(nameof(PurchasedBooksFaculty), request.Id);
+
+            _dbContext.PurchasedBookFaculties.Remove(purchasedBookEntity);
+            await UpdateTotalBookPriceAsync(entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);
+        }
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(Unit.Value);
+    }
+
+    private async Task UpdateTotalBookPriceAsync(int? universityId, 
+        decimal? curBookPrice, CancellationToken cancellationToken)
+    {
+        var university = await _dbContext.Universities
+            .Where(u => u.Id == universityId)
+            .Include(x => x.CurrencyCode)
+            .Include(x => x.Faculties)
+            .FirstOrDefaultAsync(cancellationToken)
+        ?? throw new NotFoundException(nameof(University), universityId ?? 0);
+
+        university.TotalBookPrice = await _dbContext.PurchasedBookFaculties
+            .SumAsync(x => x.Book!.Price, cancellationToken) - (curBookPrice ?? 0m);
     }
 }
