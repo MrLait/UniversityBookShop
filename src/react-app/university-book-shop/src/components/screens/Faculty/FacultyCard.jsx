@@ -59,7 +59,6 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                                 { state: { universityId: faculty.universityId } })}>
                             <ArrowDirectionLeft className={styles.arrowDirectionLeft} />
                         </a>
-
                     </li>
                     <li className={`${styles.footer} ${styles.li}`}>
                         <strong>Open purchased book</strong>

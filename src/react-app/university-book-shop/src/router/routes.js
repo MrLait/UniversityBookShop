@@ -11,10 +11,10 @@ export const routePaths = {
     UniversityId: '/university/:UniversityId',
     UniversityIdPageIndex: `/university/:UniversityId/page/:pageIndex`,
     SearchBook: '/searchBook',
-    SearchBookByFacultyId: '/searchBook/:faculty_id',
+    SearchBookByFacultyId: '/searchBook/:facultyId',
     Faculty: '/faculty',
-    FacultyId: '/faculty/:faculty_id',
-    PurchasedBooksByFacultyId: '/university/:UniversityId/faculty/:faculty_id'
+    FacultyId: '/faculty/:facultyId',
+    PurchasedBooksByFacultyId: '/university/:UniversityId/faculty/:facultyId'
 }
 // university/id/faculty/id
 export const routePathsNavigate = {
@@ -24,14 +24,14 @@ export const routePathsNavigate = {
     UniversitiesPage(pageIndex) {
         return (`${routePaths.Page}/${pageIndex}`)
     },
-    SearchBookByFacultyId(faculty_id) {
-        return (`${routePaths.SearchBook}/${faculty_id}`)
+    SearchBookByFacultyId(facultyId) {
+        return (`${routePaths.SearchBook}/${facultyId}`)
     },
     FacultiesPage(universityId, pageIndex) {
         return (`${routePaths.University}/${universityId}${routePaths.Page}/${pageIndex}`)
     },
-    FacultyBooksByFacultyId(universityId, faculty_id) {
-        return (`${routePaths.University}/${universityId}${routePaths.Faculty}/${faculty_id}`)
+    FacultyBooksByFacultyId(universityId, facultyId) {
+        return (`${routePaths.University}/${universityId}${routePaths.Faculty}/${facultyId}`)
     },
 }
 

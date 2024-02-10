@@ -104,7 +104,7 @@ const UniversityIdPage = () => {
                 </>
                 :
                 <div className={styles.inner}>
-                    <div> University not found</div>
+                    <div>There is no university.</div>
                 </div>
             }
         </div >

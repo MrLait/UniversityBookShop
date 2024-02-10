@@ -16,7 +16,7 @@ const PurchasedBooksByFacultyId = () => {
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
 
-    const facultyId = parseInt(useParams().faculty_id || 0);
+    const facultyId = parseInt(useParams().facultyId || 0);
 
     const getFacultyByFacultyId = async (facultyId) => {
         await FacultyApiService
