@@ -2,9 +2,15 @@
 {
     public static class RoutingConstants
     {
-        public static class Faculty{
+        public static class Faculty
+        {
             public const string FacultyId = "{facultyId}";
             public const string UniversityId = "university/{universityId}";
+        }
+
+        public static class Book
+        {
+            public const string FacultyId = "faculty/{facultyId}";
         }
 
         public const string ApiController = "api/[controller]";
