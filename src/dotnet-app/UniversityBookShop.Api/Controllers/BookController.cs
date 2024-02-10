@@ -35,6 +35,15 @@ namespace UniversityBookShop.Api.Controllers
             return Ok(vm);
         }
 
+        [HttpGet(RoutingConstants.Book.FacultyId)]
+        public async Task<ActionResult<ServiceResult<PaginatedList<BookDto>>>> GetWithPurchaseStatusByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
+        {
+            var vm = await Mediator.Send(new GetBooksWithPurchaseStatusByFacultyIdWithPaginationQuery(facultyId, paginationParams));
+            return Ok(vm);
+        }
+
+
+        
         /// <summary>
         /// Create new book.
         /// </summary>
