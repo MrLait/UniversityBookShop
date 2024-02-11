@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -27,6 +28,10 @@ public class DeletePurchasedBookFacultyCommandHandler :
             .Include(x => x.Book)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(PurchasedBooksFaculty), request.Id);
+
+            await _dbContext.BooksAvailableForFaculties
+                .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
+                .ExecuteDeleteAsync(cancellationToken);
 
         var isBookAvailableForFaculty = await _dbContext.BooksAvailableForFaculties
             .AnyAsync(x => x.BookId == entity.BookId

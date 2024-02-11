@@ -38,9 +38,9 @@ namespace UniversityBookShop.Api.Controllers
         /// Get all available books by faculty id and book id. 
         /// </summary>
         [HttpGet(RoutingConstants.FacultyIdBookId)]
-        public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyIdAndBookId(int facultyId, int bookId, [FromQuery] PaginationParams paginationParams)
+        public async Task<ActionResult<ServiceResult<BooksAvailableForFacultyDto>>> GetByFacultyIdAndBookId(int facultyId, int bookId)
         {
-            var query = new GetAvailableBooksByFacultyIdAndBookIdWithPaginationQuery(facultyId, bookId, paginationParams);
+            var query = new GetAvailableBooksByFacultyIdAndBookIdQuery(facultyId, bookId);
             return Ok(await Mediator.Send(query));
         }
 
