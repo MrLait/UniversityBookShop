@@ -1,9 +1,11 @@
+import { createRef } from "react";
 import PurchaseBookByFacultyId from "../pages/PurchaseBookByFacultyId";
 import PurchasedBooksByFacultyId from "../pages/PurchasedBooksByFacultyId";
 import Universities from "../pages/Universities";
 import UniversityIdPage from "../pages/UniversityIdPage";
 
 export const routePaths = {
+    Home: '',
     Universities: '/',
     Page: '/page',
     PageIndex: '/page/:pageIndex',
@@ -36,6 +38,7 @@ export const routePathsNavigate = {
 }
 
 export const routes = [
+    { path: routePaths.Universities, element: Universities },
     { path: routePaths.Universities, element: Universities },
     { path: routePaths.PageIndex, element: Universities },
     { path: routePaths.UniversityId, element: UniversityIdPage },

@@ -17,7 +17,7 @@ const UniversityIdPage = () => {
     const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
     const [pageSize, setPageSize] = useState(4);
     const defaultFaculties = useLocation().state?.university?.faculties || [];
-    const [faculties, setFaculties] = useState(defaultFaculties)
+    const [faculties, setFaculties] = useState([])
     const [university, setUniversity] = useState(universityState);
     const [paginationData, setPaginationData] = useState(paginationField);
     const [isDeleted, setIsDeleted] = useState(false);

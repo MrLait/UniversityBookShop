@@ -34,9 +34,9 @@ const Header = () => {
                         <Nav.Link className={styles.title} href={routePaths.Universities}>
                             Home
                         </Nav.Link>
-                        <Nav.Link className={styles.title} href="ToDo">
+                        {/* <Nav.Link className={styles.title} href="ToDo">
                             ToDo
-                        </Nav.Link>
+                        </Nav.Link> */}
                     </div>
                 </div>
             </div>
