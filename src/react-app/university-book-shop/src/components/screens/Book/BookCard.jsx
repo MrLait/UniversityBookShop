@@ -12,7 +12,7 @@ import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants
 import MyButton from '../../UI/button/MyButton'
 // const Book = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId }) => {
 
-const BookCard = ({ book, buyBook, addBook }) => {
+const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
     const facultyId = parseInt(useParams().facultyId || 0);
     return (
         <>
@@ -97,6 +97,14 @@ const BookCard = ({ book, buyBook, addBook }) => {
                                     </div>
                                 </>
                             </li>
+                            <li className={`${styles.buttonWithError}`} >
+                                <MyButton
+                                    error={book.errorMessage}
+                                    setStyles={styles.btn}
+                                    onClick={() => deleteBook(book.id)}>
+                                    Delete purchased book
+                                </MyButton>
+                            </li>
                         </>
                     )}
                     {book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty && (
@@ -112,11 +120,9 @@ const BookCard = ({ book, buyBook, addBook }) => {
                                 </>
                             </li>
                             <li className={styles.li}>
-                                <>
-                                    <MyButton setStyles={styles.btn} onClick={() => addBook(book.id)}>
-                                        Add book
-                                    </MyButton>
-                                </>
+                                <MyButton setStyles={styles.btn} onClick={() => addBook(book.id)}>
+                                    Add book
+                                </MyButton>
                             </li>
                         </>
                     )}
@@ -131,6 +137,14 @@ const BookCard = ({ book, buyBook, addBook }) => {
                                         <div>Book added</div>
                                     </div>
                                 </>
+                            </li>
+                            <li className={`${styles.buttonWithError}`} >
+                                <MyButton
+                                    error={book.errorMessage}
+                                    setStyles={styles.btn}
+                                    onClick={() => removeBook(book.id)}>
+                                    Remove book
+                                </MyButton>
                             </li>
                         </>
                     )}

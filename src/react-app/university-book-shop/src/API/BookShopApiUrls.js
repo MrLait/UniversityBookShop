@@ -6,7 +6,7 @@ export const BookShopApiUrls = {
     purchasedBookByUniversityId: 'PurchasedBookFaculty/University',
     book: 'Book',
     booksAvailableForFaculty: 'BooksAvailableForFaculty',
-    purchaseBookToFaculty: 'BooksAvailableForFaculty/add',
+    addBooksAvailableForFaculty: 'BooksAvailableForFaculty/add',
     booksPurchasedByUniversity: 'BooksPurchasedByUniversity',
     faculty: 'Faculty',
     facultiesByUniversityId: 'Faculty/university',

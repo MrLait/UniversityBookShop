@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { decrementPaginationTotalCount } from '../../../unitls/pagination'
 import BookCard from './BookCard'
 
-const BookList = ({ books, buyBook, addBook }) => {
+const BookList = ({ books, buyBook, addBook, removeBook, deleteBook }) => {
     // const visibleFaculty = faculties.slice(0, pageSize);
     // const removeFaculty = (faculty) => {
     //     setFaculties(faculties.filter(f => f.id !== faculty.id))
@@ -25,6 +25,8 @@ const BookList = ({ books, buyBook, addBook }) => {
                                 book={book}
                                 buyBook={buyBook}
                                 addBook={addBook}
+                                removeBook={removeBook}
+                                deleteBook={deleteBook}
                             />
                         </div>
                     </CSSTransition>

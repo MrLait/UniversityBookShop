@@ -61,7 +61,7 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                         </a>
                     </li>
                     <li className={`${styles.footer} ${styles.li}`}>
-                        <strong>Open purchased book</strong>
+                        <strong>Open available books</strong>
                         <a
                             className={styles.rolloverArrowDirectionLeft}
                             onClick={() => togglePurchasedBooksVisibility(faculty.id)}
@@ -71,7 +71,7 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                     </li>
                     {isPurchasedBooksVisible ?
                         <li className={`${styles.footer} ${styles.li}`}>
-                            <strong>There is not purchased books.</strong>
+                            <strong>There is no books.</strong>
                         </li>
                         :
                         <></>

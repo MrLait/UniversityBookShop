@@ -23,12 +23,12 @@ export default class BooksAvailableForFacultyApiService {
     }
 
     static async postAddBook(bookId, facultyId) {
-        const response = await apiInstance.post(`${BookShopApiUrls.purchaseBookToFaculty}/`, { bookId, facultyId })
+        const response = await apiInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId })
         return response;
     }
 
-    static async delete(id) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${id}`)
+    static async deleteAvailableBook(bookId) {
+        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`)
         return response;
     }
 }
