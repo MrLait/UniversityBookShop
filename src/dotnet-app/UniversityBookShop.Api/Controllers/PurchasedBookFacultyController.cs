@@ -29,20 +29,20 @@ public class PurchasedBookFacultyController : BaseController
     /// <summary>
     /// Retrieves a paginated list of purchased books specific to a faculty by its ID.
     /// </summary>
-    [HttpGet(RoutingConstants.FacultyAndId)]
-    public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>> GetByFacultyId(int id, [FromQuery] PaginationParams paginationParams)
+    [HttpGet(RoutingConstants.PurchasedBookFaculty.FacultyId)]
+    public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
     {
-        var query = new GetPurchasedBooksByFacultyIdWithPaginationQuery(paginationParams, id);
+        var query = new GetPurchasedBooksByFacultyIdWithPaginationQuery(paginationParams, facultyId);
         return Ok(await Mediator.Send(query));
     }
 
     /// <summary>
     /// Retrieves a paginated list of purchased books for a university by its ID.
     /// </summary>
-    [HttpGet(RoutingConstants.UniversityAndId)]
-    public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetByUniversityId(int id, [FromQuery] PaginationParams paginationParams)
+    [HttpGet(RoutingConstants.PurchasedBookFaculty.UniversityId)]
+    public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
     {
-        var query = new GetPurchasedBooksByUniversityIdWithPaginationQuery(paginationParams, id);
+        var query = new GetPurchasedBooksByUniversityIdWithPaginationQuery(paginationParams, universityId);
         return Ok(await Mediator.Send(query));
     }
 
@@ -56,11 +56,20 @@ public class PurchasedBookFacultyController : BaseController
     }
 
     /// <summary>
-    /// Deletes a purchased book entry for a faculty by its ID.
+    /// Delete a purchased book entry for a faculty by its ID.
     /// </summary>
     [HttpDelete(RoutingConstants.Id)]
     public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
     {
         return Ok(await Mediator.Send(new DeletePurchasedBookFacultyCommand { Id = id }));
+    }
+
+    /// <summary>
+    /// Delete a purchased book by faulctyId and bookId.
+    /// </summary>
+    [HttpDelete(RoutingConstants.PurchasedBookFaculty.FacultyIdAndBookId)]
+    public async Task<ActionResult<ServiceResult<Unit>>> Delete(int facultyId, int bookId)
+    {
+        return Ok(await Mediator.Send(new DeletePurchasedBookByFacultyIdAndBookIdCommand(facultyId, bookId)));
     }
 }
