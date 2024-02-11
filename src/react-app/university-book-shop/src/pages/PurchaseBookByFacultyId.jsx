@@ -5,8 +5,8 @@ import BookApiService from '../API/BookApiService';
 import Book from '../components/screens/Book/BookCard';
 import styles from './PurchaseBookByFacultyId.module.css';
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
-import BookList from '../components/screens/Book/BookList'
 import PurchasedBookApiService from '../API/PurchasedBookApiService';
+import BookList from '../components/screens/Book/BookList'
 import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants'
 import { responsivePropType } from 'react-bootstrap/esm/createUtilityClasses';
 
@@ -61,6 +61,9 @@ const PurchaseBookByFacultyId = () => {
                 if (isSucceeded) {
                     updateBookStatus(bookId, purchaseStatusConstants.bookPurchasedByCurrentFaculty)
                 }
+                else {
+                    updateBookErrorMessage(bookId, response.data.error.message)
+                }
             })
     }
 
@@ -80,14 +83,14 @@ const PurchaseBookByFacultyId = () => {
                 .then(response => {
                     var isSucceeded = response.data.isSucceeded;
                     if (isSucceeded) {
-                        var availableBook = response.data.data.items[0]
+                        var availableBook = response.data.data
                         return availableBook
                     }
                 })
         return availableBook
     }
 
-    const deleteAvailableBook = async (bookId, facultyId) => {
+    const removeAvailableBook = async (bookId, facultyId) => {
         const availableBook = await getAvailableBook(bookId, facultyId);
         if (availableBook.bookId === bookId) {
             await BooksAvailableForFacultyApiService.deleteAvailableBook(availableBook.id)
@@ -109,6 +112,21 @@ const PurchaseBookByFacultyId = () => {
         }
     }
 
+    const deletePurchasedBook = async (bookId, facultyId) => {
+        await PurchasedBookApiService.deleteByFacultyIdAndBookId(facultyId, bookId)
+            .then(response => {
+                var isSucceeded = response.data.isSucceeded;
+                if (isSucceeded) {
+                    updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForPurchase)
+                } else {
+                    updateBookErrorMessage(bookId, response.data.error.message)
+                }
+            })
+            .catch(error => {
+                updateBookErrorMessage(bookId, error.response.data.error.message)
+            })
+    }
+
     const buyBook = (bookId) => {
         postPurchaseBook(bookId, facultyId)
     }
@@ -118,11 +136,11 @@ const PurchaseBookByFacultyId = () => {
     }
 
     const removeBook = (bookId) => {
-        deleteAvailableBook(bookId, facultyId)
+        removeAvailableBook(bookId, facultyId)
     }
 
     const deleteBook = (bookId) => {
-        // deletePurchasedBook(bookId, facultyId)
+        deletePurchasedBook(bookId, facultyId)
     }
 
     return (

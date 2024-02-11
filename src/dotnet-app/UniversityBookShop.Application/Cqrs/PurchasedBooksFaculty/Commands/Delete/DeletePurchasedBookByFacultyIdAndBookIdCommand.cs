@@ -34,14 +34,15 @@ namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Del
                 .FirstOrDefaultAsync(x => x.FacultyId == request.Facultyid && x.BookId == request.BookId, cancellationToken)
                 ?? throw new NotFoundException(nameof(PurchasedBooksFaculty), request.Facultyid, request.BookId);
 
+            var isBookAddedToOtherFaculty= await _dbContext.BooksAvailableForFaculties
+                .AnyAsync(x => x.BookId == entity.BookId && x.FacultyId != entity.FacultyId
+                && x.Faculty.UniversityId == entity.Faculty.UniversityId, cancellationToken);
+
+            if (isBookAddedToOtherFaculty) return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstityBook);
+
             await _dbContext.BooksAvailableForFaculties
                 .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
                 .ExecuteDeleteAsync(cancellationToken);
-
-            var isBookAvailableForFaculty = await _dbContext.BooksAvailableForFaculties
-                .AnyAsync(x => x.BookId == entity.BookId
-                && x.Faculty.UniversityId == entity.Faculty.UniversityId, cancellationToken);
-            if (isBookAvailableForFaculty) return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstityBook);
 
             _dbContext.PurchasedBookFaculties.Remove(entity);
             await UpdateTotalBookPriceAsync(entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);

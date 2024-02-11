@@ -76,12 +76,13 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                                     </div>
                                 </>
                             </li>
-                            <li className={styles.li}>
-                                <>
-                                    <MyButton setStyles={styles.btn} onClick={() => buyBook(book.id)}>
-                                        Buy book
-                                    </MyButton>
-                                </>
+                            <li className={`${styles.buttonWithError}`} >
+                                <MyButton
+                                    error={book.errorMessage}
+                                    setStyles={styles.btn}
+                                    onClick={() => buyBook(book.id)}>
+                                    Buy book
+                                </MyButton>
                             </li>
                         </>
                     )}
