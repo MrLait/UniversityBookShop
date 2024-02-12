@@ -15,21 +15,21 @@ const AppRouter = () => {
 
     return (
         <>
-            <TransitionGroup>
+            {/* <SwitchTransition>
                 <CSSTransition
-                    timeout={500}
+                    timeout={300}
                     classNames='page'
                     key={pathName}
                     unmountOnExit
-                >
-                    <Routes>
-                        {routes.map(route =>
-                            <Route key={route.path} path={route.path} element={<route.element />} />
-                        )}
-                        <Route path="*" element={< Navigate to={routePaths.Universities} />} />
-                    </Routes >
-                </CSSTransition>
-            </TransitionGroup >
+                > */}
+            <Routes >
+                {routes.map(route =>
+                    <Route key={route.path} path={route.path} element={<route.element />} />
+                )}
+                <Route path="*" element={< Navigate to={routePaths.Universities} />} />
+            </Routes >
+            {/* </CSSTransition>
+            </SwitchTransition > */}
         </>
     )
 }

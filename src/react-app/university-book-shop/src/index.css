@@ -122,15 +122,13 @@ button {
     position: absolute;
 }
 
-.page-enter {
+/* .page-enter {
     opacity: 0;
-    transform: scale(0.98);
 }
 
 .page-enter-active {
     opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.5s, transform 0.5s;
+    transition: opacity 1s, transform 1s;
 }
 
 .page-exit {
@@ -139,7 +137,8 @@ button {
 
 .page-exit-active {
     opacity: 0;
-}
+} */
+
 
 
 @keyframes moveDown {
