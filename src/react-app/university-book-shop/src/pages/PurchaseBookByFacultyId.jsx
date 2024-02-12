@@ -9,6 +9,7 @@ import PurchasedBookApiService from '../API/PurchasedBookApiService';
 import BookList from '../components/screens/Book/BookList'
 import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants'
 import { responsivePropType } from 'react-bootstrap/esm/createUtilityClasses';
+import transition from '../unitls/transition';
 
 const PurchaseBookByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
@@ -184,4 +185,4 @@ const PurchaseBookByFacultyId = () => {
     )
 }
 
-export default PurchaseBookByFacultyId
+export default transition(PurchaseBookByFacultyId)

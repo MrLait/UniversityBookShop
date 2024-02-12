@@ -11,6 +11,7 @@ import MyPagination from "../components/UI/pagination/MyPagination";
 import styles from './Universities.module.css'
 import { decrementPaginationTotalCount } from '../unitls/pagination'
 import { routePathsNavigate } from "../router/routes"
+import transition from "../unitls/transition";
 
 const Universities = () => {
     const navigate = useNavigate();
@@ -105,4 +106,4 @@ const Universities = () => {
         </>
     );
 }
-export default Universities;
+export default transition(Universities);

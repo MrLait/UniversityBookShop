@@ -1,14 +1,13 @@
-import { createRef } from "react";
 import PurchaseBookByFacultyId from "../pages/PurchaseBookByFacultyId";
 import PurchasedBooksByFacultyId from "../pages/PurchasedBooksByFacultyId";
 import Universities from "../pages/Universities";
 import UniversityIdPage from "../pages/UniversityIdPage";
 
 export const routePaths = {
-    Home: '',
-    Universities: '/',
+    Home: '/',
+    Universities: '/universities',
     Page: '/page',
-    PageIndex: '/page/:pageIndex',
+    PageIndex: '/universities/page/:pageIndex',
     University: '/university',
     UniversityId: '/university/:UniversityId',
     UniversityIdPageIndex: `/university/:UniversityId/page/:pageIndex`,
@@ -20,11 +19,14 @@ export const routePaths = {
 }
 // university/id/faculty/id
 export const routePathsNavigate = {
+    Home() {
+        return (`${routePaths.Home}`)
+    },
     UniversityId(id) {
         return (`${routePaths.University}/${id}`)
     },
     UniversitiesPage(pageIndex) {
-        return (`${routePaths.Page}/${pageIndex}`)
+        return (`${routePaths.Universities}${routePaths.Page}/${pageIndex}`)
     },
     SearchBookByFacultyId(facultyId) {
         return (`${routePaths.SearchBook}/${facultyId}`)
@@ -38,7 +40,8 @@ export const routePathsNavigate = {
 }
 
 export const routes = [
-    { path: routePaths.Universities, element: Universities },
+    { path: routePaths.Home, element: Universities },
+    // { path: routePaths.Universities, element: Universities },
     { path: routePaths.Universities, element: Universities },
     { path: routePaths.PageIndex, element: Universities },
     { path: routePaths.UniversityId, element: UniversityIdPage },

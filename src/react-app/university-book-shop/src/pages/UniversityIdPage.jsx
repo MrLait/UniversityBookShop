@@ -8,6 +8,7 @@ import MyPagination from "../components/UI/pagination/MyPagination"
 import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
 import styles from './UniversityIdPage.module.css'
 import { routePathsNavigate } from '../router/routes';
+import transition from '../unitls/transition';
 
 const UniversityIdPage = () => {
     const navigate = useNavigate();
@@ -111,4 +112,4 @@ const UniversityIdPage = () => {
     )
 }
 
-export default UniversityIdPage
+export default transition(UniversityIdPage)

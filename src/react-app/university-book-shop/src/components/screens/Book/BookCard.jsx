@@ -25,10 +25,6 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                             </strong>
                         </div>
                         <div className={styles.headerRight}>
-                            {/* <DeletePurchasedBook
-                                id={purchasedBookId}
-                                deleteClick={deleteClick}
-                            /> */}
                         </div>
                     </div>
                     <div className={styles.headerBot}>
@@ -151,107 +147,8 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                     )}
                 </ul>
             </div >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* 
-
-            <div className={styles.myBook}>
-                <div>
-                    <h1>
-                        {book.name}
-                    </h1>
-                </div>
-                <div>
-                    by&nbsp;
-                    <span>{book.author} (Author)</span>
-                </div>
-                <div>
-                    <hr />
-                    {book.purchaseStatus === purchaseStatusConstants.bookAvailableForPurchase && (
-                        <>
-                            <div>{book.purchaseStatus}</div>
-                            <div> Price : {book.price} {book.currencyCode.code}</div>
-                            <hr />
-                        </>
-                    )}
-
-                    {book.isPurchase === false && (
-                        <div>
-                            <div>Price : sdsdsdsdsdFREE</div>
-                            <hr />
-                            <div>{book.purchaseStatus}</div>
-                            <AddBook
-                                book={book}
-                                addBook={addBook}
-                            />
-                        </div>
-                    )}
-
-                    {book.isPurchase === null && (
-                        <>
-                            <div>{book.purchaseStatus}</div>
-                            <div> Price : {book.price} {book.currencyCode.code}</div>
-                            <hr />
-                            <div>
-                                <AddBook
-                                    book={book}
-                                    addBook={addBook}
-                                />
-                            </div>
-                        </>
-                    )}
-                </div>
-            </div > */}
         </>
     )
 }
 
 export default BookCard;
-
-// const { universityId } = useLocation().state
-// const [purchasedBook, setPurchasedBook] = useState(purchasedBookField);
-// const [isBookAtUniversity, setIsBookAtUniversity] = useState(false)
-
-// const getPurchasedBooks = async () => {
-//     await BooksAvailableForFacultyApiService.getByFacultyIdBookId(facultyId, book.id)
-//         .then((response) => {
-//             if (response.status == 200) {
-//                 const isSucceeded = response.data.isSucceeded
-//                 const data = response.data.data;
-//                 const error = response.data.error
-//                 if (isSucceeded) {
-//                     setPurchasedBook(data.items)
-//                     setIsBookAtUniversity(false);
-//                 }
-
-//                 if (!isSucceeded && error.statusCode === 404) {
-//                     BooksPurchasedByUniversityApiService.getIsBookAtUniversity(book.id, universityId)
-//                         .then((isBookAtUniversityResponse) => {
-//                             setIsBookAtUniversity(isBookAtUniversityResponse.data);
-//                             setPurchasedBook(response.data)
-//                         })
-//                 }
-//             }
-
-//         })
-// }
-// useEffect(() => {
-//     if (isGetFilteredBook) {
-//         getPurchasedBooks()
-//     }
-// }, [])
