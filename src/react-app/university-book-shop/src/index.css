@@ -1,7 +1,8 @@
 :root {
+    --innerWidth: 1920px;
+    --font-1: apercu, sans-serif;
     --button-rounded: 8px;
     --button-rounded-full: 72px;
-    --button-height: 48px;
     --color-primary: #222;
     --color-primary-rgb: 34, 34, 34;
     --bg-primary: #F8F8F8;
@@ -21,9 +22,22 @@
     --rounded-large: 1rem;
     --ch-bg: #e9e9e9;
     --color-underlined: var(--color-primary-rgb);
+    --header-height: 71px;
+    --bg-3rd: var(--ch-bg);
+    --bg-white: var(--color-white);
+    --text-size-large: 24px;
+    --height-input: 48px;
+    --pad-input: 16px;
+    --bg-input: #fff;
+    --color-input: #222;
+    --border-input: #e9e9e9;
+    --color-errors: #FA5D29;
+    --text-size-small: 12px;
+    --min-height-input: 32px;
+    --max-height-input: 1000px;
+    --min-height-login: 100px;
+    --min-wight-modal: 500px;
 }
-
-
 
 *:before,
 *:after {
@@ -36,10 +50,9 @@
     box-sizing: border-box;
 }
 
-
 body {
     margin: auto;
-    font-family: "apercu", sans-serif;
+    font-family: var(--font-1);
     font-size: var(--text-size-primary);
     font-weight: 300;
     background: var(--bg-primary);
@@ -51,30 +64,35 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-
-.university {
-    border-radius: var(--rounded-large);
-    background: var(--color-white);
-    overflow: hidden;
-    margin-bottom: 40px;
+input,
+select,
+textarea,
+button {
+    font-family: var(--font-1);
+    font-size: var(--text-size-primary)
 }
 
-.university-enter {
+.a {
+    cursor: pointer;
+}
+
+.pagination-enter {
     opacity: 0;
 }
 
-.university-enter-active {
+.pagination-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    transition: opacity 600ms ease-in;
 }
 
-.university-exit {
+.pagination-exit {
     opacity: 1;
 }
 
-.university-exit-active {
+.pagination-exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-in;
+    display: none;
+    transition: opacity 600ms ease-out;
 }
 
 .footer-enter {
@@ -96,6 +114,51 @@ body {
     transition: opacity 300ms ease-in;
     animation: moveUp .3s;
 }
+
+/* .page-enter {
+    position: absolute;
+} */
+.page {
+    position: absolute;
+}
+
+/* .page-enter {
+    opacity: 0;
+}
+
+.page-enter-active {
+    opacity: 1;
+    transition: opacity 1s, transform 1s;
+}
+
+.page-exit {
+    opacity: 1;
+}
+
+.page-exit-active {
+    opacity: 0;
+} */
+
+.slide-in {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0f0f0f;
+    transform-origin: bottom;
+}
+
+.slide-out {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0f0f0f;
+    transform-origin: top;
+}
+
 
 @keyframes moveDown {
     0% {
@@ -121,4 +184,59 @@ body {
     }
 
 
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-light-pro.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-light-italic-pro.woff2") format("woff2");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-regular-pro.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-medium-pro.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-bold-pro.woff2") format("woff2");
+    font-weight: 600;
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "apercu";
+    src: local('apercu'), url("Assets/fonts/apercu/apercu-black-pro.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Hanken Grotesk";
+    src: local('Hanken Grotesk'), url("Assets/fonts/hanken-grotesk/HankenGrotesk-VariableFont_wght.ttf") format("truetype");
+    font-weight: 300 900
 }

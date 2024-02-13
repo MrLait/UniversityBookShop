@@ -29,14 +29,15 @@ public class DeletePurchasedBookFacultyCommandHandler :
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(PurchasedBooksFaculty), request.Id);
 
-            await _dbContext.BooksAvailableForFaculties
-                .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
-                .ExecuteDeleteAsync(cancellationToken);
-
-        var isBookAvailableForFaculty = await _dbContext.BooksAvailableForFaculties
-            .AnyAsync(x => x.BookId == entity.BookId
+        var isBookAddedToOtherFaculty = await _dbContext.BooksAvailableForFaculties
+            .AnyAsync(x => x.BookId == entity.BookId && x.FacultyId != entity.FacultyId
             && x.Faculty.UniversityId == entity.Faculty.UniversityId, cancellationToken);
-        if (isBookAvailableForFaculty) return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstityBook);
+
+        if (isBookAddedToOtherFaculty) return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstityBook);
+
+        await _dbContext.BooksAvailableForFaculties
+            .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
+            .ExecuteDeleteAsync(cancellationToken);
 
         _dbContext.PurchasedBookFaculties.Remove(entity);
         await UpdateTotalBookPriceAsync(entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);

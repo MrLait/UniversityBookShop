@@ -1,39 +1,42 @@
 // @ts-nocheck
 import React from 'react'
-import CreateFaculty from './CreateFaculty'
 import FacultyCard from './FacultyCard'
 import styles from './FacultyItem.module.css'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { decrementPaginationTotalCount } from '../../../unitls/pagination'
 
-const FacultyList = ({ faculties, setFaculties }) => {
+const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, faculties, setFaculties }) => {
+    const visibleFaculty = faculties.slice(0, pageSize);
     const removeFaculty = (faculty) => {
         setFaculties(faculties.filter(f => f.id !== faculty.id))
+        decrementPaginationTotalCount(setPaginationData);
+        setIsDeleted(!isDeleted);
     }
     return (
-        <div>
+        <>
             {faculties.length
                 ?
-                <div className={styles.myFacultyItemWrapper}>
-                    {faculties.map(faculty =>
-                        <FacultyCard
+                <TransitionGroup className={styles.gridSites}>
+                    {visibleFaculty.map(faculty =>
+                        <CSSTransition
                             key={faculty.id}
-                            faculty={faculty}
-                            removeFaculty={removeFaculty}
-                        />
+                            timeout={600}
+                            classNames="pagination">
+                            <div key={faculty.id}>
+                                <FacultyCard
+                                    faculty={faculty}
+                                    removeFaculty={removeFaculty}
+                                />
+                            </div>
+                        </CSSTransition>
                     )}
-                </div>
+                </TransitionGroup>
                 :
                 <div>
-                    <div>
-                        Faculty not found
-                    </div>
-
+                    There are no facilities
                 </div>
             }
-            <CreateFaculty
-                faculties={faculties}
-                setFaculties={setFaculties}
-            />
-        </div>
+        </>
     )
 }
 

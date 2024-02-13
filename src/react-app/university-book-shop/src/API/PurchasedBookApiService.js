@@ -21,13 +21,18 @@ export default class PurchasedBookApiService {
         return response;
     }
 
-    static async post(bookId, facultyId) {
+    static async postPurchaseBookForFaculty(bookId, facultyId) {
         const response = await apiInstance.post(`${BookShopApiUrls.purchasedBookFaculty}/`, { bookId, facultyId })
         return response;
     }
 
     static async delete(id) {
         const response = await apiInstance.delete(`${BookShopApiUrls.purchasedBookFaculty}/${id}`)
+        return response;
+    }
+
+    static async deleteByFacultyIdAndBookId(facultyId, bookId) {
+        const response = await apiInstance.delete(`${BookShopApiUrls.purchasedBookFaculty}/faculty/${facultyId}/book/${bookId}`)
         return response;
     }
 

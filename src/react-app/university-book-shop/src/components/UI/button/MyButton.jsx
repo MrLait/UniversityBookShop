@@ -1,11 +1,16 @@
 // @ts-nocheck
 import React from 'react'
 import styles from './MyButton.module.css'
-const MyButton = ({ children, ...props }) => {
+const MyButton = ({ error, setStyles, children, ...props }) => {
+    const additionalStyles = setStyles ? setStyles : '';
+    const combinedStyles = `${styles.myBtn} ${additionalStyles}`;
     return (
-        <button className={styles.myBtn} {...props}>
-            {children}
-        </button >
+        <>
+            <button className={combinedStyles} {...props}>
+                {children}
+            </button >
+            {error && <div className={styles.message}>{error}</div>}
+        </>
     )
 }
 

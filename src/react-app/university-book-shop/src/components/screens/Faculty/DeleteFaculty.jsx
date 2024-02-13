@@ -1,23 +1,25 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+// @ts-nocheck
+import React from 'react'
 import FacultyApiService from '../../../API/FacultyApiService'
-import { facultyField } from '../../constants/initialStates'
-import MyButton from '../../UI/button/MyButton'
+import styles from "./DeleteFaculty.module.css";
 
 const DeleteFaculty = ({ faculty, removeFaculty }) => {
 
     const deleteFaculty = async () => {
         await FacultyApiService.delete(faculty.id)
             .then(response => {
-                if (response.status == 204) {
+                if (response.status == 200 && response.data.isSucceeded) {
                     removeFaculty(faculty)
                 }
             })
     }
     return (
-        <div>
-            <MyButton onClick={deleteFaculty}> Delete faculty</MyButton>
-        </div>
+        <>
+            <span className={styles.remove}
+                onClick={deleteFaculty}>
+                x
+            </span>
+        </>
     )
 }
 

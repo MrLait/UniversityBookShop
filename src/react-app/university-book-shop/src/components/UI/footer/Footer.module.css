@@ -1,5 +1,4 @@
 .inner {
-  --innerWidth: auto;
   width: 100%;
   max-width: var(--innerWidth);
   margin: 0 auto;

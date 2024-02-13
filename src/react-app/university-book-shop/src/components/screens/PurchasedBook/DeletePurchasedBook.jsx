@@ -1,23 +1,25 @@
+// @ts-nocheck
 import React from 'react'
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty'
-import MyButton from '../../UI/button/MyButton'
+import styles from "./DeletePurchasedBook.module.css";
 
 const DeletePurchasedBook = ({ id, deleteClick }) => {
 
-    const deletePurchasedBook = async (id) => {
+    const deletePurchasedBook = async () => {
         await BooksAvailableForFacultyApiService.delete(id)
             .then(response => {
-                console.log(response);
-                if (response.status == 200) {
+                if (response.status == 200 && response.data.isSucceeded) {
                     deleteClick(id)
                 }
             });
     }
-
     return (
-        <div>
-            <MyButton onClick={() => deletePurchasedBook(id)}>Delete</MyButton>
-        </div>
+        <>
+            <span className={styles.remove}
+                onClick={deletePurchasedBook}>
+                x
+            </span>
+        </>
     )
 }
 
