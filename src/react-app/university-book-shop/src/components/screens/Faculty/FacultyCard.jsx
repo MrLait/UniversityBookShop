@@ -47,6 +47,10 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
                             removeFaculty={removeFaculty}
                         />
                     </div>
+                    {faculty.errorMessage &&
+                        <div className={styles.errorMessage}>{faculty.errorMessage}
+                        </div>
+                    }
                 </div>
                 <ul className={styles.footer}>
                     <li className={`${styles.footer} ${styles.li}`}>

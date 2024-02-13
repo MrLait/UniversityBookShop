@@ -54,19 +54,20 @@ const Universities = () => {
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
-                if (response.status == 200 && response.data.isSucceeded) {
-                    setUniversities(universities.filter(u => u.id !== university.id))
-                    decrementPaginationTotalCount(setPaginationData);
-                    setIsDeleted(!isDeleted);
-                }
-                //"ToDo isSucceeded = false"
+                if (response.status == 200)
+                    if (response.data.isSucceeded) {
+                        setUniversities(universities.filter(u => u.id !== university.id))
+                        decrementPaginationTotalCount(setPaginationData);
+                        setIsDeleted(!isDeleted);
+                    } else {
+                        const errorMessage = response.data.error.message;
+                        updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
+                    }
             }
             ).catch(error => {
                 if (error.response.data) {
-                    //"ToDo Universities error"
-                    const errorMessage = error.response;
-
-                    // updateUniversityField(universities, university.id, 'errorMessage',)
+                    const errorMessage = error.response.data.error.message;
+                    updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
                 }
             })
     }

@@ -120,8 +120,9 @@
 }
 
 .errorMessage {
-    font-size: var(--text-size-small);
+    font-size: var(--text-size-primary);
     line-height: 100%;
     color: var(--color-errors);
-    text-align: center;
+    text-align: right;
+    margin-bottom: 1rem;
 }

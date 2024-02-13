@@ -11,6 +11,8 @@ const DeleteFaculty = ({ faculty, removeFaculty }) => {
                 if (response.status == 200 && response.data.isSucceeded) {
                     removeFaculty(faculty)
                 }
+            }).catch(error => {
+                const errorMessage = error.response.data;
             })
     }
     return (
