@@ -1,8 +1,6 @@
 // @ts-nocheck
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import UniversityApiService from "../API/UniversityApiService";
 import { paginationField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
@@ -14,9 +12,10 @@ import { routePathsNavigate } from "../router/routes"
 import transition from "../unitls/transition";
 
 const Universities = () => {
+    const [searchParams] = useSearchParams();
+    const pageIndex = searchParams.get('page')
     const navigate = useNavigate();
-    const { pageIndex } = useParams();
-    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex || 1);
+    const defaultPageIndex = parseInt(pageIndex || 1);
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
@@ -24,7 +23,7 @@ const Universities = () => {
 
     useEffect(() => {
         getPaginatedUniversities(defaultPageIndex, pageSize);
-    }, [defaultPageIndex, isDeleted]);
+    }, [isDeleted]);
 
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
@@ -56,7 +55,7 @@ const Universities = () => {
     }
     const changePage = (pageIndex) => {
         getPaginatedUniversities(pageIndex, pageSize);
-        navigate(routePathsNavigate.UniversitiesPage(pageIndex), { state: { pageIndex } });
+        navigate(routePathsNavigate.UniversitiesPage(pageIndex));
     }
 
     return (
@@ -95,10 +94,13 @@ const Universities = () => {
                         className={styles.pagination}
                     />
                     <div >
-                        {universities.length === 0 ? <p>No universities found.</p> :
+                        {universities
+                            ?
                             <UniversityList
                                 pageSize={pageSize}
                                 deleteUniversity={deleteUniversity} universities={universities} />
+                            :
+                            <p>No universities found.</p>
                         }
                     </div>
                 </div>

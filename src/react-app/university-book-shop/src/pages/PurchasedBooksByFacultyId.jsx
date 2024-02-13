@@ -1,24 +1,36 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import PurchasedBooksList from '../components/screens/PurchasedBook/PurchasedBooksList'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import styles from './PurchasedBooksByFacultyId.module.css'
 import FacultyApiService from '../API/FacultyApiService'
 import MyPagination from '../components/UI/pagination/MyPagination'
 import { paginationField } from "../components/constants/initialStates";
+import { routePathsNavigate } from "../router/routes"
+import { booksAvailableForFacultyField } from '../components/constants/initialStates';
+import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
+import transition from '../unitls/transition'
 
 const PurchasedBooksByFacultyId = () => {
-    //ToDo page routes
-    const { pageIndex } = useParams();
-    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
+    const [searchParams] = useSearchParams();
+    const pageIndex = searchParams.get('page')
+    const navigate = useNavigate();
+    const defaultPageIndex = parseInt(pageIndex || 1);
+
     const [faculty, setFaculty] = useState('');
-    const [booksCount, setBooksCount] = useState(0);
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
 
     const facultyId = parseInt(useParams().facultyId || 0);
+    const universityId = parseInt(useParams().UniversityId || 0);
+    const [purchasedBooks, setPurchasedBooks] = useState([]);
 
-    const getFacultyByFacultyId = async (facultyId) => {
+    useEffect(() => {
+        getFacultyByFacultyId(facultyId);
+        getPurchasedBooks(facultyId, defaultPageIndex, pageSize)
+    }, [])
+
+    const getFacultyByFacultyId = async (facultyId, pageIndex, pageSize) => {
         await FacultyApiService
             .getFacultyByFacultyId(facultyId)
             .then(response => {
@@ -30,10 +42,23 @@ const PurchasedBooksByFacultyId = () => {
                 }
             })
     }
-    useEffect(() => {
-        getFacultyByFacultyId(facultyId);
-    }, [])
 
+    const getPurchasedBooks = async (facultyId, pageIndex, pageSize) => {
+        await BooksAvailableForFacultyApiService.getByFacultyIdWithPagination(facultyId, pageIndex, pageSize)
+            .then((response) => {
+                var isSucceeded = response.data.isSucceeded;
+                if (response.status === 200 && isSucceeded) {
+                    const books = response.data.data.items;
+                    setPurchasedBooks(books)
+                    setPaginationData(response.data.data);
+                }
+            });
+    }
+
+    const changePage = (pageIndex) => {
+        getPurchasedBooks(facultyId, pageIndex, pageSize);
+        navigate(routePathsNavigate.FacultyBooksByFacultyIdPage(universityId, facultyId, pageIndex));
+    }
     return (
         <div className={styles.block}>
             <div className={styles.inner}>
@@ -48,7 +73,7 @@ const PurchasedBooksByFacultyId = () => {
                 </div>
                 <div className={styles.contentHeaderBot} >
                     <div className={styles.headerBotFlexLeft}>
-                        <strong>{booksCount} </strong>
+                        <strong>{paginationData.totalCount ?? 0} </strong>
                         number of available books.
                     </div>
                     <div className={styles.headerBotFlexRight}>
@@ -60,15 +85,15 @@ const PurchasedBooksByFacultyId = () => {
                     <MyPagination
                         paginationData={paginationData}
                         pageIndex={defaultPageIndex}
-                        // changePage={changePage}
+                        changePage={changePage}
                         className={styles.pagination}
                     />
                     <PurchasedBooksList
-                        setBooksCount={setBooksCount}
-                        facultyId={facultyId} />
+                        purchasedBooks={purchasedBooks}
+                    />
                 </div>
             </div>
         </div>
     )
 }
-export default PurchasedBooksByFacultyId
+export default transition(PurchasedBooksByFacultyId);

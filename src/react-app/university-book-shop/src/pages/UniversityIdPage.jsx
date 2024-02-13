@@ -1,25 +1,25 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import UniversityApiService from '../API/UniversityApiService';
 import FacultyList from '../components/screens/Faculty/FacultyList';
+import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
 import { paginationField } from "../components/constants/initialStates";
 import MyPagination from "../components/UI/pagination/MyPagination"
-import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
 import styles from './UniversityIdPage.module.css'
 import { routePathsNavigate } from '../router/routes';
 import transition from '../unitls/transition';
 
 const UniversityIdPage = () => {
+    const [searchParams] = useSearchParams();
+    const pageIndex = searchParams.get('page')
     const navigate = useNavigate();
-    const { pageIndex } = useParams();
+    const defaultPageIndex = parseInt(pageIndex || 1);
+
     const universityId = parseInt(useParams().UniversityId);
-    const universityState = useLocation().state?.university;
-    const defaultPageIndex = parseInt(useLocation().state?.pageIndex || pageIndex) || 1;
     const [pageSize, setPageSize] = useState(4);
-    const defaultFaculties = useLocation().state?.university?.faculties || [];
     const [faculties, setFaculties] = useState([])
-    const [university, setUniversity] = useState(universityState);
+    const [university, setUniversity] = useState();
     const [paginationData, setPaginationData] = useState(paginationField);
     const [isDeleted, setIsDeleted] = useState(false);
 
@@ -46,7 +46,7 @@ const UniversityIdPage = () => {
 
     const changePage = (pageIndex) => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, pageIndex, pageSize);
-        navigate(routePathsNavigate.FacultiesPage(universityId, pageIndex), { state: { pageIndex } });
+        navigate(routePathsNavigate.UniversityIdFacultiesPage(universityId, pageIndex));
     }
 
     return (
@@ -71,7 +71,7 @@ const UniversityIdPage = () => {
                         </div>
                         <div className={styles.contentHeaderBot} >
                             <div className={styles.headerBotFlexLeft}>
-                                <strong>{faculties?.length} </strong>
+                                <strong>{paginationData.totalCount ?? 0} </strong>
                                 number of faculties available.
                             </div>
                             <div className={styles.headerBotFlexRight}>

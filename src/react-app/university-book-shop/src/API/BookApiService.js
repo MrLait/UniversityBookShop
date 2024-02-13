@@ -12,9 +12,10 @@ export default class BookApiService {
         return response;
     }
 
-    static async getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId) {
+    static async getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
         const response =
-            await apiInstance.get(`${BookShopApiUrls.book}/${BookShopApiUrls.faculty}/${facultyId}`)
+            await apiInstance.get(`${BookShopApiUrls.book}/${BookShopApiUrls.faculty}/${facultyId}`,
+                BookShopApiUrls.getPaginationParams(pageIndex, pageSize))
         return response;
     }
 }

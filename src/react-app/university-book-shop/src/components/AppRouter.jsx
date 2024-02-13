@@ -8,8 +8,8 @@ import { AnimatePresence } from "framer-motion"
 
 const AppRouter = () => {
     const location = useLocation();
-    var pathName = location.pathname;
-    const shouldAnimate = !pathName.includes('page');
+    var searchName = location.search;
+    const shouldAnimate = !searchName.includes('page');
 
     return (
         <>
@@ -19,7 +19,7 @@ const AppRouter = () => {
                         {routes.map(route =>
                             <Route key={route.path} path={route.path} element={<route.element />} />
                         )}
-                        <Route path="*" element={< Navigate to={routePaths.Universities} />} />
+                        <Route path="*" element={< Navigate to={routePaths.Home} />} />
                     </Routes >
                 </AnimatePresence>)}
 
@@ -29,7 +29,7 @@ const AppRouter = () => {
                         {routes.map(route =>
                             <Route key={route.path} path={route.path} element={<route.element />} />
                         )}
-                        <Route path="*" element={< Navigate to={routePaths.Universities} />} />
+                        <Route path="*" element={< Navigate to={routePaths.Home} />} />
                     </Routes >
                 </AnimatePresence >
             )}

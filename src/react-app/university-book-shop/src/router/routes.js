@@ -3,49 +3,61 @@ import PurchasedBooksByFacultyId from "../pages/PurchasedBooksByFacultyId";
 import Universities from "../pages/Universities";
 import UniversityIdPage from "../pages/UniversityIdPage";
 
+const routeConst = {
+    Page: '?page=',
+    Universities: '/universities',
+    University: '/university',
+    SearchBookByFacultyId: '/searchBook/facultyId',
+    Faculty: '/faculty',
+}
+
 export const routePaths = {
     Home: '/',
-    Universities: '/universities',
-    Page: '/page',
-    PageIndex: '/universities/page/:pageIndex',
-    University: '/university',
+    Universities: '/universities/',
+    UniversitiesPageIndex: '/universities?page=:pageIndex',
     UniversityId: '/university/:UniversityId',
-    UniversityIdPageIndex: `/university/:UniversityId/page/:pageIndex`,
-    SearchBook: '/searchBook',
-    SearchBookByFacultyId: '/searchBook/:facultyId',
-    Faculty: '/faculty',
-    FacultyId: '/faculty/:facultyId',
-    PurchasedBooksByFacultyId: '/university/:UniversityId/faculty/:facultyId'
+    UniversityIdPageIndex: `/university/:UniversityId?page:pageIndex`,
+    SearchBookByFacultyId: '/searchBook/facultyId/:facultyId',
+    SearchBookByFacultyIdPageIndex: '/searchBook/facultyId/:facultyId?page:pageIndex',
+    PurchasedBooksByFacultyId: '/university/:UniversityId/faculty/:facultyId',
+    PurchasedBooksByFacultyIdPageIndex: '/university/:UniversityId/faculty/:facultyId?page:pageIndex'
 }
-// university/id/faculty/id
+
 export const routePathsNavigate = {
     Home() {
         return (`${routePaths.Home}`)
     },
-    UniversityId(id) {
-        return (`${routePaths.University}/${id}`)
-    },
     UniversitiesPage(pageIndex) {
-        return (`${routePaths.Universities}${routePaths.Page}/${pageIndex}`)
+        return (`${routeConst.Universities}/${routeConst.Page}${pageIndex}`)
+    },
+    UniversityId(id) {
+        return (`${routeConst.University}/${id}`)
+    },
+    UniversityIdFacultiesPage(universityId, pageIndex) {
+        return (`${routeConst.University}/${universityId}${routeConst.Page}${pageIndex}`)
     },
     SearchBookByFacultyId(facultyId) {
-        return (`${routePaths.SearchBook}/${facultyId}`)
+        return (`${routeConst.SearchBookByFacultyId}/${facultyId}`)
     },
-    FacultiesPage(universityId, pageIndex) {
-        return (`${routePaths.University}/${universityId}${routePaths.Page}/${pageIndex}`)
+    SearchBookByFacultyIdPage(facultyId, pageIndex) {
+        return (`${routeConst.SearchBookByFacultyId}/${facultyId}${routeConst.Page}${pageIndex}`)
     },
     FacultyBooksByFacultyId(universityId, facultyId) {
-        return (`${routePaths.University}/${universityId}${routePaths.Faculty}/${facultyId}`)
+        return (`${routeConst.University}/${universityId}${routeConst.Faculty}/${facultyId}`)
+    },
+    FacultyBooksByFacultyIdPage(universityId, facultyId, pageIndex) {
+        return (`${routeConst.University}/${universityId}${routeConst.Faculty}/${facultyId}${routeConst.Page}${pageIndex}`)
     },
 }
 
 export const routes = [
     { path: routePaths.Home, element: Universities },
-    // { path: routePaths.Universities, element: Universities },
     { path: routePaths.Universities, element: Universities },
-    { path: routePaths.PageIndex, element: Universities },
+    // { path: routePaths.UniversitiesPageIndex, element: Universities },
     { path: routePaths.UniversityId, element: UniversityIdPage },
-    { path: routePaths.UniversityIdPageIndex, element: UniversityIdPage },
+    // { path: routePaths.UniversityIdPageIndex, element: UniversityIdPage },
     { path: routePaths.SearchBookByFacultyId, element: PurchaseBookByFacultyId },
+    // { path: routePaths.SearchBookByFacultyIdPageIndex, element: PurchaseBookByFacultyId },
     { path: routePaths.PurchasedBooksByFacultyId, element: PurchasedBooksByFacultyId },
+    // { path: routePaths.PurchasedBooksByFacultyIdPageIndex, element: PurchasedBooksByFacultyId },
 ]

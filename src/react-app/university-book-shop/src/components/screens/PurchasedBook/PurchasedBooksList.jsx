@@ -7,27 +7,27 @@ import PurchasedBookCard from './PurchasedBookCard'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-const PurchasedBooksList = ({ setBooksCount, facultyId }) => {
-    const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
-    const getPurchasedBooks = async () => {
-        await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
-            .then((response) => {
-                var isSucceeded = response.data.isSucceeded;
-                if (response.status === 200 && isSucceeded) {
-                    const books = response.data.data.items;
-                    setPurchasedBooks(books)
-                    setBooksCount(books.length)
-                }
-            });
-    }
-    useEffect(() => {
-        getPurchasedBooks()
-    }, [])
+const PurchasedBooksList = ({ purchasedBooks }) => {
+    // const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
+    // const getPurchasedBooks = async () => {
+    //     await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
+    //         .then((response) => {
+    //             var isSucceeded = response.data.isSucceeded;
+    //             if (response.status === 200 && isSucceeded) {
+    //                 const books = response.data.data.items;
+    //                 setPurchasedBooks(books)
+    //                 setBooksCount(books.length)
+    //             }
+    //         });
+    // }
+    // useEffect(() => {
+    //     getPurchasedBooks()
+    // }, [])
 
     const deleteBookClick = (id) => {
-        setPurchasedBooks(
-            purchasedBooks.filter(p => p.id !== id)
-        )
+        // setPurchasedBooks(
+        //     purchasedBooks.filter(p => p.id !== id)
+        // )
     }
 
     return (

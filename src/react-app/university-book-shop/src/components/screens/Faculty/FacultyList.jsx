@@ -24,7 +24,6 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
                             classNames="pagination">
                             <div key={faculty.id}>
                                 <FacultyCard
-                                    // key={faculty.id}
                                     faculty={faculty}
                                     removeFaculty={removeFaculty}
                                 />

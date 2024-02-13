@@ -1,31 +1,38 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import BookApiService from '../API/BookApiService';
-import Book from '../components/screens/Book/BookCard';
 import styles from './PurchaseBookByFacultyId.module.css';
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
 import PurchasedBookApiService from '../API/PurchasedBookApiService';
 import BookList from '../components/screens/Book/BookList'
 import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants'
-import { responsivePropType } from 'react-bootstrap/esm/createUtilityClasses';
 import transition from '../unitls/transition';
+import MyPagination from '../components/UI/pagination/MyPagination';
+import { paginationField } from '../components/constants/initialStates';
+import { routePathsNavigate } from '../router/routes'
 
 const PurchaseBookByFacultyId = () => {
+    const [searchParams] = useSearchParams();
+    const pageIndex = searchParams.get('page')
+    const navigate = useNavigate();
+    const defaultPageIndex = parseInt(pageIndex || 1);
+
     const facultyId = parseInt(useParams().facultyId || 0);
+    const [paginationData, setPaginationData] = useState(paginationField);
     const [books, setBooks] = useState([]);
-    const [isGetFilteredBook, setIsGetFilteredBook] = useState(false)
-    const [booksAvailableForFaculty, setBooksAvailableForFaculty] = useState([]);
+    const [pageSize, setPageSize] = useState(4);
 
     useEffect(() => {
-        getBooks();
-    }, [])
+        getBooks(defaultPageIndex, pageSize);
+    }, [defaultPageIndex])
 
-    const getBooks = async () => {
-        await BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId)
+    const getBooks = async (defaultPageIndex, pageSize) => {
+        await BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId, defaultPageIndex, pageSize)
             .then((response) => {
                 const data = response.data.data.items;
                 setBooks(data)
+                setPaginationData(response.data.data);
             })
     }
 
@@ -144,6 +151,11 @@ const PurchaseBookByFacultyId = () => {
         deletePurchasedBook(bookId, facultyId)
     }
 
+    const changePage = (pageIndex) => {
+        getBooks(pageIndex, pageSize);
+        navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
+    }
+
     return (
         <div className={styles.block}>
             {books
@@ -159,14 +171,21 @@ const PurchaseBookByFacultyId = () => {
                         </div>
                         <div className={styles.contentHeaderBot} >
                             <div className={styles.headerBotFlexLeft}>
-                                <strong>{books?.length} </strong>
+                                <strong>{paginationData.totalCount ?? 0} </strong>
                                 number of books available.
                             </div>
                         </div>
                     </div>
                     <div className={styles.contentBody}>
                         <div className={styles.inner}>
+                            <MyPagination
+                                paginationData={paginationData}
+                                pageIndex={defaultPageIndex}
+                                changePage={changePage}
+                                className={styles.pagination}
+                            />
                             <BookList
+                                pageSize={pageSize}
                                 books={books}
                                 buyBook={buyBook}
                                 addBook={addBook}

@@ -5,8 +5,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { decrementPaginationTotalCount } from '../../../unitls/pagination'
 import BookCard from './BookCard'
 
-const BookList = ({ books, buyBook, addBook, removeBook, deleteBook }) => {
-    // const visibleFaculty = faculties.slice(0, pageSize);
+const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook }) => {
+    const visibleBooks = books.slice(0, pageSize);
     // const removeFaculty = (faculty) => {
     //     setFaculties(faculties.filter(f => f.id !== faculty.id))
     //     decrementPaginationTotalCount(setPaginationData);
@@ -15,7 +15,7 @@ const BookList = ({ books, buyBook, addBook, removeBook, deleteBook }) => {
     return (
         <>
             <TransitionGroup className={styles.gridSites}>
-                {books.map(book =>
+                {visibleBooks.map(book =>
                     <CSSTransition
                         key={book.id}
                         timeout={600}
