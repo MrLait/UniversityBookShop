@@ -11,11 +11,8 @@
         public const int EntityAlreadyExistsStatusCode = 994;
         public const int CantDeleteUnivarstityBookStatusCode = 993;
         public const int CantDeleteUnivarstityStatusCode = 992;
-        
+        public const int CantDeleteFacultyBookExistStatusCode = 991;
 
         public const int NotFoundStatusCode = 404;
-
-
-
     }
 }
