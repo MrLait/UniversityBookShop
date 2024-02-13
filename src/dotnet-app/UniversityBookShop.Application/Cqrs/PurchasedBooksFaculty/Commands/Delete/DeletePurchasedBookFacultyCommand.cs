@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using UniversityBookShop.Application.Common.Exceptions;
+using UniversityBookShop.Application.Common.Helpers;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Domain.Entities;
@@ -40,26 +41,13 @@ public class DeletePurchasedBookFacultyCommandHandler :
             .ExecuteDeleteAsync(cancellationToken);
 
         _dbContext.PurchasedBookFaculties.Remove(entity);
-        await UpdateTotalBookPriceAsync(entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);
+        await UniversityTotalBookPriceUpdater.DecrementTotalBookPriceAsync(_dbContext, entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return ServiceResult.Success(Unit.Value);
     }
 
-    private async Task UpdateTotalBookPriceAsync(
-    int? universityId, decimal? curBookPrice, CancellationToken cancellationToken)
-    {
-        var university = await _dbContext.Universities
-            .Where(u => u.Id == universityId)
-            .Include(x => x.CurrencyCode)
-            .Include(x => x.Faculties)
-            .FirstOrDefaultAsync(cancellationToken)
-        ?? throw new NotFoundException(nameof(University), universityId ?? 0);
-
-        university.TotalBookPrice = await _dbContext.PurchasedBookFaculties
-            .SumAsync(x => x.Book!.Price, cancellationToken) - (curBookPrice ?? 0m);
-    }
 }
 
 
