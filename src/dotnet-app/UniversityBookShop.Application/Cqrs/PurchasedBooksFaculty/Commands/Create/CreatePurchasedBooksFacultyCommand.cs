@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
+using UniversityBookShop.Application.Common.Helpers;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -66,23 +67,8 @@ public class CreatePurchasedBookFacultyCommandHandler : IRequestHandler<CreatePu
         await _dbContext.PurchasedBookFaculties.AddAsync(purchasedBookFaculty, cancellationToken);
         await _dbContext.BooksAvailableForFaculties.AddAsync(booksAvailableForFaculty, cancellationToken);
 
-        await UpdateTotalBookPriceAsync(universityId, curBookPrice, cancellationToken);
-
+        await UniversityTotalBookPriceUpdater.IncrementTotalBookPriceAsync(_dbContext, universityId, curBookPrice, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(purchasedBookFaculty.Id);
-    }
-
-    private async Task UpdateTotalBookPriceAsync(
-        int? universityId, decimal? curBookPrice, CancellationToken cancellationToken)
-    {
-        var university = await _dbContext.Universities
-            .Where(u => u.Id == universityId)
-            .Include(x => x.CurrencyCode)
-            .Include(x => x.Faculties)
-            .FirstOrDefaultAsync(cancellationToken)
-        ?? throw new NotFoundException(nameof(University), universityId ?? 0);
-
-        university.TotalBookPrice = await _dbContext.PurchasedBookFaculties
-            .SumAsync(x => x.Book!.Price, cancellationToken) + (curBookPrice ?? 0m);
     }
 }
