@@ -24,6 +24,8 @@ namespace UniversityBookShop.Application.Common.Models.ServicesModels
             new(ServiceErrorConstants.EntityAlreadyExistsError, ServiceStatusCodeConstants.EntityAlreadyExistsStatusCode);
         public static ServiceError CantDeleteUnivarstityBook =>
             new(ServiceErrorConstants.CantDeleteUnivarstityBookError, ServiceStatusCodeConstants.CantDeleteUnivarstityBookStatusCode);
+        public static ServiceError CantDeleteUnivarstity =>
+            new(ServiceErrorConstants.CantDeleteUnivarstityError, ServiceStatusCodeConstants.CantDeleteUnivarstityStatusCode);
 
         public static ServiceError CustomMessage(string message, int statusCode) => new(message, statusCode);
     }
