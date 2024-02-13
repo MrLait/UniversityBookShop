@@ -17,18 +17,24 @@ export default class BooksAvailableForFacultyApiService {
         return response;
     }
 
+    static async getByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
+        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`,
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize))
+        return response;
+    }
+
     static async getByFacultyIdBookId(facultyId, bookId) {
         const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`)
         return response;
     }
 
-    static async post(bookId, facultyId, universityId) {
-        const response = await apiInstance.post(`${BookShopApiUrls.purchaseBookToFaculty}/`, { bookId, facultyId, universityId })
+    static async postAddBook(bookId, facultyId) {
+        const response = await apiInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId })
         return response;
     }
 
-    static async delete(id) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${id}`)
+    static async deleteAvailableBook(bookId) {
+        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`)
         return response;
     }
 }

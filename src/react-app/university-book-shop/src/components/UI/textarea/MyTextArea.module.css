@@ -1,0 +1,30 @@
+.textInput {
+    width: 100%;
+    display: block;
+    min-height: var(--height-input);
+    max-height: var(--max-height-input);
+    padding: 0 var(--pad-input);
+    background: var(--bg-input);
+    border: 0;
+    color: var(--color-input);
+    border-bottom: 1px solid var(--ch-bg);
+    transition: all .3s ease-in-out;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.message {
+    padding-top: 1em;
+    font-size: var(--text-size-small);
+    line-height: 100%;
+    color: var(--color-errors);
+
+}
+
+.borderColorError {
+    border-color: var(--color-errors);
+}
+
+.textInput:focus {
+    outline: none;
+}

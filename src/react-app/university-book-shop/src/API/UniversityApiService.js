@@ -13,12 +13,15 @@ export default class UniversityApiService {
     }
 
     static async getAllWithPagination(pageIndex, pageSize) {
-        const response = await apiInstance.get(BookShopApiUrls.university, BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
+        const response = await apiInstance.get(BookShopApiUrls.university,
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
         return response;
     }
 
-    static async getByUniversityId(universityId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.university}/${universityId}`)
+    static async getUniversityByUniversityIdWithPaginatedFaculties(universityId, pageIndex, pageSize) {
+        const response = await apiInstance
+            .get(`${BookShopApiUrls.university}/${universityId}`,
+                BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
         return response;
     }
 

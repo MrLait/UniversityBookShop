@@ -19,3 +19,11 @@
     color: var(--color-white);
     background-color: #383838;
 }
+
+.message {
+    font-size: var(--text-size-small);
+    line-height: 100%;
+    color: var(--color-errors);
+    text-align: center;
+
+}

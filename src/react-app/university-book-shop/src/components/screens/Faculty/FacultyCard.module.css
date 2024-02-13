@@ -1,8 +1,70 @@
-.myFacultyCard {
-    border: black solid 1px;
-    margin: 10px;
-    padding: 10px;
-    width: 100%;
-    background: white;
-    border-radius: 16px;
+.li {
+    list-style: none;
+}
+
+.facultyCard {
+    --card-pad-x: clamp(20px, 3vw, 30px);
+    --card-pad-y: clamp(10px, 3vw, 16px);
+    --card-border: 1px solid #e9e9e9;
+    --card-bg: var(--color-white);
+    --avatar-bg: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--card-bg);
+    border-radius: var(--rounded-large);
+}
+
+.facultyCard:hover .headerRight {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.facultyCard:hover .arrowDirectionLeft {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: var(--card-pad-x);
+    font-size: 18px;
+    font-size: clamp(18px, 15.8873239437px + 0.4225352113vw, 24px);
+    font-weight: bold;
+}
+
+.headerLeft {
+    flex: 1;
+}
+
+.headerRight {
+    font-weight: normal;
+    opacity: 0;
+    transition: 0.5s;
+
+}
+
+.footer {
+    /* padding-bottom: var(--card-pad-y); */
+}
+
+.footer .li {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: var(--card-pad-y) var(--card-pad-x);
+    border-top: var(--card-border);
+    line-height: 120%;
+}
+
+.arrowDirectionLeft {
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.rolloverArrowDirectionLeft {
+    padding-right: 0.3em;
 }

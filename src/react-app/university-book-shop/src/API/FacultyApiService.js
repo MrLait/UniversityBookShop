@@ -12,8 +12,20 @@ export default class FacultyApiService {
         return response;
     }
 
-    static async getByUniversityId(universityId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.faculty}/${universityId}`)
+    static async getFacultyByFacultyId(facultyId) {
+        const response = await apiInstance.get(`${BookShopApiUrls.faculty}/${facultyId}`)
+        return response;
+    }
+
+    static async getFacultyByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
+        const response = await apiInstance.get(`${BookShopApiUrls.faculty}/${facultyId}`,
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize))
+        return response;
+    }
+
+    static async getByUniversityIdWithPagination(universityId, pageSize, pageIndex) {
+        const response = await apiInstance.get(`${BookShopApiUrls.facultiesByUniversityId}/${universityId}`,
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize))
         return response;
     }
 
