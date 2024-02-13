@@ -25,6 +25,20 @@ const Universities = () => {
         getPaginatedUniversities(defaultPageIndex, pageSize);
     }, [isDeleted]);
 
+    const updateUniversityField = (entities, entityId, fieldName, value) => {
+        const updatedEntity = entities.map(e => {
+            if (entityId === e.id) {
+                return {
+                    ...e,
+                    [fieldName]: value,
+                };
+            }
+            return e;
+        });
+        setUniversities(updatedEntity);
+    };
+
+
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
             .then((response) => {
@@ -50,6 +64,9 @@ const Universities = () => {
             ).catch(error => {
                 if (error.response.data) {
                     //"ToDo Universities error"
+                    const errorMessage = error.response;
+
+                    // updateUniversityField(universities, university.id, 'errorMessage',)
                 }
             })
     }
