@@ -10,7 +10,9 @@
         public const int ThereIsNoUniversityForFacultyStatusCode = 995;
         public const int EntityAlreadyExistsStatusCode = 994;
         public const int CantDeleteUnivarstityBookStatusCode = 993;
+        public const int CantDeleteUnivarstityStatusCode = 992;
         
+
         public const int NotFoundStatusCode = 404;
 
 
