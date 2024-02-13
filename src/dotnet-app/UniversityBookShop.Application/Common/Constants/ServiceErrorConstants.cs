@@ -17,9 +17,6 @@
         public const string EntityAlreadyExistsError = "This entity already exists.";
         public const string CantDeleteUnivarstityBookError = "Can't delete a purchased book that was added by other faculties.";
         public const string CantDeleteUnivarstityError = "A university that has faculties cannot be deleted.";
-
-        
-
-
+        public const string CantDeleteFacultyBookExistError = "A faculty that has books cannot be deleted.";
     }
 }

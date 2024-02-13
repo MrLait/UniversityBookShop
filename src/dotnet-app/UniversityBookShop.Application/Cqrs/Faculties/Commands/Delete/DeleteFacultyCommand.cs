@@ -22,11 +22,17 @@ public class DeleteFacultyCommandHandler :
     public async Task<ServiceResult<Unit>> Handle(DeleteFacultyCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Faculties
-            .Where(x => x.Id == request.Id)
-            .ExecuteDeleteAsync(cancellationToken);
+            .Include(x => x.BooksAvailableForFaculty)
+            .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+        ?? throw new NotFoundException(nameof(Faculty), request.Id);
 
-        if (entity == 0)
-            throw new NotFoundException(nameof(Faculty), request.Id);
+        if (entity.BooksAvailableForFaculty.Any())
+        {
+            return ServiceResult.Failed<Unit>(ServiceError.CantDeleteFacultyBookExist);
+        }
+
+        _dbContext.Faculties.Remove(entity);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return ServiceResult.Success(Unit.Value);
     }
