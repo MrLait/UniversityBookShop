@@ -7,10 +7,9 @@ import styles from './FacultyCard.module.css';
 import { ReactComponent as ArrowDirectionLeft } from '../../../Assets/arrow_direction_left.svg';
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
 
-const FacultyCard = ({ faculty, removeFaculty }) => {
+const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
     const navigate = useNavigate();
     const [isPurchasedBooksVisible, setIsPurchasedBooksVisible] = useState(false);
-
     const getPurchasedBooks = async (facultyId) => {
         await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
             .then((response) => {
@@ -36,22 +35,27 @@ const FacultyCard = ({ faculty, removeFaculty }) => {
         <>
             <div className={styles.facultyCard}>
                 <div className={styles.header}>
-                    <div className={styles.headerLeft}>
-                        <strong>
-                            {faculty.name}
-                        </strong>
-                    </div>
-                    <div className={styles.headerRight}>
-                        <DeleteFaculty
-                            faculty={faculty}
-                            removeFaculty={removeFaculty}
-                        />
+                    <div className={styles.headerTop}>
+                        <div className={styles.headerLeft}>
+                            <strong>
+                                {faculty.name}
+                            </strong>
+                        </div>
+                        <div className={styles.headerRight}>
+                            <DeleteFaculty
+                                faculty={faculty}
+                                removeFaculty={removeFaculty}
+                                updateFaculty={updateFaculty}
+                            />
+                        </div>
                     </div>
                     {faculty.errorMessage &&
-                        <div className={styles.errorMessage}>{faculty.errorMessage}
+                        <div className={styles.headerBot}>
+                            <div className={styles.errorMessage}>{faculty.errorMessage}</div>
                         </div>
                     }
                 </div>
+
                 <ul className={styles.footer}>
                     <li className={`${styles.footer} ${styles.li}`}>
                         <div>

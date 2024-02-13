@@ -26,13 +26,21 @@
 }
 
 .header {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+
     padding: var(--card-pad-x);
     font-size: 18px;
     font-size: clamp(18px, 15.8873239437px + 0.4225352113vw, 24px);
     font-weight: bold;
+}
+
+.headerTop {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.headerBot {
+    margin-top: 1rem;
 }
 
 .headerLeft {
@@ -67,4 +75,12 @@
 
 .rolloverArrowDirectionLeft {
     padding-right: 0.3em;
+}
+
+.errorMessage {
+    font-size: var(--text-size-primary);
+    line-height: 100%;
+    color: var(--color-errors);
+    text-align: right;
+    font-weight: 300;
 }

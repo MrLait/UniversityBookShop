@@ -3,16 +3,31 @@ import React from 'react'
 import FacultyApiService from '../../../API/FacultyApiService'
 import styles from "./DeleteFaculty.module.css";
 
-const DeleteFaculty = ({ faculty, removeFaculty }) => {
+const DeleteFaculty = ({ faculty, updateFaculty, removeFaculty }) => {
+    const updateFacultyField = (entity, fieldName, value) => {
+        return {
+            ...entity,
+            [fieldName]: value,
+        };
+    };
 
     const deleteFaculty = async () => {
         await FacultyApiService.delete(faculty.id)
             .then(response => {
-                if (response.status == 200 && response.data.isSucceeded) {
-                    removeFaculty(faculty)
-                }
+                if (response.status == 200)
+                    if (response.data.isSucceeded) {
+                        removeFaculty(faculty)
+                    } else {
+                        const errorMessage = response.data.error.message;
+                        const updatedFaculty = updateFacultyField(faculty, 'errorMessage', errorMessage)
+                        updateFaculty(updatedFaculty)
+                    }
             }).catch(error => {
-                const errorMessage = error.response.data;
+                if (error.response.data) {
+                    const errorMessage = error.response.data.error.message;
+                    const updatedFaculty = updateFacultyField(faculty, 'errorMessage', errorMessage)
+                    updateFaculty(updatedFaculty)
+                }
             })
     }
     return (
