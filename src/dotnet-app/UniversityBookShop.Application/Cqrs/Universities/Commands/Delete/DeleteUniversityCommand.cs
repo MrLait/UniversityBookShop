@@ -21,11 +21,18 @@ public class DeleteUniversityCommandHandler :
     public async Task<ServiceResult<Unit>> Handle(DeleteUniversityCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Universities
-            .Where(x => x.Id == request.Id)
-            .ExecuteDeleteAsync(cancellationToken);
+            .Include(x => x.Faculties)
+            .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+        ?? throw new NotFoundException(nameof(University), request.Id);
 
-        if (entity == 0)
-            throw new NotFoundException(nameof(University), request.Id);
+        if (entity.Faculties.Any())
+        {
+            return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstity);
+        }
+
+        _dbContext.Universities.Remove(entity);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
 
         return ServiceResult.Success(Unit.Value);
     }
