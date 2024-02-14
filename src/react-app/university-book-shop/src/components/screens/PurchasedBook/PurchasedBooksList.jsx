@@ -1,18 +1,18 @@
 // @ts-nocheck
 import React, { useState } from 'react'
-import { useEffect } from 'react';
-import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
-import { booksAvailableForFacultyField } from '../../constants/initialStates';
 import PurchasedBookCard from './PurchasedBookCard'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { decrementPaginationTotalCount } from '../../../unitls/pagination'
 
-const PurchasedBooksList = ({ purchasedBooks, setPurchasedBooks }) => {
-
+const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
+    const visiblePurchasedBooks = purchasedBooks.slice(0, pageSize);
     const deleteBook = (id) => {
         setPurchasedBooks(
             purchasedBooks.filter(p => p.id !== id)
         )
+        decrementPaginationTotalCount(setPaginationData);
+        setIsDeleted(!isDeleted);
     }
 
     const updateErrorMessage = (id, errorMessage) => {
@@ -34,7 +34,7 @@ const PurchasedBooksList = ({ purchasedBooks, setPurchasedBooks }) => {
             {purchasedBooks.length
                 ?
                 <TransitionGroup className={styles.gridSites}>
-                    {purchasedBooks.map(b =>
+                    {visiblePurchasedBooks.map(b =>
                         <CSSTransition
                             key={b.id}
                             timeout={600}

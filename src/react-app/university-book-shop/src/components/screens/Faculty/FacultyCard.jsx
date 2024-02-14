@@ -6,7 +6,6 @@ import DeleteFaculty from './DeleteFaculty';
 import styles from './FacultyCard.module.css';
 import { ReactComponent as ArrowDirectionLeft } from '../../../Assets/arrow_direction_left.svg';
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
-// import { ReactComponent as ArrowExpand } from '../../../Assets/arrowExpand.svg';
 import ArrowExpandIcon from '../../../Assets/ArrowExpandIcon'
 
 const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {

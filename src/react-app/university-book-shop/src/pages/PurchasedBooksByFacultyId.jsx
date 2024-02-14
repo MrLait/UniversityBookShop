@@ -7,7 +7,6 @@ import FacultyApiService from '../API/FacultyApiService'
 import MyPagination from '../components/UI/pagination/MyPagination'
 import { paginationField } from "../components/constants/initialStates";
 import { routePathsNavigate } from "../router/routes"
-import { booksAvailableForFacultyField } from '../components/constants/initialStates';
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
 import transition from '../unitls/transition'
 
@@ -24,13 +23,15 @@ const PurchasedBooksByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
     const universityId = parseInt(useParams().UniversityId || 0);
     const [purchasedBooks, setPurchasedBooks] = useState([]);
-
+    const [isDeleted, setIsDeleted] = useState(false);
     useEffect(() => {
-        getFacultyByFacultyId(facultyId);
+        if (faculty.length === 0) {
+            getFacultyByFacultyId(facultyId);
+        }
         getPurchasedBooks(facultyId, defaultPageIndex, pageSize)
-    }, [])
+    }, [isDeleted])
 
-    const getFacultyByFacultyId = async (facultyId, pageIndex, pageSize) => {
+    const getFacultyByFacultyId = async (facultyId) => {
         await FacultyApiService
             .getFacultyByFacultyId(facultyId)
             .then(response => {
@@ -89,6 +90,10 @@ const PurchasedBooksByFacultyId = () => {
                         className={styles.pagination}
                     />
                     <PurchasedBooksList
+                        pageSize={pageSize}
+                        setPaginationData={setPaginationData}
+                        setIsDeleted={setIsDeleted}
+                        isDeleted={isDeleted}
                         purchasedBooks={purchasedBooks}
                         setPurchasedBooks={setPurchasedBooks}
                     />
