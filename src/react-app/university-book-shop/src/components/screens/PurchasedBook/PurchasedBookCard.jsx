@@ -1,10 +1,9 @@
 // @ts-nocheck
 import React from 'react'
 import styles from './PurchasedBookCard.module.css';
-import BookDetails from '../Book/BookDetails';
 import DeletePurchasedBook from './DeletePurchasedBook';
 
-const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, deleteClick }) => {
+const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, updateErrorMessage, deleteBook }) => {
     return (
         <>
             <div className={styles.bookCard}>
@@ -18,8 +17,8 @@ const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, deleteClick }) 
                         <div className={styles.headerRight}>
                             <DeletePurchasedBook
                                 bookId={purchasedBookId}
-                                isPurchased={isPurchased}
-                                deleteClick={deleteClick}
+                                updateErrorMessage={updateErrorMessage}
+                                deleteBook={deleteBook}
                             />
                         </div>
                     </div>
@@ -27,6 +26,12 @@ const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, deleteClick }) 
                         by&nbsp;
                         {book.author} (Author)
                     </div>
+                    {book.errorMessage &&
+                        <div className={styles.errorMessage}>
+                            {book.errorMessage}
+                        </div>
+                    }
+
                 </div>
 
                 <ul className={styles.footer}>

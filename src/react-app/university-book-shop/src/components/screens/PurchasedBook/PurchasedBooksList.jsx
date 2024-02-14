@@ -7,29 +7,28 @@ import PurchasedBookCard from './PurchasedBookCard'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-const PurchasedBooksList = ({ purchasedBooks }) => {
-    // const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
-    // const getPurchasedBooks = async () => {
-    //     await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
-    //         .then((response) => {
-    //             var isSucceeded = response.data.isSucceeded;
-    //             if (response.status === 200 && isSucceeded) {
-    //                 const books = response.data.data.items;
-    //                 setPurchasedBooks(books)
-    //                 setBooksCount(books.length)
-    //             }
-    //         });
-    // }
-    // useEffect(() => {
-    //     getPurchasedBooks()
-    // }, [])
+const PurchasedBooksList = ({ purchasedBooks, setPurchasedBooks }) => {
 
-    const deleteBookClick = (id) => {
-        // setPurchasedBooks(
-        //     purchasedBooks.filter(p => p.id !== id)
-        // )
+    const deleteBook = (id) => {
+        setPurchasedBooks(
+            purchasedBooks.filter(p => p.id !== id)
+        )
     }
 
+    const updateErrorMessage = (id, errorMessage) => {
+        const updatePurchasedBooks = purchasedBooks.map(pb => {
+            if (pb.id === id)
+                return {
+                    ...pb,
+                    book: {
+                        ...pb.book,
+                        errorMessage
+                    }
+                };
+            return pb;
+        })
+        setPurchasedBooks(updatePurchasedBooks);
+    }
     return (
         <>
             {purchasedBooks.length
@@ -45,7 +44,8 @@ const PurchasedBooksList = ({ purchasedBooks }) => {
                                     isPurchased={b.isPurchased}
                                     purchasedBookId={b.id}
                                     book={b.book}
-                                    deleteClick={deleteBookClick}
+                                    deleteBook={deleteBook}
+                                    updateErrorMessage={updateErrorMessage}
                                 />
                             </div>
                         </CSSTransition>

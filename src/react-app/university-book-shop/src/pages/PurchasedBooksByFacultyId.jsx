@@ -90,6 +90,7 @@ const PurchasedBooksByFacultyId = () => {
                     />
                     <PurchasedBooksList
                         purchasedBooks={purchasedBooks}
+                        setPurchasedBooks={setPurchasedBooks}
                     />
                 </div>
             </div>
