@@ -11,13 +11,9 @@ public class UniversityConfiguration : IEntityTypeConfiguration<University>
         builder.HasKey(f => f.Id);
         builder.Property(f => f.Name).HasMaxLength(150);
         builder.Property(f => f.Description).HasMaxLength(255);
-        builder.Property(f => f.TotalBookPrice)
-            .HasColumnName("total_book_price").HasColumnType("decimal(10, 2)");
-        builder.Property(f => f.CurrencyCodesUniversitiesId).HasColumnName("currency_code_id");
+        builder.Property(f => f.TotalBookPrice).HasColumnName("total_book_price").HasColumnType("decimal(10, 2)");
+        builder.Property(f => f.CurrencyCodesId).HasColumnName("currency_code_id");
 
-        builder
-            .HasOne(ba => ba.BooksPurchasedByUniversity)
-            .WithOne(f => f.University)
-            .HasForeignKey<BooksPurchasedByUniversity>(fk => fk.UniversityId);
+        builder.HasIndex(x => x.CurrencyCodesId).IsUnique(false);
     }
 }

@@ -2,44 +2,44 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Books.Commands.Update;
 
-public class UpdateBookCommand : IRequest
+public class UpdateBookCommand : BookCommandBase, IRequest<ServiceResult<Unit>>
 {
     public int Id { get; set; }
-    public string? Isbn { get; set; }
-    public string? Name { get; set; }
-    public string? Author { get; set; }
-    public decimal? Price { get; set; }
-    public int CurrencyCodeId { get; set; }
 }
 
-public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand>
+public class UpdateBookCommandHandler :
+    IRequestHandler<UpdateBookCommand, ServiceResult<Unit>>
 {
     private readonly IApplicationDbContext _dbContext;
-    public UpdateBookCommandHandler(IApplicationDbContext dbContext) =>
-        _dbContext = dbContext;
-    public async Task<Unit> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
+
+    public UpdateBookCommandHandler(IApplicationDbContext dbContext) => _dbContext = dbContext;
+
+    public async Task<ServiceResult<Unit>> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
     {
-        var entity =
-            await _dbContext.Books.FirstOrDefaultAsync(u =>
-                u.Id == request.Id, cancellationToken);
-        if (entity == null || entity.Id != request.Id)
-        {
+        var currencyCodeExists = await _dbContext.CurrencyCodes
+            .AnyAsync(c => c.Id == request.CurrencyCodeId, cancellationToken);
+        if (!currencyCodeExists)
+            throw new NotFoundException(nameof(CurrencyCode), request.CurrencyCodeId);
+
+        int entity = await _dbContext.Books
+            .Where(x => x.Id == request.Id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.Isbn, request.Isbn)
+                .SetProperty(x => x.Name, request.Name)
+                .SetProperty(x => x.Author, request.Author)
+                .SetProperty(x => x.Price, request.Price)
+                .SetProperty(x => x.CurrencyCodesId, request.CurrencyCodeId), cancellationToken);
+
+        if (entity == 0)
             throw new NotFoundException(nameof(Book), request.Id);
-        }
 
-        entity.Id = request.Id;
-        entity.Isbn = request.Isbn;
-        entity.Name = request.Name;
-        entity.Author = request.Author;
-        entity.Price = request.Price;
-        entity.CurrencyCodesBooksId = request.CurrencyCodeId;
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+        return ServiceResult.Success(Unit.Value);
     }
 }
 

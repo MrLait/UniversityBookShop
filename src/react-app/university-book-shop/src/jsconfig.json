@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
+        "baseUrl": "./src/react-app/university-book-shop",
         "checkJs": true,
         "jsx": "react",
     }

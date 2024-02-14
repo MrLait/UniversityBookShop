@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Domain.Entities;
 

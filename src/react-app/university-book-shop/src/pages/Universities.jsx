@@ -1,48 +1,79 @@
 // @ts-nocheck
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { TransitionGroup } from "react-transition-group";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import UniversityApiService from "../API/UniversityApiService";
-import { paginationField, paginationHeader, universitiesField } from "../components/constants/initialStates";
+import { paginationField } from "../components/constants/initialStates";
 import CreateUniversity from "../components/screens/University/CreateUniversity";
 import UniversityList from "../components/screens/University/UniversityList";
 import MyPagination from "../components/UI/pagination/MyPagination";
 import styles from './Universities.module.css'
+import { decrementPaginationTotalCount } from '../unitls/pagination'
+import { routePathsNavigate } from "../router/routes"
+import transition from "../unitls/transition";
+
 const Universities = () => {
+    const [searchParams] = useSearchParams();
+    const pageIndex = searchParams.get('page')
+    const navigate = useNavigate();
+    const defaultPageIndex = parseInt(pageIndex || 1);
     const [universities, setUniversities] = useState([])
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
-    const [pageIndex, setPageIndex] = useState(1);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
-        getPaginatedUniversities(pageIndex, pageSize);
-    }, [])
+        getPaginatedUniversities(defaultPageIndex, pageSize);
+    }, [isDeleted]);
+
+    const updateUniversityField = (entities, entityId, fieldName, value) => {
+        const updatedEntity = entities.map(e => {
+            if (entityId === e.id) {
+                return {
+                    ...e,
+                    [fieldName]: value,
+                };
+            }
+            return e;
+        });
+        setUniversities(updatedEntity);
+    };
+
 
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
             .then((response) => {
-                setUniversities(response.data)
-                setPaginationData(JSON.parse(response.headers[paginationHeader]));
+                var isSucceeded = response.data.isSucceeded;
+                //"ToDo isSucceeded = false"
+                if (isSucceeded) {
+                    setUniversities(response.data.data.items)
+                    setPaginationData(response.data.data);
+                }
             })
     }
 
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
-                if (response.status == 204) {
-                    setUniversities(universities.filter(u => u.id !== university.id))
-                }
+                if (response.status == 200)
+                    if (response.data.isSucceeded) {
+                        setUniversities(universities.filter(u => u.id !== university.id))
+                        decrementPaginationTotalCount(setPaginationData);
+                        setIsDeleted(!isDeleted);
+                    } else {
+                        const errorMessage = response.data.error.message;
+                        updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
+                    }
             }
             ).catch(error => {
                 if (error.response.data) {
-                    //"ToDo Universities error"
+                    const errorMessage = error.response.data.error.message;
+                    updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
                 }
             })
     }
     const changePage = (pageIndex) => {
-        setPageIndex(pageIndex)
         getPaginatedUniversities(pageIndex, pageSize);
+        navigate(routePathsNavigate.UniversitiesPage(pageIndex));
     }
 
     return (
@@ -59,7 +90,9 @@ const Universities = () => {
                         </div>
                         <div className={styles.create}>
                             <div className={styles.createLeft}>
-                                <CreateUniversity setUniversities={setUniversities} universities={universities} />
+                                <CreateUniversity
+                                    setPaginationData={setPaginationData} paginationData={paginationData}
+                                    setUniversities={setUniversities} universities={universities} />
                             </div>
                         </div>
                     </div>
@@ -74,20 +107,23 @@ const Universities = () => {
                     </div>
                     <MyPagination
                         paginationData={paginationData}
-                        pageIndex={pageIndex}
+                        pageIndex={defaultPageIndex}
                         changePage={changePage}
                         className={styles.pagination}
                     />
                     <div >
-                        {universities.length === 0 ? <p>No universities found.</p> :
-                            <UniversityList deleteUniversity={deleteUniversity} universities={universities} />
+                        {universities
+                            ?
+                            <UniversityList
+                                pageSize={pageSize}
+                                deleteUniversity={deleteUniversity} universities={universities} />
+                            :
+                            <p>No universities found.</p>
                         }
                     </div>
-
-
                 </div>
             </div>
         </>
     );
 }
-export default Universities;
+export default transition(Universities);

@@ -2,41 +2,42 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Application.Common.Models.AbstractValidators;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Domain.Entities;
 
 namespace UniversityBookShop.Application.Cqrs.Faculties.Commands.Update;
 
-public class UpdateFacultyCommand : IRequest
+public class UpdateFacultyCommand : FacultyCommandBase, IRequest<ServiceResult<Unit>>
 {
     public int Id { get; set; }
-    public string? Name { get; set; }
-    public int? UniversityId { get; set; }
 }
 
-public class UpdateFacultyCommandHandler : IRequestHandler<UpdateFacultyCommand>
+public class UpdateFacultyCommandHandler :
+    IRequestHandler<UpdateFacultyCommand, ServiceResult<Unit>>
 {
     private readonly IApplicationDbContext _dbContext;
 
     public UpdateFacultyCommandHandler(IApplicationDbContext dbContext)
         => _dbContext = dbContext;
 
-    public async Task<Unit> Handle(UpdateFacultyCommand request, CancellationToken cancellationToken)
+    public async Task<ServiceResult<Unit>> Handle(UpdateFacultyCommand request, CancellationToken cancellationToken)
     {
-        var entity =
-            await _dbContext.Faculties.FirstOrDefaultAsync(faculty =>
-                faculty.Id == request.Id, cancellationToken);
+        var universityExists = await _dbContext.Universities
+            .AnyAsync(c => c.Id == request.UniversityId, cancellationToken);
+        if(!universityExists)
+            throw new NotFoundException(nameof(University), request.UniversityId);
 
-        if (entity == null || entity.Id != request.Id)
-        {
+        var entity = await _dbContext.Faculties
+            .Where(faculty => faculty.Id == request.Id)
+            .ExecuteUpdateAsync(x => x
+            .SetProperty(x => x.Name, request.Name)
+            .SetProperty(x => x.UniversityId, request.UniversityId), cancellationToken);
+
+        if (entity == 0)
             throw new NotFoundException(nameof(Faculty), request.Id);
-        }
 
-        entity.Id = request.Id;
-        entity.Name = request.Name;
-        entity.UniversityId = request.UniversityId;
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+        return ServiceResult.Success(Unit.Value);
     }
 }
 

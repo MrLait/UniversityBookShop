@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using UniversityBookShop.Domain.Entities;
 using System.Reflection.Emit;
+using UniversityBookShop.Persistence.InitialData;
 
 namespace UniversityBookShop.Persistence.EntityTypeConfigurations
 {
@@ -16,12 +17,14 @@ namespace UniversityBookShop.Persistence.EntityTypeConfigurations
             builder
                 .HasOne(c => c.University)
                 .WithOne(u => u.CurrencyCode)
-                .HasForeignKey<University>(fk => fk.CurrencyCodesUniversitiesId);
+                .HasForeignKey<University>(fk => fk.CurrencyCodesId);
 
             builder
                 .HasOne(c => c.Book)
                 .WithOne(u => u.CurrencyCode)
-                .HasForeignKey<Book>(fk => fk.CurrencyCodesBooksId);
+                .HasForeignKey<Book>(fk => fk.CurrencyCodesId);
+
+            builder.HasData(CurrencyCodesInitialData.GetInitialData());
         }
     }
 }

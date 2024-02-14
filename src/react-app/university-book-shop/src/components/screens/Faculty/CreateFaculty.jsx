@@ -1,29 +1,28 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import MyButton from '../../UI/button/MyButton'
 import MyModal from '../../UI/modal/MyModal'
 import CreateFacultyForm from './CreateFacultyForm'
-
-const CreateFaculty = ({ faculties, setFaculties }) => {
+import styles from './CreateFaculty.module.css'
+import { incrementPaginationTotalCount } from '../../../unitls/pagination'
+const CreateFaculty = ({ setPaginationData, btnStyles, faculties, setFaculties }) => {
     const [modalShow, setModalShow] = useState(false)
 
     const createFaculty = (faculty) => {
         setFaculties([...faculties, faculty])
         setModalShow(false)
+        incrementPaginationTotalCount(setPaginationData)
     }
+
     return (
-        <div>
-            <MyButton
-                onClick={setModalShow}
-            >
+        <>
+            <MyButton setStyles={btnStyles} onClick={setModalShow}>
                 Create faculty
             </MyButton>
-            <MyModal
-                modalShow={modalShow}
-                setModalShow={setModalShow}
-            >
-                <CreateFacultyForm createFaculty={createFaculty} />
+            <MyModal modalShow={modalShow} setModalShow={setModalShow}>
+                <CreateFacultyForm modalShow={modalShow} createFaculty={createFaculty} />
             </MyModal>
-        </div>
+        </>
     )
 }
 
