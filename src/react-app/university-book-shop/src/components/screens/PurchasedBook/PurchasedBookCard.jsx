@@ -1,10 +1,9 @@
 // @ts-nocheck
 import React from 'react'
 import styles from './PurchasedBookCard.module.css';
-import BookDetails from '../Book/BookDetails';
 import DeletePurchasedBook from './DeletePurchasedBook';
 
-const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
+const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, updateErrorMessage, deleteBook }) => {
     return (
         <>
             <div className={styles.bookCard}>
@@ -17,8 +16,9 @@ const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
                         </div>
                         <div className={styles.headerRight}>
                             <DeletePurchasedBook
-                                id={purchasedBookId}
-                                deleteClick={deleteClick}
+                                bookId={purchasedBookId}
+                                updateErrorMessage={updateErrorMessage}
+                                deleteBook={deleteBook}
                             />
                         </div>
                     </div>
@@ -26,6 +26,12 @@ const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
                         by&nbsp;
                         {book.author} (Author)
                     </div>
+                    {book.errorMessage &&
+                        <div className={styles.errorMessage}>
+                            {book.errorMessage}
+                        </div>
+                    }
+
                 </div>
 
                 <ul className={styles.footer}>
@@ -37,7 +43,16 @@ const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
                             {book.isbn}
                         </div>
                     </li>
-
+                    <li className={`${styles.footer} ${styles.li}`}>
+                        <>
+                            <div>
+                                <strong>Book status:</strong>
+                            </div>
+                            <div>
+                                <div>{isPurchased ? "has been purchased" : "has been added"}</div>
+                            </div>
+                        </>
+                    </li>
                     <li className={`${styles.footer} ${styles.li}`}>
                         <div>
                             <strong>Price:</strong>

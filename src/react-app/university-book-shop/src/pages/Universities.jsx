@@ -25,6 +25,20 @@ const Universities = () => {
         getPaginatedUniversities(defaultPageIndex, pageSize);
     }, [isDeleted]);
 
+    const updateUniversityField = (entities, entityId, fieldName, value) => {
+        const updatedEntity = entities.map(e => {
+            if (entityId === e.id) {
+                return {
+                    ...e,
+                    [fieldName]: value,
+                };
+            }
+            return e;
+        });
+        setUniversities(updatedEntity);
+    };
+
+
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
             .then((response) => {
@@ -40,16 +54,20 @@ const Universities = () => {
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
-                if (response.status == 200 && response.data.isSucceeded) {
-                    setUniversities(universities.filter(u => u.id !== university.id))
-                    decrementPaginationTotalCount(setPaginationData);
-                    setIsDeleted(!isDeleted);
-                }
-                //"ToDo isSucceeded = false"
+                if (response.status == 200)
+                    if (response.data.isSucceeded) {
+                        setUniversities(universities.filter(u => u.id !== university.id))
+                        decrementPaginationTotalCount(setPaginationData);
+                        setIsDeleted(!isDeleted);
+                    } else {
+                        const errorMessage = response.data.error.message;
+                        updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
+                    }
             }
             ).catch(error => {
                 if (error.response.data) {
-                    //"ToDo Universities error"
+                    const errorMessage = error.response.data.error.message;
+                    updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
                 }
             })
     }

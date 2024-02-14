@@ -15,6 +15,10 @@ const UniversityItem = ({ university, deleteUniversity }) => {
     const [onMouseEntered, setOnMouseEntered] = useState(false);
     return (
         <div className={styles.inner}>
+            {university.errorMessage &&
+                <div className={styles.errorMessage}>{university.errorMessage}
+                </div>
+            }
             <div className={styles.navbar}>
                 <div className={styles.navbarInner}>
                     <a
@@ -49,7 +53,7 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                         <ul className={styles.list}>
                             <li>
                                 <OkLogo className={styles.okLogo} />
-                                The total cost of books purchased : {university.totalBookPrice} {university.currencyCode.code}
+                                The total cost of books purchased : {university.totalBookPrice ?? 0} {university.currencyCode.code}
                             </li>
                             <li> <OkLogo className={styles.okLogo} />
                                 Number of faculties available : {university.facultyCount}</li>

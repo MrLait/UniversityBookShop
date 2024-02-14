@@ -12,6 +12,13 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
         decrementPaginationTotalCount(setPaginationData);
         setIsDeleted(!isDeleted);
     }
+
+    const updateFaculty = (updatedFaculty) => {
+        const index = faculties.findIndex(faculty => faculty.id === updatedFaculty.id);
+        faculties[index] = updatedFaculty;
+        setFaculties([...faculties])
+    }
+
     return (
         <>
             {faculties.length
@@ -26,6 +33,7 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
                                 <FacultyCard
                                     faculty={faculty}
                                     removeFaculty={removeFaculty}
+                                    updateFaculty={updateFaculty}
                                 />
                             </div>
                         </CSSTransition>

@@ -3,20 +3,33 @@ import React from 'react'
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty'
 import styles from "./DeletePurchasedBook.module.css";
 
-const DeletePurchasedBook = ({ id, deleteClick }) => {
+const DeletePurchasedBook = ({ bookId, updateErrorMessage, deleteBook }) => {
 
-    const deletePurchasedBook = async () => {
-        await BooksAvailableForFacultyApiService.delete(id)
+    const deleteAvailableBook = async (bookId) => {
+        await BooksAvailableForFacultyApiService.deleteAvailableBook(bookId)
             .then(response => {
-                if (response.status == 200 && response.data.isSucceeded) {
-                    deleteClick(id)
+                var isSucceeded = response.data.isSucceeded;
+
+                if (isSucceeded) {
+                    deleteBook(bookId);
+                } else {
+                    var errorMessage = response.data.error.message
+                    updateErrorMessage(bookId, errorMessage)
                 }
-            });
+            })
+            .catch(error => {
+                var isSucceeded = error.response.data.isSucceeded;
+                const statusCode = error.response.data.error.statusCode;
+                if (!isSucceeded && statusCode === 404) {
+                    updateErrorMessage(bookId, "Book can't be removed.")
+                }
+            })
     }
+
     return (
         <>
             <span className={styles.remove}
-                onClick={deletePurchasedBook}>
+                onClick={() => deleteAvailableBook(bookId)}>
                 x
             </span>
         </>

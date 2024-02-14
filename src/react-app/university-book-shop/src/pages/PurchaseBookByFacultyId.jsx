@@ -104,8 +104,12 @@ const PurchaseBookByFacultyId = () => {
             await BooksAvailableForFacultyApiService.deleteAvailableBook(availableBook.id)
                 .then(response => {
                     var isSucceeded = response.data.isSucceeded;
+
                     if (isSucceeded) {
                         updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty)
+                    } else {
+                        var errorMessage = response.data.error.message
+                        updateBookErrorMessage(bookId, errorMessage)
                     }
                 })
                 .catch(error => {

@@ -5,7 +5,7 @@ import UniversityIdPage from "../pages/UniversityIdPage";
 
 const routeConst = {
     Page: '?page=',
-    Universities: '/universities',
+    Universities: '/',
     University: '/university',
     SearchBookByFacultyId: '/searchBook/facultyId',
     Faculty: '/faculty',
@@ -13,8 +13,8 @@ const routeConst = {
 
 export const routePaths = {
     Home: '/',
-    Universities: '/universities/',
-    UniversitiesPageIndex: '/universities?page=:pageIndex',
+    Universities: '/',
+    UniversitiesPageIndex: '?page=:pageIndex',
     UniversityId: '/university/:UniversityId',
     UniversityIdPageIndex: `/university/:UniversityId?page:pageIndex`,
     SearchBookByFacultyId: '/searchBook/facultyId/:facultyId',
@@ -28,7 +28,7 @@ export const routePathsNavigate = {
         return (`${routePaths.Home}`)
     },
     UniversitiesPage(pageIndex) {
-        return (`${routeConst.Universities}/${routeConst.Page}${pageIndex}`)
+        return (`${routeConst.Universities}${routeConst.Page}${pageIndex}`)
     },
     UniversityId(id) {
         return (`${routeConst.University}/${id}`)
@@ -42,16 +42,16 @@ export const routePathsNavigate = {
     SearchBookByFacultyIdPage(facultyId, pageIndex) {
         return (`${routeConst.SearchBookByFacultyId}/${facultyId}${routeConst.Page}${pageIndex}`)
     },
-    FacultyBooksByFacultyId(universityId, facultyId) {
+    PurchasedBooksByFacultyId(universityId, facultyId) {
         return (`${routeConst.University}/${universityId}${routeConst.Faculty}/${facultyId}`)
     },
-    FacultyBooksByFacultyIdPage(universityId, facultyId, pageIndex) {
+    PurchasedBooksByFacultyIdPage(universityId, facultyId, pageIndex) {
         return (`${routeConst.University}/${universityId}${routeConst.Faculty}/${facultyId}${routeConst.Page}${pageIndex}`)
     },
 }
 
 export const routes = [
-    { path: routePaths.Home, element: Universities },
+    // { path: routePaths.Home, element: Universities },
     { path: routePaths.Universities, element: Universities },
     // { path: routePaths.UniversitiesPageIndex, element: Universities },
     { path: routePaths.UniversityId, element: UniversityIdPage },

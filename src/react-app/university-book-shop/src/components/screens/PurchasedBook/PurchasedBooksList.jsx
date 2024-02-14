@@ -1,50 +1,51 @@
 // @ts-nocheck
 import React, { useState } from 'react'
-import { useEffect } from 'react';
-import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
-import { booksAvailableForFacultyField } from '../../constants/initialStates';
 import PurchasedBookCard from './PurchasedBookCard'
 import styles from "./PurchasedBooksList.module.css"
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { decrementPaginationTotalCount } from '../../../unitls/pagination'
 
-const PurchasedBooksList = ({ purchasedBooks }) => {
-    // const [purchasedBooks, setPurchasedBooks] = useState(booksAvailableForFacultyField);
-    // const getPurchasedBooks = async () => {
-    //     await BooksAvailableForFacultyApiService.getByFacultyId(facultyId)
-    //         .then((response) => {
-    //             var isSucceeded = response.data.isSucceeded;
-    //             if (response.status === 200 && isSucceeded) {
-    //                 const books = response.data.data.items;
-    //                 setPurchasedBooks(books)
-    //                 setBooksCount(books.length)
-    //             }
-    //         });
-    // }
-    // useEffect(() => {
-    //     getPurchasedBooks()
-    // }, [])
-
-    const deleteBookClick = (id) => {
-        // setPurchasedBooks(
-        //     purchasedBooks.filter(p => p.id !== id)
-        // )
+const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
+    const visiblePurchasedBooks = purchasedBooks.slice(0, pageSize);
+    const deleteBook = (id) => {
+        setPurchasedBooks(
+            purchasedBooks.filter(p => p.id !== id)
+        )
+        decrementPaginationTotalCount(setPaginationData);
+        setIsDeleted(!isDeleted);
     }
 
+    const updateErrorMessage = (id, errorMessage) => {
+        const updatePurchasedBooks = purchasedBooks.map(pb => {
+            if (pb.id === id)
+                return {
+                    ...pb,
+                    book: {
+                        ...pb.book,
+                        errorMessage
+                    }
+                };
+            return pb;
+        })
+        setPurchasedBooks(updatePurchasedBooks);
+    }
     return (
         <>
             {purchasedBooks.length
                 ?
                 <TransitionGroup className={styles.gridSites}>
-                    {purchasedBooks.map(b =>
+                    {visiblePurchasedBooks.map(b =>
                         <CSSTransition
                             key={b.id}
                             timeout={600}
                             classNames="pagination">
                             <div key={b.id}>
                                 <PurchasedBookCard
+                                    isPurchased={b.isPurchased}
                                     purchasedBookId={b.id}
                                     book={b.book}
-                                    deleteClick={deleteBookClick}
+                                    deleteBook={deleteBook}
+                                    updateErrorMessage={updateErrorMessage}
                                 />
                             </div>
                         </CSSTransition>

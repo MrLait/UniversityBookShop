@@ -23,23 +23,31 @@ public class DeleteBooksAvailableForFacultyCommandHandler :
     public async Task<ServiceResult<Unit>> Handle(DeleteBooksAvailableForFacultyCommand request, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.BooksAvailableForFaculties
+            .Include(x => x.Book)
             .Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken) 
             ?? throw new NotFoundException(nameof(BooksAvailableForFaculties), request.Id);
 
-        var isLast = await _dbContext.BooksAvailableForFaculties
-            .CountAsync(x => x.BookId == entity.BookId && x.UniversityId == entity.UniversityId, cancellationToken) == 1;
+        if(entity.IsPurchased == true)
+        { 
+            var isBookAddedToOtherFaculty = await _dbContext.BooksAvailableForFaculties
+                .AnyAsync(x => x.BookId == entity.BookId && x.FacultyId != entity.FacultyId
+                && x.UniversityId == entity.UniversityId, cancellationToken);
+            if (isBookAddedToOtherFaculty) return ServiceResult.Failed<Unit>(ServiceError.CantDeleteUnivarstityBook);
 
-        _dbContext.BooksAvailableForFaculties.Remove(entity);
-        if (isLast)
-        {
+            _dbContext.BooksAvailableForFaculties.Remove(entity);
+
             var purchasedBookEntity = await _dbContext.PurchasedBookFaculties
                 .Where(x => x.BookId == entity.BookId && x.FacultyId == entity.FacultyId)
                 .FirstOrDefaultAsync(cancellationToken)
             ?? throw new NotFoundException(nameof(PurchasedBooksFaculty), request.Id);
 
             _dbContext.PurchasedBookFaculties.Remove(purchasedBookEntity);
-            await UniversityTotalBookPriceUpdater.DecrementTotalBookPriceAsync(_dbContext, entity.Faculty?.UniversityId, entity.Book?.Price, cancellationToken);
+            await UniversityTotalBookPriceUpdater.DecrementTotalBookPriceAsync(_dbContext, entity.UniversityId, entity.Book?.Price, cancellationToken);
+        }
+        else
+        {
+            _dbContext.BooksAvailableForFaculties.Remove(entity);
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
