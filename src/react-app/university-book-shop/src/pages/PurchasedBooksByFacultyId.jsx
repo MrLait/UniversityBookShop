@@ -57,7 +57,7 @@ const PurchasedBooksByFacultyId = () => {
 
     const changePage = (pageIndex) => {
         getPurchasedBooks(facultyId, pageIndex, pageSize);
-        navigate(routePathsNavigate.FacultyBooksByFacultyIdPage(universityId, facultyId, pageIndex));
+        navigate(routePathsNavigate.PurchasedBooksByFacultyIdPage(universityId, facultyId, pageIndex));
     }
     return (
         <div className={styles.block}>

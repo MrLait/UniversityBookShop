@@ -4,7 +4,7 @@ import styles from './PurchasedBookCard.module.css';
 import BookDetails from '../Book/BookDetails';
 import DeletePurchasedBook from './DeletePurchasedBook';
 
-const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
+const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, deleteClick }) => {
     return (
         <>
             <div className={styles.bookCard}>
@@ -17,7 +17,8 @@ const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
                         </div>
                         <div className={styles.headerRight}>
                             <DeletePurchasedBook
-                                id={purchasedBookId}
+                                bookId={purchasedBookId}
+                                isPurchased={isPurchased}
                                 deleteClick={deleteClick}
                             />
                         </div>
@@ -37,7 +38,16 @@ const PurchasedBookCard = ({ book, purchasedBookId, deleteClick }) => {
                             {book.isbn}
                         </div>
                     </li>
-
+                    <li className={`${styles.footer} ${styles.li}`}>
+                        <>
+                            <div>
+                                <strong>Book status:</strong>
+                            </div>
+                            <div>
+                                <div>{isPurchased ? "has been purchased" : "has been added"}</div>
+                            </div>
+                        </>
+                    </li>
                     <li className={`${styles.footer} ${styles.li}`}>
                         <div>
                             <strong>Price:</strong>

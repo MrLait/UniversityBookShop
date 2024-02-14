@@ -42,6 +42,7 @@ const PurchasedBooksList = ({ purchasedBooks }) => {
                             classNames="pagination">
                             <div key={b.id}>
                                 <PurchasedBookCard
+                                    isPurchased={b.isPurchased}
                                     purchasedBookId={b.id}
                                     book={b.book}
                                     deleteClick={deleteBookClick}

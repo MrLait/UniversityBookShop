@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { purchasedBookField } from '../../constants/initialStates'
 import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants'
 import MyButton from '../../UI/button/MyButton'
-// const Book = ({ book, purchasedBooksByFacultyId, setPurchasedBooksByFacultyId }) => {
 
 const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
     const facultyId = parseInt(useParams().facultyId || 0);

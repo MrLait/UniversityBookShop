@@ -10,7 +10,6 @@ const Header = () => {
     const routesToMatch = [
         routePaths.Home,
         routePaths.Universities,
-        routePaths.UniversitiesPageIndex
     ];
 
     const isMatchingRoute = routesToMatch.some((route) => {
