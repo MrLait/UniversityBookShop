@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const Faculties = (props) => {
-    console.log(props)
+    console.log(props);
     return (
         <div>
             Faculties not found
         </div>
-    )
-}
+    );
+};
 
-export default Faculties
+export default Faculties;

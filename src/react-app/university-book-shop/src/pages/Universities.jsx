@@ -1,22 +1,26 @@
 // @ts-nocheck
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import UniversityApiService from "../API/UniversityApiService";
-import { paginationField } from "../components/constants/initialStates";
-import CreateUniversity from "../components/screens/University/CreateUniversity";
-import UniversityList from "../components/screens/University/UniversityList";
-import MyPagination from "../components/UI/pagination/MyPagination";
-import styles from './Universities.module.css'
-import { decrementPaginationTotalCount } from '../unitls/pagination'
-import { routePathsNavigate } from "../router/routes"
-import transition from "../unitls/transition";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from 'react';
+
+import UniversityApiService from '../API/UniversityApiService';
+import { paginationField } from '../components/constants/initialStates';
+import CreateUniversity from '../components/screens/University/CreateUniversity';
+import UniversityList from '../components/screens/University/UniversityList';
+import MyPagination from '../components/UI/pagination/MyPagination';
+
+import { decrementPaginationTotalCount } from '../unitls/pagination';
+import { routePathsNavigate } from '../router/routes';
+import transition from '../unitls/transition';
+
+import styles from './Universities.module.css';
 
 const Universities = () => {
     const [searchParams] = useSearchParams();
-    const pageIndex = searchParams.get('page')
+    const pageIndex = searchParams.get('page');
     const navigate = useNavigate();
     const defaultPageIndex = parseInt(pageIndex || 1);
-    const [universities, setUniversities] = useState([])
+    const [universities, setUniversities] = useState([]);
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize, setPageSize] = useState(4);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -45,36 +49,36 @@ const Universities = () => {
                 var isSucceeded = response.data.isSucceeded;
                 //"ToDo isSucceeded = false"
                 if (isSucceeded) {
-                    setUniversities(response.data.data.items)
+                    setUniversities(response.data.data.items);
                     setPaginationData(response.data.data);
                 }
-            })
-    }
+            });
+    };
 
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
                 if (response.status == 200)
                     if (response.data.isSucceeded) {
-                        setUniversities(universities.filter(u => u.id !== university.id))
+                        setUniversities(universities.filter(u => u.id !== university.id));
                         decrementPaginationTotalCount(setPaginationData);
                         setIsDeleted(!isDeleted);
                     } else {
                         const errorMessage = response.data.error.message;
-                        updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
+                        updateUniversityField(universities, university.id, 'errorMessage', errorMessage);
                     }
             }
             ).catch(error => {
                 if (error.response.data) {
                     const errorMessage = error.response.data.error.message;
-                    updateUniversityField(universities, university.id, 'errorMessage', errorMessage)
+                    updateUniversityField(universities, university.id, 'errorMessage', errorMessage);
                 }
-            })
-    }
+            });
+    };
     const changePage = (pageIndex) => {
         getPaginatedUniversities(pageIndex, pageSize);
         navigate(routePathsNavigate.UniversitiesPage(pageIndex));
-    }
+    };
 
     return (
         <>
@@ -126,5 +130,5 @@ const Universities = () => {
             </div >
         </>
     );
-}
+};
 export default transition(Universities);

@@ -1,8 +1,11 @@
 // @ts-nocheck
 import React from 'react';
+
 import MyButton from '../../UI/button/MyButton';
-import styles from './BookCard.module.css';
+
 import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants';
+
+import styles from './BookCard.module.css';
 
 const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
     return (
@@ -141,7 +144,7 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                 </ul>
             </div >
         </>
-    )
-}
+    );
+};
 
 export default BookCard;

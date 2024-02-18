@@ -1,18 +1,21 @@
 // @ts-nocheck
-import React, { useState } from 'react'
-import MyButton from '../../UI/button/MyButton'
-import MyModal from '../../UI/modal/MyModal'
-import CreateUniversityForm from './CreateUniversityForm'
-import { incrementPaginationTotalCount } from '../../../unitls/pagination'
+import React, { useState } from 'react';
+
+import MyButton from '../../UI/button/MyButton';
+import MyModal from '../../UI/modal/MyModal';
+
+import { incrementPaginationTotalCount } from '../../../unitls/pagination';
+
+import CreateUniversityForm from './CreateUniversityForm';
 
 const CreateUniversity = ({ setPaginationData, universities, setUniversities }) => {
-    const [modalShow, setModalShow] = useState(false)
+    const [modalShow, setModalShow] = useState(false);
 
     const createUniversity = (university) => {
-        setUniversities([...universities, university])
-        setModalShow(false)
-        incrementPaginationTotalCount(setPaginationData)
-    }
+        setUniversities([...universities, university]);
+        setModalShow(false);
+        incrementPaginationTotalCount(setPaginationData);
+    };
     return (
         < >
             <MyButton onClick={setModalShow}>
@@ -22,9 +25,9 @@ const CreateUniversity = ({ setPaginationData, universities, setUniversities }) 
                 <CreateUniversityForm modalShow={modalShow} create={createUniversity} />
             </MyModal>
         </>
-    )
-}
+    );
+};
 
-export default CreateUniversity
+export default CreateUniversity;
 
 

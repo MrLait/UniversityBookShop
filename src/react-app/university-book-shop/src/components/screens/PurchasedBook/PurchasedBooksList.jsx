@@ -1,19 +1,22 @@
 // @ts-nocheck
-import React, { useState } from 'react'
-import PurchasedBookCard from './PurchasedBookCard'
-import styles from "./PurchasedBooksList.module.css"
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { decrementPaginationTotalCount } from '../../../unitls/pagination'
+import React, { useState } from 'react';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import { decrementPaginationTotalCount } from '../../../unitls/pagination';
+
+import PurchasedBookCard from './PurchasedBookCard';
+import styles from './PurchasedBooksList.module.css';
 
 const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
     const visiblePurchasedBooks = purchasedBooks.slice(0, pageSize);
     const deleteBook = (id) => {
         setPurchasedBooks(
             purchasedBooks.filter(p => p.id !== id)
-        )
+        );
         decrementPaginationTotalCount(setPaginationData);
         setIsDeleted(!isDeleted);
-    }
+    };
 
     const updateErrorMessage = (id, errorMessage) => {
         const updatePurchasedBooks = purchasedBooks.map(pb => {
@@ -22,13 +25,13 @@ const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPu
                     ...pb,
                     book: {
                         ...pb.book,
-                        errorMessage
-                    }
+                        errorMessage,
+                    },
                 };
             return pb;
-        })
+        });
         setPurchasedBooks(updatePurchasedBooks);
-    }
+    };
     return (
         <>
             {purchasedBooks.length
@@ -59,6 +62,6 @@ const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPu
             }
         </>
 
-    )
-}
-export default PurchasedBooksList
+    );
+};
+export default PurchasedBooksList;

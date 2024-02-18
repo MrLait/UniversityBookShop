@@ -1,5 +1,6 @@
 // @ts-nocheck
-import React from 'react'
+import React from 'react';
+
 import styles from './PurchasedBookCard.module.css';
 import DeletePurchasedBook from './DeletePurchasedBook';
 
@@ -49,7 +50,7 @@ const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, updateErrorMess
                                 <strong>Book status:</strong>
                             </div>
                             <div>
-                                <div>{isPurchased ? "has been purchased" : "has been added"}</div>
+                                <div>{isPurchased ? 'has been purchased' : 'has been added'}</div>
                             </div>
                         </>
                     </li>
@@ -64,7 +65,7 @@ const PurchasedBookCard = ({ book, isPurchased, purchasedBookId, updateErrorMess
                 </ul>
             </div >
         </>
-    )
-}
+    );
+};
 
 export default PurchasedBookCard;

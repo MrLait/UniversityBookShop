@@ -1,15 +1,20 @@
 // @ts-nocheck
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { routePathsNavigate } from "../../../router/routes";
-import styles from "./UniversityItem.module.css";
-import OkLogoItem from "../../../Assets/OkLogoItem"
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { CSSTransition } from 'react-transition-group';
+
+import { useState } from 'react';
+
+import { routePathsNavigate } from '../../../router/routes';
+
+import OkLogoItem from '../../../Assets/OkLogoItem';
 import { ReactComponent as OkLogo } from '../../../Assets/okSvg.svg';
 import { ReactComponent as GoTo } from '../../../Assets/goTo.svg';
 import { ReactComponent as ArrowCollapse } from '../../../Assets/arrowCollapse.svg';
 import { ReactComponent as ArrowExpand } from '../../../Assets/arrowExpand.svg';
-import { CSSTransition } from 'react-transition-group'
-import { useState } from "react";
+
+import styles from './UniversityItem.module.css';
 
 const UniversityItem = ({ university, deleteUniversity }) => {
     const navigate = useNavigate();
@@ -73,6 +78,6 @@ const UniversityItem = ({ university, deleteUniversity }) => {
                 </div>
             </div>
         </div >
-    )
-}
+    );
+};
 export default UniversityItem;

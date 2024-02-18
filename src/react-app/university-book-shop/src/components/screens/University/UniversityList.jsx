@@ -1,8 +1,10 @@
 // @ts-nocheck
-import React from "react";
-import UniversityItem from "./UniversityItem";
-import styles from "./UniversityList.module.css"
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import React from 'react';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import UniversityItem from './UniversityItem';
+import styles from './UniversityList.module.css';
 const UniversityList = ({ pageSize, universities, deleteUniversity }) => {
     const visibleUniversities = universities.slice(0, pageSize);
     return (
@@ -22,6 +24,6 @@ const UniversityList = ({ pageSize, universities, deleteUniversity }) => {
                 )}
             </TransitionGroup>
         </>
-    )
-}
+    );
+};
 export default UniversityList;

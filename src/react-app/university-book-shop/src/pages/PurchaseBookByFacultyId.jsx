@@ -1,20 +1,23 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+
 import BookApiService from '../API/BookApiService';
-import styles from './PurchaseBookByFacultyId.module.css';
+
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
 import PurchasedBookApiService from '../API/PurchasedBookApiService';
-import BookList from '../components/screens/Book/BookList'
-import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants'
+import BookList from '../components/screens/Book/BookList';
+import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants';
 import transition from '../unitls/transition';
 import MyPagination from '../components/UI/pagination/MyPagination';
 import { paginationField } from '../components/constants/initialStates';
-import { routePathsNavigate } from '../router/routes'
+import { routePathsNavigate } from '../router/routes';
+
+import styles from './PurchaseBookByFacultyId.module.css';
 
 const PurchaseBookByFacultyId = () => {
     const [searchParams] = useSearchParams();
-    const pageIndex = searchParams.get('page')
+    const pageIndex = searchParams.get('page');
     const navigate = useNavigate();
     const defaultPageIndex = parseInt(pageIndex || 1);
 
@@ -25,16 +28,16 @@ const PurchaseBookByFacultyId = () => {
 
     useEffect(() => {
         getBooks(defaultPageIndex, pageSize);
-    }, [defaultPageIndex])
+    }, [defaultPageIndex]);
 
     const getBooks = async (defaultPageIndex, pageSize) => {
         await BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId, defaultPageIndex, pageSize)
             .then((response) => {
                 const data = response.data.data.items;
-                setBooks(data)
+                setBooks(data);
                 setPaginationData(response.data.data);
-            })
-    }
+            });
+    };
 
     const updateBookStatus = (bookId, purchaseStatus) => {
         const updatedBooks = books.map(book => {
@@ -67,23 +70,23 @@ const PurchaseBookByFacultyId = () => {
             .then(response => {
                 var isSucceeded = response.data.isSucceeded;
                 if (isSucceeded) {
-                    updateBookStatus(bookId, purchaseStatusConstants.bookPurchasedByCurrentFaculty)
+                    updateBookStatus(bookId, purchaseStatusConstants.bookPurchasedByCurrentFaculty);
                 }
                 else {
-                    updateBookErrorMessage(bookId, response.data.error.message)
+                    updateBookErrorMessage(bookId, response.data.error.message);
                 }
-            })
-    }
+            });
+    };
 
     const postAddBook = async (bookId, facultyId) => {
         await BooksAvailableForFacultyApiService.postAddBook(bookId, facultyId)
             .then(response => {
                 var isSucceeded = response.data.isSucceeded;
                 if (isSucceeded) {
-                    updateBookStatus(bookId, purchaseStatusConstants.bookAddedByCurrentFaculty)
+                    updateBookStatus(bookId, purchaseStatusConstants.bookAddedByCurrentFaculty);
                 }
-            })
-    }
+            });
+    };
 
     const getAvailableBook = async (bookId, facultyId) => {
         const availableBook =
@@ -91,12 +94,12 @@ const PurchaseBookByFacultyId = () => {
                 .then(response => {
                     var isSucceeded = response.data.isSucceeded;
                     if (isSucceeded) {
-                        var availableBook = response.data.data
-                        return availableBook
+                        var availableBook = response.data.data;
+                        return availableBook;
                     }
-                })
-        return availableBook
-    }
+                });
+        return availableBook;
+    };
 
     const removeAvailableBook = async (bookId, facultyId) => {
         const availableBook = await getAvailableBook(bookId, facultyId);
@@ -106,59 +109,59 @@ const PurchaseBookByFacultyId = () => {
                     var isSucceeded = response.data.isSucceeded;
 
                     if (isSucceeded) {
-                        updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty)
+                        updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty);
                     } else {
-                        var errorMessage = response.data.error.message
-                        updateBookErrorMessage(bookId, errorMessage)
+                        var errorMessage = response.data.error.message;
+                        updateBookErrorMessage(bookId, errorMessage);
                     }
                 })
                 .catch(error => {
                     var isSucceeded = error.response.data.isSucceeded;
                     const statusCode = error.response.data.error.statusCode;
                     if (!isSucceeded && statusCode === 404) {
-                        updateBookErrorMessage(bookId, "Book can't be removed.")
+                        updateBookErrorMessage(bookId, 'Book can\'t be removed.');
                     }
-                })
+                });
         } else {
-            updateBookErrorMessage(bookId, "Available book for remove can't be founded.")
+            updateBookErrorMessage(bookId, 'Available book for remove can\'t be founded.');
         }
-    }
+    };
 
     const deletePurchasedBook = async (bookId, facultyId) => {
         await PurchasedBookApiService.deleteByFacultyIdAndBookId(facultyId, bookId)
             .then(response => {
                 var isSucceeded = response.data.isSucceeded;
                 if (isSucceeded) {
-                    updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForPurchase)
+                    updateBookStatus(bookId, purchaseStatusConstants.bookAvailableForPurchase);
                 } else {
-                    updateBookErrorMessage(bookId, response.data.error.message)
+                    updateBookErrorMessage(bookId, response.data.error.message);
                 }
             })
             .catch(error => {
-                updateBookErrorMessage(bookId, error.response.data.error.message)
-            })
-    }
+                updateBookErrorMessage(bookId, error.response.data.error.message);
+            });
+    };
 
     const buyBook = (bookId) => {
-        postPurchaseBook(bookId, facultyId)
-    }
+        postPurchaseBook(bookId, facultyId);
+    };
 
     const addBook = (bookId) => {
-        postAddBook(bookId, facultyId)
-    }
+        postAddBook(bookId, facultyId);
+    };
 
     const removeBook = (bookId) => {
-        removeAvailableBook(bookId, facultyId)
-    }
+        removeAvailableBook(bookId, facultyId);
+    };
 
     const deleteBook = (bookId) => {
-        deletePurchasedBook(bookId, facultyId)
-    }
+        deletePurchasedBook(bookId, facultyId);
+    };
 
     const changePage = (pageIndex) => {
         getBooks(pageIndex, pageSize);
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
-    }
+    };
 
     return (
         <div className={styles.block}>
@@ -204,7 +207,7 @@ const PurchaseBookByFacultyId = () => {
                 }
             </div>
         </div >
-    )
-}
+    );
+};
 
-export default transition(PurchaseBookByFacultyId)
+export default transition(PurchaseBookByFacultyId);

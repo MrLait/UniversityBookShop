@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ArrowExpandIcon = ({ props }) => (
     <svg width="20" height="20" viewBox="0 0 34 17"

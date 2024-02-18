@@ -1,7 +1,9 @@
 // @ts-nocheck
-import React from 'react'
-import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty'
-import styles from "./DeletePurchasedBook.module.css";
+import React from 'react';
+
+import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
+
+import styles from './DeletePurchasedBook.module.css';
 
 const DeletePurchasedBook = ({ bookId, updateErrorMessage, deleteBook }) => {
 
@@ -13,18 +15,18 @@ const DeletePurchasedBook = ({ bookId, updateErrorMessage, deleteBook }) => {
                 if (isSucceeded) {
                     deleteBook(bookId);
                 } else {
-                    var errorMessage = response.data.error.message
-                    updateErrorMessage(bookId, errorMessage)
+                    var errorMessage = response.data.error.message;
+                    updateErrorMessage(bookId, errorMessage);
                 }
             })
             .catch(error => {
                 var isSucceeded = error.response.data.isSucceeded;
                 const statusCode = error.response.data.error.statusCode;
                 if (!isSucceeded && statusCode === 404) {
-                    updateErrorMessage(bookId, "Book can't be removed.")
+                    updateErrorMessage(bookId, 'Book can\'t be removed.');
                 }
-            })
-    }
+            });
+    };
 
     return (
         <>
@@ -33,7 +35,7 @@ const DeletePurchasedBook = ({ bookId, updateErrorMessage, deleteBook }) => {
                 x
             </span>
         </>
-    )
-}
+    );
+};
 
-export default DeletePurchasedBook
+export default DeletePurchasedBook;

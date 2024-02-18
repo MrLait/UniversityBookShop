@@ -1,9 +1,11 @@
 // @ts-nocheck
-import React from "react";
-import { Navigate, Route } from "react-router";
-import { Routes, useLocation } from "react-router-dom";
-import { routePaths, routes } from "../router/routes";
-import { AnimatePresence } from "framer-motion"
+import React from 'react';
+import { Navigate, Route } from 'react-router';
+import { Routes, useLocation } from 'react-router-dom';
+
+import { AnimatePresence } from 'framer-motion';
+
+import { routePaths, routes } from '../router/routes';
 
 const AppRouter = () => {
     const location = useLocation();
@@ -21,6 +23,6 @@ const AppRouter = () => {
                 </Routes >
             </AnimatePresence>
         </>
-    )
-}
+    );
+};
 export default AppRouter;

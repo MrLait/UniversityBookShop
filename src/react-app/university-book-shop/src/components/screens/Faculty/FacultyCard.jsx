@@ -1,12 +1,15 @@
 // @ts-nocheck
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { routePathsNavigate } from '../../../router/routes';
-import DeleteFaculty from './DeleteFaculty';
-import styles from './FacultyCard.module.css';
+
 import { ReactComponent as ArrowDirectionLeft } from '../../../Assets/arrow_direction_left.svg';
 import BooksAvailableForFacultyApiService from '../../../API/BooksAvailableForFaculty';
-import ArrowExpandIcon from '../../../Assets/ArrowExpandIcon'
+import ArrowExpandIcon from '../../../Assets/ArrowExpandIcon';
+
+import styles from './FacultyCard.module.css';
+import DeleteFaculty from './DeleteFaculty';
 
 const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
     const navigate = useNavigate();
@@ -16,13 +19,13 @@ const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
             .then((response) => {
                 var isSucceeded = response.data.isSucceeded;
                 if (response.status === 200 && isSucceeded) {
-                    navigate(routePathsNavigate.PurchasedBooksByFacultyId(faculty.universityId, faculty.id))
+                    navigate(routePathsNavigate.PurchasedBooksByFacultyId(faculty.universityId, faculty.id));
                 }
                 if (isSucceeded == false && response.data.error.statusCode === 404) {
                     setIsPurchasedBooksVisible(true);
                 }
             });
-    }
+    };
 
     const togglePurchasedBooksVisibility = async (facultyId) => {
         if (isPurchasedBooksVisible) {
@@ -93,7 +96,7 @@ const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
                 </ul>
             </div >
         </>
-    )
-}
+    );
+};
 
-export default FacultyCard
+export default FacultyCard;

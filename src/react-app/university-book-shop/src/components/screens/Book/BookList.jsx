@@ -1,8 +1,10 @@
 // @ts-nocheck
-import React from 'react'
-import styles from './BookList.module.css'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import BookCard from './BookCard'
+import React from 'react';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import styles from './BookList.module.css';
+import BookCard from './BookCard';
 
 const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook }) => {
     const visibleBooks = books.slice(0, pageSize);
@@ -27,6 +29,6 @@ const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook })
                 )}
             </TransitionGroup>
         </>
-    )
-}
-export default BookList
+    );
+};
+export default BookList;

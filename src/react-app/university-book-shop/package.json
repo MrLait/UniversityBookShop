@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint -c .eslintrc.json --ext .jsx .",
-    "lint:fix": ""
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "extends": [

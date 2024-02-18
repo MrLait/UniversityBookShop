@@ -1,23 +1,26 @@
 // @ts-nocheck
-import React from 'react'
-import FacultyCard from './FacultyCard'
-import styles from './FacultyItem.module.css'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { decrementPaginationTotalCount } from '../../../unitls/pagination'
+import React from 'react';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import { decrementPaginationTotalCount } from '../../../unitls/pagination';
+
+import FacultyCard from './FacultyCard';
+import styles from './FacultyItem.module.css';
 
 const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, faculties, setFaculties }) => {
     const visibleFaculty = faculties.slice(0, pageSize);
     const removeFaculty = (faculty) => {
-        setFaculties(faculties.filter(f => f.id !== faculty.id))
+        setFaculties(faculties.filter(f => f.id !== faculty.id));
         decrementPaginationTotalCount(setPaginationData);
         setIsDeleted(!isDeleted);
-    }
+    };
 
     const updateFaculty = (updatedFaculty) => {
         const index = faculties.findIndex(faculty => faculty.id === updatedFaculty.id);
         faculties[index] = updatedFaculty;
-        setFaculties([...faculties])
-    }
+        setFaculties([...faculties]);
+    };
 
     return (
         <>
@@ -45,7 +48,7 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
                 </div>
             }
         </>
-    )
-}
+    );
+};
 
-export default FacultyList
+export default FacultyList;

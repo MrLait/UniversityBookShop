@@ -1,18 +1,23 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
-import PurchasedBooksList from '../components/screens/PurchasedBook/PurchasedBooksList'
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
-import styles from './PurchasedBooksByFacultyId.module.css'
-import FacultyApiService from '../API/FacultyApiService'
-import MyPagination from '../components/UI/pagination/MyPagination'
-import { paginationField } from "../components/constants/initialStates";
-import { routePathsNavigate } from "../router/routes"
+import React, { useEffect, useState } from 'react';
+
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+
+import PurchasedBooksList from '../components/screens/PurchasedBook/PurchasedBooksList';
+
+
+import FacultyApiService from '../API/FacultyApiService';
+import MyPagination from '../components/UI/pagination/MyPagination';
+import { paginationField } from '../components/constants/initialStates';
+import { routePathsNavigate } from '../router/routes';
 import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
-import transition from '../unitls/transition'
+import transition from '../unitls/transition';
+
+import styles from './PurchasedBooksByFacultyId.module.css';
 
 const PurchasedBooksByFacultyId = () => {
     const [searchParams] = useSearchParams();
-    const pageIndex = searchParams.get('page')
+    const pageIndex = searchParams.get('page');
     const navigate = useNavigate();
     const defaultPageIndex = parseInt(pageIndex || 1);
 
@@ -28,8 +33,8 @@ const PurchasedBooksByFacultyId = () => {
         if (faculty.length === 0) {
             getFacultyByFacultyId(facultyId);
         }
-        getPurchasedBooks(facultyId, defaultPageIndex, pageSize)
-    }, [isDeleted])
+        getPurchasedBooks(facultyId, defaultPageIndex, pageSize);
+    }, [isDeleted]);
 
     const getFacultyByFacultyId = async (facultyId) => {
         await FacultyApiService
@@ -39,10 +44,10 @@ const PurchasedBooksByFacultyId = () => {
                 var data = response.data.data;
                 //ToDo if false;
                 if (isSucceeded) {
-                    setFaculty(data)
+                    setFaculty(data);
                 }
-            })
-    }
+            });
+    };
 
     const getPurchasedBooks = async (facultyId, pageIndex, pageSize) => {
         await BooksAvailableForFacultyApiService.getByFacultyIdWithPagination(facultyId, pageIndex, pageSize)
@@ -50,16 +55,16 @@ const PurchasedBooksByFacultyId = () => {
                 var isSucceeded = response.data.isSucceeded;
                 if (response.status === 200 && isSucceeded) {
                     const books = response.data.data.items;
-                    setPurchasedBooks(books)
+                    setPurchasedBooks(books);
                     setPaginationData(response.data.data);
                 }
             });
-    }
+    };
 
     const changePage = (pageIndex) => {
         getPurchasedBooks(facultyId, pageIndex, pageSize);
         navigate(routePathsNavigate.PurchasedBooksByFacultyIdPage(universityId, facultyId, pageIndex));
-    }
+    };
     return (
         <div className={styles.block}>
             <div className={styles.inner}>
@@ -101,6 +106,6 @@ const PurchasedBooksByFacultyId = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 export default transition(PurchasedBooksByFacultyId);

@@ -1,24 +1,26 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+
 import UniversityApiService from '../API/UniversityApiService';
 import FacultyList from '../components/screens/Faculty/FacultyList';
-import CreateFaculty from '../components/screens/Faculty/CreateFaculty'
-import { paginationField } from "../components/constants/initialStates";
-import MyPagination from "../components/UI/pagination/MyPagination"
-import styles from './UniversityIdPage.module.css'
+import CreateFaculty from '../components/screens/Faculty/CreateFaculty';
+import { paginationField } from '../components/constants/initialStates';
+import MyPagination from '../components/UI/pagination/MyPagination';
 import { routePathsNavigate } from '../router/routes';
 import transition from '../unitls/transition';
 
+import styles from './UniversityIdPage.module.css';
+
 const UniversityIdPage = () => {
     const [searchParams] = useSearchParams();
-    const pageIndex = searchParams.get('page')
+    const pageIndex = searchParams.get('page');
     const navigate = useNavigate();
     const defaultPageIndex = parseInt(pageIndex || 1);
 
     const universityId = parseInt(useParams().UniversityId);
     const [pageSize, setPageSize] = useState(4);
-    const [faculties, setFaculties] = useState([])
+    const [faculties, setFaculties] = useState([]);
     const [university, setUniversity] = useState();
     const [paginationData, setPaginationData] = useState(paginationField);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -33,21 +35,21 @@ const UniversityIdPage = () => {
                     const data = response.data.data;
                     const facultiesWithPagination = data.facultiesWithPagination;
 
-                    setUniversity(data)
+                    setUniversity(data);
                     setPaginationData(facultiesWithPagination);
                     setFaculties(facultiesWithPagination.items);
                 }
-            })
-    }
+            });
+    };
 
     useEffect(() => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, defaultPageIndex, pageSize);
-    }, [isDeleted])
+    }, [isDeleted]);
 
     const changePage = (pageIndex) => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, pageIndex, pageSize);
         navigate(routePathsNavigate.UniversityIdFacultiesPage(universityId, pageIndex));
-    }
+    };
 
     return (
         <div className={styles.block}>
@@ -110,7 +112,7 @@ const UniversityIdPage = () => {
                 </div>
             }
         </div >
-    )
-}
+    );
+};
 
-export default transition(UniversityIdPage)
+export default transition(UniversityIdPage);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const UniversityDescription = ({ university }) => {
     return (
@@ -15,7 +15,7 @@ const UniversityDescription = ({ university }) => {
             <div>Number of faculties: {university.facultyCount} </div>
             <div>Number of books: {university.bookCount}</div>
         </div>
-    )
-}
+    );
+};
 
-export default UniversityDescription
+export default UniversityDescription;

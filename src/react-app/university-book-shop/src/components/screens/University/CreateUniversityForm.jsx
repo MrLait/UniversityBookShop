@@ -1,22 +1,24 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react'
-import UniversityApiService from '../../../API/UniversityApiService'
-import { Currencies, universityField } from '../../constants/initialStates'
-import MyButton from '../../UI/button/MyButton'
-import MyInput from '../../UI/input/MyInput'
-import MyTextArea from '../../UI/textarea/MyTextArea'
-import styles from './CreateUniversityForm.module.css'
+import React, { useState, useEffect } from 'react';
+
+import UniversityApiService from '../../../API/UniversityApiService';
+import { Currencies, universityField } from '../../constants/initialStates';
+import MyButton from '../../UI/button/MyButton';
+import MyInput from '../../UI/input/MyInput';
+import MyTextArea from '../../UI/textarea/MyTextArea';
+
+import styles from './CreateUniversityForm.module.css';
 
 const CreateUniversityForm = ({ modalShow, create }) => {
 
-    const [university, setUniversity] = useState(universityField)
-    const [nameError, setNameError] = useState('')
-    const [descriptionError, setDescriptionError] = useState('')
+    const [university, setUniversity] = useState(universityField);
+    const [nameError, setNameError] = useState('');
+    const [descriptionError, setDescriptionError] = useState('');
     const [loading, setLoading] = useState(false);
-    const rootStyles = [styles.loading]
+    const rootStyles = [styles.loading];
 
     const postUniversity = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         setLoading(true);
         university.currencyCodeId = Currencies.Usd;
         await UniversityApiService.post(university)
@@ -24,8 +26,8 @@ const CreateUniversityForm = ({ modalShow, create }) => {
                 if (response.data && response.status == 200) {
                     const newUniversity = {
                         ...university,
-                        id: response.data.data
-                    }
+                        id: response.data.data,
+                    };
                     create(newUniversity);
                     setUniversity(universityField);
 
@@ -47,7 +49,7 @@ const CreateUniversityForm = ({ modalShow, create }) => {
             }).finally(() => {
                 setLoading(false);
             });
-    }
+    };
 
     useEffect(() => {
         if (modalShow) {
@@ -133,6 +135,6 @@ const CreateUniversityForm = ({ modalShow, create }) => {
             </div>
         </div>
     );
-}
+};
 
-export default CreateUniversityForm
+export default CreateUniversityForm;
