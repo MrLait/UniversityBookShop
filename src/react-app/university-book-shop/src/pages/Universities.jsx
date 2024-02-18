@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import UniversityApiService from "../API/UniversityApiService";
 import { paginationField } from "../components/constants/initialStates";
@@ -10,6 +9,7 @@ import styles from './Universities.module.css'
 import { decrementPaginationTotalCount } from '../unitls/pagination'
 import { routePathsNavigate } from "../router/routes"
 import transition from "../unitls/transition";
+import React, { useEffect, useState } from "react";
 
 const Universities = () => {
     const [searchParams] = useSearchParams();

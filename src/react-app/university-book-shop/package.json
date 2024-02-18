@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
+    "framer-motion": "^11.0.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
@@ -20,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint -c .eslintrc.json --ext .jsx .",
+    "lint:fix": ""
   },
   "eslintConfig": {
     "extends": [

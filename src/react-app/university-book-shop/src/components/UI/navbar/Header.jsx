@@ -1,12 +1,15 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
-import { routePaths } from '../../../router/routes';
-import styles from './Header.module.css'
-const Header = () => {
-    const pathname = useLocation().pathname
 
+import Nav from 'react-bootstrap/Nav';
+
+import { routePaths } from '../../../router/routes';
+
+import styles from './Header.module.css';
+
+const Header = () => {
+    const pathname = useLocation().pathname;
     const routesToMatch = [
         routePaths.Home,
         routePaths.Universities,
@@ -42,6 +45,6 @@ const Header = () => {
         </div>
 
     );
-}
+};
 
 export default Header;
