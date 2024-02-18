@@ -1,13 +1,5 @@
 .block {
-    margin-top: clamp(20px, 3vw, 30px);
-    margin-bottom: clamp(50px, 20vw, 200px);
-}
-
-.contentHeader {
-    margin-bottom: clamp(30px, 6vw, 100px);
-    padding-top: 71px;
-    padding-bottom: clamp(30px, 6vw, 100px);
-    background: var(--ch-bg, transparent);
+    margin-top: var(--margin-top-block);
 }
 
 .inner {
@@ -17,18 +9,25 @@
     padding: 0 var(--pad-inner);
 }
 
+.contentHeader {
+    padding-top: var(--padding-top-block);
+    padding-bottom: clamp(3.75rem, 2.85rem + 4.5vw, 8.25rem);
+    background-color: var(--ch-bg, transparent);
+}
+
+.contentBody {
+    margin-top: clamp(20px, 3vw, 30px);
+}
 
 .createUniversity {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--gutter);
-    margin-bottom: clamp(40px, 5vw, 96px);
 }
 
-.heading {
-    font-size: 26px;
-    font-size: clamp(26px, 15.4366197183px + 1.1126760563vw, 56px);
-    line-height: 150%;
+.contentHeaderLeft {
+    font-size: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+    line-height: 100%;
 }
 
 .headingCenter {
@@ -38,24 +37,13 @@
 
 .headingBig {
     text-align: center;
-    font-size: 40px;
-    font-size: clamp(42px, -6.5915492958px + 4.7183098592vw, 70px);
+    font-size: clamp(2.625rem, 2.275rem + 1.75vw, 4.375rem);
     line-height: normal;
 }
 
-.universities {
+.contentHeaderRight {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0 40px;
-}
-
-.create {
-    display: grid;
-    grid-template-columns: repeat(3, 2);
-}
-
-.createLeft {
-    margin: auto;
+    place-items: center;
 }
 
 .pagination {

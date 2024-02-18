@@ -55,48 +55,49 @@ const UniversityIdPage = () => {
                 ?
                 <>
                     <div className={styles.inner}>
-                        <div className={`${styles.contentHeaderTop} ${styles.textCenter}`}>
-                            <div className={styles.headerTop}>
-                                <h1 className={`${styles.headerTopText} ${styles.upperCase}`}>
-                                    University
-                                    <br />
+                        <div className={`${styles.contentHeaderTop} `}>
+                            <div className={`${styles.headerTop} ${styles.textCenter}`} >
+                                <h1 className={`${styles.textSizeMedium}`}>
                                     {university.name}
                                 </h1>
                             </div>
-                            <div className={styles.headerBottom}>
+                            <div className={`${styles.textCenter}`} >
                                 <span className={styles.headerBotText}>
                                     {university.description}
                                 </span>
                             </div>
                         </div>
-                        <div className={styles.contentHeaderBot} >
-                            <div className={styles.headerBotFlexLeft}>
-                                <strong>{paginationData.totalCount ?? 0} </strong>
-                                number of faculties available.
+                        <div className={styles.contentBody}>
+                            <div className={styles.headingCenter}>
+                                <h3 className={styles.headingBig}>
+                                    Faculties
+                                </h3>
                             </div>
-                            <div className={styles.headerBotFlexRight}>
-                                <CreateFaculty
-                                    setPaginationData={setPaginationData}
-                                    btnStyles={styles.blackButton}
-                                    faculties={faculties}
-                                    setFaculties={setFaculties}
-                                />
+                            <div className={styles.contentHeaderBot} >
+                                <div className={styles.headerBotFlexLeft}>
+                                    <strong>{paginationData.totalCount ?? 0} </strong>
+                                    number of faculties available.
+                                </div>
+                                <div className={styles.headerBotFlexRight}>
+                                    <MyPagination
+                                        paginationData={paginationData}
+                                        pageIndex={defaultPageIndex}
+                                        changePage={changePage}
+                                        className={styles.pagination}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className={styles.contentBody}>
-                        <div className={styles.inner}>
-                            <MyPagination
-                                paginationData={paginationData}
-                                pageIndex={defaultPageIndex}
-                                changePage={changePage}
-                                className={styles.pagination}
-                            />
                             <FacultyList
                                 pageSize={pageSize}
                                 setPaginationData={setPaginationData}
                                 setIsDeleted={setIsDeleted}
                                 isDeleted={isDeleted}
+                                faculties={faculties}
+                                setFaculties={setFaculties}
+                            />
+                            <CreateFaculty
+                                setPaginationData={setPaginationData}
+                                btnStyles={styles.blackButton}
                                 faculties={faculties}
                                 setFaculties={setFaculties}
                             />

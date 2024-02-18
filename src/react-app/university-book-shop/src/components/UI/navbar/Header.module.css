@@ -14,13 +14,10 @@
 }
 
 .headerMain {
-    --text-header: 14px;
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
     height: var(--header-height);
-    font-size: var(--text-header);
 }
 
 .headerBlank {
@@ -32,15 +29,7 @@
 
 .headerMainRight {
     display: flex;
-    gap: 50px;
-    height: var(--sf-height);
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.headerMainLeft {
-    font-size: clamp(24px, 22px + 0.56vw, 32px);
-    font-weight: normal;
+    gap: clamp(1rem, 0.575rem + 2.13vw, 3.125rem);
 }
 
 .header .title {
@@ -52,15 +41,10 @@
 
 .title {
     color: var(--color-primary);
-    font-size: clamp(24px, 22px + 0.56vw, 32px);
+    font-size: clamp(1rem, 0.8rem + 1vw, 2rem);
     font-weight: normal;
-    margin-bottom: clamp(5px, 50%, 15px);
     cursor: pointer;
     text-decoration: none;
-    display: inline-block;
-    width: fit-content;
-    word-wrap: break-word;
-    word-break: break-all;
 }
 
 .title::after {

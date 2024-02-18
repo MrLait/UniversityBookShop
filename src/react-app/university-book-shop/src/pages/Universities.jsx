@@ -81,48 +81,49 @@ const Universities = () => {
             <div className={styles.contentHeader}>
                 <div className={styles.inner}>
                     <div className={styles.createUniversity}>
-                        <div className={styles.heading}>
-                            <h3>
+                        <div className={styles.contentHeaderLeft}>
+                            <h5>
                                 Welcome to my website
                                 <br />
                                 where you can create universities, faculties, and manage book purchases.
-                            </h3>
+                            </h5>
                         </div>
-                        <div className={styles.create}>
-                            <div className={styles.createLeft}>
-                                <CreateUniversity
-                                    setPaginationData={setPaginationData} paginationData={paginationData}
-                                    setUniversities={setUniversities} universities={universities} />
-                            </div>
+                        <div className={styles.contentHeaderRight}>
+                            <CreateUniversity
+                                setPaginationData={setPaginationData}
+                                setUniversities={setUniversities}
+                                universities={universities} />
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles.block}>
                 <div className={styles.inner}>
-                    <div className={styles.headingCenter}>
-                        <h3 className={styles.headingBig}>
-                            Universities
-                        </h3>
-                    </div>
-                    <MyPagination
-                        paginationData={paginationData}
-                        pageIndex={defaultPageIndex}
-                        changePage={changePage}
-                        className={styles.pagination}
-                    />
-                    <div >
-                        {universities
-                            ?
-                            <UniversityList
-                                pageSize={pageSize}
-                                deleteUniversity={deleteUniversity} universities={universities} />
-                            :
-                            <p>No universities found.</p>
-                        }
+                    <div className={styles.contentBody}>
+                        <div className={styles.headingCenter}>
+                            <h3 className={styles.headingBig}>
+                                Universities
+                            </h3>
+                        </div>
+                        <MyPagination
+                            paginationData={paginationData}
+                            pageIndex={defaultPageIndex}
+                            changePage={changePage}
+                            className={styles.pagination}
+                        />
+                        < >
+                            {universities
+                                ?
+                                <UniversityList
+                                    pageSize={pageSize}
+                                    deleteUniversity={deleteUniversity} universities={universities} />
+                                :
+                                <p>No universities found.</p>
+                            }
+                        </>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

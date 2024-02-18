@@ -1,18 +1,10 @@
 // @ts-nocheck
-import React from 'react'
-import AddBook from './AddBook';
+import React from 'react';
+import MyButton from '../../UI/button/MyButton';
 import styles from './BookCard.module.css';
-import { useLocation, useParams } from 'react-router-dom';
-import PurchasedBookApiService from '../../../API/PurchasedBookApiService';
-import BooksPurchasedByUniversityApiService from '../../../API/BooksPurchasedByUniversity';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { purchasedBookField } from '../../constants/initialStates'
-import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants'
-import MyButton from '../../UI/button/MyButton'
+import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants';
 
 const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
-    const facultyId = parseInt(useParams().facultyId || 0);
     return (
         <>
             <div className={styles.bookCard}>
@@ -74,7 +66,7 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                             <li className={`${styles.buttonWithError}`} >
                                 <MyButton
                                     error={book.errorMessage}
-                                    setStyles={styles.btn}
+                                    setStyles={styles.blackButton}
                                     onClick={() => buyBook(book.id)}>
                                     Buy book
                                 </MyButton>
@@ -96,7 +88,7 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                             <li className={`${styles.buttonWithError}`} >
                                 <MyButton
                                     error={book.errorMessage}
-                                    setStyles={styles.btn}
+                                    setStyles={styles.blackButton}
                                     onClick={() => deleteBook(book.id)}>
                                     Delete purchased book
                                 </MyButton>
@@ -116,7 +108,9 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                                 </>
                             </li>
                             <li className={styles.li}>
-                                <MyButton setStyles={styles.btn} onClick={() => addBook(book.id)}>
+                                <MyButton
+                                    setStyles={styles.blackButton}
+                                    onClick={() => addBook(book.id)}>
                                     Add book
                                 </MyButton>
                             </li>
@@ -137,7 +131,7 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                             <li className={`${styles.buttonWithError}`} >
                                 <MyButton
                                     error={book.errorMessage}
-                                    setStyles={styles.btn}
+                                    setStyles={styles.blackButton}
                                     onClick={() => removeBook(book.id)}>
                                     Remove book
                                 </MyButton>

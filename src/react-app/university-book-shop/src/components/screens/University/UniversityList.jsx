@@ -13,7 +13,7 @@ const UniversityList = ({ pageSize, universities, deleteUniversity }) => {
                         key={u.id}
                         timeout={600}
                         classNames="pagination">
-                        <div>
+                        <div className={styles.universityHidden}>
                             <div className={styles.university}>
                                 <UniversityItem deleteUniversity={deleteUniversity} university={u} />
                             </div>

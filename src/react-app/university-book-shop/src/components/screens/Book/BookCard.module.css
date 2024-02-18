@@ -1,12 +1,7 @@
 .bookCard {
-    --card-pad-x: clamp(20px, 3vw, 30px);
-    --card-pad-y: clamp(10px, 3vw, 16px);
-    --card-border: 1px solid #e9e9e9;
-    --card-bg: var(--color-white);
-    --avatar-bg: var(--card-bg);
     display: flex;
     flex-direction: column;
-    background: var(--card-bg);
+    background: var(--color-white);
     border-radius: var(--rounded-large);
 }
 
@@ -31,15 +26,14 @@
 
 .headerTop {
     display: flex;
-    gap: 8px;
+    gap: var(--clamp-2-to-8);
     align-items: center;
-    font-size: 18px;
-    font-size: clamp(18px, 15.8873239437px + 0.4225352113vw, 24px);
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
     font-weight: bold;
 }
 
 .headerBot {
-    color: #757575;
+    color: var(--color-text-shadow);
 }
 
 .headerLeft {
@@ -60,28 +54,20 @@
 .footer .li {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: var(--clamp-4-to-20);
     padding: var(--card-pad-y) var(--card-pad-x);
     border-top: var(--card-border);
     line-height: 120%;
 }
 
-.btn {
-    all: unset;
-    border-radius: var(--button-rounded);
-    min-width: var(--button-height);
-    height: var(--card-pad-x);
-    padding: 0 1em;
-    font-size: 16px;
-    font-weight: 400;
-    border: 1px solid var(--color-primary);
-    text-align: center;
-    cursor: pointer;
-    transition: 0.5s;
+.blackButton {
+    height: var(--small-btn-height-padding);
+    line-height: var(--small-btn-height-padding);
     background-color: var(--button-bg);
     color: var(--button-color);
-    flex-grow: 1
+    font-weight: 300;
 }
+
 
 .buttonWithError {
     display: flex;

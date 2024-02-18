@@ -25,7 +25,7 @@ const Header = () => {
         <div className={`${styles.header} ${headerStyle}`}>
             <div className={styles.inner}>
                 <div className={styles.headerMain}>
-                    <Nav.Link className={`${styles.headerMainLeft} ${styles.title}`} href={routePaths.Home} >
+                    <Nav.Link className={`${styles.title}`} href={routePaths.Home} >
                         University book shop app
                     </Nav.Link>
                     <div className={styles.headerBlank}></div>
@@ -33,9 +33,9 @@ const Header = () => {
                         <Nav.Link className={styles.title} href={routePaths.Home}>
                             Home
                         </Nav.Link>
-                        {/* <Nav.Link className={styles.title} href="ToDo">
+                        <Nav.Link className={styles.title} href="ToDo">
                             ToDo
-                        </Nav.Link> */}
+                        </Nav.Link>
                     </div>
                 </div>
             </div>

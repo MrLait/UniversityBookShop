@@ -162,32 +162,33 @@ const PurchaseBookByFacultyId = () => {
 
     return (
         <div className={styles.block}>
-            {books
-                ?
-                <>
-                    <div className={styles.inner}>
+            <div className={styles.inner}>
+                {books
+                    ?
+                    <>
                         <div className={`${styles.contentHeaderTop} ${styles.textCenter}`}>
-                            <div className={styles.headerTop}>
-                                <h1 className={`${styles.headerTopText} ${styles.upperCase}`}>
+                            <div className={`${styles.headerTop}`}>
+                                <h1 className={`${styles.textSizeBig} ${styles.upperCase}`}>
                                     Books
                                 </h1>
                             </div>
                         </div>
-                        <div className={styles.contentHeaderBot} >
-                            <div className={styles.headerBotFlexLeft}>
-                                <strong>{paginationData.totalCount ?? 0} </strong>
-                                number of books available.
+
+                        <div className={styles.contentBody}>
+                            <div className={styles.contentHeaderBot} >
+                                <div className={styles.headerBotFlexLeft}>
+                                    <strong>{paginationData.totalCount ?? 0} </strong>
+                                    number of books available.
+                                </div>
+                                <div className={styles.headerBotFlexRight}>
+                                    <MyPagination
+                                        paginationData={paginationData}
+                                        pageIndex={defaultPageIndex}
+                                        changePage={changePage}
+                                        className={styles.pagination}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className={styles.contentBody}>
-                        <div className={styles.inner}>
-                            <MyPagination
-                                paginationData={paginationData}
-                                pageIndex={defaultPageIndex}
-                                changePage={changePage}
-                                className={styles.pagination}
-                            />
                             <BookList
                                 pageSize={pageSize}
                                 books={books}
@@ -197,13 +198,11 @@ const PurchaseBookByFacultyId = () => {
                                 deleteBook={deleteBook}
                             />
                         </div>
-                    </div>
-                </>
-                :
-                <div className={styles.inner}>
+                    </>
+                    :
                     <div>There are no books.</div>
-                </div>
-            }
+                }
+            </div>
         </div >
     )
 }

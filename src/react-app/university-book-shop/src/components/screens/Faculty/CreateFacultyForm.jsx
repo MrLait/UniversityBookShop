@@ -103,7 +103,9 @@ const CreateFacultyForm = ({ modalShow, createFaculty }) => {
                                         </div>
                                         <div className={styles.gridCol}>
                                             <div className={styles.formField}>
-                                                <MyButton setStyles={styles.blackButton} onClick={postFaculty}>
+                                                <MyButton
+                                                    setStyles={styles.blackButton}
+                                                    onClick={postFaculty}>
                                                     Create faculty
                                                 </MyButton>
                                             </div>

@@ -5,7 +5,7 @@ import MyModal from '../../UI/modal/MyModal'
 import CreateUniversityForm from './CreateUniversityForm'
 import { incrementPaginationTotalCount } from '../../../unitls/pagination'
 
-const CreateUniversity = ({ paginationData, setPaginationData, universities, setUniversities }) => {
+const CreateUniversity = ({ setPaginationData, universities, setUniversities }) => {
     const [modalShow, setModalShow] = useState(false)
 
     const createUniversity = (university) => {
