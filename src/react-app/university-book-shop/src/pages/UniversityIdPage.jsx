@@ -18,8 +18,8 @@ const UniversityIdPage = () => {
     const navigate = useNavigate();
     const defaultPageIndex = parseInt(pageIndex || 1);
 
-    const universityId = parseInt(useParams().UniversityId);
-    const [pageSize, setPageSize] = useState(4);
+    const universityId = useParams().UniversityId;
+    const pageSize = 4;
     const [faculties, setFaculties] = useState([]);
     const [university, setUniversity] = useState();
     const [paginationData, setPaginationData] = useState(paginationField);
@@ -44,10 +44,9 @@ const UniversityIdPage = () => {
 
     useEffect(() => {
         getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, defaultPageIndex, pageSize);
-    }, [isDeleted]);
+    }, [defaultPageIndex, universityId]);
 
     const changePage = (pageIndex) => {
-        getUniversityByUniversityIdAndWithPaginatedFaculties(universityId, pageIndex, pageSize);
         navigate(routePathsNavigate.UniversityIdFacultiesPage(universityId, pageIndex));
     };
 

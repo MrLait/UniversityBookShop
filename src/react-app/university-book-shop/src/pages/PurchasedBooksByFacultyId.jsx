@@ -23,18 +23,22 @@ const PurchasedBooksByFacultyId = () => {
 
     const [faculty, setFaculty] = useState('');
     const [paginationData, setPaginationData] = useState(paginationField);
-    const [pageSize, setPageSize] = useState(4);
+    const pageSize = 4;
 
     const facultyId = parseInt(useParams().facultyId || 0);
     const universityId = parseInt(useParams().UniversityId || 0);
     const [purchasedBooks, setPurchasedBooks] = useState([]);
     const [isDeleted, setIsDeleted] = useState(false);
+
     useEffect(() => {
         if (faculty.length === 0) {
             getFacultyByFacultyId(facultyId);
         }
-        getPurchasedBooks(facultyId, defaultPageIndex, pageSize);
-    }, [isDeleted]);
+        else {
+            getPurchasedBooks(facultyId, defaultPageIndex, pageSize);
+        }
+
+    }, [defaultPageIndex, faculty.length, facultyId]);
 
     const getFacultyByFacultyId = async (facultyId) => {
         await FacultyApiService
@@ -62,9 +66,9 @@ const PurchasedBooksByFacultyId = () => {
     };
 
     const changePage = (pageIndex) => {
-        getPurchasedBooks(facultyId, pageIndex, pageSize);
         navigate(routePathsNavigate.PurchasedBooksByFacultyIdPage(universityId, facultyId, pageIndex));
     };
+
     return (
         <div className={styles.block}>
             <div className={styles.inner}>

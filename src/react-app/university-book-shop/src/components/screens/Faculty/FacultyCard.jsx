@@ -21,7 +21,7 @@ const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
                 if (response.status === 200 && isSucceeded) {
                     navigate(routePathsNavigate.PurchasedBooksByFacultyId(faculty.universityId, faculty.id));
                 }
-                if (isSucceeded == false && response.data.error.statusCode === 404) {
+                if (isSucceeded === false && response.data.error.statusCode === 404) {
                     setIsPurchasedBooksVisible(true);
                 }
             });
@@ -65,16 +65,16 @@ const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
                         <div>
                             <strong>Add book to faculty</strong>
                         </div>
-                        <a
+                        <div
                             className={styles.rolloverArrowDirectionLeft}
                             onClick={() => navigate(routePathsNavigate.SearchBookByFacultyId(faculty.id),
                                 { state: { universityId: faculty.universityId } })}>
                             <ArrowDirectionLeft className={styles.arrowDirectionLeft} />
-                        </a>
+                        </div>
                     </li>
                     <li className={`${styles.footer} ${styles.li}`}>
                         <strong>Open available books</strong>
-                        <a
+                        <div
                             className={styles.rolloverArrowDirectionLeft}
                             onClick={() => togglePurchasedBooksVisibility(faculty.id)
                             }
@@ -86,7 +86,7 @@ const FacultyCard = ({ faculty, updateFaculty, removeFaculty }) => {
                                 <ArrowDirectionLeft className={styles.arrowDirectionLeft} />
                             }
 
-                        </a>
+                        </div>
                     </li>
                     {isPurchasedBooksVisible ?
                         <li className={`${styles.footer} ${styles.li} ${styles.errorMessage}`}>

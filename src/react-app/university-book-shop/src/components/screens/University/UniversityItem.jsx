@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { routePathsNavigate } from '../../../router/routes';
 
 import OkLogoItem from '../../../Assets/OkLogoItem';
-import { ReactComponent as OkLogo } from '../../../Assets/okSvg.svg';
 import { ReactComponent as GoTo } from '../../../Assets/goTo.svg';
 import { ReactComponent as ArrowCollapse } from '../../../Assets/arrowCollapse.svg';
 import { ReactComponent as ArrowExpand } from '../../../Assets/arrowExpand.svg';
@@ -23,12 +22,12 @@ const UniversityItem = ({ university, deleteUniversity }) => {
         <div className={styles.inner}>
             <div className={styles.navbar}>
                 <div className={styles.navbarInner}>
-                    <a
+                    <div
                         className={styles.rolloverGoTo}
                         onClick={() => navigate(routePathsNavigate.UniversityId(university.id), { state: { university } })}
                     >
                         <GoTo className={styles.goTo} />
-                    </a>
+                    </div>
                     <span className={styles.remove}
                         onClick={() => deleteUniversity(university)} >
                         X

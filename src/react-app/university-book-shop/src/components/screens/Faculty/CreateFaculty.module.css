@@ -1,4 +1,4 @@
-.blackButton {
+/* .blackButton {
     all: unset;
     border-radius: var(--button-rounded);
     min-width: var(--button-height);
@@ -13,4 +13,4 @@
     background-color: var(--button-bg);
     color: var(--button-color);
     flex-grow: 1;
-}
+} */

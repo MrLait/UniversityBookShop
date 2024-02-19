@@ -22,12 +22,12 @@ const Universities = () => {
     const defaultPageIndex = parseInt(pageIndex || 1);
     const [universities, setUniversities] = useState([]);
     const [paginationData, setPaginationData] = useState(paginationField);
-    const [pageSize, setPageSize] = useState(4);
+    const [pageSize] = useState(4);
     const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
         getPaginatedUniversities(defaultPageIndex, pageSize);
-    }, [isDeleted]);
+    }, [defaultPageIndex, pageSize]);
 
     const updateUniversityField = (entities, entityId, fieldName, value) => {
         const updatedEntity = entities.map(e => {
@@ -41,7 +41,6 @@ const Universities = () => {
         });
         setUniversities(updatedEntity);
     };
-
 
     const getPaginatedUniversities = async (pageIndex, pageSize) => {
         await UniversityApiService.getAllWithPagination(pageIndex, pageSize)
@@ -58,7 +57,7 @@ const Universities = () => {
     const deleteUniversity = async (university) => {
         await UniversityApiService.delete(university.id)
             .then(response => {
-                if (response.status == 200)
+                if (response.status === 200)
                     if (response.data.isSucceeded) {
                         setUniversities(universities.filter(u => u.id !== university.id));
                         decrementPaginationTotalCount(setPaginationData);
@@ -76,7 +75,7 @@ const Universities = () => {
             });
     };
     const changePage = (pageIndex) => {
-        getPaginatedUniversities(pageIndex, pageSize);
+        // getPaginatedUniversities(pageIndex, pageSize);
         navigate(routePathsNavigate.UniversitiesPage(pageIndex));
     };
 

@@ -24,13 +24,9 @@ const PurchaseBookByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
     const [paginationData, setPaginationData] = useState(paginationField);
     const [books, setBooks] = useState([]);
-    const [pageSize, setPageSize] = useState(4);
+    const pageSize = 4;
 
-    useEffect(() => {
-        getBooks(defaultPageIndex, pageSize);
-    }, [defaultPageIndex]);
-
-    const getBooks = async (defaultPageIndex, pageSize) => {
+    const getBooks = async (facultyId, defaultPageIndex, pageSize) => {
         await BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId, defaultPageIndex, pageSize)
             .then((response) => {
                 const data = response.data.data.items;
@@ -158,8 +154,11 @@ const PurchaseBookByFacultyId = () => {
         deletePurchasedBook(bookId, facultyId);
     };
 
+    useEffect(() => {
+        getBooks(facultyId, defaultPageIndex, pageSize);
+    }, [defaultPageIndex, facultyId]);
+
     const changePage = (pageIndex) => {
-        getBooks(pageIndex, pageSize);
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
     };
 

@@ -7,7 +7,6 @@ import MyModal from '../../UI/modal/MyModal';
 import { incrementPaginationTotalCount } from '../../../unitls/pagination';
 
 import CreateFacultyForm from './CreateFacultyForm';
-import styles from './CreateFaculty.module.css';
 const CreateFaculty = ({ setPaginationData, btnStyles, faculties, setFaculties }) => {
     const [modalShow, setModalShow] = useState(false);
 

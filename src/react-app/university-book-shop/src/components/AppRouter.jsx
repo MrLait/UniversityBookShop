@@ -9,8 +9,6 @@ import { routePaths, routes } from '../router/routes';
 
 const AppRouter = () => {
     const location = useLocation();
-    var searchName = location.search;
-    const shouldAnimate = !searchName.includes('page');
 
     return (
         <>

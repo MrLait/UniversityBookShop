@@ -1,12 +1,11 @@
-import React from 'react';
+// import React from 'react';
 
-const Faculties = (props) => {
-    console.log(props);
-    return (
-        <div>
-            Faculties not found
-        </div>
-    );
-};
+// const Faculties = () => {
+//     return (
+//         <div>
+//             Faculties not found
+//         </div>
+//     );
+// };
 
-export default Faculties;
+// export default Faculties;

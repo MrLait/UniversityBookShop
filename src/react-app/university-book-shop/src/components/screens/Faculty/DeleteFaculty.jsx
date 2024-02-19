@@ -16,7 +16,7 @@ const DeleteFaculty = ({ faculty, updateFaculty, removeFaculty }) => {
     const deleteFaculty = async () => {
         await FacultyApiService.delete(faculty.id)
             .then(response => {
-                if (response.status == 200)
+                if (response.status === 200)
                     if (response.data.isSucceeded) {
                         removeFaculty(faculty);
                     } else {

@@ -23,7 +23,7 @@ const CreateUniversityForm = ({ modalShow, create }) => {
         university.currencyCodeId = Currencies.Usd;
         await UniversityApiService.post(university)
             .then(response => {
-                if (response.data && response.status == 200) {
+                if (response.data && response.status === 200) {
                     const newUniversity = {
                         ...university,
                         id: response.data.data,
@@ -35,10 +35,10 @@ const CreateUniversityForm = ({ modalShow, create }) => {
                     setDescriptionError('');
                 }
             }).catch(error => {
-                if (error.response.status == 400) {
+                if (error.response.status === 400) {
                     const validationErrors = error.response.data;
                     var statusCode = validationErrors.error.statusCode;
-                    if (statusCode == 998) {
+                    if (statusCode === 998) {
                         setNameError(validationErrors.data?.Name?.[0]);
                         setDescriptionError(validationErrors.data?.Description?.[0]);
                     }

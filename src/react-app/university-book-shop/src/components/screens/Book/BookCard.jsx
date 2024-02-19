@@ -7,6 +7,7 @@ import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants
 
 import styles from './BookCard.module.css';
 
+
 const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
     return (
         <>
@@ -110,8 +111,9 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                                     </div>
                                 </>
                             </li>
-                            <li className={styles.li}>
+                            <li className={`${styles.buttonWithError}`} >
                                 <MyButton
+                                    error={book.errorMessage}
                                     setStyles={styles.blackButton}
                                     onClick={() => addBook(book.id)}>
                                     Add book
