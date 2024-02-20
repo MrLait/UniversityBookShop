@@ -75,7 +75,6 @@ const Universities = () => {
             });
     };
     const changePage = (pageIndex) => {
-        // getPaginatedUniversities(pageIndex, pageSize);
         navigate(routePathsNavigate.UniversitiesPage(pageIndex));
     };
 

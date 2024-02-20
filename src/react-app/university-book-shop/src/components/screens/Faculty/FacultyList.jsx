@@ -24,29 +24,22 @@ const FacultyList = ({ pageSize, setPaginationData, setIsDeleted, isDeleted, fac
 
     return (
         <>
-            {faculties.length
-                ?
-                <TransitionGroup className={styles.gridSites}>
-                    {visibleFaculty.map(faculty =>
-                        <CSSTransition
-                            key={faculty.id}
-                            timeout={600}
-                            classNames="pagination">
-                            <div key={faculty.id}>
-                                <FacultyCard
-                                    faculty={faculty}
-                                    removeFaculty={removeFaculty}
-                                    updateFaculty={updateFaculty}
-                                />
-                            </div>
-                        </CSSTransition>
-                    )}
-                </TransitionGroup>
-                :
-                <div>
-                    There are no facilities
-                </div>
-            }
+            <TransitionGroup className={styles.gridSites}>
+                {visibleFaculty.map(faculty =>
+                    <CSSTransition
+                        key={faculty.id}
+                        timeout={600}
+                        classNames="pagination">
+                        <div key={faculty.id}>
+                            <FacultyCard
+                                faculty={faculty}
+                                removeFaculty={removeFaculty}
+                                updateFaculty={updateFaculty}
+                            />
+                        </div>
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         </>
     );
 };

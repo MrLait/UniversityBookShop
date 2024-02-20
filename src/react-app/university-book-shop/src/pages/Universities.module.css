@@ -1,5 +1,6 @@
 .block {
     margin-top: var(--margin-top-block);
+    margin-bottom: var(--margin-top-block);
 }
 
 .inner {

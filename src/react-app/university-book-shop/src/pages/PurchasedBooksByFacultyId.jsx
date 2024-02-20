@@ -57,11 +57,14 @@ const PurchasedBooksByFacultyId = () => {
         await BooksAvailableForFacultyApiService.getByFacultyIdWithPagination(facultyId, pageIndex, pageSize)
             .then((response) => {
                 var isSucceeded = response.data.isSucceeded;
-                if (response.status === 200 && isSucceeded) {
-                    const books = response.data.data.items;
-                    setPurchasedBooks(books);
-                    setPaginationData(response.data.data);
-                }
+                if (response.status === 200)
+                    if (isSucceeded) {
+                        const books = response.data.data.items;
+                        setPurchasedBooks(books);
+                        setPaginationData(response.data.data);
+                    } else {
+                        setPaginationData(response.data.data);
+                    }
             });
     };
 

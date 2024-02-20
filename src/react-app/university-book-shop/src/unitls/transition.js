@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion';
 
 const transition = (OgComponent) => {
     return () => (
@@ -20,6 +20,6 @@ const transition = (OgComponent) => {
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             />
         </>
-    )
-}
+    );
+};
 export default transition;

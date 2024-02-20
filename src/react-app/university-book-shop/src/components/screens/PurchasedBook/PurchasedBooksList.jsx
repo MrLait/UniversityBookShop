@@ -34,32 +34,24 @@ const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPu
     };
     return (
         <>
-            {purchasedBooks.length
-                ?
-                <TransitionGroup className={styles.gridSites}>
-                    {visiblePurchasedBooks.map(b =>
-                        <CSSTransition
-                            key={b.id}
-                            timeout={600}
-                            classNames="pagination">
-                            <div key={b.id}>
-                                <PurchasedBookCard
-                                    isPurchased={b.isPurchased}
-                                    purchasedBookId={b.id}
-                                    book={b.book}
-                                    deleteBook={deleteBook}
-                                    updateErrorMessage={updateErrorMessage}
-                                />
-                            </div>
-                        </CSSTransition>
-                    )}
-                </TransitionGroup>
-                :
-                <div>
-                    <hr />
-                    There are no books
-                </div>
-            }
+            <TransitionGroup className={styles.gridSites}>
+                {visiblePurchasedBooks.map(b =>
+                    <CSSTransition
+                        key={b.id}
+                        timeout={600}
+                        classNames="pagination">
+                        <div key={b.id}>
+                            <PurchasedBookCard
+                                isPurchased={b.isPurchased}
+                                purchasedBookId={b.id}
+                                book={b.book}
+                                deleteBook={deleteBook}
+                                updateErrorMessage={updateErrorMessage}
+                            />
+                        </div>
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
         </>
 
     );
