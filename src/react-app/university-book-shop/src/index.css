@@ -144,7 +144,7 @@ button {
 }
 
 
-.slide-in {
+/* .slide-in {
     position: fixed;
     top: 0;
     left: 0;
@@ -162,7 +162,7 @@ button {
     height: 100vh;
     background: #0f0f0f;
     transform-origin: top;
-}
+} */
 
 
 @keyframes moveDown {

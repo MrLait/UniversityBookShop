@@ -5,8 +5,10 @@ import { useLocation } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 
 import { routePaths } from '../../../router/routes';
+import transition from '../../../unitls/transition';
 
 import styles from './Header.module.css';
+
 
 const Header = () => {
     const pathname = useLocation().pathname;
@@ -47,4 +49,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default transition(Header);
