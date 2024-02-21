@@ -1,4 +1,4 @@
-import PurchaseBookByFacultyId from '../pages/PurchaseBookByFacultyId';
+import PurchaseBookByFacultyId from '../pages/purchasedBooksByFacultyId/PurchaseBookByFacultyId';
 import PurchasedBooksByFacultyId from '../pages/PurchasedBooksByFacultyId';
 import Universities from '../pages/Universities';
 import UniversityIdPage from '../pages/UniversityIdPage';

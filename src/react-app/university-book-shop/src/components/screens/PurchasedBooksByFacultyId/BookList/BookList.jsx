@@ -3,8 +3,10 @@ import React from 'react';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+import BookCard from '../BookCard/BookCard';
+
 import styles from './BookList.module.css';
-import BookCard from './BookCard';
+
 
 const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook }) => {
     const visibleBooks = books.slice(0, pageSize);

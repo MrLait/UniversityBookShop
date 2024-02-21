@@ -1,17 +1,19 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
-import BookApiService from '../API/BookApiService';
+import BookApiService from '../../API/BookApiService';
 
-import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
-import PurchasedBookApiService from '../API/PurchasedBookApiService';
-import BookList from '../components/screens/Book/BookList';
-import { purchaseStatusConstants } from '../components/constants/purchaseStatusConstants';
-import transition from '../unitls/transition';
-import MyPagination from '../components/UI/pagination/MyPagination';
-import { paginationField } from '../components/constants/initialStates';
-import { routePathsNavigate } from '../router/routes';
+import BooksAvailableForFacultyApiService from '../../API/BooksAvailableForFaculty';
+import PurchasedBookApiService from '../../API/PurchasedBookApiService';
+import BookList from '../../components/screens/PurchasedBooksByFacultyId/BookList/BookList';
+import { purchaseStatusConstants } from '../../components/constants/purchaseStatusConstants';
+import transition from '../../unitls/transition';
+import { paginationField } from '../../components/constants/initialStates';
+import { routePathsNavigate } from '../../router/routes';
+
+import PurchaseBookHeaderSection from '../../components/screens/PurchasedBooksByFacultyId/PurchaseBookHeaderSection';
+import ContentWithPaginationSection from '../../components/screens/PurchasedBooksByFacultyId/ContentWithPaginationSection';
 
 import styles from './PurchaseBookByFacultyId.module.css';
 
@@ -158,9 +160,9 @@ const PurchaseBookByFacultyId = () => {
         getBooks(facultyId, defaultPageIndex, pageSize);
     }, [defaultPageIndex, facultyId]);
 
-    const changePage = (pageIndex) => {
+    const changePage = useCallback((pageIndex) => {
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
-    };
+    }, [facultyId, navigate]);
 
     return (
         <div className={styles.block}>
@@ -168,37 +170,23 @@ const PurchaseBookByFacultyId = () => {
                 {books
                     ?
                     <>
-                        <div className={`${styles.contentHeaderTop} ${styles.textCenter}`}>
-                            <div className={`${styles.headerTop}`}>
-                                <h1 className={`${styles.textSizeBig} ${styles.upperCase}`}>
-                                    Books
-                                </h1>
-                            </div>
-                        </div>
-
+                        <PurchaseBookHeaderSection />
                         <div className={styles.contentBody}>
-                            <div className={styles.contentHeaderBot} >
-                                <div className={styles.headerBotFlexLeft}>
-                                    <strong>{paginationData.totalCount ?? 0} </strong>
-                                    number of books available.
-                                </div>
-                                <div className={styles.headerBotFlexRight}>
-                                    <MyPagination
-                                        paginationData={paginationData}
-                                        pageIndex={defaultPageIndex}
-                                        changePage={changePage}
-                                        className={styles.pagination}
-                                    />
-                                </div>
-                            </div>
-                            <BookList
-                                pageSize={pageSize}
-                                books={books}
-                                buyBook={buyBook}
-                                addBook={addBook}
-                                removeBook={removeBook}
-                                deleteBook={deleteBook}
-                            />
+                            <>
+                                <ContentWithPaginationSection
+                                    paginationData={paginationData}
+                                    defaultPageIndex={defaultPageIndex}
+                                    changePage={changePage}
+                                />
+                                <BookList
+                                    pageSize={pageSize}
+                                    books={books}
+                                    buyBook={buyBook}
+                                    addBook={addBook}
+                                    removeBook={removeBook}
+                                    deleteBook={deleteBook}
+                                />
+                            </>
                         </div>
                     </>
                     :

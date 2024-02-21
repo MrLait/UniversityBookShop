@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 
-import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants';
+import { purchaseStatusConstants } from '../../../constants/purchaseStatusConstants';
 
 import styles from './BookPurchaseActions.module.css';
 
