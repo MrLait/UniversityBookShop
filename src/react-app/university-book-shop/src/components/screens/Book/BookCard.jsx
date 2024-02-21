@@ -1,152 +1,55 @@
 // @ts-nocheck
 import React from 'react';
 
-import MyButton from '../../UI/button/MyButton';
-
 import { purchaseStatusConstants } from '../../constants/purchaseStatusConstants';
 
 import styles from './BookCard.module.css';
 
+import BookHeader from './BookHeader';
+import BookFooterItem from './BookFooterItem';
+import BookPurchaseStatus from './BookPurchaseStatus';
+import BookPurchaseActions from './BookPurchaseActions';
 
 const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
+    const priceStatus = book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty ||
+        book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty
+        ? `0 ${book.currencyCode.code}`
+        : `${book.price} ${book.currencyCode.code}`;
+
     return (
         <>
             <div className={styles.bookCard}>
-                <div className={styles.header}>
-                    <div className={styles.headerTop}>
-                        <div className={styles.headerLeft}>
-                            <strong>
-                                {book.name}
-                            </strong>
-                        </div>
-                        <div className={styles.headerRight}>
-                        </div>
-                    </div>
-                    <div className={styles.headerBot}>
-                        by&nbsp;
-                        {book.author} (Author)
-                    </div>
-                </div>
-
+                <BookHeader name={book.name} author={book.author} />
                 <ul className={styles.footer}>
-                    <li className={`${styles.footer} ${styles.li}`}>
-                        <div>
-                            <strong>Isbn:</strong>
-                        </div>
-                        <div>
-                            {book.isbn}
-                        </div>
-                    </li>
-
-                    <li className={`${styles.footer} ${styles.li}`}>
-                        <div>
-                            <strong>Price:</strong>
-                        </div>
-                        {book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty ||
-                            book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty
-                            ?
-                            <div>
-                                0 {book.currencyCode.code}
-                            </div>
-                            :
-                            <div>
-                                {book.price} {book.currencyCode.code}
-                            </div>
-                        }
-
-                    </li>
-                    {book.purchaseStatus === purchaseStatusConstants.bookAvailableForPurchase && (
-                        <>
-                            <li className={`${styles.footer} ${styles.li}`}>
-                                <>
-                                    <div>
-                                        <strong>Book status:</strong>
-                                    </div>
-                                    <div>
-                                        <div>{book.purchaseStatus}</div>
-                                    </div>
-                                </>
-                            </li>
-                            <li className={`${styles.buttonWithError}`} >
-                                <MyButton
-                                    error={book.errorMessage}
-                                    setStyles={styles.blackButton}
-                                    onClick={() => buyBook(book.id)}>
-                                    Buy book
-                                </MyButton>
-                            </li>
-                        </>
-                    )}
-                    {book.purchaseStatus === purchaseStatusConstants.bookPurchasedByCurrentFaculty && (
-                        <>
-                            <li className={`${styles.footer} ${styles.li}`}>
-                                <>
-                                    <div>
-                                        <strong>Book status:</strong>
-                                    </div>
-                                    <div>
-                                        <div>Purchased</div>
-                                    </div>
-                                </>
-                            </li>
-                            <li className={`${styles.buttonWithError}`} >
-                                <MyButton
-                                    error={book.errorMessage}
-                                    setStyles={styles.blackButton}
-                                    onClick={() => deleteBook(book.id)}>
-                                    Delete purchased book
-                                </MyButton>
-                            </li>
-                        </>
-                    )}
-                    {book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty && (
-                        <>
-                            <li className={`${styles.footer} ${styles.li}`}>
-                                <>
-                                    <div>
-                                        <strong>Book status:</strong>
-                                    </div>
-                                    <div>
-                                        <div>{book.purchaseStatus}</div>
-                                    </div>
-                                </>
-                            </li>
-                            <li className={`${styles.buttonWithError}`} >
-                                <MyButton
-                                    error={book.errorMessage}
-                                    setStyles={styles.blackButton}
-                                    onClick={() => addBook(book.id)}>
-                                    Add book
-                                </MyButton>
-                            </li>
-                        </>
+                    <BookFooterItem
+                        label="Isbn"
+                        value={book.isbn}
+                    />
+                    <BookFooterItem
+                        label="Price"
+                        value={priceStatus}
+                    />
+                    {(book.purchaseStatus === purchaseStatusConstants.bookAvailableForPurchase ||
+                        book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty) && (
+                            <BookPurchaseStatus purchaseStatus={book.purchaseStatus} />
+                        )}
+                    {(book.purchaseStatus === purchaseStatusConstants.bookPurchasedByCurrentFaculty) && (
+                        <BookPurchaseStatus purchaseStatus={'Purchased'} />
                     )}
                     {book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty && (
-                        <>
-                            <li className={`${styles.footer} ${styles.li}`}>
-                                <>
-                                    <div>
-                                        <strong>Book status:</strong>
-                                    </div>
-                                    <div>
-                                        <div>Book added</div>
-                                    </div>
-                                </>
-                            </li>
-                            <li className={`${styles.buttonWithError}`} >
-                                <MyButton
-                                    error={book.errorMessage}
-                                    setStyles={styles.blackButton}
-                                    onClick={() => removeBook(book.id)}>
-                                    Remove book
-                                </MyButton>
-                            </li>
-                        </>
+                        <BookPurchaseStatus purchaseStatus={'Book added'} />
                     )}
+                    <BookPurchaseActions
+                        book={book}
+                        buyBook={buyBook}
+                        deleteBook={deleteBook}
+                        addBook={addBook}
+                        removeBook={removeBook}
+                    />
                 </ul>
             </div >
         </>
     );
 };
 
-export default BookCard;
+export default React.memo(BookCard);

@@ -59,21 +59,3 @@
     border-top: var(--card-border);
     line-height: 120%;
 }
-
-.blackButton {
-    height: var(--small-btn-height-padding);
-    line-height: var(--small-btn-height-padding);
-    background-color: var(--button-bg);
-    color: var(--button-color);
-    font-weight: 300;
-}
-
-
-.buttonWithError {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    border-top: var(--card-border);
-    padding: var(--card-pad-y) var(--card-pad-x);
-    gap: var(--card-pad-y);
-}
