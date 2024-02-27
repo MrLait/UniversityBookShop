@@ -7,6 +7,7 @@ import Header from './components/UI/navbar/Header';
 import styles from './App.module.css';
 import Footer from './components/UI/footer/Footer';
 
+
 function App() {
   return (
     <div className={styles.wrapper}>
