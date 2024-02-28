@@ -8,12 +8,12 @@ import BookCard from '../BookCard/BookCard';
 import styles from './BookList.module.css';
 
 
-const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook }) => {
-    const visibleBooks = books.slice(0, pageSize);
+const BookList = ({ pageSize, books }) => {
+    const visibleBooks = books?.slice(0, pageSize);
     return (
         <>
             <TransitionGroup className={styles.gridSites}>
-                {visibleBooks.map(book =>
+                {visibleBooks?.map(book =>
                     <CSSTransition
                         key={book.id}
                         timeout={600}
@@ -21,10 +21,6 @@ const BookList = ({ pageSize, books, buyBook, addBook, removeBook, deleteBook })
                         <div key={book.id}>
                             <BookCard
                                 book={book}
-                                buyBook={buyBook}
-                                addBook={addBook}
-                                removeBook={removeBook}
-                                deleteBook={deleteBook}
                             />
                         </div>
                     </CSSTransition>

@@ -6,7 +6,7 @@ import { getPagesArray } from '../../../unitls/pagination';
 import styles from './MyPagination.module.css';
 
 const MyPagination = ({ paginationData, pageIndex, changePage }) => {
-    const totalPages = Math.ceil(paginationData.totalCount / paginationData.pageSize);
+    const totalPages = Math.ceil(paginationData?.totalCount / paginationData?.pageSize);
     const pagesArray = getPagesArray(totalPages);
     return (
         <div className={styles.paginationWrapper}>

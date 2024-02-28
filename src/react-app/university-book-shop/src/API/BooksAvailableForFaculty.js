@@ -26,7 +26,12 @@ export default class BooksAvailableForFacultyApiService {
 
     static async getByFacultyIdBookId(facultyId, bookId) {
         const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`);
-        return response;
+        const { data } = response;
+        return {
+            availableBook: data.data,
+            validationError: data.error,
+            validationIsSucceeded: data.isSucceeded,
+        };
     }
 
     static async postAddBook(bookId, facultyId) {
