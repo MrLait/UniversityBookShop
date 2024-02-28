@@ -9,7 +9,7 @@ const ContentWithPaginationSection = ({ paginationData, defaultPageIndex, change
     return (
         <div className={styles.contentHeaderBot}>
             <div className={styles.headerBotFlexLeft}>
-                <strong>{paginationData.totalCount ?? 0} </strong>
+                <strong>{paginationData?.totalCount ?? 0} </strong>
                 number of books available.
             </div>
             <div className={styles.headerBotFlexRight}>

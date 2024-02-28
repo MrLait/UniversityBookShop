@@ -10,7 +10,7 @@ import BookFooterItem from './BookFooterItem';
 import BookPurchaseStatus from './BookPurchaseStatus';
 import BookPurchaseActions from './BookPurchaseActions';
 
-const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
+const BookCard = ({ book }) => {
     const priceStatus = book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty ||
         book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty
         ? `0 ${book.currencyCode.code}`
@@ -41,10 +41,6 @@ const BookCard = ({ book, buyBook, addBook, removeBook, deleteBook }) => {
                     )}
                     <BookPurchaseActions
                         book={book}
-                        buyBook={buyBook}
-                        deleteBook={deleteBook}
-                        addBook={addBook}
-                        removeBook={removeBook}
                     />
                 </ul>
             </div >
