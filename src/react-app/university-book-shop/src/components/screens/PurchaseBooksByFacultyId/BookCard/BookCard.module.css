@@ -9,19 +9,9 @@
     margin: 0 5px;
 }
 
-.bookCard:hover .headerRight {
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.bookCard:hover .arrowDirectionLeft {
-    opacity: 1;
-    transition: 0.5s;
-}
 
 .header {
     padding: var(--card-pad-x);
-
 }
 
 .headerTop {
@@ -42,7 +32,7 @@
 
 .headerRight {
     font-weight: normal;
-    opacity: 0;
+    opacity: 1;
     transition: 0.5s;
 
 }
@@ -51,7 +41,7 @@
     padding-bottom: var(--card-pad-y);
 }
 
-.footer .li {
+.li {
     display: flex;
     justify-content: space-between;
     gap: var(--clamp-4-to-20);

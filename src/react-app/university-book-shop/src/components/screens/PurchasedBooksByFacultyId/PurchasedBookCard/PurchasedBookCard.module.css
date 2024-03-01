@@ -9,42 +9,6 @@
     border-radius: var(--rounded-large);
 }
 
-.bookCard:hover .headerRight {
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.bookCard:hover .arrowDirectionLeft {
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.header {
-    padding: var(--card-pad-x);
-}
-
-.headerTop {
-    display: flex;
-    gap: var(--clamp-2-to-8);
-    align-items: center;
-    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
-    font-weight: bold;
-}
-
-.headerBot {
-    color: var(--color-text-shadow);
-}
-
-.headerLeft {
-    flex: 1;
-}
-
-.headerRight {
-    font-weight: normal;
-    opacity: 0;
-    transition: 0.5s;
-
-}
 
 .footer {}
 

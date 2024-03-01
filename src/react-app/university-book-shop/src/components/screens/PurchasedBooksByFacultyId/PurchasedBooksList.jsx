@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { decrementPaginationTotalCount } from '../../../unitls/pagination';
 
-import PurchasedBookCard from './PurchasedBookCard';
+import PurchasedBookCard from './PurchasedBookCard/PurchasedBookCard';
 import styles from './PurchasedBooksList.module.css';
 
 const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {

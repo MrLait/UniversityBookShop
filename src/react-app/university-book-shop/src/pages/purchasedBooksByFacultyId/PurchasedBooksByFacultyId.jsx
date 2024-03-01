@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react';
 
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
-import PurchasedBooksList from '../../components/screens/PurchasedBook/PurchasedBooksList';
+import PurchasedBooksList from '../../components/screens/PurchasedBooksByFacultyId/PurchasedBooksList';
 
 
 import FacultyApiService from '../../API/FacultyApiService';
-import MyPagination from '../../components/UI/pagination/MyPagination';
 import { paginationField } from '../../components/constants/initialStates';
 import { routePathsNavigate } from '../../router/routes';
 import BooksAvailableForFacultyApiService from '../../API/BooksAvailableForFaculty';
 import transition from '../../unitls/transition';
+import ContentWithPaginationSection from '../../components/screens/PurchaseBooksByFacultyId/ContentWithPaginationSection';
+import PurchasedBookHeaderSection from '../../components/screens/PurchasedBooksByFacultyId/PurchasedBookHeaderSection';
 
 import styles from './PurchasedBooksByFacultyId.module.css';
 
@@ -75,33 +76,20 @@ const PurchasedBooksByFacultyId = () => {
     return (
         <div className={styles.block}>
             <div className={styles.inner}>
-                <div className={`${styles.contentHeaderTop}`}>
-                    <div className={`${styles.headerTop} ${styles.textCenter}`} >
-                        <h1 className={`${styles.textSizeMedium}`}>
-                            {faculty.name}
-                        </h1>
-                    </div>
-                </div>
+                <PurchasedBookHeaderSection
+                    facultyName={faculty?.name}
+                />
                 <div className={styles.contentBody}>
                     <div className={styles.headingCenter}>
                         <h3 className={styles.headingBig}>
                             Available books
                         </h3>
                     </div>
-                    <div className={styles.contentHeaderBot} >
-                        <div className={styles.headerBotFlexLeft}>
-                            <strong>{paginationData.totalCount ?? 0} </strong>
-                            number of available books.
-                        </div>
-                        <div className={styles.headerBotFlexRight}>
-                            <MyPagination
-                                paginationData={paginationData}
-                                pageIndex={defaultPageIndex}
-                                changePage={changePage}
-                                className={styles.pagination}
-                            />
-                        </div>
-                    </div>
+                    <ContentWithPaginationSection
+                        paginationData={paginationData}
+                        defaultPageIndex={defaultPageIndex}
+                        changePage={changePage}
+                    />
                     <PurchasedBooksList
                         pageSize={pageSize}
                         setPaginationData={setPaginationData}

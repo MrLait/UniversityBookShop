@@ -3,7 +3,8 @@ import React from 'react';
 
 import styles from './BookCard.module.css';
 
-const BookHeader = ({ name, author }) => {
+import DeleteBook from './DeleteBook';
+const BookHeader = ({ name, author, isDelete, deleteBook, bookId, errorMessage }) => {
     return (
         <div className={styles.header}>
             <div className={styles.headerTop}>
@@ -13,12 +14,23 @@ const BookHeader = ({ name, author }) => {
                     </strong>
                 </div>
                 <div className={styles.headerRight}>
+                    {isDelete &&
+                        <DeleteBook
+                            bookId={bookId}
+                            deleteBook={deleteBook}
+                        />
+                    }
                 </div>
             </div>
             <div className={styles.headerBot}>
                 by&nbsp;
                 {author} (Author)
             </div>
+            {isDelete && errorMessage &&
+                <div className={styles.errorMessage}>
+                    {errorMessage}
+                </div>
+            }
         </div>
     );
 };

@@ -19,7 +19,10 @@ const BookCard = ({ book }) => {
     return (
         <>
             <div className={styles.bookCard}>
-                <BookHeader name={book.name} author={book.author} />
+                <BookHeader
+                    deleteClassName={styles.bookCard}
+                    name={book.name} author={book.author}
+                />
                 <ul className={styles.footer}>
                     <BookFooterItem
                         label="Isbn"
