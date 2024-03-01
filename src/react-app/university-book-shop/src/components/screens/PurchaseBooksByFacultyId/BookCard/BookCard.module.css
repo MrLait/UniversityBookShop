@@ -49,3 +49,11 @@
     border-top: var(--card-border);
     line-height: 120%;
 }
+
+.errorMessage {
+    font-size: var(--text-size-primary);
+    line-height: 100%;
+    color: var(--color-errors);
+    text-align: right;
+    font-weight: 300;
+}

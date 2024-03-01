@@ -3,39 +3,16 @@ import React from 'react';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { decrementPaginationTotalCount } from '../../../unitls/pagination';
-
 import PurchasedBookCard from './PurchasedBookCard/PurchasedBookCard';
 import styles from './PurchasedBooksList.module.css';
 
-const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
-    const visiblePurchasedBooks = purchasedBooks.slice(0, pageSize);
-    const deleteBook = (id) => {
-        setPurchasedBooks(
-            purchasedBooks.filter(p => p.id !== id)
-        );
-        decrementPaginationTotalCount(setPaginationData);
-        setIsDeleted(!isDeleted);
-    };
+const PurchasedBooksList = ({ pageSize, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
+    const visiblePurchasedBooks = purchasedBooks?.slice(0, pageSize);
 
-    const updateErrorMessage = (id, errorMessage) => {
-        const updatePurchasedBooks = purchasedBooks.map(pb => {
-            if (pb.id === id)
-                return {
-                    ...pb,
-                    book: {
-                        ...pb.book,
-                        errorMessage,
-                    },
-                };
-            return pb;
-        });
-        setPurchasedBooks(updatePurchasedBooks);
-    };
     return (
         <>
             <TransitionGroup className={styles.gridSites}>
-                {visiblePurchasedBooks.map(b =>
+                {visiblePurchasedBooks?.map(b =>
                     <CSSTransition
                         key={b.id}
                         timeout={600}
@@ -45,8 +22,6 @@ const PurchasedBooksList = ({ pageSize, setPaginationData, purchasedBooks, setPu
                                 isPurchased={b.isPurchased}
                                 purchasedBookId={b.id}
                                 book={b.book}
-                                deleteBook={deleteBook}
-                                updateErrorMessage={updateErrorMessage}
                             />
                         </div>
                     </CSSTransition>

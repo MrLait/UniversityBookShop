@@ -21,7 +21,13 @@ export default class BooksAvailableForFacultyApiService {
     static async getByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
         const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`,
             BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
-        return response;
+        const { data } = response;
+        return {
+            availableBooks: data.data.items,
+            validationError: data.error,
+            validationIsSucceeded: data.isSucceeded,
+            paginationData: (({ items, ...paginationData }) => paginationData)(data.data),
+        };
     }
 
     static async getByFacultyIdBookId(facultyId, bookId) {

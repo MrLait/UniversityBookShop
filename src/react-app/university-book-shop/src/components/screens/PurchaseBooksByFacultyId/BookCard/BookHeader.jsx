@@ -1,10 +1,11 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './BookCard.module.css';
 
 import DeleteBook from './DeleteBook';
-const BookHeader = ({ name, author, isDelete, deleteBook, bookId, errorMessage }) => {
+const BookHeader = ({ name, author, isDelete, bookId }) => {
+    const [errorMessage, setErrorMessage] = useState('');
     return (
         <div className={styles.header}>
             <div className={styles.headerTop}>
@@ -17,7 +18,7 @@ const BookHeader = ({ name, author, isDelete, deleteBook, bookId, errorMessage }
                     {isDelete &&
                         <DeleteBook
                             bookId={bookId}
-                            deleteBook={deleteBook}
+                            setErrorMessage={setErrorMessage}
                         />
                     }
                 </div>

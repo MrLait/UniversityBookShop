@@ -31,6 +31,7 @@ export const usePurchaseBookMutation = (setErrorMessage) => {
         onSuccess: (response) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+                queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             }
             else {
                 setErrorMessage(response.data.error.message);
@@ -56,6 +57,7 @@ export const useDeleteBookMutation = (setErrorMessage) => {
         onSuccess: (response) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+                queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
                 setErrorMessage(response.data.error.message);
             }
@@ -80,6 +82,7 @@ export const useAddBookMutation = (setErrorMessage) => {
         onSuccess: (response) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+                queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
                 setErrorMessage(response.data.error.message);
             }
@@ -104,6 +107,7 @@ export const useRemoveAvailableBookMutation = (setErrorMessage) => {
         onSuccess: (response) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+                queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
                 setErrorMessage(response.data.error.message);
             }

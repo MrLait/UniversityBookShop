@@ -15,7 +15,12 @@ export default class FacultyApiService {
 
     static async getFacultyByFacultyId(facultyId) {
         const response = await apiInstance.get(`${BookShopApiUrls.faculty}/${facultyId}`);
-        return response;
+        const { data } = response;
+        return {
+            faculty: data.data,
+            validationError: data.error,
+            validationIsSucceeded: data.isSucceeded,
+        };
     }
 
     static async getFacultyByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {

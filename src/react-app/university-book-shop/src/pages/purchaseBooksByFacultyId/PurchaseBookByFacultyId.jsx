@@ -21,6 +21,7 @@ const PurchaseBookByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
 
     const { data: books } = useGetBooksWithPurchaseStatusByFacultyIdQuery(facultyId, pageIndex, pageSize);
+
     const changePage = useCallback((pageIndex) => {
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
     }, [facultyId, navigate]);
