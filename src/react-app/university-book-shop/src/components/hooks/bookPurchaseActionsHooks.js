@@ -8,7 +8,7 @@ import BooksAvailableForFacultyApiService from '../../API/BooksAvailableForFacul
 export const useGetBooksWithPurchaseStatusByFacultyIdQuery = (facultyId, pageIndex, pageSize) => {
 
     return useQuery({
-        queryKey: ['getBooks', pageIndex],
+        queryKey: ['getBooks', pageIndex, facultyId],
         queryFn: () => BookApiService.getBooksWithPurchaseStatusByFacultyIdWithPagination(facultyId, pageIndex, pageSize),
         staleTime: Infinity,
     });
@@ -23,46 +23,99 @@ export const useGetAvailableBookQuery = (bookId, facultyId) => {
     });
 };
 
-export const usePurchaseBookMutation = () => {
+export const usePurchaseBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: ([bookId, facultyId]) => PurchasedBookApiService.postPurchaseBookForFaculty(bookId, facultyId),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+        onSuccess: (response) => {
+            if (response.data.isSucceeded) {
+                queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+            }
+            else {
+                setErrorMessage(response.data.error.message);
+            }
+        },
+        onError: (error) => {
+            const statusCode = error.response.status;
+            if (statusCode === 404) {
+                setErrorMessage('Book wasn\'t found');
+            }
+            else {
+                setErrorMessage(error.response.data.error.message);
+            }
         },
     });
 };
 
-export const useDeleteBookMutation = () => {
+export const useDeleteBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: ([bookId, facultyId]) => PurchasedBookApiService.deleteByFacultyIdAndBookId(facultyId, bookId),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+        onSuccess: (response) => {
+            if (response.data.isSucceeded) {
+                queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+            } else {
+                setErrorMessage(response.data.error.message);
+            }
+        },
+        onError: (error) => {
+            const statusCode = error.response.status;
+            if (statusCode === 404) {
+                setErrorMessage('Book wasn\'t found');
+            }
+            else {
+                setErrorMessage(error.response.data.error.message);
+            }
         },
     });
 };
 
-export const useAddBookMutation = () => {
+export const useAddBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: ([bookId, facultyId]) => BooksAvailableForFacultyApiService.postAddBook(bookId, facultyId),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+        onSuccess: (response) => {
+            if (response.data.isSucceeded) {
+                queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+            } else {
+                setErrorMessage(response.data.error.message);
+            }
+        },
+        onError: (error) => {
+            const statusCode = error.response.status;
+            if (statusCode === 404) {
+                setErrorMessage('Book wasn\'t found');
+            }
+            else {
+                setErrorMessage(error.response.data.error.message);
+            }
         },
     });
 };
 
-export const useRemoveAvailableBookMutation = () => {
+export const useRemoveAvailableBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: (availableBookId) => BooksAvailableForFacultyApiService.deleteAvailableBook(availableBookId),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+        onSuccess: (response) => {
+            if (response.data.isSucceeded) {
+                queryClient.invalidateQueries({ queryKey: ['getBooks'] });
+            } else {
+                setErrorMessage(response.data.error.message);
+            }
+        },
+        onError: (error) => {
+            const statusCode = error.response.status;
+            if (statusCode === 404) {
+                setErrorMessage('Book wasn\'t found');
+            }
+            else {
+                setErrorMessage(error.response.data.error.message);
+            }
         },
     });
 };

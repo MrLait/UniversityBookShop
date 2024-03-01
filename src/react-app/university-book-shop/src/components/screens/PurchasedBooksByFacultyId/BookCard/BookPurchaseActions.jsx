@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 
@@ -15,10 +15,11 @@ import styles from './BookPurchaseActions.module.css';
 
 const BookPurchaseActions = ({ book }) => {
     const facultyId = parseInt(useParams().facultyId || 0);
-
+    const [errorMessage, setErrorMessage] = useState('');
     const removeBookMutation = useRemoveAvailableBookMutation();
     const addBookMutation = useAddBookMutation();
-    const deleteBookMutation = useDeleteBookMutation();
+    const deleteBookMutation = useDeleteBookMutation(setErrorMessage);
+
     const purchaseBookMutation = usePurchaseBookMutation();
     const { refetch: getAvailableBook } = useGetAvailableBookQuery(book.id, facultyId);
 
@@ -64,7 +65,7 @@ const BookPurchaseActions = ({ book }) => {
                     Remove book
                 </button>
             )}
-            {book.errorMessage && <div className={styles.message}>{book.errorMessage}</div>}
+            {errorMessage && <div className={styles.message}>{errorMessage}</div>}
         </li>
     );
 };
