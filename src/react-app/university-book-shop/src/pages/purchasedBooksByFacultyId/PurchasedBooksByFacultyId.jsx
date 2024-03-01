@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
-import PurchasedBooksList from '../components/screens/PurchasedBook/PurchasedBooksList';
+import PurchasedBooksList from '../../components/screens/PurchasedBook/PurchasedBooksList';
 
 
-import FacultyApiService from '../API/FacultyApiService';
-import MyPagination from '../components/UI/pagination/MyPagination';
-import { paginationField } from '../components/constants/initialStates';
-import { routePathsNavigate } from '../router/routes';
-import BooksAvailableForFacultyApiService from '../API/BooksAvailableForFaculty';
-import transition from '../unitls/transition';
+import FacultyApiService from '../../API/FacultyApiService';
+import MyPagination from '../../components/UI/pagination/MyPagination';
+import { paginationField } from '../../components/constants/initialStates';
+import { routePathsNavigate } from '../../router/routes';
+import BooksAvailableForFacultyApiService from '../../API/BooksAvailableForFaculty';
+import transition from '../../unitls/transition';
 
 import styles from './PurchasedBooksByFacultyId.module.css';
 

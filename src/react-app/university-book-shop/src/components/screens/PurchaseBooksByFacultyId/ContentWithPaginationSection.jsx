@@ -22,4 +22,4 @@ const ContentWithPaginationSection = ({ paginationData, defaultPageIndex, change
         </div>
     );
 };
-export default React.memo(ContentWithPaginationSection);
+export default ContentWithPaginationSection;
