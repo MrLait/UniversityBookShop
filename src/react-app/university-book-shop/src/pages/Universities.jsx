@@ -24,7 +24,6 @@ const Universities = () => {
     const [paginationData, setPaginationData] = useState(paginationField);
     const [pageSize] = useState(4);
     const [isDeleted, setIsDeleted] = useState(false);
-
     useEffect(() => {
         getPaginatedUniversities(defaultPageIndex, pageSize);
     }, [defaultPageIndex, pageSize]);

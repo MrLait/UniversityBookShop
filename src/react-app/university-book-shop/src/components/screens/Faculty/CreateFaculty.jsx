@@ -4,28 +4,28 @@ import React, { useState } from 'react';
 import MyButton from '../../UI/button/MyButton';
 import MyModal from '../../UI/modal/MyModal';
 
-import { incrementPaginationTotalCount } from '../../../unitls/pagination';
-
 import CreateFacultyForm from './CreateFacultyForm';
-const CreateFaculty = ({ setPaginationData, btnStyles, faculties, setFaculties }) => {
-    const [modalShow, setModalShow] = useState(false);
 
-    const createFaculty = (faculty) => {
-        setFaculties([...faculties, faculty]);
-        setModalShow(false);
-        incrementPaginationTotalCount(setPaginationData);
-    };
+import styles from './CreateFaculty.module.css';
+
+const CreateFaculty = () => {
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <>
-            <MyButton setStyles={btnStyles} onClick={setModalShow}>
+            <MyButton setStyles={styles.blackButton} onClick={setModalShow}>
                 Create faculty
             </MyButton>
-            <MyModal modalShow={modalShow} setModalShow={setModalShow}>
-                <CreateFacultyForm modalShow={modalShow} createFaculty={createFaculty} />
+            <MyModal
+                modalShow={modalShow}
+                setModalShow={setModalShow}>
+                <CreateFacultyForm
+                    modalShow={modalShow}
+                    setModalShow={setModalShow}
+                />
             </MyModal>
         </>
     );
 };
 
-export default CreateFaculty;
+export default React.memo(CreateFaculty);

@@ -10,7 +10,7 @@ const MyPagination = ({ paginationData, pageIndex, changePage }) => {
     const pagesArray = getPagesArray(totalPages);
     return (
         <div className={styles.paginationWrapper}>
-            {pagesArray.map
+            {pagesArray?.map
                 (p =>
                     <span
                         key={p}

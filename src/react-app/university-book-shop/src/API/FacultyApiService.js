@@ -35,8 +35,8 @@ export default class FacultyApiService {
         return response;
     }
 
-    static async delete(id) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.faculty}/${id}`);
+    static async deleteFacultyByFacultyId(facultyId) {
+        const response = await apiInstance.delete(`${BookShopApiUrls.faculty}/${facultyId}`);
         return response;
     }
 

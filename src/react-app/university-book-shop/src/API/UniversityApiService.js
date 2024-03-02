@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from 'axios';
 
 import { BookShopApiUrls } from './BookShopApiUrls';
@@ -23,7 +24,14 @@ export default class UniversityApiService {
         const response = await apiInstance
             .get(`${BookShopApiUrls.university}/${universityId}`,
                 BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
-        return response;
+        const { data } = response;
+        return {
+            university: (({ facultiesWithPagination, ...universityData }) => universityData)(data?.data),
+            faculties: data?.data?.facultiesWithPagination?.items,
+            validationError: data?.error,
+            validationIsSucceeded: data?.isSucceeded,
+            facultyPaginationData: (({ items, ...paginationData }) => paginationData)(data?.data?.facultiesWithPagination),
+        };
     }
 
     static async delete(id) {

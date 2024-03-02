@@ -19,12 +19,14 @@ const PurchaseBookByFacultyId = () => {
     const pageIndex = parseInt(searchParams.get('page') || 1);
     const pageSize = 4;
     const facultyId = parseInt(useParams().facultyId || 0);
-
     const { data: books } = useGetBooksWithPurchaseStatusByFacultyIdQuery(facultyId, pageIndex, pageSize);
 
-    const changePage = useCallback((pageIndex) => {
+    // const changePage = useCallback((pageIndex) => {
+    //     navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
+    // }, [facultyId, navigate]);
+    const changePage = (pageIndex) => {
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
-    }, [facultyId, navigate]);
+    };
 
     return (
         <div className={styles.block}>

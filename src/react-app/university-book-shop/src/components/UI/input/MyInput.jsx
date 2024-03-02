@@ -16,4 +16,4 @@ const MyInput = ({ error, ...props }) => {
     );
 };
 
-export default MyInput;
+export default React.memo(MyInput);

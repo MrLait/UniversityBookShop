@@ -15,4 +15,4 @@ const MyButton = ({ error, setStyles, children, ...props }) => {
     );
 };
 
-export default MyButton;
+export default React.memo(MyButton);

@@ -16,4 +16,4 @@ const MyModal = ({ children, modalShow, setModalShow }) => {
     );
 };
 
-export default MyModal;
+export default React.memo(MyModal);

@@ -2,25 +2,22 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-
 import { purchaseStatusConstants } from '../../../constants/purchaseStatusConstants';
 import {
     usePurchaseBookMutation, useDeleteBookMutation, useAddBookMutation,
     useRemoveAvailableBookMutation, useGetAvailableBookQuery,
 } from '../../../hooks/bookPurchaseActionsHooks';
 
-
 import styles from './BookPurchaseActions.module.css';
-
 
 const BookPurchaseActions = ({ book }) => {
     const facultyId = parseInt(useParams().facultyId || 0);
     const [errorMessage, setErrorMessage] = useState('');
-    const removeBookMutation = useRemoveAvailableBookMutation();
-    const addBookMutation = useAddBookMutation();
+    const removeBookMutation = useRemoveAvailableBookMutation(setErrorMessage);
+    const addBookMutation = useAddBookMutation(setErrorMessage);
     const deleteBookMutation = useDeleteBookMutation(setErrorMessage);
+    const purchaseBookMutation = usePurchaseBookMutation(setErrorMessage);
 
-    const purchaseBookMutation = usePurchaseBookMutation();
     const { refetch: getAvailableBook } = useGetAvailableBookQuery(book.id, facultyId);
 
     const handleRemoveBook = async () => {

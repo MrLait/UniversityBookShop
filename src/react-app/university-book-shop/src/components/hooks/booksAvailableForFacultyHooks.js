@@ -11,6 +11,15 @@ export const useGetPurchasedBooksByFacultyIdQuery = (facultyId, pageIndex, pageS
     });
 };
 
+export const useGetPaginatedAvailableBooksByFacultyIdQuery = (facultyId, pageIndex, pageSize) => {
+    return useQuery({
+        queryKey: ['getAvailableBooksByFacultyId', facultyId, pageIndex],
+        queryFn: () => BooksAvailableForFacultyApiService.getByFacultyIdWithPagination(facultyId, pageIndex, pageSize),
+        staleTime: Infinity,
+        enabled: false,
+    });
+};
+
 
 export const useDeleteAvailableBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
