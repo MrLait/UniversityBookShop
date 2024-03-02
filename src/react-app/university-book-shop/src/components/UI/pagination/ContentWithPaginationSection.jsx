@@ -1,25 +1,26 @@
 // @ts-nocheck
 import React from 'react';
 
-import MyPagination from '../../UI/pagination/MyPagination';
+import MyPagination from './MyPagination';
+import TotalCountSection from './TotalCountSection';
 
 import styles from './ContentWithPaginationSection.module.css';
 
-const ContentWithPaginationSection = ({ paginationData, defaultPageIndex, changePage }) => {
+const ContentWithPaginationSection = ({ totalCountLabel, paginationData, pageIndex, changePage }) => {
     return (
         <div className={styles.contentHeaderBot}>
-            <div className={styles.headerBotFlexLeft}>
-                <strong>{paginationData?.totalCount ?? 0} </strong>
-                number of books available.
-            </div>
+            <TotalCountSection
+                totalCount={paginationData?.totalCount}
+                totalCountLabel={totalCountLabel}
+            />
             <div className={styles.headerBotFlexRight}>
                 <MyPagination
                     paginationData={paginationData}
-                    pageIndex={defaultPageIndex}
+                    pageIndex={pageIndex}
                     changePage={changePage}
                     className={styles.pagination} />
             </div>
         </div>
     );
 };
-export default ContentWithPaginationSection;
+export default React.memo(ContentWithPaginationSection);

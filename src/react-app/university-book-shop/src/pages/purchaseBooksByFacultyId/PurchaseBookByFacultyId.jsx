@@ -9,7 +9,7 @@ import transition from '../../unitls/transition';
 import { routePathsNavigate } from '../../router/routes';
 
 import PurchaseBookHeaderSection from '../../components/screens/PurchaseBooksByFacultyId/PurchaseBookHeaderSection';
-import ContentWithPaginationSection from '../../components/screens/PurchaseBooksByFacultyId/ContentWithPaginationSection';
+import ContentWithPaginationSection from '../../components/UI/pagination/ContentWithPaginationSection';
 
 import styles from './PurchaseBookByFacultyId.module.css';
 
@@ -32,8 +32,9 @@ const PurchaseBookByFacultyId = () => {
                 <PurchaseBookHeaderSection />
                 <div className={styles.contentBody}>
                     <ContentWithPaginationSection
+                        totalCountLabel={'number of books available.'}
                         paginationData={books?.paginationData}
-                        defaultPageIndex={pageIndex}
+                        pageIndex={pageIndex}
                         changePage={changePage}
                     />
                     <BookList

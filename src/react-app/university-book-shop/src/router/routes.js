@@ -1,7 +1,7 @@
 import PurchaseBookByFacultyId from '../pages/purchaseBooksByFacultyId/PurchaseBookByFacultyId';
 import PurchasedBooksByFacultyId from '../pages/purchasedBooksByFacultyId/PurchasedBooksByFacultyId';
 import Universities from '../pages/Universities';
-import UniversityIdPage from '../pages/UniversityIdPage';
+import UniversityByUniversityIdPage from '../pages/universityByUniversityIdPage/UniversityByUniversityIdPage';
 
 const routeConst = {
     Page: '?page=',
@@ -16,7 +16,7 @@ export const routePaths = {
     Universities: '/',
     UniversitiesPageIndex: '?page=:pageIndex',
     UniversityId: '/university/:UniversityId',
-    UniversityIdPageIndex: '/university/:UniversityId?page:pageIndex',
+    UniversityByUniversityIdPageIndex: '/university/:UniversityId?page:pageIndex',
     SearchBookByFacultyId: '/searchBook/facultyId/:facultyId',
     SearchBookByFacultyIdPageIndex: '/searchBook/facultyId/:facultyId?page:pageIndex',
     PurchasedBooksByFacultyId: '/university/:UniversityId/faculty/:facultyId',
@@ -54,7 +54,7 @@ export const routes = [
     // { path: routePaths.Home, element: Universities },
     { path: routePaths.Universities, element: Universities },
     // { path: routePaths.UniversitiesPageIndex, element: Universities },
-    { path: routePaths.UniversityId, element: UniversityIdPage },
+    { path: routePaths.UniversityId, element: UniversityByUniversityIdPage },
     // { path: routePaths.UniversityIdPageIndex, element: UniversityIdPage },
     { path: routePaths.SearchBookByFacultyId, element: PurchaseBookByFacultyId },
     // { path: routePaths.SearchBookByFacultyIdPageIndex, element: PurchaseBookByFacultyId },

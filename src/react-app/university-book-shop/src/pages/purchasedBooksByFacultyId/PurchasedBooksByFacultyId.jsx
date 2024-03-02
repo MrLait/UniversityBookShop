@@ -8,7 +8,7 @@ import { useGetPurchasedBooksByFacultyIdQuery } from '../../components/hooks/boo
 import { routePathsNavigate } from '../../router/routes';
 
 import transition from '../../unitls/transition';
-import ContentWithPaginationSection from '../../components/screens/PurchaseBooksByFacultyId/ContentWithPaginationSection';
+import ContentWithPaginationSection from '../../components/UI/pagination/ContentWithPaginationSection';
 import PurchasedBookHeaderSection from '../../components/screens/PurchasedBooksByFacultyId/PurchasedBookHeaderSection';
 
 import styles from './PurchasedBooksByFacultyId.module.css';
@@ -41,8 +41,9 @@ const PurchasedBooksByFacultyId = () => {
                         </h3>
                     </div>
                     <ContentWithPaginationSection
+                        totalCountLabel={'number of books available.'}
                         paginationData={purchasedBooks?.paginationData}
-                        defaultPageIndex={pageIndex}
+                        pageIndex={pageIndex}
                         changePage={changePage}
                     />
                     <PurchasedBooksList

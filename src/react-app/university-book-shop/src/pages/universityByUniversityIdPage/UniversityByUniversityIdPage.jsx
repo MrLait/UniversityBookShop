@@ -2,17 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-import UniversityApiService from '../API/UniversityApiService';
-import FacultyList from '../components/screens/Faculty/FacultyList';
-import CreateFaculty from '../components/screens/Faculty/CreateFaculty';
-import { paginationField } from '../components/constants/initialStates';
-import MyPagination from '../components/UI/pagination/MyPagination';
-import { routePathsNavigate } from '../router/routes';
-import transition from '../unitls/transition';
+import UniversityApiService from '../../API/UniversityApiService';
+import FacultyList from '../../components/screens/Faculty/FacultyList';
+import CreateFaculty from '../../components/screens/Faculty/CreateFaculty';
+import { paginationField } from '../../components/constants/initialStates';
+import MyPagination from '../../components/UI/pagination/MyPagination';
+import { routePathsNavigate } from '../../router/routes';
+import transition from '../../unitls/transition';
+import ContentWithPaginationSection from '../../components/UI/pagination/ContentWithPaginationSection';
 
 import styles from './UniversityIdPage.module.css';
 
-const UniversityIdPage = () => {
+const UniversityByUniversityIdPage = () => {
     const [searchParams] = useSearchParams();
     const pageIndex = searchParams.get('page');
     const navigate = useNavigate();
@@ -74,20 +75,12 @@ const UniversityIdPage = () => {
                                     Faculties
                                 </h3>
                             </div>
-                            <div className={styles.contentHeaderBot} >
-                                <div className={styles.headerBotFlexLeft}>
-                                    <strong>{paginationData.totalCount ?? 0} </strong>
-                                    number of faculties available.
-                                </div>
-                                <div className={styles.headerBotFlexRight}>
-                                    <MyPagination
-                                        paginationData={paginationData}
-                                        pageIndex={defaultPageIndex}
-                                        changePage={changePage}
-                                        className={styles.pagination}
-                                    />
-                                </div>
-                            </div>
+                            <ContentWithPaginationSection
+                                totalCountLabel={'number of faculties available.'}
+                                paginationData={paginationData}
+                                pageIndex={defaultPageIndex}
+                                changePage={changePage}
+                            />
                             <FacultyList
                                 pageSize={pageSize}
                                 setPaginationData={setPaginationData}
@@ -114,4 +107,4 @@ const UniversityIdPage = () => {
     );
 };
 
-export default transition(UniversityIdPage);
+export default transition(UniversityByUniversityIdPage);
