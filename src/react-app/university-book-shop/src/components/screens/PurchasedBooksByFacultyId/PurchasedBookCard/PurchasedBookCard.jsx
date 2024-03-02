@@ -7,14 +7,16 @@ import BookPurchaseStatus from '../../PurchaseBooksByFacultyId/BookCard/BookPurc
 
 import styles from './PurchasedBookCard.module.css';
 
-const PurchasedBookCard = ({ book, isPurchased, purchasedBookId }) => {
+const PurchasedBookCard = ({ book, isPurchased, availableBookId }) => {
 
     return (
         <>
             <div className={styles.bookCard}>
                 <BookHeader
-                    name={book.name} author={book.author}
-                    bookId={purchasedBookId} isDelete={true}
+                    bookId={availableBookId}
+                    name={book.name}
+                    author={book.author}
+                    isDeleteVisible={true}
                 />
                 <ul className={styles.footer}>
                     <BookFooterItem

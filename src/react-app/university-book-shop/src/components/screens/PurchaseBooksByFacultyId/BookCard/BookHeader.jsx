@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styles from './BookCard.module.css';
 
 import DeleteBook from './DeleteBook';
-const BookHeader = ({ name, author, isDelete, bookId }) => {
+const BookHeader = ({ name, author, isDeleteVisible, bookId }) => {
     const [errorMessage, setErrorMessage] = useState('');
     return (
         <div className={styles.header}>
@@ -15,7 +15,7 @@ const BookHeader = ({ name, author, isDelete, bookId }) => {
                     </strong>
                 </div>
                 <div className={styles.headerRight}>
-                    {isDelete &&
+                    {isDeleteVisible &&
                         <DeleteBook
                             bookId={bookId}
                             setErrorMessage={setErrorMessage}
@@ -27,7 +27,7 @@ const BookHeader = ({ name, author, isDelete, bookId }) => {
                 by&nbsp;
                 {author} (Author)
             </div>
-            {isDelete && errorMessage &&
+            {isDeleteVisible && errorMessage &&
                 <div className={styles.errorMessage}>
                     {errorMessage}
                 </div>

@@ -3,16 +3,17 @@ import React from 'react';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import PurchasedBookCard from './PurchasedBookCard/PurchasedBookCard';
+import PurchasedBookCard from '../PurchasedBookCard/PurchasedBookCard';
+
 import styles from './PurchasedBooksList.module.css';
 
-const PurchasedBooksList = ({ pageSize, purchasedBooks, setPurchasedBooks, setIsDeleted, isDeleted }) => {
-    const visiblePurchasedBooks = purchasedBooks?.slice(0, pageSize);
+const PurchasedBooksList = ({ pageSize, availableBooks }) => {
+    const visibleAvailableBooks = availableBooks?.slice(0, pageSize);
 
     return (
         <>
             <TransitionGroup className={styles.gridSites}>
-                {visiblePurchasedBooks?.map(b =>
+                {visibleAvailableBooks?.map(b =>
                     <CSSTransition
                         key={b.id}
                         timeout={600}
@@ -20,7 +21,7 @@ const PurchasedBooksList = ({ pageSize, purchasedBooks, setPurchasedBooks, setIs
                         <div key={b.id}>
                             <PurchasedBookCard
                                 isPurchased={b.isPurchased}
-                                purchasedBookId={b.id}
+                                availableBookId={b.id}
                                 book={b.book}
                             />
                         </div>

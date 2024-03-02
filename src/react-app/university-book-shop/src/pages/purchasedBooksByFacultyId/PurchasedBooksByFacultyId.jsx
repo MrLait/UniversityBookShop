@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
-import PurchasedBooksList from '../../components/screens/PurchasedBooksByFacultyId/PurchasedBooksList';
+import PurchasedBooksList from '../../components/screens/PurchasedBooksByFacultyId/PurchasedBookList/PurchasedBooksList';
 import { useGetFacultyByFacultyIdQuery } from '../../components/hooks/facultyHooks';
 import { useGetPurchasedBooksByFacultyIdQuery } from '../../components/hooks/booksAvailableForFacultyHooks';
 import { routePathsNavigate } from '../../router/routes';
@@ -28,7 +28,6 @@ const PurchasedBooksByFacultyId = () => {
     const changePage = (pageIndex) => {
         navigate(routePathsNavigate.PurchasedBooksByFacultyIdPage(universityId, facultyId, pageIndex));
     };
-
     return (
         <div className={styles.block}>
             <div className={styles.inner}>
@@ -48,7 +47,7 @@ const PurchasedBooksByFacultyId = () => {
                     />
                     <PurchasedBooksList
                         pageSize={pageSize}
-                        purchasedBooks={purchasedBooks?.availableBooks}
+                        availableBooks={purchasedBooks?.availableBooks}
                     />
                 </div>
             </div>
