@@ -1,0 +1,25 @@
+.contentHeaderTop {
+    position: relative;
+    margin-bottom: clamp(1rem, 5vw, 6rem);
+    font-weight: 400;
+}
+
+.headerTop {
+    text-transform: uppercase;
+    margin-bottom: clamp(0.625rem, 0.35rem + 1.38vw, 2rem);
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.textSizeMedium {
+    font-size: clamp(0.875rem, 0.175rem + 3.5vw, 4.375rem);
+    line-height: 100%;
+}
+
+.headerBotText {
+    display: inline-block;
+    line-height: 110%;
+    font-size: clamp(0.875rem, 0.65rem + 1.13vw, 2rem);
+}

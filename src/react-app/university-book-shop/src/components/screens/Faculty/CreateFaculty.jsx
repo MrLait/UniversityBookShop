@@ -1,29 +1,30 @@
 // @ts-nocheck
-import React, { useState } from 'react'
-import MyButton from '../../UI/button/MyButton'
-import MyModal from '../../UI/modal/MyModal'
-import CreateFacultyForm from './CreateFacultyForm'
-import styles from './CreateFaculty.module.css'
-import { incrementPaginationTotalCount } from '../../../unitls/pagination'
-const CreateFaculty = ({ setPaginationData, btnStyles, faculties, setFaculties }) => {
-    const [modalShow, setModalShow] = useState(false)
+import React, { useState } from 'react';
 
-    const createFaculty = (faculty) => {
-        setFaculties([...faculties, faculty])
-        setModalShow(false)
-        incrementPaginationTotalCount(setPaginationData)
-    }
+import MyButton from '../../UI/button/MyButton';
+import MyModal from '../../UI/modal/MyModal';
+
+import CreateFacultyForm from './CreateFacultyForm';
+
+import styles from './CreateFaculty.module.css';
+
+const CreateFaculty = ({ universityId }) => {
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <>
-            <MyButton setStyles={btnStyles} onClick={setModalShow}>
+            <MyButton setStyles={styles.blackButton} onClick={setModalShow}>
                 Create faculty
             </MyButton>
             <MyModal modalShow={modalShow} setModalShow={setModalShow}>
-                <CreateFacultyForm modalShow={modalShow} createFaculty={createFaculty} />
+                <CreateFacultyForm
+                    modalShow={modalShow}
+                    setModalShow={setModalShow}
+                    universityId={universityId}
+                />
             </MyModal>
         </>
-    )
-}
+    );
+};
 
-export default CreateFaculty
+export default React.memo(CreateFaculty);

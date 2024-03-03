@@ -1,0 +1,7 @@
+.gridSites {
+    --minthumb: var(--clamp-250-to-400);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--minthumb), 1fr));
+    grid-gap: var(--clamp-8-to-40) var(--clamp-8-to-40);
+    margin-bottom: var(--clamp-8-to-40);
+}

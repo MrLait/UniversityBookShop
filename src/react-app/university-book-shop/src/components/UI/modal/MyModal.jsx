@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React from 'react'
+import React from 'react';
+
 import styles from './MyModal.module.css';
 const MyModal = ({ children, modalShow, setModalShow }) => {
-    const rootStyles = [styles.myModal]
+    const rootStyles = [styles.myModal];
     if (modalShow) {
         rootStyles.push(styles.active);
     }
@@ -12,7 +13,7 @@ const MyModal = ({ children, modalShow, setModalShow }) => {
                 {children}
             </div>
         </div >
-    )
-}
+    );
+};
 
-export default MyModal
+export default React.memo(MyModal);

@@ -1,0 +1,16 @@
+.block {
+    margin-top: var(--margin-top-block);
+}
+
+.inner {
+    width: 100%;
+    max-width: var(--innerWidth);
+    margin: 0 auto;
+    padding: 0 var(--pad-inner);
+}
+
+.contentBody {
+    position: relative;
+    margin-bottom: var(--clamp-40-to-96);
+    font-weight: 300;
+}

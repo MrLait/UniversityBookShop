@@ -1,0 +1,27 @@
+.navbarInner {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.rolloverGoTo {
+    display: flex;
+    cursor: pointer;
+}
+
+.remove {
+    --remove-wight: clamp(0.375rem, 0.25rem + 0.63vw, 1rem);
+    --remove-height: clamp(0.375rem, 0.25rem + 0.63vw, 1rem);
+    --remove-top: clamp(0.344rem, 0.325rem + 0.09vw, 0.438rem);
+    --remove-bot: clamp(0.219rem, 0.2rem + 0.09vw, 0.313rem);
+    cursor: pointer;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--button-rounded);
+    padding: var(--remove-top) var(--remove-wight) var(--remove-bot) var(--remove-wight);
+    line-height: var(--remove-height);
+}
+
+.remove:hover {
+    color: var(--color-white);
+    background-color: #383838;
+}

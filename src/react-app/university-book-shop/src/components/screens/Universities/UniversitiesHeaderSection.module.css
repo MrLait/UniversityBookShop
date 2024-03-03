@@ -1,0 +1,28 @@
+.contentHeader {
+    padding-top: var(--padding-top-block);
+    padding-bottom: clamp(3.75rem, 2.85rem + 4.5vw, 8.25rem);
+    background-color: var(--ch-bg, transparent);
+}
+
+.inner {
+    width: 100%;
+    max-width: var(--innerWidth);
+    margin: 0 auto;
+    padding: 0 var(--pad-inner);
+}
+
+.createUniversity {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gutter);
+}
+
+.contentHeaderLeft {
+    font-size: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+    line-height: 100%;
+}
+
+.contentHeaderRight {
+    display: grid;
+    place-items: center;
+}

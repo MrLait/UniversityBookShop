@@ -1,6 +1,7 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react'
-import styles from './MyTextArea.module.css'
+import React, { useState, useEffect } from 'react';
+
+import styles from './MyTextArea.module.css';
 
 const MyTextArea = ({ error, isOpen, ...props }) => {
     const [textareaHeight, setTextareaHeight] = useState('var(--min-height-input)');
@@ -20,7 +21,7 @@ const MyTextArea = ({ error, isOpen, ...props }) => {
 
     var rootStyles = [styles.textInput];
     if (error) {
-        rootStyles.push(styles.borderColorError)
+        rootStyles.push(styles.borderColorError);
     }
     return (
         <>
@@ -32,7 +33,7 @@ const MyTextArea = ({ error, isOpen, ...props }) => {
             />
             {error && <div className={styles.message}>{error}</div>}
         </>
-    )
-}
+    );
+};
 
-export default MyTextArea
+export default MyTextArea;

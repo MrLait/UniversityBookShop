@@ -1,40 +1,52 @@
-import axios from "axios";
-import { BookShopApiUrls } from "./BookShopApiUrls";
+import axios from 'axios';
+
+import { BookShopApiUrls } from './BookShopApiUrls';
 
 const apiInstance = axios.create({
-    baseURL: BookShopApiUrls.universityBookShopApiBaseURL
+    baseURL: BookShopApiUrls.universityBookShopApiBaseURL,
 });
 
 export default class BooksAvailableForFacultyApiService {
 
     static async getAll() {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/`)
+        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/`);
         return response;
     }
 
     static async getByFacultyId(facultyId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`)
+        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`);
         return response;
     }
 
     static async getByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
         const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`,
-            BookShopApiUrls.getPaginationParams(pageIndex, pageSize))
-        return response;
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
+        const { data } = response;
+        return {
+            availableBooks: data.data.items,
+            validationError: data.error,
+            validationIsSucceeded: data.isSucceeded,
+            paginationData: (({ items, ...paginationData }) => paginationData)(data.data),
+        };
     }
 
     static async getByFacultyIdBookId(facultyId, bookId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`)
-        return response;
+        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`);
+        const { data } = response;
+        return {
+            availableBook: data.data,
+            validationError: data.error,
+            validationIsSucceeded: data.isSucceeded,
+        };
     }
 
     static async postAddBook(bookId, facultyId) {
-        const response = await apiInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId })
+        const response = await apiInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId });
         return response;
     }
 
     static async deleteAvailableBook(bookId) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`)
+        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`);
         return response;
     }
 }
