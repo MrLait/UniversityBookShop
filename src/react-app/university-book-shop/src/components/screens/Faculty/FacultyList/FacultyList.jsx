@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
