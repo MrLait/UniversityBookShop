@@ -4,10 +4,8 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
 import BookList from '../../components/screens/PurchaseBooksByFacultyId/BookList/BookList';
 import { useGetBooksWithPurchaseStatusByFacultyIdQuery } from '../../components/hooks/bookPurchaseActionsHooks';
-
 import transition from '../../unitls/transition';
 import { routePathsNavigate } from '../../router/routes';
-
 import PurchaseBookHeaderSection from '../../components/screens/PurchaseBooksByFacultyId/PurchaseBookHeaderSection';
 import ContentWithPaginationSection from '../../components/UI/pagination/ContentWithPaginationSection';
 
@@ -21,12 +19,9 @@ const PurchaseBookByFacultyId = () => {
     const facultyId = parseInt(useParams().facultyId || 0);
     const { data: books } = useGetBooksWithPurchaseStatusByFacultyIdQuery(facultyId, pageIndex, pageSize);
 
-    // const changePage = useCallback((pageIndex) => {
-    //     navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
-    // }, [facultyId, navigate]);
-    const changePage = (pageIndex) => {
+    const changePage = useCallback((pageIndex) => {
         navigate(routePathsNavigate.SearchBookByFacultyIdPage(facultyId, pageIndex));
-    };
+    }, [facultyId, navigate]);
 
     return (
         <div className={styles.block}>

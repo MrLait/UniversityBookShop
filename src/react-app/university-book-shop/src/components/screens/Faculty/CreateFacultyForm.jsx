@@ -1,21 +1,18 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
-import MyButton from '../../UI/button/MyButton';
-import MyInput from '../../UI/input/MyInput';
-import { usePostFacultyQuery } from '../../hooks/facultyHooks';
+import { usePostFacultyMutation } from '../../hooks/facultyHooks';
+import MyModalSpinner from '../../UI/spinner/MyModalSpinner/MyModalSpinner';
+import MyModalLeftSection from '../../UI/modal/MyModalLeftSection';
+import MyModalInput from '../../UI/modal/MyModalInput';
+import MyModalButton from '../../UI/modal/MyModalButton';
 
 import styles from './CreateFacultyForm.module.css';
 
-const CreateFacultyForm = ({ modalShow, setModalShow }) => {
+const CreateFacultyForm = ({ modalShow, setModalShow, universityId }) => {
     const [facultyNameErrorMessage, setFacultyNameErrorMessage] = useState('');
     const [facultyName, setFacultyName] = useState('');
-
-    const universityId = useParams().UniversityId;
-    const rootStyles = [styles.loading];
-
-    const postFacultyMutation = usePostFacultyQuery(setFacultyNameErrorMessage, setModalShow);
+    const postFacultyMutation = usePostFacultyMutation(setFacultyNameErrorMessage, setModalShow);
 
     const postFacultyHandle = (e) => {
         e.preventDefault();
@@ -29,27 +26,13 @@ const CreateFacultyForm = ({ modalShow, setModalShow }) => {
         }
     }, [modalShow]);
 
-    if (postFacultyMutation.isPending) {
-        rootStyles.push(styles.loadingActive);
-        rootStyles.push(styles.loadingWhite);
-    }
     return (
         <div className={styles.root}>
             <div className={styles.contentTabs}>
-                {postFacultyMutation.isPending && (
-                    <div className={rootStyles.join(' ')}>
-                        <div className={styles.loadingSpinner}></div>
-                    </div>
-                )}
+                <MyModalSpinner isPending={postFacultyMutation?.isPending} />
                 <div className={styles.active}>
                     <div className={styles.container}>
-                        <div className={styles.header}>
-                            <div className={styles.inner}>
-                                <h3 className={styles.title}>
-                                    Welcome!
-                                </h3>
-                            </div>
-                        </div>
+                        <MyModalLeftSection />
                         <div className={styles.body}>
                             <div className={styles.inner}>
                                 <h3 className={styles.title}>
@@ -57,31 +40,19 @@ const CreateFacultyForm = ({ modalShow, setModalShow }) => {
                                 </h3>
                                 <form>
                                     <div className={styles.grid}>
-                                        <div className={styles.gridCol}>
-                                            <div className={styles.formField}>
-                                                <label className={styles.formFieldLabel}>
-                                                    Faculty name (*)
-                                                </label>
-                                                <MyInput
-                                                    error={facultyNameErrorMessage}
-                                                    value={facultyName}
-                                                    onChange={e => setFacultyName(e.target.value)}
-                                                    type={'text'}
-                                                    placeholder={'Faculty name'}
-                                                    maxLength={150}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className={styles.gridCol}>
-                                            <div className={styles.formField}>
-                                                <MyButton
-                                                    setStyles={styles.blackButton}
-                                                    onClick={postFacultyHandle}
-                                                >
-                                                    Create faculty
-                                                </MyButton>
-                                            </div>
-                                        </div>
+                                        <MyModalInput
+                                            label="Faculty name (*)"
+                                            error={facultyNameErrorMessage}
+                                            value={facultyName}
+                                            onChange={e => setFacultyName(e.target.value)}
+                                            type={'text'}
+                                            placeholder={'Faculty name'}
+                                            maxLength={150}
+                                        />
+                                        <MyModalButton
+                                            onClick={postFacultyHandle}
+                                            label="Create faculty"
+                                        />
                                     </div>
                                 </form>
                             </div>
@@ -90,7 +61,6 @@ const CreateFacultyForm = ({ modalShow, setModalShow }) => {
                 </div>
             </div>
         </div >
-
     );
 };
 

@@ -10,7 +10,6 @@ import transition from '../../unitls/transition';
 import ContentWithPaginationSection from '../../components/UI/pagination/ContentWithPaginationSection';
 import UniversityByUniversityIdHeaderSection from '../../components/screens/UniversityByUniversityId/UniversityByUniversityIdHeaderSection';
 
-
 import styles from './UniversityIdPage.module.css';
 
 const UniversityByUniversityIdPage = () => {
@@ -49,7 +48,8 @@ const UniversityByUniversityIdPage = () => {
                             pageSize={pageSize}
                             faculties={universityData?.faculties}
                         />
-                        <CreateFaculty />
+                        <CreateFaculty
+                            universityId={universityId} />
                     </div>
                 </div>
             </>

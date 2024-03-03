@@ -1,6 +1,6 @@
 import PurchaseBookByFacultyId from '../pages/purchaseBooksByFacultyId/PurchaseBookByFacultyId';
 import PurchasedBooksByFacultyId from '../pages/purchasedBooksByFacultyId/PurchasedBooksByFacultyId';
-import Universities from '../pages/Universities';
+import Universities from '../pages/universitiesPage/UniversitiesPage';
 import UniversityByUniversityIdPage from '../pages/universityByUniversityIdPage/UniversityByUniversityIdPage';
 
 const routeConst = {

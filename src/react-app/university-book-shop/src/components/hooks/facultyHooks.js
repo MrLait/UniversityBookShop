@@ -22,6 +22,7 @@ export const useDeleteFacultyByFacultyIdMutation = (setErrorMessage) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getFacultyById'] });
                 queryClient.invalidateQueries({ queryKey: ['getUniversityWithFacultiesByUniversityId'] });
+                queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
             } else {
                 setErrorMessage(response.data.error.message);
             }
@@ -41,7 +42,7 @@ export const useDeleteFacultyByFacultyIdMutation = (setErrorMessage) => {
     });
 };
 
-export const usePostFacultyQuery = (setFacultyNameErrorMessage, setModalShow) => {
+export const usePostFacultyMutation = (setFacultyNameErrorMessage, setModalShow) => {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -49,6 +50,7 @@ export const usePostFacultyQuery = (setFacultyNameErrorMessage, setModalShow) =>
         onSuccess: (response) => {
             if (response.data.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getUniversityWithFacultiesByUniversityId'] });
+                queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
                 setModalShow(false);
                 setFacultyNameErrorMessage('');
             } else {

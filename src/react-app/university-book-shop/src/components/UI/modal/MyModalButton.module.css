@@ -1,0 +1,14 @@
+.gridCol {
+    grid-column: auto/span 12;
+}
+
+.formField {
+    position: relative;
+    width: 100%;
+}
+
+.blackButton {
+    background-color: var(--button-bg);
+    color: var(--button-color);
+    width: 100%;
+}

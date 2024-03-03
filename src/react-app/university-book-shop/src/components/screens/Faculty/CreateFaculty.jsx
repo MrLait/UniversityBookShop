@@ -8,7 +8,7 @@ import CreateFacultyForm from './CreateFacultyForm';
 
 import styles from './CreateFaculty.module.css';
 
-const CreateFaculty = () => {
+const CreateFaculty = ({ universityId }) => {
     const [modalShow, setModalShow] = useState(false);
 
     return (
@@ -16,12 +16,11 @@ const CreateFaculty = () => {
             <MyButton setStyles={styles.blackButton} onClick={setModalShow}>
                 Create faculty
             </MyButton>
-            <MyModal
-                modalShow={modalShow}
-                setModalShow={setModalShow}>
+            <MyModal modalShow={modalShow} setModalShow={setModalShow}>
                 <CreateFacultyForm
                     modalShow={modalShow}
                     setModalShow={setModalShow}
+                    universityId={universityId}
                 />
             </MyModal>
         </>

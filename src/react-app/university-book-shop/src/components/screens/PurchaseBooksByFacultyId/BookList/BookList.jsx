@@ -29,4 +29,4 @@ const BookList = ({ pageSize, books }) => {
         </>
     );
 };
-export default BookList;
+export default React.memo(BookList);

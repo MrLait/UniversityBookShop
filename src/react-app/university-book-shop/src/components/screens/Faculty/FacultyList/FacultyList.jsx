@@ -24,7 +24,7 @@ const FacultyList = ({ pageSize, faculties }) => {
                             <FacultyCard
                                 name={faculty.name}
                                 id={faculty.id}
-                                universityId={faculties.universityId}
+                                universityId={faculty.universityId}
                             />
                         </div>
                     </CSSTransition>

@@ -24,4 +24,4 @@ const MyPagination = ({ paginationData, pageIndex, changePage }) => {
     );
 };
 
-export default MyPagination;
+export default React.memo(MyPagination);

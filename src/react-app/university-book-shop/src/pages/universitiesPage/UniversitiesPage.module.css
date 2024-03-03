@@ -10,25 +10,8 @@
     padding: 0 var(--pad-inner);
 }
 
-.contentHeader {
-    padding-top: var(--padding-top-block);
-    padding-bottom: clamp(3.75rem, 2.85rem + 4.5vw, 8.25rem);
-    background-color: var(--ch-bg, transparent);
-}
-
 .contentBody {
     margin-top: clamp(20px, 3vw, 30px);
-}
-
-.createUniversity {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--gutter);
-}
-
-.contentHeaderLeft {
-    font-size: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
-    line-height: 100%;
 }
 
 .headingCenter {
@@ -42,10 +25,6 @@
     line-height: normal;
 }
 
-.contentHeaderRight {
-    display: grid;
-    place-items: center;
-}
 
 .pagination {
     float: left;

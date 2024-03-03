@@ -1,4 +1,4 @@
-.root {
+.createUniversity {
     position: relative;
     width: 100%;
     min-height: var(--min-height-modal);
@@ -14,7 +14,7 @@
     display: block;
 }
 
-.container {
+.createUniversityContainer {
     display: flex;
     justify-content: space-between;
     min-height: var(--min-height-login);

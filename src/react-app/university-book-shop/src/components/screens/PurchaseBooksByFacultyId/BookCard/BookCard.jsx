@@ -4,10 +4,8 @@ import React from 'react';
 import { purchaseStatusConstants } from '../../../constants/purchaseStatusConstants';
 
 import styles from './BookCard.module.css';
-
 import BookHeader from './BookHeader';
 import BookFooterItem from './BookFooterItem';
-import BookPurchaseStatus from './BookPurchaseStatus';
 import BookPurchaseActions from './BookPurchaseActions';
 
 const BookCard = ({ book }) => {
@@ -34,13 +32,13 @@ const BookCard = ({ book }) => {
                     />
                     {(book.purchaseStatus === purchaseStatusConstants.bookAvailableForPurchase ||
                         book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty) && (
-                            <BookPurchaseStatus purchaseStatus={book.purchaseStatus} />
+                            <BookFooterItem label="Book status:" value={book.purchaseStatus} />
                         )}
                     {(book.purchaseStatus === purchaseStatusConstants.bookPurchasedByCurrentFaculty) && (
-                        <BookPurchaseStatus purchaseStatus={'Purchased'} />
+                        <BookFooterItem label="Book status:" value={'Purchased'} />
                     )}
                     {book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty && (
-                        <BookPurchaseStatus purchaseStatus={'Book added'} />
+                        <BookFooterItem label="Book status:" value={'Book added'} />
                     )}
                     <BookPurchaseActions
                         book={book}

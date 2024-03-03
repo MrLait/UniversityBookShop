@@ -32,4 +32,4 @@ const PurchasedBooksList = ({ pageSize, availableBooks }) => {
 
     );
 };
-export default PurchasedBooksList;
+export default React.memo(PurchasedBooksList);
