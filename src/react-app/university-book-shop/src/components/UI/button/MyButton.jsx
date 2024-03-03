@@ -1,6 +1,7 @@
 // @ts-nocheck
-import React from 'react'
-import styles from './MyButton.module.css'
+import React from 'react';
+
+import styles from './MyButton.module.css';
 const MyButton = ({ error, setStyles, children, ...props }) => {
     const additionalStyles = setStyles ? setStyles : '';
     const combinedStyles = `${styles.myBtn} ${additionalStyles}`;
@@ -11,7 +12,7 @@ const MyButton = ({ error, setStyles, children, ...props }) => {
             </button >
             {error && <div className={styles.message}>{error}</div>}
         </>
-    )
-}
+    );
+};
 
-export default MyButton
+export default React.memo(MyButton);

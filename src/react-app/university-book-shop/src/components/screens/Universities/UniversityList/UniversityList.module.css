@@ -1,0 +1,15 @@
+.universities {
+    display: grid;
+    grid-template-columns: repeat(var(--u-columns), 1fr);
+    grid-gap: clamp(0.438rem, 0.025rem + 2.06vw, 2.5rem) clamp(0.438rem, 0.025rem + 2.06vw, 2.5rem);
+
+}
+
+.university {
+    border-radius: var(--rounded-large);
+    background: var(--color-white);
+}
+
+.universityHidden {
+    overflow: hidden;
+}

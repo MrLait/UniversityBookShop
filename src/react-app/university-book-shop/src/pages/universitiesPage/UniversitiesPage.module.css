@@ -1,0 +1,31 @@
+.block {
+    margin-top: var(--margin-top-block);
+    margin-bottom: var(--margin-top-block);
+}
+
+.inner {
+    width: 100%;
+    max-width: var(--innerWidth);
+    margin: 0 auto;
+    padding: 0 var(--pad-inner);
+}
+
+.contentBody {
+    margin-top: clamp(20px, 3vw, 30px);
+}
+
+.headingCenter {
+    margin-bottom: clamp(10px, 2vw, 20px);
+    font-weight: 400;
+}
+
+.headingBig {
+    text-align: center;
+    font-size: clamp(2.625rem, 2.275rem + 1.75vw, 4.375rem);
+    line-height: normal;
+}
+
+
+.pagination {
+    float: left;
+}

@@ -1,20 +1,23 @@
 .paginationWrapper {
-    margin-bottom: 10px;
+    margin-bottom: clamp(0.125rem, 0.63vw, 0.75rem);
     display: flex;
-    justify-content: end
+    justify-content: flex-end;
 }
 
 .paginationWrapper .page {
     margin: 2px;
-    align-items: flex-end
 }
 
 .page {
-    padding: 0 1.6em;
+    display: inline-block;
+    height: var(--small-btn-height-padding);
+    line-height: var(--small-btn-height-padding);
+    padding: 0 var(--small-btn-wight-padding);
     border: 1px solid var(--color-primary);
     cursor: pointer;
     border-radius: var(--button-rounded);
     transition: 0.5s;
+    text-align: center;
 }
 
 .pageCurrent {

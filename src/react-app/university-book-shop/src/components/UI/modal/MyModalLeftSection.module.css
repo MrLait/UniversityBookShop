@@ -1,0 +1,14 @@
+.header {
+    flex: 1;
+    background: var(--bg-3rd);
+}
+
+.inner {
+    padding: var(--pad-large-modal);
+}
+
+.title {
+    margin-bottom: clamp(0.25rem, -0.15rem + 2vw, 2.25rem);
+    font-size: var(--text-size-large);
+    font-weight: normal;
+}

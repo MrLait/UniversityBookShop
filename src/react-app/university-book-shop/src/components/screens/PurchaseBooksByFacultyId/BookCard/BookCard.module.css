@@ -1,0 +1,59 @@
+.bookCard {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-white);
+    border-radius: var(--rounded-large);
+}
+
+.content {
+    margin: 0 5px;
+}
+
+
+.header {
+    padding: var(--card-pad-x);
+}
+
+.headerTop {
+    display: flex;
+    gap: var(--clamp-2-to-8);
+    align-items: center;
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+    font-weight: bold;
+}
+
+.headerBot {
+    color: var(--color-text-shadow);
+}
+
+.headerLeft {
+    flex: 1;
+}
+
+.headerRight {
+    font-weight: normal;
+    opacity: 1;
+    transition: 0.5s;
+
+}
+
+.footer {
+    padding-bottom: var(--card-pad-y);
+}
+
+.li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--clamp-4-to-20);
+    padding: var(--card-pad-y) var(--card-pad-x);
+    border-top: var(--card-border);
+    line-height: 120%;
+}
+
+.errorMessage {
+    font-size: var(--text-size-primary);
+    line-height: 100%;
+    color: var(--color-errors);
+    text-align: right;
+    font-weight: 300;
+}

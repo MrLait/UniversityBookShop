@@ -1,11 +1,9 @@
 .myBtn {
-    border-radius: var(--button-rounded);
-    min-width: var(--button-height);
-    height: var(--button-height);
-    padding: 0 1.6em;
-    font-size: 20px;
+    border-radius: clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
+    height: clamp(1.75rem, 1.225rem + 2.63vw, 4.375rem);
+    padding: 0 clamp(0.5rem, 0.2rem + 1.5vw, 2rem);
+    font-size: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
     font-weight: 400;
-    line-height: var(--button-height);
     background: rgba(0, 0, 0, 0);
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
@@ -18,12 +16,4 @@
 .myBtn:hover {
     color: var(--color-white);
     background-color: #383838;
-}
-
-.message {
-    font-size: var(--text-size-small);
-    line-height: 100%;
-    color: var(--color-errors);
-    text-align: center;
-
 }

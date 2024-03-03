@@ -1,11 +1,11 @@
 
 export const getPagesArray = (totalPages) => {
-    let pagesArray = [] // useMemo
+    const pagesArray = [];
     for (let i = 0; i < totalPages; i++) {
         pagesArray.push(i + 1);
     }
     return pagesArray;
-}
+};
 
 export const incrementPaginationTotalCount = (setPaginationData) => {
 
@@ -14,7 +14,7 @@ export const incrementPaginationTotalCount = (setPaginationData) => {
         totalCount: prevPaginationData.totalCount + 1,
     }));
     return setPaginationData;
-}
+};
 
 export const decrementPaginationTotalCount = (setPaginationData) => {
 
@@ -23,5 +23,5 @@ export const decrementPaginationTotalCount = (setPaginationData) => {
         totalCount: prevPaginationData.totalCount - 1,
     }));
     return setPaginationData;
-}
+};
 

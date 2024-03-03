@@ -1,0 +1,33 @@
+.block {
+    margin-top: var(--margin-top-block);
+}
+
+.inner {
+    width: 100%;
+    max-width: var(--innerWidth);
+    margin: 0 auto;
+    padding: 0 var(--pad-inner);
+}
+
+.headingCenter {
+    font-weight: 400;
+    margin-bottom: clamp(0.125rem, -0.05rem + 0.88vw, 1rem);
+}
+
+.headingBig {
+    text-align: center;
+    font-size: clamp(0.875rem, 0.175rem + 3.5vw, 4.375rem);
+    line-height: normal;
+}
+
+.contentHeaderBot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contentBody {
+    position: relative;
+    margin-bottom: clamp(2.5rem, 1.8rem + 3.5vw, 6rem);
+    font-weight: 300;
+}
