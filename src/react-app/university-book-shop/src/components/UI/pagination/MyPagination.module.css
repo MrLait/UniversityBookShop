@@ -1,12 +1,11 @@
 .paginationWrapper {
     margin-bottom: clamp(0.125rem, 0.63vw, 0.75rem);
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .paginationWrapper .page {
     margin: 2px;
-
 }
 
 .page {

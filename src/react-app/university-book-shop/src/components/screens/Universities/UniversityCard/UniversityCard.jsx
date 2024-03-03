@@ -1,13 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 
-
 import { CSSTransition } from 'react-transition-group';
-
 import { useState } from 'react';
-
-
-import OkLogoItem from '../../../../Assets/OkLogoItem';
 
 import { ReactComponent as ArrowCollapse } from '../../../../Assets/arrowCollapse.svg';
 import { ReactComponent as ArrowExpand } from '../../../../Assets/arrowExpand.svg';
