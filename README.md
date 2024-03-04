@@ -1,5 +1,8 @@
 $$
 University Book Shop
+
+[![GitHub Actions Status](https://github.com/MrLait/UniversityBookShop/workflows/CiReactAppAndDotNetApp/badge.svg)](https://github.com/MrLait/UniversityBookShop/actions)
+
 $$
 # Description
 This project is developed using technologies such as .NET 6, MySqlServer, React, and MongoDB.
