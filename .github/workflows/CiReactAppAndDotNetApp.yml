@@ -46,4 +46,35 @@ jobs:
         run: dotnet restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        
+  React_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repository code
+        uses: actions/checkout@v4
+      - name: Install react dependencies
+        run: npm ci
+      - name: Run lint
+        run: npm run lint
+  React_build:
+    runs-on: ubuntu-latest
+    needs: React_lint
+    steps:
+      - name: Get the repository code
+        uses: actions/checkout@v4
+      - name: Install react dependencies
+        run: npm ci
+      - name: Build app
+        run: npm run build
+  React_test:
+    runs-on: ubuntu-latest
+    needs: React_build
+    steps:
+      - name: Get the repository code
+        uses: actions/checkout@v4
+      - name: Install react dependencies
+        run: npm ci
+      - name: Test application
+        run: npm run test
+    
 
