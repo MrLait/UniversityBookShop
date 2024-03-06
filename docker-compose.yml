@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  universitybookshop.api:
+    image: ${DOCKER_REGISTRY-}universitybookshopapi
+    build:
+      context: .
+      dockerfile: src/dotnet-app/UniversityBookShop.Api/Dockerfile
+
+  reactApp:
+    image: ${DOCKER_REGISTRY-}react-app
+    build:
+      context: .
+      dockerfile: src/react-app/university-book-shop/Dockerfile

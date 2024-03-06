@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  universitybookshop.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "7265:80"
+      # - "7266:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      # - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  # reactApp:
+  #   ports:
+  #     - "5001:3000"
