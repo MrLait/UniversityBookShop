@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Exceptions;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
@@ -23,6 +24,8 @@ namespace UniversityBookShop.Api.Filters
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(MySqlException), HandleMySqlException },
                 { typeof(DbUpdateException), HandleDbUpdateException },
+                { typeof(InvalidOperationException), HandleInvalidOperationException },
+                
             };
         }
 
@@ -112,5 +115,14 @@ namespace UniversityBookShop.Api.Filters
             context.ExceptionHandled = true;
         }
 
+        private void HandleInvalidOperationException(ExceptionContext context)
+        {
+            if (context.Exception.InnerException is MySqlException mySqlException)
+            {
+                context.Exception = mySqlException;
+                HandleMySqlException(context);
+            }
+        }
+        
     }
 }

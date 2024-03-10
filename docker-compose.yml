@@ -1,14 +1,28 @@
 version: '3.4'
 
 services:
+  mysql:
+    image: mysql:8.0.36
+    container_name: mysql_8_0_36
+
   universitybookshop.api:
     image: ${DOCKER_REGISTRY-}universitybookshopapi
     build:
       context: .
       dockerfile: src/dotnet-app/UniversityBookShop.Api/Dockerfile
+    depends_on:
+      - mysql
 
   reactApp:
     image: ${DOCKER_REGISTRY-}react-app
     build:
-      context: .
-      dockerfile: src/react-app/university-book-shop/Dockerfile
+      context: ./src/react-app/university-book-shop/
+      dockerfile: Dockerfile
+    depends_on:
+      - universitybookshop.api
+
+  proxy:
+    image: nginx:mainline
+    depends_on:
+      - reactApp
+
