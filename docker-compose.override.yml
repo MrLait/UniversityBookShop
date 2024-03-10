@@ -34,6 +34,7 @@ services:
   reactApp:
     environment:
       - WDS_SOCKET_PORT= 0
+      - REACT_APP_BASE_URL=useNginx
     ports:
       - "5001:3000"
 

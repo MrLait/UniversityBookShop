@@ -351,3 +351,6 @@ MigrationBackup/
 src/my-sql-server/library.obj.mwb
 .gitignore
 src/my-sql-server/library.obj.mwb.bak
+
+# User ignore folders
+mysql-data
