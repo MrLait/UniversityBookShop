@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>f9b25bef-80bb-404c-beab-b6f7bf2ea155</ProjectGuid>
+    <ProjectGuid>1d78ab19-2041-4ec2-8cb3-fc5d5ec74d37</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>universitybookshop.api</DockerServiceName>

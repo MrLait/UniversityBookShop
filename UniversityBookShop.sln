@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackOffice.Persistence", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackOffice.Application", "src\dotnet-app\BackOffice.Application\BackOffice.Application.csproj", "{A5B6181D-9768-47B0-8074-BEFA353C8349}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F9B25BEF-80BB-404C-BEAB-B6F7BF2EA155}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1D78AB19-2041-4EC2-8CB3-FC5D5EC74D37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +64,10 @@ Global
 		{A5B6181D-9768-47B0-8074-BEFA353C8349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5B6181D-9768-47B0-8074-BEFA353C8349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5B6181D-9768-47B0-8074-BEFA353C8349}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9B25BEF-80BB-404C-BEAB-B6F7BF2EA155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9B25BEF-80BB-404C-BEAB-B6F7BF2EA155}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9B25BEF-80BB-404C-BEAB-B6F7BF2EA155}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9B25BEF-80BB-404C-BEAB-B6F7BF2EA155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D78AB19-2041-4EC2-8CB3-FC5D5EC74D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D78AB19-2041-4EC2-8CB3-FC5D5EC74D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D78AB19-2041-4EC2-8CB3-FC5D5EC74D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D78AB19-2041-4EC2-8CB3-FC5D5EC74D37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

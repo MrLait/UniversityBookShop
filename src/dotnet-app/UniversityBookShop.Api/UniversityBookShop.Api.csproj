@@ -7,7 +7,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
@@ -24,7 +23,7 @@
     <NoWarn>$(NoWarn);8601</NoWarn>
     <NoWarn>$(NoWarn);8603</NoWarn>
     <NoWarn>$(NoWarn);8618</NoWarn>
-    <UserSecretsId>2acdf1f7-ef99-453c-8d0c-c77208b833a1</UserSecretsId>
+    <UserSecretsId>3111bb46-0ccf-4629-b3fa-9c235850db00</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
