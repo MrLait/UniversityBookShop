@@ -1,4 +1,4 @@
-name: CI pipeline .NET and React App
+name: CI pipeline .NET and React App s
 
 on:
   push:
@@ -15,11 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: |
             ~/.nuget/packages
