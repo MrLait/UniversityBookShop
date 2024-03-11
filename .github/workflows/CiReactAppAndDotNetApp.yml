@@ -1,4 +1,4 @@
-name: CI pipeline .NET and React App
+name: CI pipeline .NET and React App test
 
 on:
   push:
