@@ -2,7 +2,7 @@ name: CI pipeline .NET and React App
 
 on:
   push:
-    branches: ["master", "develop"]
+    branches: ["master", "develop", "CiPiplane"]
   pull_request:
       branches: [ "master", "develop" ]
 
