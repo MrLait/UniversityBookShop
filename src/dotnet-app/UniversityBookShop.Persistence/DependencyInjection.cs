@@ -17,7 +17,7 @@ public static class DependencyInjection
             option.UseMySql(connectionString,
                 new MySqlServerVersion(new Version(8, 0, 32)),
                 p =>
-                p.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null));
+                p.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null));
 
         });
 

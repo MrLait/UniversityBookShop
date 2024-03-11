@@ -5,14 +5,7 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: root
-      # MYSQL_USER: root
-      # MYSQL_PASSWORD: root
       MYSQL_DATABASE: university-book-shop
-
-      # - MYSQL_DATABASE=university-book-shop
-      # - MYSQL_ROOT_PASSWORD=root
-      # - MYSQL_USER=root
-      # - MYSQL_PASSWORD=root
     ports:
       - 33062:3306
     volumes:
@@ -21,11 +14,10 @@ services:
   universitybookshop.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
       - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root; 
     ports:
       - "7265:80"
-      - "7266:443"
     restart: always
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
