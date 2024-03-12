@@ -29,9 +29,9 @@ export default class UniversityApiService {
     }
 
     static async getUniversityByUniversityIdWithPaginatedFaculties(universityId, pageIndex, pageSize) {
-        const response = await apiInstance
-            .get(`${BookShopApiUrls.university}/${universityId}`,
-                BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
+        const response = await apiInstance.get(`${BookShopApiUrls.university}/${universityId}`,
+            BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
+
         const { data } = response;
         return {
             university: (({ facultiesWithPagination, ...universityData }) => universityData)(data?.data),
