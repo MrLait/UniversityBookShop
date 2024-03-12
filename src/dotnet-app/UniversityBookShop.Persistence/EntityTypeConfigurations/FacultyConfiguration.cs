@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UniversityBookShop.Domain.Entities;
+using UniversityBookShop.Persistence.InitialData;
 
 namespace UniversityBookShop.Persistence.EntityTypeConfigurations;
 
@@ -15,5 +16,7 @@ public class FacultyConfiguration : IEntityTypeConfiguration<Faculty>
             .HasOne(u => u.University)
             .WithMany(f => f.Faculties)
             .HasForeignKey(fk => fk.UniversityId);
+
+        builder.HasData(FacultyInitialData.GetInitialData());
     }
 }
