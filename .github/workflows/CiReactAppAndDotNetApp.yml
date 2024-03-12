@@ -2,9 +2,9 @@ name: CI pipeline .NET and React App s
 
 on:
   push:
-    branches: ["master", "develop", "CiPiplane"]
+    branches: ["CiPiplane"]
   pull_request:
-      branches: [ "master", "develop" ]
+      branches: [ "master", "develop"]
 
 env:
   reactFolder: src/react-app/university-book-shop
