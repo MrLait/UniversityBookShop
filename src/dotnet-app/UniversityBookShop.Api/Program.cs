@@ -22,15 +22,13 @@ services.AddPersistence(builder.Configuration);
 services.AddControllers(configure: options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
-var paginationHeaderCorsPolicy = "PaginationHeader";
+var reactAppCorsPolicy = "reactAppCorsPolicy";
 
 services.AddCors(option =>
 {
-    option.AddPolicy(paginationHeaderCorsPolicy, policy =>
+    option.AddPolicy(reactAppCorsPolicy, policy =>
     {
-        policy.AllowAnyHeader().WithExposedHeaders("x-pagination");
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
 
@@ -53,9 +51,9 @@ using (var scope = app.Services.CreateScope())
         var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
         DbInitializer.Initializer(context);
     }
-    catch (Exception)
+    catch (Exception m)
     {
-        //ToDo
+        Console.WriteLine(m);
     }
 }
 
@@ -66,10 +64,10 @@ app.UseSwaggerUI(config =>
     config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
 });
 
+app.UseRouting();
 
-app.UseHttpsRedirection();
-app.UseCors(paginationHeaderCorsPolicy); //ToDo
-
+//app.UseHttpsRedirection();
+app.UseCors(reactAppCorsPolicy);
 
 app.MapControllers();
 app.Run();

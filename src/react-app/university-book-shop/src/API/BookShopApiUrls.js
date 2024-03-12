@@ -1,5 +1,5 @@
 export const BookShopApiUrls = {
-    universityBookShopApiBaseURL: 'https://localhost:7265/api/',
+    universityBookShopApiBaseURL: process.env.REACT_APP_BASE_URL === 'useNginx' ? '/api/' : 'https://localhost:7265/api/',
     university: 'University',
     purchasedBookFaculty: 'PurchasedBookFaculty',
     purchasedBookByFacultyId: 'PurchasedBookFaculty/Faculty',
