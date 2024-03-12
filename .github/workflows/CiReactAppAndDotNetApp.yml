@@ -1,8 +1,8 @@
-name: CI pipeline .NET and React App
+name: CI pipeline .NET and React App s
 
 on:
   push:
-    branches: ["master", "develop"]
+    branches: ["master", "develop", "CiPiplane"]
   pull_request:
       branches: [ "master", "develop" ]
 
@@ -25,10 +25,14 @@ jobs:
             ~/.nuget/packages
             ./packages
           key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}    
+      - name: Print Current Directory
+        run: |
+          pwd
+          ls
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./UniversityBookShop.sln
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build ./UniversityBookShop.sln --no-restore 
   test_DotNet:
     runs-on: ubuntu-latest
     needs: build_DotNet
@@ -44,11 +48,11 @@ jobs:
           path: |
             ~/.nuget/packages
             ./packages
-          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}          
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}    
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./UniversityBookShop.sln
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ./UniversityBookShop.sln --no-build --verbosity normal
 
   React_lint:
     runs-on: ubuntu-latest
