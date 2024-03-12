@@ -25,6 +25,9 @@ jobs:
             ~/.nuget/packages
             ./packages
           key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}    
+      - name: Print Current Directory
+        run: |
+          pwd   
       - name: Restore dependencies
         run: dotnet restore .\UniversityBookShop.sln
       - name: Build
@@ -44,7 +47,10 @@ jobs:
           path: |
             ~/.nuget/packages
             ./packages
-          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}          
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}    
+      - name: Print Current Directory
+        run: |
+         pwd      
       - name: Restore dependencies
         run: dotnet restore
       - name: Test
