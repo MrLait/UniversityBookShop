@@ -1,38 +1,33 @@
 .myModal {
-    --pad-modal: 30px;
-    --pad-large-modal: 50px;
+
     --modal-alpha: 0.7;
-    --pad-modal-box: clamp(24px, 3vw, 48px);
     position: fixed;
     inset: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100%;
-    height: auto;
-    width: auto;
-    min-width: 100%;
-    padding: var(--pad-modal) 0;
     background-color: rgba(0, 0, 0, var(--modal-alpha));
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
     opacity: 0;
     transition: all .4s;
     pointer-events: none;
     z-index: 10;
+
+    /* align-items: center;
+    min-height: 100%;
+    height: auto;
+    width: auto;
+    min-width: 100%; */
+    /* overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain; */
 }
 
 .myModalContent {
-    width: auto;
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
+    /* width: auto; */
+    /* position: relative; */
+    /* display: inline-block; */
+    /* max-width: 100%; */
     margin: auto 0;
     transition: opacity .6s .2s;
-    /* padding: 25px; */
-    /* background: white; */
-    /* border-radius: 16px; */
 }
 
 .myModal.active {

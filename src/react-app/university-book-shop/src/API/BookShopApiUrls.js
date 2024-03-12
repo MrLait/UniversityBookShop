@@ -1,5 +1,5 @@
 export const BookShopApiUrls = {
-    universityBookShopApiBaseURL: 'https://localhost:7265/api/',
+    universityBookShopApiBaseURL: process.env.REACT_APP_BASE_URL === 'useNginx' ? '/api/' : 'https://localhost:7265/api/',
     university: 'University',
     purchasedBookFaculty: 'PurchasedBookFaculty',
     purchasedBookByFacultyId: 'PurchasedBookFaculty/Faculty',
@@ -10,8 +10,8 @@ export const BookShopApiUrls = {
     booksPurchasedByUniversity: 'BooksPurchasedByUniversity',
     faculty: 'Faculty',
     facultiesByUniversityId: 'Faculty/university',
-    getPaginationParams
-}
+    getPaginationParams,
+};
 
 function getPaginationParams(pageIndex, pageSize) {
     if (pageIndex < 0) {
@@ -24,8 +24,8 @@ function getPaginationParams(pageIndex, pageSize) {
     return {
         params: {
             pageIndex,
-            pageSize
-        }
+            pageSize,
+        },
     };
 }
 

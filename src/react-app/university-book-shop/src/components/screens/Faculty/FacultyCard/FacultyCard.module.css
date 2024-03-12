@@ -1,0 +1,78 @@
+.li {
+    list-style: none;
+}
+
+.facultyCard {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-white);
+    border-radius: var(--rounded-large);
+}
+
+.facultyCard:hover .headerRight {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.facultyCard:hover .arrowDirectionLeft {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.header {
+    padding: var(--card-pad-x);
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+    font-weight: bold;
+}
+
+.headerTop {
+    display: flex;
+    gap: var(--clamp-2-to-8);
+}
+
+.headerBot {
+    margin-top: clamp(0.25rem, 0.1rem + 0.75vw, 1rem);
+}
+
+.headerLeft {
+    flex: 1;
+}
+
+.headerRight {
+    font-weight: normal;
+    opacity: 0;
+    transition: 0.5s;
+
+}
+
+.footer {
+    /* padding-bottom: var(--card-pad-y); */
+}
+
+.footer .li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--clamp-4-to-20);
+    padding: var(--card-pad-y) var(--card-pad-x);
+    border-top: var(--card-border);
+    line-height: 120%;
+    align-items: center;
+}
+
+.arrowDirectionLeft {
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.rolloverArrowDirectionLeft {
+    padding-right: 0.3em;
+}
+
+.errorMessage {
+    font-size: var(--text-size-primary);
+    line-height: 100%;
+    color: var(--color-errors);
+    text-align: right;
+    font-weight: 300;
+}
