@@ -59,21 +59,23 @@ This project is developed using technologies such as Docker, .NET 6, MySQL Serve
 2. Navigate to the project directories:
    1. Backend: src\dotnet-app\UniversityBookShop.Api\
    2. Client: src\react-app\university-book-shop\
-3. Run each part of the project separately following the instructions in their respective directories.
+3. Change DbConnection string(server, Port, User Id and Password) in appsettings.json path to the file:
+   1. UniversityBookShop\src\dotnet-app\UniversityBookShop.Api\appsettings.json
+4. Run each part of the project separately following the instructions in their respective directories.
    1. Using scripts
       1. Go to folder scripts and run 
          ```
          RunUniversityBookShop.bat
          ```
-   1. Or use command:
+   2. Or use command:
       1. Go to backend folder and use command: 
          ```
-         dotnet run
+         dotnet build && dotnet run
          ```
       2. Go to frontend folder and use command: 
          ```
-         npm start
+         npm ci && npm start
          ```
-4. After a successful launch, application will be available at the following URLs:
+5. After a successful launch, application will be available at the following URLs:
    1. Backend API: https://localhost:7265, http://localhost:5108
    2. Client application: http://localhost:3000
