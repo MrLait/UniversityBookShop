@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UniversityBookShop.Domain.Entities;
+using UniversityBookShop.Persistence.InitialData;
 
 namespace UniversityBookShop.Persistence.EntityTypeConfigurations;
 
@@ -15,5 +16,7 @@ public class UniversityConfiguration : IEntityTypeConfiguration<University>
         builder.Property(f => f.CurrencyCodesId).HasColumnName("currency_code_id");
 
         builder.HasIndex(x => x.CurrencyCodesId).IsUnique(false);
+
+        builder.HasData(UniversityInitialData.GetInitialData());
     }
 }

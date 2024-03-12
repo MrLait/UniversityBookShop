@@ -1,7 +1,3 @@
-cd ../src/dotnet-app/UniversityBookShop.Api
-dotnet build
-dotnet run
+start "UniversityBookShop.Api" "UniversityBookShop.Api.bat"
+start "ReactApp" "ReactApp.bat"
 
-cd ../../react-app/university-book-shop
-npm ci
-npm start
