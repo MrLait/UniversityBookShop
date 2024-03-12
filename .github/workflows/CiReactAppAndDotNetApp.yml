@@ -27,7 +27,10 @@ jobs:
           key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}    
       - name: Print Current Directory
         run: |
-          pwd   
+          pwd
+      - name: List Files in Current Directory
+        run: |
+          ls
       - name: Restore dependencies
         run: dotnet restore .\UniversityBookShop.sln
       - name: Build
