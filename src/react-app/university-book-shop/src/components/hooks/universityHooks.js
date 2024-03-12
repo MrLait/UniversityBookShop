@@ -5,7 +5,7 @@ import UniversityApiService from '../../API/UniversityApiService';
 
 export const useGetUniversityWithItsFacultiesByUniversityIdQuery = (universityId, pageIndex, pageSize) => {
     return useQuery({
-        queryKey: ['getUniversityWithFacultiesByUniversityId', pageIndex],
+        queryKey: ['getUniversityWithFacultiesByUniversityId', universityId, pageIndex, pageSize],
         queryFn: () => UniversityApiService.getUniversityByUniversityIdWithPaginatedFaculties(universityId, pageIndex, pageSize),
         staleTime: Infinity,
     });
@@ -13,7 +13,7 @@ export const useGetUniversityWithItsFacultiesByUniversityIdQuery = (universityId
 
 export const useGetPaginatedUniversitiesQuery = (pageIndex, pageSize) => {
     return useQuery({
-        queryKey: ['getPaginatedUniversities', pageIndex],
+        queryKey: ['getPaginatedUniversities', pageIndex, pageSize],
         queryFn: () => UniversityApiService.getAllWithPagination(pageIndex, pageSize),
         staleTime: Infinity,
     });
