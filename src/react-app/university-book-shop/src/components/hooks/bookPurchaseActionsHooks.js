@@ -25,7 +25,6 @@ export const useGetAvailableBookQuery = (bookId, facultyId) => {
 
 export const usePurchaseBookMutation = (setErrorMessage) => {
     const queryClient = useQueryClient();
-
     return useMutation({
         mutationFn: ([bookId, facultyId]) => PurchasedBookApiService.postPurchaseBookForFaculty(bookId, facultyId),
         onSuccess: (response) => {

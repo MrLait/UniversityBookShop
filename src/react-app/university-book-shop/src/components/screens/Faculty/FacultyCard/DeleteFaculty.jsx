@@ -3,8 +3,9 @@ import React from 'react';
 
 import { useDeleteFacultyByFacultyIdMutation } from '../../../hooks/facultyHooks';
 
-import styles from './DeleteFaculty.module.css';
+import MyButtonSpinner from '../../../UI/spinner/MyModalSpinner/MyButtonSpinner';
 
+import styles from './DeleteFaculty.module.css';
 
 const DeleteFaculty = ({ facultyId, setErrorMessage }) => {
     const deleteFaculty = useDeleteFacultyByFacultyIdMutation(setErrorMessage);
@@ -13,12 +14,16 @@ const DeleteFaculty = ({ facultyId, setErrorMessage }) => {
         deleteFaculty.mutate([facultyId]);
     };
 
+    const isLoading = deleteFaculty?.isPending || deleteFaculty?.data?.data?.isSucceeded;
+
     return (
         <>
-            <span className={styles.remove}
-                onClick={() => deleteFacultyHandler(facultyId)}>
-                x
-            </span>
+            {isLoading ? <MyButtonSpinner isPending={isLoading} />
+                :
+                <span className={styles.remove}
+                    onClick={() => deleteFacultyHandler(facultyId)}>
+                    x
+                </span>}
         </>
     );
 };
