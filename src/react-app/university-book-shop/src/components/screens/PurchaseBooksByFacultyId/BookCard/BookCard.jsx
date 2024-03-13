@@ -42,7 +42,7 @@ const BookCard = ({ book }) => {
                     )}
                     <BookPurchaseActions
                         book={book}
-                    />
+                        s />
                 </ul>
             </div >
         </>
