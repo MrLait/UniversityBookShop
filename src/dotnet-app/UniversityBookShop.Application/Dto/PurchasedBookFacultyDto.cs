@@ -9,8 +9,8 @@ public class PurchasedBookFacultyDto : IMapWith<PurchasedBookFaculty>
     public int Id { get; set; }
     public int? BookId { get; set; }
     public int? FacultyId { get; set; }
-    public BookDto? Book { get; set; }
-    public FacultyDto? Faculty { get; set; }
+    public BookDto Book { get; set; }
+    public FacultyDto Faculty { get; set; }
 
     public void Mapping(Profile profile)
     {

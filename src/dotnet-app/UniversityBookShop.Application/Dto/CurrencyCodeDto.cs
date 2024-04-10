@@ -7,7 +7,7 @@ namespace UniversityBookShop.Application.Dto
     public class CurrencyCodeDto : IMapWith<CurrencyCode>
     {
         public int Id { get; set; }
-        public string? Code { get; set; }
+        public string Code { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -19,12 +19,7 @@
 
         public ServiceResult(ServiceError error)
         {
-            if (error == null)
-            {
-                Error = ServiceError.DefaultError;
-            }
-
-            Error = error;
+            Error = error ?? ServiceError.DefaultError;
         }
 
         public static ServiceResult Failed(ServiceError error) => new(error);
