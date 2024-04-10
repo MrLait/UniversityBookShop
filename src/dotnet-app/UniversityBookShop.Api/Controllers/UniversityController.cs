@@ -31,7 +31,7 @@ public class UniversityController : BaseController
     /// <summary>
     /// Get university by university id with paginated faculties.
     /// </summary>
-    [HttpGet(RoutingConstants.UniversityId)]
+    [HttpGet(RoutingConstants.University.UniversityId)]
     [SwaggerResponse(StatusCodes.Status200OK)]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ServiceResult<UniversityWithPaginatedFacultiesVm>>> GetAll(int universityId, [FromQuery] PaginationParams paginationParams)

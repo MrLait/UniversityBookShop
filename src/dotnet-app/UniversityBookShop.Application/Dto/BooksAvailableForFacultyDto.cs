@@ -13,8 +13,8 @@ public class BooksAvailableForFacultyDto : IMapWith<BooksAvailableForFaculty>
     public int? UniversityId { get; set; }
 
     // One to Many
-    public BookDto? Book { get; set; }
-    public FacultyDto? Faculty { get; set; }
+    public BookDto Book { get; set; }
+    public FacultyDto Faculty { get; set; }
 
     public void Mapping(Profile profile)
     {
