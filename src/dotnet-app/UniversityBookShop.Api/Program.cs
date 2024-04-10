@@ -51,9 +51,9 @@ using (var scope = app.Services.CreateScope())
         var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
         DbInitializer.Initializer(context);
     }
-    catch (Exception m)
+    catch (Exception message)
     {
-        Console.WriteLine(m);
+        Console.WriteLine(message); //TODO: V5621 https://pvs-studio.ru/ru/docs/warnings/v5621/ Error message contains potentially sensitive data, in 'message', that may be exposed.
     }
 }
 

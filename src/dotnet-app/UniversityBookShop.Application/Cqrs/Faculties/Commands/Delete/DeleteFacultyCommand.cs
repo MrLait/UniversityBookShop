@@ -12,12 +12,10 @@ public class DeleteFacultyCommand : IRequest<ServiceResult<Unit>>
     public int Id { get; set; }
 }
 
-public class DeleteFacultyCommandHandler :
+public class DeleteFacultyCommandHandler(IApplicationDbContext dbContext) :
     IRequestHandler<DeleteFacultyCommand, ServiceResult<Unit>>
 {
-    private readonly IApplicationDbContext _dbContext;
-
-    public DeleteFacultyCommandHandler(IApplicationDbContext dbContext) => _dbContext = dbContext;
+    private readonly IApplicationDbContext _dbContext = dbContext;
 
     public async Task<ServiceResult<Unit>> Handle(DeleteFacultyCommand request, CancellationToken cancellationToken)
     {
@@ -26,7 +24,7 @@ public class DeleteFacultyCommandHandler :
             .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
         ?? throw new NotFoundException(nameof(Faculty), request.Id);
 
-        if (entity.BooksAvailableForFaculty.Any())
+        if (entity.BooksAvailableForFaculty.Count != 0)
         {
             return ServiceResult.Failed<Unit>(ServiceError.CantDeleteFacultyBookExist);
         }

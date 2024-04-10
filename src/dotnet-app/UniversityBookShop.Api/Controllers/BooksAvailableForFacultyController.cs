@@ -27,7 +27,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id. 
         /// </summary>
-        [HttpGet(RoutingConstants.FacultyId)]
+        [HttpGet(RoutingConstants.BooksAvailableForFaculty.FacultyId)]
         public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
         {
             var query = new GetAvailableBooksByFacultyIdWithPaginationQuery(facultyId, paginationParams);
@@ -37,7 +37,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id and book id. 
         /// </summary>
-        [HttpGet(RoutingConstants.FacultyIdBookId)]
+        [HttpGet(RoutingConstants.BooksAvailableForFaculty.FacultyIdBookId)]
         public async Task<ActionResult<ServiceResult<BooksAvailableForFacultyDto>>> GetByFacultyIdAndBookId(int facultyId, int bookId)
         {
             var query = new GetAvailableBooksByFacultyIdAndBookIdQuery(facultyId, bookId);
@@ -47,7 +47,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Add a book for a faculty.
         /// </summary>
-        [HttpPost(RoutingConstants.Add)]
+        [HttpPost(RoutingConstants.BooksAvailableForFaculty.Add)]
         public async Task<ActionResult<ServiceResult<int>>> Create(AddBooksAvailableForFacultyCommand command)
         {
             return Ok(await Mediator.Send(command));

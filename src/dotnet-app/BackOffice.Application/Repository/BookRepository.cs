@@ -24,7 +24,7 @@ public class BookRepository : IBookRepository
 
     public async Task<List<Book>> GetAllAsync() =>
         await _booksCollection.Find(_ => true).ToListAsync();
-    public async Task<Book?> GetByIdAsync(string id) =>
+    public async Task<Book> GetByIdAsync(string id) =>
         await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
     public async Task CreateAsync(Book entity) =>
         await _booksCollection.InsertOneAsync(entity);

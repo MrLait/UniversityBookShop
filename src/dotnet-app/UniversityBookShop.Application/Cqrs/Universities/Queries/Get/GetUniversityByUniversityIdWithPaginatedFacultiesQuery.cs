@@ -62,7 +62,7 @@ public class GetUniversityByUniversityIdWithPaginatedFacultiesQueryHandler : IRe
 
     private async Task UpdateFacultyAndBookCounts(UniversityWithPaginatedFacultiesVm university, CancellationToken cancellationToken)
     {
-        university.FacultyCount = university?.FacultiesWithPagination?.Items?.Count ?? 0;
+        university.FacultyCount = university.FacultiesWithPagination.Items?.Count ?? 0;
         university.BookCount = await _dbContext.PurchasedBookFaculties
             .Where(x => x.Faculty!.UniversityId == university.Id)
             .CountAsync(cancellationToken);
