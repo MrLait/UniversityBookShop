@@ -1,16 +1,37 @@
 using IdentityServer.Api.Constants;
 using IdentityServer.Api.Data;
+using IdentityServer.Api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opt.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddIdentityServer()
+     .AddConfigurationStore(options =>
+     {
+         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
+             sql => sql.MigrationsAssembly(migrationsAssembly));
+     })
+     .AddOperationalStore(options =>
+     {
+         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
+             sql => sql.MigrationsAssembly(migrationsAssembly));
+     })
+     .AddAspNetIdentity<ApplicationUser>();
+
 
 builder.Services.AddAuthorization();
 
@@ -33,19 +54,12 @@ if (app.Environment.IsDevelopment())
 
 app.MapIdentityApi<IdentityUser>();
 
-//app.MapGet("/", () => "Hello World!");
-
 app.Run();
 
+// Add-Migration InitialPersistedGranMigration -c PersistedGrantDbContext -o Migrations/IdentityServer/PersistedGrantDb
+// Add-Migration InitialConfigurationMigration -c ConfigurationDbContext -o Migrations/IdentityServer/ConfigurationDb
+// Add-Migration InitialApplicationMigration -c ApplicationDbContext -o Migrations/IdentityServer/ApplicationDb
 
-//services.AddIdentityServer()
-// .AddApiAuthorization<ApplicationUser, ApplicationDbContext>((config) =>
-//  {
-//      config.Clients[0].AccessTokenLifetime = 3600
-//                });
-//services.AddIdentityServer().AddDeve
-//.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-//app.UseIdentityServer();
-
-//services.AddEntityFrameworkSqlite().AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
-//services.AddEntityFrameworkSqlite().AddDbContext<ApplicationDbContext>(opt => opt.UseSqlite(builder.Configuration.GetConnectionString("WebApiDatabase")));
+// Update-Database InitialPersistedGranMigration -Context PersistedGrantDbContext
+// Update-Database InitialConfigurationMigration -Context ConfigurationDbContext
+// Update-Database InitialApplicationMigration -Context ApplicationDbContext
