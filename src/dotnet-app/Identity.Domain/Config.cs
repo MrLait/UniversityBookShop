@@ -1,8 +1,8 @@
-﻿using IdentityServer.Api.Constants;
+﻿using Identity.Domain.Constants;
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace IdentityServer.Api
+namespace Identity.Domain
 {
     public static class Config
     {

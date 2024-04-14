@@ -1,65 +1,63 @@
-using IdentityServer.Api;
+using Identity.Persistence;
+using IdentityServer.Persistence;
 using IdentityServer.Api.Constants;
-using IdentityServer.Api.Data;
-using IdentityServer.Api.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using System.Reflection;
 
-var seed = args.Contains("/seed");
-if (seed)
-{
-    args = args.Except(new[] { "/seed" }).ToArray();
-}
+//var seed = args.Contains("/seed");
+//if (seed)
+//{
+//    args = args.Except(new[] { "/seed" }).ToArray();
+//}
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (seed)
-{
-    Log.Information("Seeding database...");
-    var connectionString = builder.Configuration.GetConnectionString("IdentityConnection");
-    SeedData.EnsureSeedData(connectionString);
-    Log.Information("Done seeding database.");
-}
+//if (seed)
+//{
+//    //Log.Information("Seeding database...");
+//    var connectionString = builder.Configuration.GetConnectionString("IdentityConnection");
+//    SeedData.EnsureSeedData(connectionString);
+//    //Log.Information("Done seeding database.");
+//}
 
 
-var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
+//var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+builder.Services.AddIdentityPersistence(builder.Configuration);
+builder.Services.AddIdentityServerPersistence(builder.Configuration);
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    //.AddApiEndpoints()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+//builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+//    opt.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
 
-builder.Services.AddIdentityServer(options =>
-    {
-        options.Events.RaiseErrorEvents = true;
-        options.Events.RaiseInformationEvents = true;
-        options.Events.RaiseFailureEvents = true;
-        options.Events.RaiseSuccessEvents = true;
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+//    //.AddApiEndpoints()
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddDefaultTokenProviders();
 
-        // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-        options.EmitStaticAudienceClaim = true;
-    })
-     .AddConfigurationStore(options =>
-     {
-         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
-             sql => sql.MigrationsAssembly(migrationsAssembly));
-     })
-     .AddOperationalStore(options =>
-     {
-         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
-             sql => sql.MigrationsAssembly(migrationsAssembly));
-     })
-     .AddAspNetIdentity<ApplicationUser>()
-     .AddDeveloperSigningCredential();
+//builder.Services.AddIdentityServer(options =>
+//    {
+//        options.Events.RaiseErrorEvents = true;
+//        options.Events.RaiseInformationEvents = true;
+//        options.Events.RaiseFailureEvents = true;
+//        options.Events.RaiseSuccessEvents = true;
+
+//        // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+//        options.EmitStaticAudienceClaim = true;
+//    })
+//     .AddConfigurationStore(options =>
+//     {
+//         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
+//             sql => sql.MigrationsAssembly(migrationsAssembly));
+//     })
+//     .AddOperationalStore(options =>
+//     {
+//         options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
+//             sql => sql.MigrationsAssembly(migrationsAssembly));
+//     })
+//     .AddAspNetIdentity<ApplicationUser>()
+//     .AddDeveloperSigningCredential();
 
 builder.Services.AddAuthentication();
 

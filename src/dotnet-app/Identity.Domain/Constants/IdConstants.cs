@@ -1,4 +1,4 @@
-﻿namespace IdentityServer.Api.Constants
+﻿namespace Identity.Domain.Constants
 {
     public static class IdConstants
     {

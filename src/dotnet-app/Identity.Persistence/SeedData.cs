@@ -1,14 +1,12 @@
 ﻿using System.Security.Claims;
+using Identity.Domain.Models;
 using IdentityModel;
-using IdentityServer.Api.Data;
-using IdentityServer.Api.Models;
-//using IdentityServerAspNetIdentity.Data;
-//using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace IdentityServer.Api
+namespace Identity.Persistence
 {
     public class SeedData
     {
@@ -28,7 +26,8 @@ namespace IdentityServer.Api
                 using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
                     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                    context.Database.Migrate();
+
+                    //context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var alice = userMgr.FindByNameAsync("alice").Result;

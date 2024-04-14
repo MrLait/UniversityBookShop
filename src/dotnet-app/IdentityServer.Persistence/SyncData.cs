@@ -1,8 +1,11 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
+﻿using Identity.Domain;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace IdentityServer.Api
+namespace IdentityServer.Persistence
 {
     public class SyncData
     {

@@ -3,12 +3,14 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/dotnet-app/IdentityServer.Api/IdentityServer.Api.csproj", "src/dotnet-app/IdentityServer.Api/"]
+COPY ["src/dotnet-app/Identity.Persistence/Identity.Persistence.csproj", "src/dotnet-app/Identity.Persistence/"]
+COPY ["src/dotnet-app/Identity.Domain/Identity.Domain.csproj", "src/dotnet-app/Identity.Domain/"]
+COPY ["src/dotnet-app/IdentityServer.Persistence/IdentityServer.Persistence.csproj", "src/dotnet-app/IdentityServer.Persistence/"]
 RUN dotnet restore "./src/dotnet-app/IdentityServer.Api/IdentityServer.Api.csproj"
 COPY . .
 WORKDIR "/src/src/dotnet-app/IdentityServer.Api"
