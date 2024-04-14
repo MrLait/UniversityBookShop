@@ -10,6 +10,10 @@ namespace IdentityServer.Api.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
 
         //public ApplicationDbContext(DbContextOptions options,
