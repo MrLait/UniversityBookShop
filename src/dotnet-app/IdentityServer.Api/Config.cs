@@ -16,39 +16,28 @@ namespace IdentityServer.Api
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("api1"),
-                new ApiScope("My API"),
+                new ApiScope("api1", "My API")
             };
 
-        public static IEnumerable<Client> GetClients() =>
-            new List<Client>
-            {
-                // machine to machine client
+        public static IEnumerable<Client> Clients =>
+             new List<Client>
+             {
                 new Client
                 {
-                    ClientId = "test.client",
-                    ClientName = "Test client",
+                    ClientId = "client",
+
+                    // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                    AllowedScopes = { "api1" }
-                },
-                
-                // interactive ASP.NET Core MVC client
-                new Client
-                {
-                    ClientId = "external",
-                    ClientName = "External Client",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    RequireClientSecret = false,
-
-                    AllowedScopes = new List<string>
+                    // secret for authentication
+                    ClientSecrets =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
-                    }
+                        new Secret("secret".Sha256())
+                    },
+
+                    // scopes that client has access to
+                    AllowedScopes = { "api1" }
                 }
-            };
+             };
     }
 }

@@ -49,10 +49,10 @@ builder.Services.AddIdentityServer()
          options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
              sql => sql.MigrationsAssembly(migrationsAssembly));
      })
-     .AddAspNetIdentity<ApplicationUser>();
+     .AddAspNetIdentity<ApplicationUser>()
+     .AddDeveloperSigningCredential();
 
-
-builder.Services.AddAuthentication();
+//builder.Services.AddAuthentication();
 
 //builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -72,14 +72,14 @@ if (app.Environment.IsDevelopment())
         config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
     });
 }
-app.UseRouting();
+//app.UseRouting();
 
 app.UseIdentityServer();
-app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute();
-});
+//app.UseAuthorization();
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapDefaultControllerRoute();
+//});
 //app.MapGroup("/account").MapIdentityApi<ApplicationUser>();
 
 //app.MapIdentityApi<IdentityUser>();
