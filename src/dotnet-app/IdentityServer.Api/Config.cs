@@ -1,4 +1,5 @@
-﻿using IdentityServer4;
+﻿using IdentityServer.Api.Constants;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace IdentityServer.Api
@@ -6,38 +7,53 @@ namespace IdentityServer.Api
     public static class Config
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
-            new List<IdentityResource>
+            new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
             };
 
-
         public static IEnumerable<ApiScope> ApiScopes =>
-            new List<ApiScope>
+            new ApiScope[]
             {
-                new ApiScope("api1", "My API")
+                new ApiScope(IdConstants.ApiScope),
+                new ApiScope(IdConstants.WebScope),
             };
 
         public static IEnumerable<Client> Clients =>
-             new List<Client>
-             {
+            new Client[]
+            {
                 new Client
                 {
-                    ClientId = "client",
+                    ClientId = "test.client",
+                    ClientName = "Test client",
 
-                    // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                    // secret for authentication
-                    ClientSecrets =
+                    AllowedScopes =
                     {
-                        new Secret("secret".Sha256())
-                    },
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdConstants.WebScope,
+                        IdConstants.ApiScope
+                    }
+                },
 
-                    // scopes that client has access to
-                    AllowedScopes = { "api1" }
+                new Client
+                {
+                    ClientId = "external",
+                    ClientName = "External Client",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    RequireClientSecret = false,
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdConstants.WebScope
+                    }
                 }
-             };
+            };
     }
 }

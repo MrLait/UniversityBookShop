@@ -38,7 +38,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddIdentityServer()
+builder.Services.AddIdentityServer(options =>
+    {
+        options.Events.RaiseErrorEvents = true;
+        options.Events.RaiseInformationEvents = true;
+        options.Events.RaiseFailureEvents = true;
+        options.Events.RaiseSuccessEvents = true;
+
+        // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+        options.EmitStaticAudienceClaim = true;
+    })
      .AddConfigurationStore(options =>
      {
          options.ConfigureDbContext = b => b.UseSqlite(builder.Configuration.GetConnectionString("IdentityServerConnection"),
@@ -52,7 +61,7 @@ builder.Services.AddIdentityServer()
      .AddAspNetIdentity<ApplicationUser>()
      .AddDeveloperSigningCredential();
 
-//builder.Services.AddAuthentication();
+builder.Services.AddAuthentication();
 
 //builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -72,14 +81,13 @@ if (app.Environment.IsDevelopment())
         config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
     });
 }
-//app.UseRouting();
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseIdentityServer();
-//app.UseAuthorization();
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapDefaultControllerRoute();
-//});
+app.UseAuthorization();
+app.MapDefaultControllerRoute();
+
 //app.MapGroup("/account").MapIdentityApi<ApplicationUser>();
 
 //app.MapIdentityApi<IdentityUser>();

@@ -17,7 +17,7 @@ namespace IdentityServer.Api
 
                 if (!context.Clients.Any())
                 {
-                    foreach (var client in Config.GetClients())
+                    foreach (var client in Config.Clients)
                     {
                         context.Clients.Add(client.ToEntity());
                     }
