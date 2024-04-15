@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.Persistence.Migrations.IdentityServer.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240414160755_InitialApplicationDb")]
+    [Migration("20240415081412_InitialApplicationDb")]
     partial class InitialApplicationDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,12 @@ namespace Identity.Persistence.Migrations.IdentityServer.ApplicationDb
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");

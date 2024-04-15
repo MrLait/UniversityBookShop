@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Domain.Constants;
+using Identity.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace IdentityServer.Persistence
         public static IServiceCollection AddIdentityServerPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("IdentityServerConnection");
+            var connectionString = configuration.GetConnectionString(ConnectionConstants.IdentityServerConnection);
 
             var migrationsAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name;
 

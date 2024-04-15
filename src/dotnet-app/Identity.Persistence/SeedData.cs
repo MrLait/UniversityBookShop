@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
+using Identity.Domain.Constants;
 using Identity.Domain.Models;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -10,8 +12,10 @@ namespace Identity.Persistence
 {
     public class SeedData
     {
-        public static void EnsureSeedData(string connectionString)
+        public static void EnsureSeedData(IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString(ConnectionConstants.IdentityConnection);
+
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -27,7 +31,7 @@ namespace Identity.Persistence
                 {
                     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                    //context.Database.Migrate();
+                    context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var alice = userMgr.FindByNameAsync("alice").Result;

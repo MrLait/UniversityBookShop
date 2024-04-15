@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Domain.Constants;
+using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,8 +12,8 @@ namespace Identity.Persistence
         public static IServiceCollection AddIdentityPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("IdentityConnection");
-            SeedData.EnsureSeedData(connectionString);
+            var connectionString = configuration.GetConnectionString(ConnectionConstants.IdentityConnection);
+            //SeedData.EnsureSeedData(connectionString);
 
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlite(connectionString));

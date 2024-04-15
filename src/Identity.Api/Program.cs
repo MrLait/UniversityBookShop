@@ -1,11 +1,25 @@
+using Identity.Persistence;
+
+var seed = args.Contains("/seed");
+if (seed)
+{
+    args = args.Except(["/seed"]).ToArray();
+}
+
 var builder = WebApplication.CreateBuilder(args);
+
+if (seed)
+{
+    SeedData.EnsureSeedData(builder.Configuration);
+}
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddIdentityPersistence(builder.Configuration);
 
 var app = builder.Build();
 
