@@ -12,7 +12,7 @@ namespace IdentityServer.Persistence
         public static IServiceCollection AddIdentityServerPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString(ConnectionConstants.IdentityServerConnection);
+            var connectionString = configuration[ConnectionConstants.IdentityServerConnection];
 
             var migrationsAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name;
 
@@ -28,12 +28,12 @@ namespace IdentityServer.Persistence
                 })
                  .AddConfigurationStore(options =>
                  {
-                     options.ConfigureDbContext = b => b.UseSqlite(connectionString,
+                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
                          sql => sql.MigrationsAssembly(migrationsAssembly));
                  })
                  .AddOperationalStore(options =>
                  {
-                     options.ConfigureDbContext = b => b.UseSqlite(connectionString,
+                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
                          sql => sql.MigrationsAssembly(migrationsAssembly));
                  })
                  .AddAspNetIdentity<ApplicationUser>()

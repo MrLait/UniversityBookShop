@@ -40,7 +40,6 @@ services:
   identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
       - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
     ports:
       - "5002:8080"
@@ -55,9 +54,20 @@ services:
     volumes:
       - ./mssql-data:/var/opt/mssql/data
 
+  identityserver.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IdentityServerConnection= Server=docker-ms-sql-server,1433;Database=IdentityServerData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+    ports:
+      - "32777:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
 volumes:
   mssql-data:
 
 # volumes:
 #   mysql-data:
+
 

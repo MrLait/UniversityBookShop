@@ -9,6 +9,6 @@ namespace Identity.Api.Controllers
     public class HealthCheckController:ControllerBase
     {
         [HttpGet]
-        public string Get() => "Servoce is online";
+        public string Get() => "Service is online";
     }
 }

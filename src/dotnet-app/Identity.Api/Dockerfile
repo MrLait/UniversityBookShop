@@ -8,12 +8,12 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Identity.Api/Identity.Api.csproj", "src/Identity.Api/"]
-COPY ["src/dotnet-app/Identity.Persistence/Identity.Persistence.csproj", "src/dotnet-app/Identity.Persistence/"]
-COPY ["src/dotnet-app/Identity.Domain/Identity.Domain.csproj", "src/dotnet-app/Identity.Domain/"]
-RUN dotnet restore "./src/Identity.Api/Identity.Api.csproj"
+COPY ["dotnet-app/Identity.Api/Identity.Api.csproj", "dotnet-app/Identity.Api/"]
+COPY ["dotnet-app/Identity.Persistence/Identity.Persistence.csproj", "dotnet-app/Identity.Persistence/"]
+COPY ["dotnet-app/Identity.Domain/Identity.Domain.csproj", "dotnet-app/Identity.Domain/"]
+RUN dotnet restore "./dotnet-app/Identity.Api/Identity.Api.csproj"
 COPY . .
-WORKDIR "/src/src/Identity.Api"
+WORKDIR "/src/dotnet-app/Identity.Api"
 RUN dotnet build "./Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

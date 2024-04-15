@@ -4,6 +4,7 @@ using IdentityServer.Api.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,6 +29,7 @@ if (app.Environment.IsDevelopment())
         config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
     });
 }
+
 app.UseStaticFiles();
 app.UseRouting();
 

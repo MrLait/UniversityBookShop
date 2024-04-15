@@ -30,11 +30,19 @@ services:
     image: mcr.microsoft.com/mssql/server:latest
     container_name: docker-ms-sql-server
 
-
   identity.api:
     image: identityapi
     build:
       context: .
-      dockerfile: src/Identity.Api/Dockerfile
+      dockerfile: src/dotnet-app/Identity.Api/Dockerfile
     depends_on:
       - mssql
+
+  identityserver.api:
+    image: identityserverapi
+    build:
+      context: .
+      dockerfile: src/dotnet-app/IdentityServer.Api/Dockerfile
+    depends_on:
+      - mssql
+
