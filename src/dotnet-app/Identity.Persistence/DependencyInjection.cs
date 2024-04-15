@@ -12,11 +12,10 @@ namespace Identity.Persistence
         public static IServiceCollection AddIdentityPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString(ConnectionConstants.IdentityConnection);
-            //SeedData.EnsureSeedData(connectionString);
+            var connectionString = configuration[ConnectionConstants.IdentityConnection];
 
             services.AddDbContext<ApplicationDbContext>(opt =>
-                opt.UseSqlite(connectionString));
+                opt.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 //.AddApiEndpoints()

@@ -13,13 +13,11 @@
     "Container (Dockerfile)": {
       "commandName": "Docker",
       "launchBrowser": true,
-      
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
       "environmentVariables": {
-        "ASPNETCORE_HTTP_PORTS": "8081"
+        "ASPNETCORE_HTTP_PORTS": "80"
       },
       "publishAllPorts": true,
-      "useSSL": true,
       "applicationUrl": "http://localhost:32777",
       "DockerfileRunArguments": "-p 32777:80"
     }

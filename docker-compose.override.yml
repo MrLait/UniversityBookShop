@@ -1,41 +1,63 @@
 version: '3.4'
 
 services:
-  mysql:
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: university-book-shop
-    ports:
-      - 33062:3306
-    volumes:
-      - ./mysql-data:/var/lib/mysql
+  # mysql:
+  #   environment:
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: university-book-shop
+  #   ports:
+  #     - 33062:3306
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
 
-  universitybookshop.api:
+  # universitybookshop.api:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:80
+  #     - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root; 
+  #   ports:
+  #     - "7265:80"
+  #   restart: always
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #     - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  # reactApp:
+  #   environment:
+  #     - WDS_SOCKET_PORT= 0
+  #     - REACT_APP_BASE_URL=useNginx
+  #   ports:
+  #     - "5001:3000"
+
+  # proxy:
+  #   restart: always
+  #   volumes: 
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   ports:
+  #     - "80:80"
+
+  identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-      - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root; 
+      - ASPNETCORE_HTTP_PORTS=8080
+      - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
     ports:
-      - "7265:80"
-    restart: always
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - "5002:8080"
 
-  reactApp:
+  mssql:
     environment:
-      - WDS_SOCKET_PORT= 0
-      - REACT_APP_BASE_URL=useNginx
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - User Id=SA;
     ports:
-      - "5001:3000"
-
-  proxy:
-    restart: always
-    volumes: 
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
+      - "33063:1433"
+    volumes:
+      - ./mssql-data:/var/opt/mssql/data
 
 volumes:
-  mysql-data:
+  mssql-data:
+
+# volumes:
+#   mysql-data:
+
