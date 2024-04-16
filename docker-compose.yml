@@ -32,6 +32,7 @@ services:
 
   identity.api:
     image: identityapi
+    container_name: identityapi
     build:
       context: .
       dockerfile: src/dotnet-app/Identity.Api/Dockerfile
@@ -40,6 +41,7 @@ services:
 
   identityserver.api:
     image: identityserverapi
+    container_name: identityserverapi
     build:
       context: .
       dockerfile: src/dotnet-app/IdentityServer.Api/Dockerfile

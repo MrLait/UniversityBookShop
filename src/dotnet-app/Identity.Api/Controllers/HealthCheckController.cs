@@ -5,6 +5,7 @@ namespace Identity.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [AllowAnonymous]
     public class HealthCheckController:ControllerBase
     {

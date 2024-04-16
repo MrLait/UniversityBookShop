@@ -18,7 +18,7 @@ builder.Services.AddAuthentication();
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
 
-SyncData.InitializeDatabase(app);
+//SyncData.InitializeDatabase(app);
 
 if (app.Environment.IsDevelopment())
 {
@@ -32,11 +32,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-
 app.UseIdentityServer();
 app.UseAuthorization();
-app.MapDefaultControllerRoute();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+});
 
 
 app.Run();

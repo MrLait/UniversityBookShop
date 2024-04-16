@@ -41,8 +41,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IDENTITY_AUTHORITY= http://identityserverapi
     ports:
-      - "5002:8080"
+      - "5002:80"
+    networks:
+     - mconetwork
 
   mssql:
     environment:
@@ -53,16 +56,21 @@ services:
       - "33063:1433"
     volumes:
       - ./mssql-data:/var/opt/mssql/data
+    networks:
+     - mconetwork
 
   identityserver.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
       - IdentityServerConnection= Server=docker-ms-sql-server,1433;Database=IdentityServerData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IDENTITY_ISSUER= http://identityserverapi
     ports:
       - "32777:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    networks:
+     - mconetwork
 
 volumes:
   mssql-data:
@@ -70,4 +78,6 @@ volumes:
 # volumes:
 #   mysql-data:
 
-
+networks:
+  mconetwork:
+    driver: bridge

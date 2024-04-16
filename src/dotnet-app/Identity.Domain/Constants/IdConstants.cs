@@ -7,5 +7,9 @@
 
         public const string GrantType_ClientCredentials = "client_credentials";
         public const string GrantType_Password = "password";
+
+        public const string ApiScopePolicy = "ApiScope";
+        public const string ClaimScope = "scope";
+
     }
 }

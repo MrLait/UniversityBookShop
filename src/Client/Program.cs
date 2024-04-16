@@ -21,10 +21,10 @@ namespace Client
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "client",
-                ClientSecret = "secret",
+                ClientId = "test.client",
+                ClientSecret = "511536EF-F270-4058-80CA-1C89C192F69A",
 
-                Scope = "api1"
+                Scope = "OnlineShop.Api"
             });
 
             if (tokenResponse.IsError)
@@ -40,7 +40,7 @@ namespace Client
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await apiClient.GetAsync("https://localhost:6001/identity");
+            var response = await apiClient.GetAsync("http://localhost:5002/HealthCheck");
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);

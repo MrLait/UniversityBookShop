@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Domain", "src\dotn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Api", "src\dotnet-app\Identity.Api\Identity.Api.csproj", "{AB282766-9E2A-4147-88C1-7D2E8909138C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "src\dotnet-app\Identity.Application\Identity.Application.csproj", "{C35E2167-870F-4F80-A925-9CF61EEC5FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{AB282766-9E2A-4147-88C1-7D2E8909138C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB282766-9E2A-4147-88C1-7D2E8909138C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB282766-9E2A-4147-88C1-7D2E8909138C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35E2167-870F-4F80-A925-9CF61EEC5FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35E2167-870F-4F80-A925-9CF61EEC5FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35E2167-870F-4F80-A925-9CF61EEC5FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35E2167-870F-4F80-A925-9CF61EEC5FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +166,7 @@ Global
 		{52757225-DB2D-4AAC-AD3D-3ABB920EB778} = {A925182B-69E6-4908-94A4-3060F4F76A13}
 		{8072233F-8F4B-436C-A641-207E890F2790} = {942AB904-C08B-438A-8C74-22A6AA988069}
 		{AB282766-9E2A-4147-88C1-7D2E8909138C} = {F7BEB16C-A11D-470F-969C-D54E4B7A48BA}
+		{C35E2167-870F-4F80-A925-9CF61EEC5FEB} = {942AB904-C08B-438A-8C74-22A6AA988069}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {837FC794-5B34-4671-BEF4-A735389F00C5}

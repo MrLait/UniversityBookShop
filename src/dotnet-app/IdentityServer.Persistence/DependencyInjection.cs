@@ -13,7 +13,7 @@ namespace IdentityServer.Persistence
             IConfiguration configuration)
         {
             var connectionString = configuration[ConnectionConstants.IdentityServerConnection];
-
+            var IDENTITY_ISSUER = configuration["IDENTITY_ISSUER"];
             var migrationsAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddIdentityServer(options =>
@@ -25,6 +25,7 @@ namespace IdentityServer.Persistence
 
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
+                    options.IssuerUri = IDENTITY_ISSUER;
                 })
                  .AddConfigurationStore(options =>
                  {
