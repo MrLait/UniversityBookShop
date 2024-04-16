@@ -33,6 +33,7 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 app.UseIdentityServer();
+//app.UseForwardedHeaders();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {

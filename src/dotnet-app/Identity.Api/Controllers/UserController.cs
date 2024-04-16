@@ -1,4 +1,4 @@
-﻿using Identity.Api.Constants;
+﻿using Identity.Application.Common.Constants;
 using Identity.Application.Common.Models.Requests;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,10 +12,10 @@ namespace Identity.Api.Controllers
     [Route(RoutingConstants.ApiController)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[AllowAnonymous]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UserController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

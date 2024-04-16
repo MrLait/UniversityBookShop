@@ -1,10 +1,8 @@
 ﻿using System.Security.Claims;
-using Identity.Domain.Constants;
 using Identity.Domain.Models;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 

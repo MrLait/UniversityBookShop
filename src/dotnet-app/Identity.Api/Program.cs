@@ -1,5 +1,5 @@
 using Identity.Api.Constants;
-using Identity.Domain.Constants;
+using Identity.Application.Common.Constants;
 using Identity.Persistence;
 using IdentityServer4.AccessTokenValidation;
 
@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-
 builder.Services.AddIdentityPersistence(builder.Configuration);
-var authority = builder.Configuration["IDENTITY_AUTHORITY"];
+var authority = builder.Configuration[IdentityConsts.IdentityAuthority];
+
 builder.Services.AddAuthentication(
       IdentityServerAuthenticationDefaults.AuthenticationScheme)
       .AddIdentityServerAuthentication(options =>
@@ -21,10 +21,10 @@ builder.Services.AddAuthentication(
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("ApiScope", policy =>
+    options.AddPolicy(IdentityConsts.ApiScopePolicy, policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", IdConstants.ApiScope);
+        policy.RequireClaim(IdentityConsts.ClaimTypeScope, IdentityConsts.ApiScope);
     });
 });
 
@@ -65,7 +65,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers().RequireAuthorization("ApiScope");
+    endpoints.MapControllers().RequireAuthorization(IdentityConsts.ApiScopePolicy);
 });
 
 app.Run();

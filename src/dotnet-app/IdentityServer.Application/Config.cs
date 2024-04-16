@@ -1,8 +1,8 @@
-﻿using Identity.Domain.Constants;
+﻿using IdentityServer.Application.Common.Constants;
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace Identity.Domain
+namespace IdentityServer.Application
 {
     public static class Config
     {
@@ -16,8 +16,8 @@ namespace Identity.Domain
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope(IdConstants.ApiScope),
-                new ApiScope(IdConstants.WebScope),
+                new ApiScope(IdentityServerConsts.ApiScope),
+                new ApiScope(IdentityServerConsts.WebScope),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -35,8 +35,8 @@ namespace Identity.Domain
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdConstants.WebScope,
-                        IdConstants.ApiScope
+                        IdentityServerConsts.WebScope,
+                        IdentityServerConsts.ApiScope
                     }
                 },
 
@@ -51,7 +51,7 @@ namespace Identity.Domain
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdConstants.WebScope
+                        IdentityServerConsts.WebScope
                     }
                 }
             };

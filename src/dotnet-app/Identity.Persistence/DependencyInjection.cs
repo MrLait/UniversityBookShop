@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Constants;
+﻿using Identity.Application.Common.Constants;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ namespace Identity.Persistence
         public static IServiceCollection AddIdentityPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration[ConnectionConstants.IdentityConnection];
+            var connectionString = configuration[IdentityConsts.Connections.Identity];
 
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlServer(connectionString));

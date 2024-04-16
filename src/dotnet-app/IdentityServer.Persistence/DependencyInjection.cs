@@ -1,5 +1,5 @@
-﻿using Identity.Domain.Constants;
-using Identity.Domain.Models;
+﻿using Identity.Domain.Models;
+using IdentityServer.Application.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +12,17 @@ namespace IdentityServer.Persistence
         public static IServiceCollection AddIdentityServerPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration[ConnectionConstants.IdentityServerConnection];
-            var IDENTITY_ISSUER = configuration["IDENTITY_ISSUER"];
+            var connectionString = configuration[IdentityServerConsts.Connections.IdentityServerConnection];
+            var IdentityIssuer = configuration[IdentityServerConsts.IdentityIssuer];
             var migrationsAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name;
+
+            //services.Configure<ForwardedHeadersOptions>(options =>
+            //{
+            //    options.ForwardedHeaders =
+            //        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+            //    options.KnownNetworks.Clear();
+            //    options.KnownProxies.Clear();
+            //});
 
             services.AddIdentityServer(options =>
                 {
@@ -25,7 +33,8 @@ namespace IdentityServer.Persistence
 
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
-                    options.IssuerUri = IDENTITY_ISSUER;
+                    options.IssuerUri = IdentityIssuer;
+                    //options.PublicOrigin = IDENTITY_ISSUER;
                 })
                  .AddConfigurationStore(options =>
                  {
