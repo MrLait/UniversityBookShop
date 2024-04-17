@@ -16,8 +16,8 @@ namespace IdentityServer.Application
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope(IdentityServerConsts.ApiScope),
-                new ApiScope(IdentityServerConsts.WebScope),
+                new ApiScope(ApiConstants.IdentityServer.ApiScope),
+                new ApiScope(ApiConstants.IdentityServer.WebScope),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -35,8 +35,8 @@ namespace IdentityServer.Application
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConsts.WebScope,
-                        IdentityServerConsts.ApiScope
+                        ApiConstants.IdentityServer.WebScope,
+                        ApiConstants.IdentityServer.ApiScope
                     }
                 },
 
@@ -51,7 +51,7 @@ namespace IdentityServer.Application
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConsts.WebScope
+                        ApiConstants.IdentityServer.WebScope
                     }
                 }
             };

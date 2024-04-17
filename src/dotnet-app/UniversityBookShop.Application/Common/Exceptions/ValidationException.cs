@@ -5,7 +5,7 @@ namespace UniversityBookShop.Application.Common.Exceptions
 {
     public class ValidationException : Exception
     {
-        public ValidationException(): base(ServiceErrorConstants.ValidationError)
+        public ValidationException(): base(ApplicationConstants.Service.Error.Validation)
         {
             Errors = new Dictionary<string, string[]>();
         }

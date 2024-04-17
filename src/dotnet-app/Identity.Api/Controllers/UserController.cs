@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Identity.Api.Controllers
 {
     [ApiController]
-    [Route(RoutingConstants.ApiController)]
+    [Route(ApiConstants.Routing.ApiController)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[AllowAnonymous]
     public class UserController : ControllerBase
@@ -20,14 +20,14 @@ namespace Identity.Api.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost(RoutingConstants.User.Add)]
+        [HttpPost(ApiConstants.Routing.User.Add)]
         public Task<IdentityResult> Add(CreateUserRequest request)
         {
             var result = _userManager.CreateAsync(request.User, request.Password);
             return result;
         }
 
-        [HttpPost(RoutingConstants.User.Update)]
+        [HttpPost(ApiConstants.Routing.User.Update)]
         public async Task<IdentityResult> Update(ApplicationUser user)
         {
             var userToBeUpdated = await _userManager.FindByNameAsync(user.UserName);
@@ -43,7 +43,7 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.User.Remove)]
+        [HttpPost(ApiConstants.Routing.User.Remove)]
         public Task<IdentityResult> Remove(ApplicationUser user)
         {
             var result = _userManager.DeleteAsync(user);
@@ -57,14 +57,14 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpGet(RoutingConstants.User.GetAll)]
+        [HttpGet(ApiConstants.Routing.User.GetAll)]
         public IEnumerable<ApplicationUser> Get()
         {
             var result = _userManager.Users.AsEnumerable();
             return result;
         }
 
-        [HttpPost(RoutingConstants.User.ChangePassword)]
+        [HttpPost(ApiConstants.Routing.User.ChangePassword)]
         public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -75,7 +75,7 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.AddToRole)]
+        [HttpPost(ApiConstants.Routing.AddToRole)]
         public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -86,7 +86,7 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.AddToRoles)]
+        [HttpPost(ApiConstants.Routing.AddToRoles)]
         public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -97,7 +97,7 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.RemoveFromRole)]
+        [HttpPost(ApiConstants.Routing.RemoveFromRole)]
         public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -108,7 +108,7 @@ namespace Identity.Api.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.RemoveFromRoles)]
+        [HttpPost(ApiConstants.Routing.RemoveFromRoles)]
         public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);

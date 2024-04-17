@@ -12,8 +12,8 @@ namespace IdentityServer.Persistence
         public static IServiceCollection AddIdentityServerPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration[IdentityServerConsts.Connections.IdentityServerConnection];
-            var IdentityIssuer = configuration[IdentityServerConsts.IdentityIssuer];
+            var connectionString = configuration[ApiConstants.Connection.IdentityServer];
+            var IdentityIssuer = configuration[ApiConstants.IdentityServer.IdentityIssuer];
             var migrationsAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly.GetName().Name;
 
             //services.Configure<ForwardedHeadersOptions>(options =>

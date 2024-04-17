@@ -1,6 +1,6 @@
 using Identity.Persistence;
 using IdentityServer.Persistence;
-using IdentityServer.Api.Constants;
+using IdentityServer.Application.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddAuthentication();
 var app = builder.Build();
 // REGISTER MIDDLEWARE HERE
 
-//SyncData.InitializeDatabase(app);
+SyncData.InitializeDatabase(app);
 
 if (app.Environment.IsDevelopment())
 {
@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(config =>
     {
         config.RoutePrefix = string.Empty;
-        config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
+        config.SwaggerEndpoint(ApiConstants.Swagger.Url, ApiConstants.Swagger.Name);
     });
 }
 

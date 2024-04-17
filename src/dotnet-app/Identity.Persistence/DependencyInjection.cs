@@ -12,7 +12,7 @@ namespace Identity.Persistence
         public static IServiceCollection AddIdentityPersistence(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration[IdentityConsts.Connections.Identity];
+            var connectionString = configuration[ApiConstants.DbConnection.Identity];
 
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlServer(connectionString));

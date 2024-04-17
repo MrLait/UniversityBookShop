@@ -11,18 +11,18 @@ namespace Client.HttpClients.IdentityApi
         public RoleClient(HttpClient httpClient, IOptions<ServiceAdressOptions> options) : base(httpClient, options) { }
 
         public async Task<IdentityResult> Add(IdentityRole role)
-            => await SendPostRequest(role, $"/{RoutingConstants.Role.ControllerApiName}/{RoutingConstants.Role.Add}");
+            => await SendPostRequest(role, $"/{ApiConstants.Routing.Role.ControllerApiName}/{ApiConstants.Routing.Role.Add}");
 
         public async Task<IdentityApiResponse<IdentityRole>> Get(string name)
-            => await SendGetRequest<IdentityRole>($"{RoutingConstants.Role.ControllerApiName}?name={name}");
+            => await SendGetRequest<IdentityRole>($"{ApiConstants.Routing.Role.ControllerApiName}?name={name}");
 
         public async Task<IdentityApiResponse<IEnumerable<IdentityRole>>> GetAll()
-            => await SendGetRequest<IEnumerable<IdentityRole>>($"/{RoutingConstants.Role.ControllerApiName}/{RoutingConstants.Role.GetAll}");
+            => await SendGetRequest<IEnumerable<IdentityRole>>($"/{ApiConstants.Routing.Role.ControllerApiName}/{ApiConstants.Routing.Role.GetAll}");
 
         public async Task<IdentityResult> Remove(IdentityRole role)
-            => await SendPostRequest(role, $"/{RoutingConstants.Role.ControllerApiName}/{RoutingConstants.Role.Remove}");
+            => await SendPostRequest(role, $"/{ApiConstants.Routing.Role.ControllerApiName} / {ApiConstants.Routing.Role.Remove}");
 
         public async Task<IdentityResult> Update(IdentityRole role)
-            => await SendPostRequest(role, $"/{RoutingConstants.Role.ControllerApiName}/{RoutingConstants.Role.Update}");
+            => await SendPostRequest(role, $"/{ApiConstants.Routing.Role.ControllerApiName} / {ApiConstants.Routing.Role.Update}");
     }
 }

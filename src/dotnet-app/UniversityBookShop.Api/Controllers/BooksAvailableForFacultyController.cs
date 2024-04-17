@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Commands.Create;
@@ -11,7 +11,7 @@ using UniversityBookShop.Application.Dto;
 namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
-    [Route(RoutingConstants.ApiController)]
+    [Route(ApiConstants.Routing.ApiController)]
     public class BooksAvailableForFacultyController : BaseController
     {
         /// <summary>
@@ -27,7 +27,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id. 
         /// </summary>
-        [HttpGet(RoutingConstants.BooksAvailableForFaculty.FacultyId)]
+        [HttpGet(ApiConstants.Routing.BooksAvailableForFaculty.FacultyId)]
         public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
         {
             var query = new GetAvailableBooksByFacultyIdWithPaginationQuery(facultyId, paginationParams);
@@ -37,7 +37,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id and book id. 
         /// </summary>
-        [HttpGet(RoutingConstants.BooksAvailableForFaculty.FacultyIdBookId)]
+        [HttpGet(ApiConstants.Routing.BooksAvailableForFaculty.FacultyIdBookId)]
         public async Task<ActionResult<ServiceResult<BooksAvailableForFacultyDto>>> GetByFacultyIdAndBookId(int facultyId, int bookId)
         {
             var query = new GetAvailableBooksByFacultyIdAndBookIdQuery(facultyId, bookId);
@@ -47,7 +47,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Add a book for a faculty.
         /// </summary>
-        [HttpPost(RoutingConstants.BooksAvailableForFaculty.Add)]
+        [HttpPost(ApiConstants.Routing.BooksAvailableForFaculty.Add)]
         public async Task<ActionResult<ServiceResult<int>>> Create(AddBooksAvailableForFacultyCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -56,7 +56,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Remove a book for a faculty.
         /// </summary>
-        [HttpDelete(RoutingConstants.Id)]
+        [HttpDelete(ApiConstants.Routing.Id)]
         public async Task<ActionResult<ServiceResult<int>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteBooksAvailableForFacultyCommand() { Id = id }));

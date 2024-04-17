@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.Books.Commands.Create;
@@ -14,7 +14,7 @@ using UniversityBookShop.Application.Dto;
 namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
-    [Route(RoutingConstants.ApiController)]
+    [Route(ApiConstants.Routing.ApiController)]
     public class BookController : BaseController
     {
         /// <summary>
@@ -35,7 +35,7 @@ namespace UniversityBookShop.Api.Controllers
             return Ok(vm);
         }
 
-        [HttpGet(RoutingConstants.Book.FacultyId)]
+        [HttpGet(ApiConstants.Routing.Book.FacultyId)]
         public async Task<ActionResult<ServiceResult<PaginatedList<BookDto>>>> GetWithPurchaseStatusByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
         {
             var vm = await Mediator.Send(new GetBooksWithPurchaseStatusByFacultyIdWithPaginationQuery(facultyId, paginationParams));
@@ -66,7 +66,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Delete book.
         /// </summary>
-        [HttpDelete(RoutingConstants.Id)]
+        [HttpDelete(ApiConstants.Routing.Id)]
         public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteBookCommand() { Id = id }));

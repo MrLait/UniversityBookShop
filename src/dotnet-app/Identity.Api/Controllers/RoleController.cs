@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace OnlineShop.UserManagementService.Controllers
 {
     [ApiController]
-    [Route(RoutingConstants.ApiController)]
+    [Route(ApiConstants.Routing.ApiController)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RoleController : ControllerBase
     {
@@ -17,14 +17,14 @@ namespace OnlineShop.UserManagementService.Controllers
             _roleManager = roleManager;
         }
 
-        [HttpPost(RoutingConstants.Role.Add)]
+        [HttpPost(ApiConstants.Routing.Role.Add)]
         public Task<IdentityResult> Add(IdentityRole role)
         {
             var result = _roleManager.CreateAsync(role);
             return result;
         }
 
-        [HttpPost(RoutingConstants.Role.Update)]
+        [HttpPost(ApiConstants.Routing.Role.Update)]
         public async Task<IdentityResult> Update(IdentityRole role)
         {
             var roleToBeUpdated = await _roleManager.FindByIdAsync(role.Id);
@@ -37,7 +37,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(RoutingConstants.Role.Remove)]
+        [HttpPost(ApiConstants.Routing.Role.Remove)]
         public Task<IdentityResult> Remove(IdentityRole role)
         {
             var result = _roleManager.DeleteAsync(role);
@@ -51,7 +51,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpGet(RoutingConstants.Role.GetAll)]
+        [HttpGet(ApiConstants.Routing.Role.GetAll)]
         public IEnumerable<IdentityRole> Get()
         {
             var result = _roleManager.Roles.AsEnumerable();

@@ -85,7 +85,7 @@ namespace UniversityBookShop.Api.Filters
             if(context.Exception is NotFoundException exception)
             {
                 var exceptionMessage = exception.Message;
-                var details = ServiceResult.Failed(ServiceError.CustomMessage(exceptionMessage, ServiceStatusCodeConstants.NotFoundStatusCode));
+                var details = ServiceResult.Failed(ServiceError.CustomMessage(exceptionMessage, ApplicationConstants.Service.StatusCode.NotFound));
                 context.Result = new NotFoundObjectResult(details);
                 context.ExceptionHandled = true;
                 return;

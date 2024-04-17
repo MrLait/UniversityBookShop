@@ -1,28 +1,36 @@
 version: '3.4'
 
+networks:
+  mconetwork:
+    driver: bridge
+
 services:
-  # mysql:
-  #   environment:
-  #     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: university-book-shop
-  #   ports:
-  #     - 33062:3306
-  #   volumes:
-  #     - ./mysql-data:/var/lib/mysql
+  mysql:
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: university-book-shop
+    ports:
+      - 33062:3306
+    volumes:
+      - ./volumes/mysql-data:/var/lib/mysql
+    networks:
+     - mconetwork
 
-  # universitybookshop.api:
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_URLS=http://+:80
-  #     - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root; 
-  #   ports:
-  #     - "7265:80"
-  #   restart: always
-  #   volumes:
-  #     - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
+  universitybookshop.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root;
+      - IDENTITY_AUTHORITY= http://identityserverapi
+    ports:
+      - "7265:80"
+    restart: always
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - mconetwork
   # reactApp:
   #   environment:
   #     - WDS_SOCKET_PORT= 0
@@ -55,7 +63,7 @@ services:
     ports:
       - "33063:1433"
     volumes:
-      - ./mssql-data:/var/opt/mssql/data
+      - ./volumes/mssql-data:/var/opt/mssql/data
     networks:
      - mconetwork
 
@@ -74,10 +82,4 @@ services:
 
 volumes:
   mssql-data:
-
-# volumes:
-#   mysql-data:
-
-networks:
-  mconetwork:
-    driver: bridge
+  mysql-data:
