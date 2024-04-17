@@ -10,11 +10,17 @@
 
         public static class Identity
         {
+            public const string ClientId = "external";
             public const string IdentityAuthority = "IDENTITY_AUTHORITY";
             public const string WebScope = "UniversityBookShop.Api";
 
             //public const string ApiScopePolicy = "ApiScope";
             public const string ClaimTypeScope = "scope";
+
+            public static class GrantType
+            {
+                public const string ResourceOwnerPassword = "password";
+            }
         }
 
         public static class Routing
@@ -23,6 +29,11 @@
             public const string ApiControllerAction = $"api/[controller]/[action]";
 
             public const string Id = "{id}";
+
+            public static class Auth
+            {
+                public const string ByUsernameAndPassword = "login/ByUsernameAndPassword";
+            }
 
             public static class Faculty
             {

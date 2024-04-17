@@ -23,6 +23,8 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root;
       - IDENTITY_AUTHORITY= http://identityserverapi
+      - ServiceAdressOptions__IdentityServerApi= http://identityserverapi
+      - ServiceAdressOptions__IdentityApi= http://identityapi 
     ports:
       - "7265:80"
     restart: always
