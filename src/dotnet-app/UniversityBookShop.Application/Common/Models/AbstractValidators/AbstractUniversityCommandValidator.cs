@@ -8,13 +8,13 @@ namespace UniversityBookShop.Application.Common.Models.AbstractValidators
         public AbstractUniversityCommandValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)
-                .MaximumLength(150).WithMessage(ServiceErrorConstants.MustBeLessThan);
+                .NotEmpty().WithMessage(ApplicationConstants.Service.Error.FieldNotEmpty)
+                .MaximumLength(150).WithMessage(ApplicationConstants.Service.Error.MustBeLessThan);
             RuleFor(x => x.Description)
-                .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)
-                .MaximumLength(255).WithMessage(ServiceErrorConstants.MustBeLessThan);
+                .NotEmpty().WithMessage(ApplicationConstants.Service.Error.FieldNotEmpty)
+                .MaximumLength(255).WithMessage(ApplicationConstants.Service.Error.MustBeLessThan);
             RuleFor(x => x.CurrencyCodeId)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

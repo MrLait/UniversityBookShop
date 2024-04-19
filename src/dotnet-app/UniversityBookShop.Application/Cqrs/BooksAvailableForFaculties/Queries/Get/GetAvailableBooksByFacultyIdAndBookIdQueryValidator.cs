@@ -9,9 +9,9 @@ namespace UniversityBookShop.Application.Cqrs.BooksAvailableForFaculties.Queries
         public GetAvailableBooksByFacultyIdAndBookIdQueryValidator()
         {
             RuleFor(x => x.FacultyId)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
             RuleFor(x => x.BookId)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

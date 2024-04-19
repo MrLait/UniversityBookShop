@@ -13,16 +13,38 @@ services:
     depends_on:
       - mysql
 
-  reactApp:
-    image: react-app
-    build:
-      context: ./src/react-app/university-book-shop/
-      dockerfile: Dockerfile
-    depends_on:
-      - universitybookshop.api
+  # reactApp:
+  #   image: react-app
+  #   build:
+  #     context: ./src/react-app/university-book-shop/
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - universitybookshop.api
 
-  proxy:
-    image: nginx:mainline
+  # proxy:
+  #   image: nginx:mainline
+  #   depends_on:
+  #     - reactApp
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: docker-ms-sql-server
+
+  identity.api:
+    image: identityapi
+    container_name: identityapi
+    build:
+      context: .
+      dockerfile: src/dotnet-app/Identity.Api/Dockerfile
     depends_on:
-      - reactApp
+      - mssql
+
+  identityserver.api:
+    image: identityserverapi
+    container_name: identityserverapi
+    build:
+      context: .
+      dockerfile: src/dotnet-app/IdentityServer.Api/Dockerfile
+    depends_on:
+      - mssql
 

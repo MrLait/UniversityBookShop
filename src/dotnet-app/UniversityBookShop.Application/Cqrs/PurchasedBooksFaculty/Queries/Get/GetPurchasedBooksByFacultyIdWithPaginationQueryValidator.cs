@@ -9,8 +9,8 @@ namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Queries.Get
         public GetPurchasedBooksByFacultyIdWithPaginationQueryValidator()
         {
             RuleFor(x => x.FacultyId)
-                .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .NotEmpty().WithMessage(ApplicationConstants.Service.Error.FieldNotEmpty)
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

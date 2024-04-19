@@ -7,11 +7,11 @@ namespace UniversityBookShop.Application.Dto;
 public class UniversityDto : IMapWith<University>
 {
     public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public IList<FacultyDto>? Faculties { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public IList<FacultyDto> Faculties { get; set; }
     public decimal? TotalBookPrice { get; set; }
-    public CurrencyCodeDto? CurrencyCode { get; set; }
+    public CurrencyCodeDto CurrencyCode { get; set; }
     public int FacultyCount { get; set; }
     public int BookCount { get; set; }
 

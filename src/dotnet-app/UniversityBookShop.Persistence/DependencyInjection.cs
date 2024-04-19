@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using UniversityBookShop.Application.Common.Interfaces;
+using UniversityBookShop.Persistence.Clients.IdentityServerClient;
+using UniversityBookShop.Persistence.Options;
 
 namespace UniversityBookShop.Persistence;
 
@@ -11,6 +12,9 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddHttpClient<IdentityServerClient>();
+        services.AddTransient<IIdentityServerClient, IdentityServerClient>();
+        
         var connectionString = configuration["DbConnection"];
         services.AddDbContext<ApplicationDbContext>(option =>
         {
@@ -25,6 +29,8 @@ public static class DependencyInjection
         (
             provider => provider.GetService<ApplicationDbContext>()!
         );
+        //configuration.GetSection(ServiceAdressOptions.SectionName);
+        services.Configure<ServiceAdressOptions>(configuration.GetSection(ServiceAdressOptions.SectionName));
         return services;
     }
 }

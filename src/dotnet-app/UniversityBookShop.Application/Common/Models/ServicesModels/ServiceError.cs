@@ -10,24 +10,24 @@ namespace UniversityBookShop.Application.Common.Models.ServicesModels
         public ServiceError(string message, int statusCode) =>
             (Message, StatusCode) = (message, statusCode);
 
-        public static ServiceError DefaultError => new(ServiceErrorConstants.DefaultError, ServiceStatusCodeConstants.DefaultStatusCode);
-        public static ServiceError NotFound => new(ServiceErrorConstants.NotFound, ServiceStatusCodeConstants.NotFoundStatusCode);
-        public static ServiceError Validation => new(ServiceErrorConstants.ValidationError, ServiceStatusCodeConstants.ValidationtStatusCode);
+        public static ServiceError DefaultError => new(ApplicationConstants.Service.Error.Default, ApplicationConstants.Service.StatusCode.Default);
+        public static ServiceError NotFound => new(ApplicationConstants.Service.Error.NotFound, ApplicationConstants.Service.StatusCode.NotFound);
+        public static ServiceError Validation => new(ApplicationConstants.Service.Error.Validation, ApplicationConstants.Service.StatusCode.Validationt);
 
         public static ServiceError BookPurchaseFacultyError =>
-            new(ServiceErrorConstants.BookPurchaseFacultyError, ServiceStatusCodeConstants.BookPurchaseFacultyErrorStatusCode);
+            new(ApplicationConstants.Service.Error.BookPurchaseFaculty, ApplicationConstants.Service.StatusCode.BookPurchaseFacultyError);
         public static ServiceError BookPurchaseUniversityError => 
-            new(ServiceErrorConstants.BookPurchaseUniversityError, ServiceStatusCodeConstants.BookPurchaseUniversiyErrorStatusCode);
+            new(ApplicationConstants.Service.Error.BookPurchaseUniversity, ApplicationConstants.Service.StatusCode.BookPurchaseUniversiyError);
         public static ServiceError ThereIsNoUniversityForFaculty => 
-            new(ServiceErrorConstants.ThereIsNoUniversityForFacultyError, ServiceStatusCodeConstants.ThereIsNoUniversityForFacultyStatusCode);
+            new(ApplicationConstants.Service.Error.ThereIsNoUniversityForFaculty, ApplicationConstants.Service.StatusCode.ThereIsNoUniversityForFaculty);
         public static ServiceError EntityAlreadyExists =>
-            new(ServiceErrorConstants.EntityAlreadyExistsError, ServiceStatusCodeConstants.EntityAlreadyExistsStatusCode);
+            new(ApplicationConstants.Service.Error.EntityAlreadyExists, ApplicationConstants.Service.StatusCode.EntityAlreadyExists);
         public static ServiceError CantDeleteUnivarstityBook =>
-            new(ServiceErrorConstants.CantDeleteUnivarstityBookError, ServiceStatusCodeConstants.CantDeleteUnivarstityBookStatusCode);
+            new(ApplicationConstants.Service.Error.CantDeleteUnivarstityBook, ApplicationConstants.Service.StatusCode.CantDeleteUnivarstityBook);
         public static ServiceError CantDeleteUnivarstity =>
-            new(ServiceErrorConstants.CantDeleteUnivarstityError, ServiceStatusCodeConstants.CantDeleteUnivarstityStatusCode);
+            new(ApplicationConstants.Service.Error.CantDeleteUnivarstity, ApplicationConstants.Service.StatusCode.CantDeleteUnivarstity);
         public static ServiceError CantDeleteFacultyBookExist =>
-           new(ServiceErrorConstants.CantDeleteFacultyBookExistError, ServiceStatusCodeConstants.CantDeleteFacultyBookExistStatusCode);
+           new(ApplicationConstants.Service.Error.CantDeleteFacultyBookExist, ApplicationConstants.Service.StatusCode.CantDeleteFacultyBookExist);
         
         public static ServiceError CustomMessage(string message, int statusCode) => new(message, statusCode);
     }

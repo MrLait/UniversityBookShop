@@ -55,13 +55,13 @@ namespace UniversityBookShop.Application.Cqrs.Books.Queries.Get
 
                 if (bookDto.IsPurchase == true)
                 {
-                    bookDto.PurchaseStatus = PurchaseStatusConstants.BookPurchasedByCurrentFaculty;
+                    bookDto.PurchaseStatus = ApplicationConstants.PurchaseStatus.BookPurchasedByCurrentFaculty;
                     continue;
                 }
 
                 if (addedByCurrentFaculty)
                 {
-                    bookDto.PurchaseStatus = PurchaseStatusConstants.BookAddedByCurrentFaculty;
+                    bookDto.PurchaseStatus = ApplicationConstants.PurchaseStatus.BookAddedByCurrentFaculty;
                     continue;
                 }
 
@@ -70,8 +70,8 @@ namespace UniversityBookShop.Application.Cqrs.Books.Queries.Get
                     .ToListAsync();
 
                 bookDto.PurchaseStatus = otherFaculties.Any(x => x.IsPurchased == true)
-                    ? PurchaseStatusConstants.BookAvailableForAdditionByCurrentFaculty
-                    : PurchaseStatusConstants.BookAvailableForPurchase;
+                    ? ApplicationConstants.PurchaseStatus.BookAvailableForAdditionByCurrentFaculty
+                    : ApplicationConstants.PurchaseStatus.BookAvailableForPurchase;
             }
 
             return query.Items.Any() ? ServiceResult.Success(query) : ServiceResult.Failed(query, ServiceError.NotFound);
