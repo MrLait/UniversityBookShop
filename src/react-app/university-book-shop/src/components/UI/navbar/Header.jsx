@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import { routePaths } from '../../../router/routes';
 import transition from '../../../unitls/transition';
 
+import Login from '../../screens/Auth/Login/Login';
+
 import styles from './Header.module.css';
 
 
@@ -38,6 +40,7 @@ const Header = () => {
                         <Nav.Link className={styles.title} href={routePaths.Home}>
                             Home
                         </Nav.Link>
+                        <Login />
                         {/* <Nav.Link className={styles.title} href="ToDo">
                             ToDo
                         </Nav.Link> */}

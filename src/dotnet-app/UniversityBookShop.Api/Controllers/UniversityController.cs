@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using UniversityBookShop.Api.Controllers.Base;
@@ -16,6 +17,7 @@ namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
 [Route(ApiConstants.Routing.ApiController)]
+[AllowAnonymous]
 public class UniversityController : BaseController
 {
     /// <summary>
