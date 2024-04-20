@@ -7,10 +7,8 @@ const apiInstance = axios.create({
 });
 
 apiInstance.interceptors.request.use(config => {
-    // Retrieve the access token from React state or a state management system
     const accessToken = `${localStorage.getItem('accessToken')}`;
-    // Add the access token to the Authorization header
-    config.headers.Authorization = `Bearer ${accessToken}dasd`;
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
 });
 
