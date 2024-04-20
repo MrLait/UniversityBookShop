@@ -12,7 +12,7 @@ namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
 [Route(ApiConstants.Routing.ApiController)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[AllowAnonymous]
 public class CurrencyCodeController : BaseController
 {
     /// <summary>

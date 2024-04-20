@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace UniversityBookShop.Application.Common.Models
+namespace UniversityBookShop.Application.Common.Models.Auth
 {
     public class Token
     {
