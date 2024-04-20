@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Constants;
@@ -12,6 +14,7 @@ namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
     [Route(ApiConstants.Routing.ApiController)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BooksAvailableForFacultyController : BaseController
     {
         /// <summary>

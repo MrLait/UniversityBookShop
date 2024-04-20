@@ -1,0 +1,62 @@
+.root {
+    position: relative;
+    width: 100%;
+    min-height: var(--min-height-modal);
+    border-radius: var(--rounded-large);
+    overflow: hidden;
+}
+
+.contentTabs {
+    position: relative;
+}
+
+.active {
+    display: block;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    min-height: var(--min-height-login);
+}
+
+.body {
+    flex: 2;
+    background: var(--bg-white);
+}
+
+.inner {
+    padding: var(--pad-large-modal);
+}
+
+.title {
+    margin-bottom: clamp(0.25rem, -0.15rem + 2vw, 2.25rem);
+    font-size: var(--text-size-large);
+    font-weight: normal;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(var(--grid-rows, 1), 1fr);
+    grid-template-columns: repeat(var(--grid-columns, 12), 1fr);
+    gap: var(--grid-gutter, var(--gutter));
+}
+
+.testCredentials {}
+
+.list li {
+    display: block;
+    margin-bottom: clamp(0.125rem, 0.05rem + 0.38vw, 0.5rem);
+    line-height: 100%;
+    list-style: none;
+    font-size: var(--text-size-small);
+    align-items: center;
+}
+
+.list p {
+    margin-top: clamp(0.125em, -0.05rem + 0.88vw, 1em);
+    margin-bottom: clamp(0.125rem, 0.05rem + 0.38vw, 0.5rem);
+    font-size: var(--text-size-primary);
+    color: var(--color-errors);
+    line-height: 100%;
+}

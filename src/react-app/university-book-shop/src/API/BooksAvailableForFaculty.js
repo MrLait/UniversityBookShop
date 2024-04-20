@@ -1,9 +1,15 @@
+// @ts-nocheck
 import axios from 'axios';
 
 import { BookShopApiUrls } from './BookShopApiUrls';
-
 const apiInstance = axios.create({
     baseURL: BookShopApiUrls.universityBookShopApiBaseURL,
+});
+
+apiInstance.interceptors.request.use(config => {
+    const accessToken = `${localStorage.getItem('accessToken')}`;
+    config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
 });
 
 export default class BooksAvailableForFacultyApiService {

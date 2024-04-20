@@ -8,7 +8,6 @@ import styles from './MyModalInput.module.css';
 const MyModalInput = ({ label, error, value, type, placeholder, maxLength, onChange }) => {
     return (
         <div className={styles.gridCol}>
-
             <div className={styles.formField}>
                 <label className={styles.formFieldLabel}>
                     {label}
