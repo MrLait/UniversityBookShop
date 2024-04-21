@@ -37,9 +37,12 @@ export const usePurchaseBookMutation = (setErrorMessage) => {
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Book wasn\'t found');
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.');
             }
             else {
                 setErrorMessage(error.response.data.error.message);
@@ -62,9 +65,12 @@ export const useDeleteBookMutation = (setErrorMessage) => {
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Book wasn\'t found');
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.');
             }
             else {
                 setErrorMessage(error.response.data.error.message);
@@ -87,9 +93,12 @@ export const useAddBookMutation = (setErrorMessage) => {
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Book wasn\'t found');
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.');
             }
             else {
                 setErrorMessage(error.response.data.error.message);
@@ -112,9 +121,12 @@ export const useRemoveAvailableBookMutation = (setErrorMessage) => {
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Book wasn\'t found');
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.');
             }
             else {
                 setErrorMessage(error.response.data.error.message);

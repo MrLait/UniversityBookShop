@@ -7,7 +7,7 @@ const BookFooterItem = ({ label, value }) => {
     return (
         <li className={`${styles.footer} ${styles.li}`}>
             <div>
-                <strong>{label}:</strong>
+                <strong>{label}</strong>
             </div>
             <div>
                 {value}

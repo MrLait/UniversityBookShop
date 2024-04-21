@@ -20,7 +20,7 @@ const LoginForm = ({ modalShow, setModalShow }) => {
     const [userNameError, setUserNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const postLoginMutation = usePostLoginMutation(setUserNameError, setPasswordError, setModalShow, setAuth);
+    const postLoginMutation = usePostLoginMutation(setUserNameError, setPasswordError, setModalShow, setAuth, login.isRememberMe);
 
     const postLoginHandler = (e) => {
         e.preventDefault();
@@ -33,6 +33,7 @@ const LoginForm = ({ modalShow, setModalShow }) => {
             setPasswordError('');
             setLogin(loginField);
         }
+
     }, [modalShow]);
 
     return (
@@ -67,6 +68,13 @@ const LoginForm = ({ modalShow, setModalShow }) => {
                                             placeholder={'Password'}
                                             maxLength={150}
                                         />
+                                        {/* ToDo checkbox component*/}
+                                        {/* <input
+                                            label="Keep me logged in"
+                                            checked={login.isRememberMe}
+                                            onChange={e => setLogin({ ...login, isRememberMe: e.target.checked })}
+                                            type={'checkbox'}
+                                        /> */}
                                         <MyModalButton
                                             onClick={postLoginHandler}
                                             label="Log in"

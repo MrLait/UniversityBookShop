@@ -18,7 +18,7 @@ const PurchasedBookCard = ({ book, isPurchased, availableBookId }) => {
             />
             <ul className={styles.footer}>
                 <BookFooterItem label="Isbn" value={book.isbn} />
-                <BookFooterItem label="Book status:" value={isPurchased ? 'has been purchased' : 'has been added'} />
+                <BookFooterItem label="Book status" value={isPurchased ? 'has been purchased' : 'has been added'} />
                 <BookFooterItem label="Price" value={`${book.price} ${book.currencyCode.code}`}
                 />
             </ul>

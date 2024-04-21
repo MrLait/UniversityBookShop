@@ -58,10 +58,13 @@ export const usePostFacultyMutation = (setFacultyNameErrorMessage, setModalShow)
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             const validationError = error?.response?.data?.data;
             if (statusCode === 400) {
                 setFacultyNameErrorMessage(validationError?.Name?.[0]);
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setFacultyNameErrorMessage('You are not authorized.');
             }
             else {
                 setFacultyNameErrorMessage(error.response.data.error.message);

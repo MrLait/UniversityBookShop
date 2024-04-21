@@ -1,11 +1,9 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 
-// import MyButton from '../../../UI/button/MyButton';
 import MyModal from '../../../UI/modal/MyModal';
 
 import LoginForm from './LoginForm';
-
 import styles from './Login.module.css';
 
 const Login = () => {

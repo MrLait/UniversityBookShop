@@ -4,9 +4,14 @@ import { createContext, useState } from 'react';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState({});
+    const [isRememberMe, setIsRememberMe] = useState(JSON.parse(localStorage.getItem('isRememberMe')) || false);
+    const [auth, setAuth] = useState({
+        accessToken: isRememberMe ? (localStorage.getItem('accessToken')) || null : null,
+        isAuth: (localStorage.getItem('isAuth')) || false,
+    });
+
     return (
-        <AuthContext.Provider value={{ auth, setAuth }}>
+        <AuthContext.Provider value={{ auth, setAuth, isRememberMe, setIsRememberMe }}>
             {children}
         </AuthContext.Provider>
     );

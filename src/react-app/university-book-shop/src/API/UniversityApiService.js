@@ -3,21 +3,21 @@ import axios from 'axios';
 
 import { Currencies } from '../components/constants/initialStates';
 
-import { BookShopApiUrls } from './BookShopApiUrls';
+import { BookShopApiUrls, bookShopApiInstance, bookShopApiPrivateInstance } from './BookShopApiUrls';
 
-const apiInstance = axios.create({
-    baseURL: BookShopApiUrls.universityBookShopApiBaseURL,
-});
+// const apiInstance = axios.create({
+//     baseURL: BookShopApiUrls.baseURL,
+// });
 
 export default class UniversityApiService {
 
     static async getAll() {
-        const response = await apiInstance.get(BookShopApiUrls.university);
+        const response = await bookShopApiInstance.get(BookShopApiUrls.university);
         return response;
     }
 
     static async getAllWithPagination(pageIndex, pageSize) {
-        const response = await apiInstance.get(BookShopApiUrls.university,
+        const response = await bookShopApiInstance.get(BookShopApiUrls.university,
             BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
         const { data } = response;
         return {
@@ -29,7 +29,7 @@ export default class UniversityApiService {
     }
 
     static async getUniversityByUniversityIdWithPaginatedFaculties(universityId, pageIndex, pageSize) {
-        const response = await apiInstance.get(`${BookShopApiUrls.university}/${universityId}`,
+        const response = await bookShopApiInstance.get(`${BookShopApiUrls.university}/${universityId}`,
             BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
 
         const { data } = response;
@@ -43,13 +43,13 @@ export default class UniversityApiService {
     }
 
     static async deleteUniversityByUniversityId(universityId) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.university}/${universityId}`);
+        const response = await bookShopApiPrivateInstance.delete(`${BookShopApiUrls.university}/${universityId}`);
         return response;
     }
 
     static async post(university) {
         university.currencyCodeId = Currencies.Usd;
-        const response = await apiInstance.post(`${BookShopApiUrls.university}/`, university);
+        const response = await bookShopApiPrivateInstance.post(`${BookShopApiUrls.university}/`, university);
         return response;
     }
 }

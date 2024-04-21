@@ -35,12 +35,15 @@ export const useDeleteAvailableBookMutation = (setErrorMessage) => {
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Book wasn\'t found');
             }
             if (statusCode === 400) {
                 setErrorMessage(error.response.data.title);
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.');
             }
             else {
                 setErrorMessage(error.response.data.error.message);

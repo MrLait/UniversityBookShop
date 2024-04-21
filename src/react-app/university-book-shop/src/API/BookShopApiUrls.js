@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 export const BookShopApiUrls = {
-    universityBookShopApiBaseURL: process.env.REACT_APP_BASE_URL === 'useNginx' ? '/api/' : 'http://localhost:7265/api/',
+    baseURL: process.env.REACT_APP_BASE_URL === 'useNginx' ? '/api/' : 'http://localhost:7265/api/',
     university: 'University',
     purchasedBookFaculty: 'PurchasedBookFaculty',
     purchasedBookByFacultyId: 'PurchasedBookFaculty/Faculty',
@@ -14,10 +16,24 @@ export const BookShopApiUrls = {
     authLoginByUserNameAndPasswordUrl: 'Auth/login/ByUsernameAndPassword',
 };
 
-// const AuthStr = 'Bearer '.concat(localStorage.getItem('accessToken'));
-// export const headerWithAuthStr = { headers: { Authorization: AuthStr } };
+export const bookShopApiInstance = axios.create({
+    baseURL: BookShopApiUrls.baseURL,
+});
 
-// http://localhost:7265/api/Auth/login/ByUsernameAndPassword
+export const bookShopApiPrivateInstance = axios.create({
+    baseURL: BookShopApiUrls.baseURL,
+});
+
+// const isRememberMe = `${localStorage.getItem('isRememberMe')}`;
+
+// if (isRememberMe === 'true') {
+bookShopApiPrivateInstance.interceptors.request.use(config => {
+    const accessToken = `${localStorage.getItem('accessToken')}`;
+    config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+});
+// }
+
 function getPaginationParams(pageIndex, pageSize) {
     if (pageIndex < 0) {
         throw new Error('pageIndex should be a non-negative number');

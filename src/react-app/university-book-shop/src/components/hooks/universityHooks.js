@@ -41,6 +41,9 @@ export const useDeleteUniversityByUniversityIdMutation = (setErrorMessage) => {
             if (statusCode === 404) {
                 setErrorMessage(validationError?.error?.message);
             }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized.;');
+            }
             else {
                 setErrorMessage(validationError?.error?.message);
             }
@@ -64,10 +67,12 @@ export const usePostUniversityMutation = (setNameError, setDescriptionError, set
         onError: (error) => {
             const statusCode = error?.response?.data?.error?.statusCode;
             const validationErrors = error?.response?.data?.data;
-
             if (statusCode === 998) {
                 setNameError(validationErrors?.Name?.[0]);
                 setDescriptionError(validationErrors.Description?.[0]);
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setDescriptionError('You are not authorized.;');
             }
         },
     });

@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useContext } from 'react';
 
+import { bookShopApiPrivateInstance } from '../../API/BookShopApiUrls';
 import AuthApiService from '../../API/AuthUrls';
 import AuthContext from '../contexts/AuthProvider';
 
@@ -11,7 +11,8 @@ const useAuth = () => {
 };
 export default useAuth;
 
-export const usePostLoginMutation = (setUserNameError, setPasswordError, setModalShow, setAuth) => {
+export const usePostLoginMutation = (setUserNameError, setPasswordError,
+    setModalShow, setAuth, isRememberMe) => {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -30,7 +31,21 @@ export const usePostLoginMutation = (setUserNameError, setPasswordError, setModa
                     setUserNameError('');
                     setPasswordError('');
                     setModalShow(false);
-                    setAuth({ accessToken });
+
+                    // if (isRememberMe) {
+                    localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('isAuth', true);
+                    localStorage.setItem('isRememberMe', true);
+                    setAuth({ isAuth: true, accessToken: accessToken });
+                    // } else {
+                    //     setAuth({ isAuth: true, accessToken: accessToken });
+
+                    //     bookShopApiPrivateInstance.interceptors.request.use(config => {
+                    //         console.log(config.headers);
+                    //         config.headers.Authorization = `Bearer ${accessToken}`;
+                    //         return config;
+                    //     });
+                    // }
                 }
             }
         },
@@ -45,7 +60,12 @@ export const usePostLoginMutation = (setUserNameError, setPasswordError, setModa
             else {
                 setPasswordError(error?.response?.data?.error?.message ?? 'Login Failed');
             };
+
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('isAuth');
+            localStorage.removeItem('isRememberMe');
+            setAuth({ isAuth: false, accessToken: null });
         },
     });
 };
+
