@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using UniversityBookShop.Api.Controllers.Base;
@@ -14,11 +16,13 @@ namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
     [Route(ApiConstants.Routing.ApiController)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FacultyController : BaseController
     {
         /// <summary>
         /// Get all Faculties.
         /// </summary>
+        [AllowAnonymous]
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
@@ -34,6 +38,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get faculty by id
         /// </summary>
+        [AllowAnonymous]
         [HttpGet(ApiConstants.Routing.Faculty.FacultyId)]
         public async Task<ActionResult<FacultyDto>> GetByFacultyId(int facultyId)
         {
@@ -44,6 +49,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all faluties by university id.
         /// </summary>
+        [AllowAnonymous]
         [HttpGet(ApiConstants.Routing.Faculty.UniversityId)]
         public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
         {

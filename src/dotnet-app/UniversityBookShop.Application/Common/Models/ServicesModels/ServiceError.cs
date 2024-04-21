@@ -12,7 +12,7 @@ namespace UniversityBookShop.Application.Common.Models.ServicesModels
 
         public static ServiceError DefaultError => new(ApplicationConstants.Service.Error.Default, ApplicationConstants.Service.StatusCode.Default);
         public static ServiceError NotFound => new(ApplicationConstants.Service.Error.NotFound, ApplicationConstants.Service.StatusCode.NotFound);
-        public static ServiceError Validation => new(ApplicationConstants.Service.Error.Validation, ApplicationConstants.Service.StatusCode.Validationt);
+        public static ServiceError Validation => new(ApplicationConstants.Service.Error.Validation, ApplicationConstants.Service.StatusCode.Validation);
 
         public static ServiceError BookPurchaseFacultyError =>
             new(ApplicationConstants.Service.Error.BookPurchaseFaculty, ApplicationConstants.Service.StatusCode.BookPurchaseFacultyError);

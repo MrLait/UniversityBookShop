@@ -21,6 +21,7 @@ namespace UniversityBookShop.Api.Controllers
         /// Get all available books to all faculties.
         /// </summary>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
         {
             var query = new GetAllBooksAvailableForFacultyWithPaginationQuery(paginationParams);
@@ -30,6 +31,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id. 
         /// </summary>
+        [AllowAnonymous]
         [HttpGet(ApiConstants.Routing.BooksAvailableForFaculty.FacultyId)]
         public async Task<ActionResult<ServiceResult<PaginatedList<BooksAvailableForFacultyDto>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
         {
@@ -40,6 +42,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all available books by faculty id and book id. 
         /// </summary>
+        [AllowAnonymous]
         [HttpGet(ApiConstants.Routing.BooksAvailableForFaculty.FacultyIdBookId)]
         public async Task<ActionResult<ServiceResult<BooksAvailableForFacultyDto>>> GetByFacultyIdAndBookId(int facultyId, int bookId)
         {

@@ -42,7 +42,7 @@
             {
                 public const int UnknownDatabase = 1049;
                 public const int Default = 999;
-                public const int Validationt = 998;
+                public const int Validation = 998;
                 public const int BookPurchaseFacultyError = 997;
                 public const int BookPurchaseUniversiyError = 996;
                 public const int ThereIsNoUniversityForFaculty = 995;

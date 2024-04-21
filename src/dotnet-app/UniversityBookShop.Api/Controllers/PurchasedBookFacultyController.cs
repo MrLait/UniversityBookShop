@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityBookShop.Api.Controllers.Base;
 using UniversityBookShop.Application.Common.Constants;
@@ -14,12 +16,14 @@ namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
 [Route(ApiConstants.Routing.ApiController)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class PurchasedBookFacultyController : BaseController
 {
     /// <summary>
     /// Retrieves a paginated list of all books purchased by faculties.
     /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
     {
         var query = new GetAllPurchasedBooksFacultyWithPaginationQuery(paginationParams);
@@ -30,6 +34,7 @@ public class PurchasedBookFacultyController : BaseController
     /// Retrieves a paginated list of purchased books specific to a faculty by its ID.
     /// </summary>
     [HttpGet(ApiConstants.Routing.PurchasedBookFaculty.FacultyId)]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
     {
         var query = new GetPurchasedBooksByFacultyIdWithPaginationQuery(paginationParams, facultyId);
@@ -40,6 +45,7 @@ public class PurchasedBookFacultyController : BaseController
     /// Retrieves a paginated list of purchased books for a university by its ID.
     /// </summary>
     [HttpGet(ApiConstants.Routing.PurchasedBookFaculty.UniversityId)]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
     {
         var query = new GetPurchasedBooksByUniversityIdWithPaginationQuery(paginationParams, universityId);

@@ -17,7 +17,7 @@ namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
     [Route(ApiConstants.Routing.ApiController)]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [AllowAnonymous]
     public class BookController : BaseController
     {
         /// <summary>
@@ -54,7 +54,6 @@ namespace UniversityBookShop.Api.Controllers
         public async Task<ActionResult<ServiceResult<int>>> Create(CreateBookCommand command)
         {
             return Ok(await Mediator.Send(command));
-
         }
 
         /// <summary>

@@ -1,10 +1,11 @@
-﻿using UniversityBookShop.Application.Common.Models;
-using UniversityBookShop.Application.Common.Models.Api;
+﻿using UniversityBookShop.Application.Common.Models.Api;
+using UniversityBookShop.Application.Common.Models.Auth;
+using UniversityBookShop.Application.Common.Models.ServicesModels;
 
 namespace UniversityBookShop.Application.Common.Interfaces
 {
     public interface IIdentityServerClient
     {
-        Task<Token> GetApiToken(LoginByUserNameAndPassword options);
+        Task<ServiceResult<Token>> GetApiToken(LoginByUserNameAndPassword options);
     }
 }

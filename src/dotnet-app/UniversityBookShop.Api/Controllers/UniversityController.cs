@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -17,13 +18,14 @@ namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
 [Route(ApiConstants.Routing.ApiController)]
-[AllowAnonymous]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class UniversityController : BaseController
 {
     /// <summary>
     /// Get all universities with university pagination.
     /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<UniversityDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
     {
         var vm = await Mediator.Send(new GetAllUniversitiesWithPaginationQuery(paginationParams));
@@ -36,6 +38,7 @@ public class UniversityController : BaseController
     [HttpGet(ApiConstants.Routing.University.UniversityId)]
     [SwaggerResponse(StatusCodes.Status200OK)]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<UniversityWithPaginatedFacultiesVm>>> GetAll(int universityId, [FromQuery] PaginationParams paginationParams)
     {
         var vm = await Mediator.Send(new GetUniversityByUniversityIdWithPaginatedFacultiesQuery(universityId, paginationParams));
