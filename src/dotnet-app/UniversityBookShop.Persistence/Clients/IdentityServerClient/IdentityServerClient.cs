@@ -24,11 +24,11 @@ namespace UniversityBookShop.Persistence.Clients.IdentityServerClient
         {
             var keyValues = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("scope", options.Scope),
-                new KeyValuePair<string, string>("username", options.UserName),
-                 new KeyValuePair<string, string>("password", options.Password),
-                new KeyValuePair<string, string>("grant_type", options.GrantType),
-                new KeyValuePair<string, string>("client_id", options.ClientId)
+                new("scope", options.Scope),
+                new("username", options.UserName),
+                new("password", options.Password),
+                new("grant_type", options.GrantType),
+                new("client_id", options.ClientId)
             };
 
             var content = new FormUrlEncodedContent(keyValues);

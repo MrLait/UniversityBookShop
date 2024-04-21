@@ -24,14 +24,14 @@ services.AddApplication();
 services.AddPersistence(builder.Configuration);
 
 services.AddAuthentication(
-              IdentityServerAuthenticationDefaults.AuthenticationScheme)
-              .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
-              {
-                  options.Authority = identityAuthority;
-                  //options.ApiName = $"{serviceAddressOptions.IdentityServer}/resources";
-                  options.RequireHttpsMetadata = false;
-                  options.TokenValidationParameters = new TokenValidationParameters() { ValidateAudience = false };
-              });
+    IdentityServerAuthenticationDefaults.AuthenticationScheme)
+    .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.Authority = identityAuthority;
+        //options.ApiName = $"{serviceAddressOptions.IdentityServer}/resources";
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters() { ValidateAudience = false };
+    });
 
 services.AddAuthorization(options =>
 {
