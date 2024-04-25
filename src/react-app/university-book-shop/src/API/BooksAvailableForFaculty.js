@@ -1,25 +1,19 @@
-import axios from 'axios';
-
-import { BookShopApiUrls } from './BookShopApiUrls';
-
-const apiInstance = axios.create({
-    baseURL: BookShopApiUrls.universityBookShopApiBaseURL,
-});
+import { BookShopApiUrls, bookShopApiPrivateInstance, bookShopApiInstance } from './BookShopApiUrls';
 
 export default class BooksAvailableForFacultyApiService {
 
     static async getAll() {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/`);
+        const response = await bookShopApiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/`);
         return response;
     }
 
     static async getByFacultyId(facultyId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`);
+        const response = await bookShopApiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`);
         return response;
     }
 
     static async getByFacultyIdWithPagination(facultyId, pageIndex, pageSize) {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`,
+        const response = await bookShopApiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}`,
             BookShopApiUrls.getPaginationParams(pageIndex, pageSize));
         const { data } = response;
         return {
@@ -31,7 +25,7 @@ export default class BooksAvailableForFacultyApiService {
     }
 
     static async getByFacultyIdBookId(facultyId, bookId) {
-        const response = await apiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`);
+        const response = await bookShopApiInstance.get(`${BookShopApiUrls.booksAvailableForFaculty}/${facultyId}/${bookId}`);
         const { data } = response;
         return {
             availableBook: data.data,
@@ -41,12 +35,12 @@ export default class BooksAvailableForFacultyApiService {
     }
 
     static async postAddBook(bookId, facultyId) {
-        const response = await apiInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId });
+        const response = await bookShopApiPrivateInstance.post(`${BookShopApiUrls.addBooksAvailableForFaculty}/`, { bookId, facultyId });
         return response;
     }
 
     static async deleteAvailableBook(bookId) {
-        const response = await apiInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`);
+        const response = await bookShopApiPrivateInstance.delete(`${BookShopApiUrls.booksAvailableForFaculty}/${bookId}`);
         return response;
     }
 }

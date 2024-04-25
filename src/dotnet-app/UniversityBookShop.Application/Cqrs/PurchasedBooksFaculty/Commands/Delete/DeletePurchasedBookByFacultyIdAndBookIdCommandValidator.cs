@@ -8,9 +8,9 @@ namespace UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Del
         public DeletePurchasedBookByFacultyIdAndBookIdCommandValidator()
         {
             RuleFor(x => x.Facultyid)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
             RuleFor(x => x.BookId)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

@@ -1,7 +1,9 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.PurchasedBooksFaculty.Commands.Create;
@@ -13,13 +15,15 @@ using UniversityBookShop.Application.Dto.Vm;
 namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
-[Route(RoutingConstants.ApiController)]
+[Route(ApiConstants.Routing.ApiController)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class PurchasedBookFacultyController : BaseController
 {
     /// <summary>
     /// Retrieves a paginated list of all books purchased by faculties.
     /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetAll([FromQuery] PaginationParams paginationParams)
     {
         var query = new GetAllPurchasedBooksFacultyWithPaginationQuery(paginationParams);
@@ -29,7 +33,8 @@ public class PurchasedBookFacultyController : BaseController
     /// <summary>
     /// Retrieves a paginated list of purchased books specific to a faculty by its ID.
     /// </summary>
-    [HttpGet(RoutingConstants.PurchasedBookFaculty.FacultyId)]
+    [HttpGet(ApiConstants.Routing.PurchasedBookFaculty.FacultyId)]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookByFacultyIdVm>>>> GetByFacultyId(int facultyId, [FromQuery] PaginationParams paginationParams)
     {
         var query = new GetPurchasedBooksByFacultyIdWithPaginationQuery(paginationParams, facultyId);
@@ -39,7 +44,8 @@ public class PurchasedBookFacultyController : BaseController
     /// <summary>
     /// Retrieves a paginated list of purchased books for a university by its ID.
     /// </summary>
-    [HttpGet(RoutingConstants.PurchasedBookFaculty.UniversityId)]
+    [HttpGet(ApiConstants.Routing.PurchasedBookFaculty.UniversityId)]
+    [AllowAnonymous]
     public async Task<ActionResult<ServiceResult<PaginatedList<PurchasedBookFacultyDto>>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
     {
         var query = new GetPurchasedBooksByUniversityIdWithPaginationQuery(paginationParams, universityId);
@@ -58,7 +64,7 @@ public class PurchasedBookFacultyController : BaseController
     /// <summary>
     /// Delete a purchased book entry for a faculty by its ID.
     /// </summary>
-    [HttpDelete(RoutingConstants.Id)]
+    [HttpDelete(ApiConstants.Routing.Id)]
     public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
     {
         return Ok(await Mediator.Send(new DeletePurchasedBookFacultyCommand { Id = id }));
@@ -67,7 +73,7 @@ public class PurchasedBookFacultyController : BaseController
     /// <summary>
     /// Delete a purchased book by faulctyId and bookId.
     /// </summary>
-    [HttpDelete(RoutingConstants.PurchasedBookFaculty.FacultyIdAndBookId)]
+    [HttpDelete(ApiConstants.Routing.PurchasedBookFaculty.FacultyIdAndBookId)]
     public async Task<ActionResult<ServiceResult<Unit>>> Delete(int facultyId, int bookId)
     {
         return Ok(await Mediator.Send(new DeletePurchasedBookByFacultyIdAndBookIdCommand(facultyId, bookId)));

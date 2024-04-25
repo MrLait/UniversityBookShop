@@ -52,15 +52,19 @@ const BookPurchaseActions = ({ book }) => {
             removeBookMutation?.isError;
     }, [addBookMutation?.isError, deleteBookMutation?.isError, purchaseBookMutation?.isError, removeBookMutation?.isError]);
 
+    const isPending = React.useMemo(() => {
+        return deleteBookMutation?.data?.data?.isSucceeded;
+    }, [deleteBookMutation?.data?.data?.isSucceeded]);
+
     useEffect(() => {
         if (book.purchaseStatus !== prevPurchaseStatus) {
             setIsLoading(false);
             setPrevPurchaseStatus(book.purchaseStatus);
         }
-        if (isFetchError) {
+        if (isFetchError || isPending === false) {
             setIsLoading(false);
         }
-    }, [book.purchaseStatus, isFetchError, prevPurchaseStatus]);
+    }, [book.purchaseStatus, isFetchError, prevPurchaseStatus, isPending]);
 
     return (
         <>

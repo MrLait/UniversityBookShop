@@ -9,8 +9,8 @@ namespace UniversityBookShop.Application.Common.Models.AbstractValidators
         public AbstractPaginationValidator()
         {
             RuleFor(x => x.PageSize)
-                .LessThanOrEqualTo(PaginationConstants.MaxPageSize).WithMessage(ServiceErrorConstants.PaginationMaxPageSizeError)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .LessThanOrEqualTo(ApplicationConstants.Pagination.MaxPageSize).WithMessage(ApplicationConstants.Service.Error.PaginationMaxPageSize)
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }
