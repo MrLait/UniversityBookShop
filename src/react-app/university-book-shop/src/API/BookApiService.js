@@ -1,6 +1,3 @@
-// @ts-nocheck
-import axios from 'axios';
-
 import { BookShopApiUrls, bookShopApiInstance } from './BookShopApiUrls';
 
 

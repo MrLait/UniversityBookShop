@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { BookShopApiUrls, bookShopApiInstance } from './BookShopApiUrls';
 
 export default class AuthApiService {

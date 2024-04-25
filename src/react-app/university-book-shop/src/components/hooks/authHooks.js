@@ -2,7 +2,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useContext } from 'react';
 
-import { bookShopApiPrivateInstance } from '../../API/BookShopApiUrls';
 import AuthApiService from '../../API/AuthUrls';
 import AuthContext from '../contexts/AuthProvider';
 

@@ -1,13 +1,6 @@
-// @ts-nocheck
-import axios from 'axios';
-
 import { Currencies } from '../components/constants/initialStates';
 
 import { BookShopApiUrls, bookShopApiInstance, bookShopApiPrivateInstance } from './BookShopApiUrls';
-
-// const apiInstance = axios.create({
-//     baseURL: BookShopApiUrls.baseURL,
-// });
 
 export default class UniversityApiService {
 
