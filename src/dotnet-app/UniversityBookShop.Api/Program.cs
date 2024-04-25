@@ -90,5 +90,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors(ApiConstants.Policy.Cors);
 
-app.MapControllers().RequireAuthorization(ApiConstants.Policy.Authorization); ;
+app.MapControllers().RequireAuthorization(ApiConstants.Policy.Authorization);
 app.Run();

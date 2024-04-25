@@ -71,6 +71,7 @@
 
 .rolloverArrowDirectionLeft {
     padding-right: 0.3em;
+    cursor: pointer;
 }
 
 .errorMessage {

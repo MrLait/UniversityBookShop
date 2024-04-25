@@ -27,11 +27,11 @@ export const useDeleteAvailableBookMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([bookId]) => BooksAvailableForFacultyApiService.deleteAvailableBook(bookId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -40,13 +40,16 @@ export const useDeleteAvailableBookMutation = (setErrorMessage) => {
                 setErrorMessage('Book wasn\'t found');
             }
             if (statusCode === 400) {
-                setErrorMessage(error.response.data.title);
+                setErrorMessage(error?.response?.data?.title);
             }
             if (error?.code === 'ERR_NETWORK') {
-                setErrorMessage('You are not authorized.');
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });

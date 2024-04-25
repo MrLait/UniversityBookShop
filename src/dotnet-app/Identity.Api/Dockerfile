@@ -7,13 +7,13 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["dotnet-app/Identity.Api/Identity.Api.csproj", "dotnet-app/Identity.Api/"]
-COPY ["dotnet-app/Identity.Application/Identity.Application.csproj", "dotnet-app/Identity.Application/"]
-COPY ["dotnet-app/Identity.Domain/Identity.Domain.csproj", "dotnet-app/Identity.Domain/"]
-COPY ["dotnet-app/Identity.Persistence/Identity.Persistence.csproj", "dotnet-app/Identity.Persistence/"]
-RUN dotnet restore "./dotnet-app/Identity.Api/Identity.Api.csproj"
+COPY ["src/dotnet-app/Identity.Api/Identity.Api.csproj", "src/dotnet-app/Identity.Api/"]
+COPY ["src/dotnet-app/Identity.Application/Identity.Application.csproj", "src/dotnet-app/Identity.Application/"]
+COPY ["src/dotnet-app/Identity.Domain/Identity.Domain.csproj", "src/dotnet-app/Identity.Domain/"]
+COPY ["src/dotnet-app/Identity.Persistence/Identity.Persistence.csproj", "src/dotnet-app/Identity.Persistence/"]
+RUN dotnet restore "./src/dotnet-app/Identity.Api/Identity.Api.csproj"
 COPY . .
-WORKDIR "/src/dotnet-app/Identity.Api"
+WORKDIR "/src/src/dotnet-app/Identity.Api"
 RUN dotnet build "./Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

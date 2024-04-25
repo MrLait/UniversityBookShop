@@ -28,12 +28,12 @@ export const usePurchaseBookMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([bookId, facultyId]) => PurchasedBookApiService.postPurchaseBookForFaculty(bookId, facultyId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
                 queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             }
             else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -42,10 +42,13 @@ export const usePurchaseBookMutation = (setErrorMessage) => {
                 setErrorMessage('Book wasn\'t found');
             }
             if (error?.code === 'ERR_NETWORK') {
-                setErrorMessage('You are not authorized.');
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });
@@ -57,11 +60,11 @@ export const useDeleteBookMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([bookId, facultyId]) => PurchasedBookApiService.deleteByFacultyIdAndBookId(facultyId, bookId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
                 queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -70,10 +73,13 @@ export const useDeleteBookMutation = (setErrorMessage) => {
                 setErrorMessage('Book wasn\'t found');
             }
             if (error?.code === 'ERR_NETWORK') {
-                setErrorMessage('You are not authorized.');
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });
@@ -85,11 +91,11 @@ export const useAddBookMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([bookId, facultyId]) => BooksAvailableForFacultyApiService.postAddBook(bookId, facultyId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
                 queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -98,10 +104,13 @@ export const useAddBookMutation = (setErrorMessage) => {
                 setErrorMessage('Book wasn\'t found');
             }
             if (error?.code === 'ERR_NETWORK') {
-                setErrorMessage('You are not authorized.');
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });
@@ -113,11 +122,11 @@ export const useRemoveAvailableBookMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: (availableBookId) => BooksAvailableForFacultyApiService.deleteAvailableBook(availableBookId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getBooks'] });
                 queryClient.invalidateQueries({ queryKey: ['getPurchasedBooksByFacultyId'] });
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -126,10 +135,13 @@ export const useRemoveAvailableBookMutation = (setErrorMessage) => {
                 setErrorMessage('Book wasn\'t found');
             }
             if (error?.code === 'ERR_NETWORK') {
-                setErrorMessage('You are not authorized.');
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });

@@ -28,7 +28,9 @@ namespace UniversityBookShop.Application.Common.Models.ServicesModels
             new(ApplicationConstants.Service.Error.CantDeleteUnivarstity, ApplicationConstants.Service.StatusCode.CantDeleteUnivarstity);
         public static ServiceError CantDeleteFacultyBookExist =>
            new(ApplicationConstants.Service.Error.CantDeleteFacultyBookExist, ApplicationConstants.Service.StatusCode.CantDeleteFacultyBookExist);
-        
+        public static ServiceError ForbiddenError => 
+            new ServiceError(ApplicationConstants.Service.Error.Forbidden, ApplicationConstants.Service.StatusCode.Forbidden);
+
         public static ServiceError CustomMessage(string message, int statusCode) => new(message, statusCode);
     }
 }

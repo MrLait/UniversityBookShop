@@ -4,6 +4,24 @@ networks:
     driver: bridge
 
 services:
+  reactApp:
+    environment:
+      - WDS_SOCKET_PORT= 0
+      - REACT_APP_BASE_URL=useNginx
+    ports:
+      - "5001:3000"
+    networks:
+     - mconetwork
+
+  proxy:
+    restart: always
+    volumes: 
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+     - mconetwork
+
   mysql:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
@@ -11,6 +29,7 @@ services:
       MYSQL_DATABASE: university-book-shop
     ports:
       - 33062:3306
+    restart: always
     volumes:
       - ./volumes/mysql-data:/var/lib/mysql
     networks:
@@ -33,21 +52,16 @@ services:
     networks:
      - mconetwork
 
-  reactApp:
+  mssql:
     environment:
-      - WDS_SOCKET_PORT= 0
-      - REACT_APP_BASE_URL=useNginx
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - User_Id=SA;
     ports:
-      - "5001:3000"
-    networks:
-     - mconetwork
-
-  proxy:
+      - "33063:1433"
     restart: always
-    volumes: 
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
+    volumes:
+      - ./volumes/mssql-data:/var/opt/mssql/data
     networks:
      - mconetwork
 
@@ -58,18 +72,7 @@ services:
       - IDENTITY_AUTHORITY= http://identityserverapi
     ports:
       - "5002:80"
-    networks:
-     - mconetwork
-
-  mssql:
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=MyPass@word
-      - User_Id=SA;
-    ports:
-      - "33063:1433"
-    volumes:
-      - ./volumes/mssql-data:/var/opt/mssql/data
+    restart: always
     networks:
      - mconetwork
 
@@ -81,6 +84,7 @@ services:
       - IDENTITY_ISSUER= http://identityserverapi
     ports:
       - "32777:80"
+    restart: always
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     networks:
