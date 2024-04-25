@@ -28,7 +28,9 @@
                 public const string MustBeLessThan = "{PropertyName} must be less than {MaxLength} characters.";
                 public const string PrecisionScale = "{PropertyName} should be a number with precision {ExpectedPrecision} and scale {ExpectedScale}";
                 public const string PaginationMaxPageSize = "{PropertyName} more than {ComparisonValue} - maximum page size";
+                public const string Forbidden = "You are not authorized to call this action";
 
+                
                 public const string BookPurchaseUniversity = "This book for this university has already been purchased";
                 public const string BookPurchaseFaculty = "This book for this faculty has already been purchased";
                 public const string ThereIsNoUniversityForFaculty = "This faculty does not belong to this university.";
@@ -50,6 +52,7 @@
                 public const int CantDeleteUnivarstityBook = 993;
                 public const int CantDeleteUnivarstity = 992;
                 public const int CantDeleteFacultyBookExist = 991;
+                public const int Forbidden = 401;
 
                 public const int NotFound = 404;
             }

@@ -1,6 +1,7 @@
 export const loginField = {
     'userName': '',
     'password': '',
+    'isRememberMe': false,
 };
 
 export const universitiesField = [

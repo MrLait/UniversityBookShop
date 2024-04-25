@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import MyModalSpinner from '../../../UI/spinner/MyModalSpinner/MyModalSpinner';
 
-import { usePostLoginMutation } from '../../../hooks/authHooks';
+import useAuth, { usePostLoginMutation } from '../../../hooks/authHooks';
 
 import MyModalLeftSection from '../../../UI/modal/MyModalLeftSection';
 import MyModalInput from '../../../UI/modal/MyModalInput';
@@ -15,11 +15,12 @@ import MyModalButton from '../../../UI/modal/MyModalButton';
 import styles from './LoginForm.module.css';
 
 const LoginForm = ({ modalShow, setModalShow }) => {
+    const { setAuth } = useAuth();
     const [login, setLogin] = useState(loginField);
     const [userNameError, setUserNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const postLoginMutation = usePostLoginMutation(setUserNameError, setPasswordError, setModalShow);
+    const postLoginMutation = usePostLoginMutation(setUserNameError, setPasswordError, setModalShow, setAuth, login.isRememberMe);
 
     const postLoginHandler = (e) => {
         e.preventDefault();
@@ -32,6 +33,7 @@ const LoginForm = ({ modalShow, setModalShow }) => {
             setPasswordError('');
             setLogin(loginField);
         }
+
     }, [modalShow]);
 
     return (
@@ -49,12 +51,12 @@ const LoginForm = ({ modalShow, setModalShow }) => {
                                 <form>
                                     <div className={styles.grid}>
                                         <MyModalInput
-                                            label="EMAIL OR USERNAME (*)"
+                                            label="USERNAME (*)"
                                             error={userNameError}
                                             value={login.userName}
                                             onChange={e => setLogin({ ...login, userName: e.target.value })}
                                             type={'text'}
-                                            placeholder={'Email or UserName'}
+                                            placeholder={'UserName'}
                                             maxLength={150}
                                         />
                                         <MyModalInput
@@ -66,6 +68,13 @@ const LoginForm = ({ modalShow, setModalShow }) => {
                                             placeholder={'Password'}
                                             maxLength={150}
                                         />
+                                        {/* ToDo checkbox component*/}
+                                        {/* <input
+                                            label="Keep me logged in"
+                                            checked={login.isRememberMe}
+                                            onChange={e => setLogin({ ...login, isRememberMe: e.target.checked })}
+                                            type={'checkbox'}
+                                        /> */}
                                         <MyModalButton
                                             onClick={postLoginHandler}
                                             label="Log in"

@@ -19,24 +19,30 @@ export const useDeleteFacultyByFacultyIdMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([facultyId]) => FacultyApiService.deleteFacultyByFacultyId(facultyId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getFacultyById'] });
                 queryClient.invalidateQueries({ queryKey: ['getUniversityWithFacultiesByUniversityId'] });
                 queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             if (statusCode === 404) {
                 setErrorMessage('Faculty wasn\'t found');
             }
             if (statusCode === 400) {
                 setErrorMessage(error.response.data.title);
             }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
+            }
             else {
-                setErrorMessage(error.response.data.error.message);
+                setErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });
@@ -48,23 +54,29 @@ export const usePostFacultyMutation = (setFacultyNameErrorMessage, setModalShow)
     return useMutation({
         mutationFn: ([facultyName, universityId]) => FacultyApiService.post({ name: facultyName, universityId: universityId }),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getUniversityWithFacultiesByUniversityId'] });
                 queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
                 setModalShow(false);
                 setFacultyNameErrorMessage('');
             } else {
-                setFacultyNameErrorMessage(response.data.error.message);
+                setFacultyNameErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
-            const statusCode = error.response.status;
+            const statusCode = error?.response?.status;
             const validationError = error?.response?.data?.data;
             if (statusCode === 400) {
                 setFacultyNameErrorMessage(validationError?.Name?.[0]);
             }
+            if (error?.code === 'ERR_NETWORK') {
+                setFacultyNameErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setFacultyNameErrorMessage('You are not authorized');
+            }
             else {
-                setFacultyNameErrorMessage(error.response.data.error.message);
+                setFacultyNameErrorMessage(error?.response?.data?.error?.message);
             }
         },
     });

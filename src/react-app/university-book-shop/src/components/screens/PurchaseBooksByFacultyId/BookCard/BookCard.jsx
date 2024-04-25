@@ -32,17 +32,17 @@ const BookCard = ({ book }) => {
                     />
                     {(book.purchaseStatus === purchaseStatusConstants.bookAvailableForPurchase ||
                         book.purchaseStatus === purchaseStatusConstants.bookAvailableForAdditionByCurrentFaculty) && (
-                            <BookFooterItem label="Book status:" value={book.purchaseStatus} />
+                            <BookFooterItem label="Book status" value={book.purchaseStatus} />
                         )}
                     {(book.purchaseStatus === purchaseStatusConstants.bookPurchasedByCurrentFaculty) && (
-                        <BookFooterItem label="Book status:" value={'Purchased'} />
+                        <BookFooterItem label="Book status" value={'Purchased'} />
                     )}
                     {book.purchaseStatus === purchaseStatusConstants.bookAddedByCurrentFaculty && (
-                        <BookFooterItem label="Book status:" value={'Book added'} />
+                        <BookFooterItem label="Book status" value={'Book added'} />
                     )}
                     <BookPurchaseActions
                         book={book}
-                        s />
+                    />
                 </ul>
             </div >
         </>
