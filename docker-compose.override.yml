@@ -65,7 +65,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyPass@word
-      - User Id=SA;
+      - User_Id=SA;
     ports:
       - "33063:1433"
     volumes:
