@@ -1,4 +1,4 @@
-version: '3.4'
+
 
 services:
   mysql:
@@ -13,18 +13,18 @@ services:
     depends_on:
       - mysql
 
-  # reactApp:
-  #   image: react-app
-  #   build:
-  #     context: ./src/react-app/university-book-shop/
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - universitybookshop.api
+  reactApp:
+    image: react-app
+    build:
+      context: ./src/react-app/university-book-shop/
+      dockerfile: Dockerfile
+    depends_on:
+      - universitybookshop.api
 
-  # proxy:
-  #   image: nginx:mainline
-  #   depends_on:
-  #     - reactApp
+  proxy:
+    image: nginx:mainline
+    depends_on:
+      - reactApp
 
   mssql:
     image: mcr.microsoft.com/mssql/server:latest

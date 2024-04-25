@@ -1,6 +1,7 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
 EXPOSE 80
 
@@ -11,7 +12,7 @@ COPY ["src/dotnet-app/UniversityBookShop.Api/UniversityBookShop.Api.csproj", "sr
 COPY ["src/dotnet-app/UniversityBookShop.Application/UniversityBookShop.Application.csproj", "src/dotnet-app/UniversityBookShop.Application/"]
 COPY ["src/dotnet-app/UniversityBookShop.Domain/UniversityBookShop.Domain.csproj", "src/dotnet-app/UniversityBookShop.Domain/"]
 COPY ["src/dotnet-app/UniversityBookShop.Persistence/UniversityBookShop.Persistence.csproj", "src/dotnet-app/UniversityBookShop.Persistence/"]
-RUN dotnet restore "./src/dotnet-app/UniversityBookShop.Api/./UniversityBookShop.Api.csproj"
+RUN dotnet restore "./src/dotnet-app/UniversityBookShop.Api/UniversityBookShop.Api.csproj"
 COPY . .
 WORKDIR "/src/src/dotnet-app/UniversityBookShop.Api"
 RUN dotnet build "./UniversityBookShop.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
