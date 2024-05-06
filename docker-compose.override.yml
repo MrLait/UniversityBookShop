@@ -1,34 +1,17 @@
-version: '3.4'
+
+networks:
+  mconetwork:
+    driver: bridge
 
 services:
-  mysql:
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: university-book-shop
-    ports:
-      - 33062:3306
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-
-  universitybookshop.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-      - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root; 
-    ports:
-      - "7265:80"
-    restart: always
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
   reactApp:
     environment:
       - WDS_SOCKET_PORT= 0
       - REACT_APP_BASE_URL=useNginx
     ports:
       - "5001:3000"
+    networks:
+     - mconetwork
 
   proxy:
     restart: always
@@ -36,6 +19,77 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
+    networks:
+     - mconetwork
+
+  mysql:
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: university-book-shop
+    ports:
+      - 33062:3306
+    restart: always
+    volumes:
+      - ./volumes/mysql-data:/var/lib/mysql
+    networks:
+     - mconetwork
+
+  universitybookshop.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - DbConnection= Server=mysql_8_0_36; Database=university-book-shop; Port= 3306; User Id = root; Password=root;
+      - IDENTITY_AUTHORITY= http://identityserverapi
+      - ServiceAdressOptions__IdentityServerApi= http://identityserverapi
+      - ServiceAdressOptions__IdentityApi= http://identityapi 
+    ports:
+      - "7265:80"
+    restart: always
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - mconetwork
+
+  mssql:
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - User_Id=SA;
+    ports:
+      - "33063:1433"
+    restart: always
+    volumes:
+      - ./volumes/mssql-data:/var/opt/mssql/data
+    networks:
+     - mconetwork
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IDENTITY_AUTHORITY= http://identityserverapi
+    ports:
+      - "5002:80"
+    restart: always
+    networks:
+     - mconetwork
+
+  identityserver.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityConnection= Server=docker-ms-sql-server,1433;Database=IdentityData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IdentityServerConnection= Server=docker-ms-sql-server,1433;Database=IdentityServerData;User Id =SA;Password=MyPass@word; TrustServerCertificate=True;
+      - IDENTITY_ISSUER= http://identityserverapi
+    ports:
+      - "32777:80"
+    restart: always
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    networks:
+     - mconetwork
 
 volumes:
+  mssql-data:
   mysql-data:

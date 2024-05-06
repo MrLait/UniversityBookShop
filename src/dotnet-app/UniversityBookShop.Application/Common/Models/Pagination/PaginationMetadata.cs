@@ -8,7 +8,7 @@ public class PaginationMetadata
     public int TotalCount { get; }
     public int TotalPages { get; }
     public int PageSize { get; }
-    public bool IsPrevious => PageIndex > PaginationConstants.FirstPage;
+    public bool IsPrevious => PageIndex > ApplicationConstants.Pagination.FirstPage;
     public bool IsNext => PageIndex < TotalPages;
 
     public PaginationMetadata(int totalCount, int pageIndex, int pageSize)

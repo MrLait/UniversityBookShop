@@ -9,7 +9,7 @@ namespace UniversityBookShop.Application.Cqrs.Books.Commands.Update
         public UpdateBookCommandValidator()
         {
             RuleFor(x => x.Id)
-                 .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                 .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

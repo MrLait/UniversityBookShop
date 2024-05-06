@@ -25,11 +25,11 @@ export const useDeleteUniversityByUniversityIdMutation = (setErrorMessage) => {
     return useMutation({
         mutationFn: ([universityId]) => UniversityApiService.deleteUniversityByUniversityId(universityId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
                 setErrorMessage('');
             } else {
-                setErrorMessage(response.data.error.message);
+                setErrorMessage(response?.data?.error?.message);
             }
         },
         onError: (error) => {
@@ -41,8 +41,22 @@ export const useDeleteUniversityByUniversityIdMutation = (setErrorMessage) => {
             if (statusCode === 404) {
                 setErrorMessage(validationError?.error?.message);
             }
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
+            }
             else {
                 setErrorMessage(validationError?.error?.message);
+            }
+        },
+        onSettled: (data, error, variables) => {
+            if (error?.code === 'ERR_NETWORK') {
+                setErrorMessage('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setErrorMessage('You are not authorized');
             }
         },
     });
@@ -54,7 +68,7 @@ export const usePostUniversityMutation = (setNameError, setDescriptionError, set
     return useMutation({
         mutationFn: ([universityId]) => UniversityApiService.post(universityId),
         onSuccess: (response) => {
-            if (response.data.isSucceeded) {
+            if (response?.data?.isSucceeded) {
                 queryClient.invalidateQueries({ queryKey: ['getPaginatedUniversities'] });
                 setNameError('');
                 setDescriptionError('');
@@ -64,10 +78,15 @@ export const usePostUniversityMutation = (setNameError, setDescriptionError, set
         onError: (error) => {
             const statusCode = error?.response?.data?.error?.statusCode;
             const validationErrors = error?.response?.data?.data;
-
             if (statusCode === 998) {
                 setNameError(validationErrors?.Name?.[0]);
-                setDescriptionError(validationErrors.Description?.[0]);
+                setDescriptionError(validationErrors?.Description?.[0]);
+            }
+            if (error?.code === 'ERR_NETWORK') {
+                setDescriptionError('You are not authorized');
+            }
+            if (error?.response?.status === 401) {
+                setDescriptionError('You are not authorized');
             }
         },
     });

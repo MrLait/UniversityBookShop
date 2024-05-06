@@ -1,13 +1,16 @@
+using IdentityServer4.AccessTokenValidation;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Filters;
 using UniversityBookShop.Application;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Interfaces;
 using UniversityBookShop.Application.Common.Mappings;
 using UniversityBookShop.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+var identityAuthority = builder.Configuration[ApiConstants.Identity.IdentityAuthority];
 var services = builder.Services;
 
 //REGISTER SERVICES HERE
@@ -19,14 +22,32 @@ services.AddAutoMapper(config =>
 
 services.AddApplication();
 services.AddPersistence(builder.Configuration);
+
+services.AddAuthentication(
+    IdentityServerAuthenticationDefaults.AuthenticationScheme)
+    .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.Authority = identityAuthority;
+        //options.ApiName = $"{serviceAddressOptions.IdentityServer}/resources";
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters() { ValidateAudience = false };
+    });
+
+services.AddAuthorization(options =>
+{
+    options.AddPolicy(ApiConstants.Policy.Authorization, policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim(ApiConstants.Identity.ClaimTypeScope, ApiConstants.Identity.WebScope);
+    });
+});
+
 services.AddControllers(configure: options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
-var reactAppCorsPolicy = "reactAppCorsPolicy";
-
 services.AddCors(option =>
 {
-    option.AddPolicy(reactAppCorsPolicy, policy =>
+    option.AddPolicy(ApiConstants.Policy.Cors, policy =>
     {
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
@@ -61,13 +82,13 @@ app.UseSwagger();
 app.UseSwaggerUI(config =>
 {
     config.RoutePrefix = string.Empty;
-    config.SwaggerEndpoint(SwaggerConstants.Url, SwaggerConstants.Name);
+    config.SwaggerEndpoint(ApiConstants.Swagger.Url, ApiConstants.Swagger.Name);
 });
 
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseCors(ApiConstants.Policy.Cors);
 
-//app.UseHttpsRedirection();
-app.UseCors(reactAppCorsPolicy);
-
-app.MapControllers();
+app.MapControllers().RequireAuthorization(ApiConstants.Policy.Authorization);
 app.Run();

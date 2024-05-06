@@ -8,8 +8,8 @@ namespace UniversityBookShop.Application.Cqrs.Universities.Queries.Get
         public GetUniversityByUniversityIdWithPaginatedFacultiesQueryValidator()
         {
             RuleFor(x => x.UniversityId)
-                .NotEmpty().WithMessage(ServiceErrorConstants.FieldNotEmpty)
-                .GreaterThan(0).WithMessage(ServiceErrorConstants.GreaterThanZero);
+                .NotEmpty().WithMessage(ApplicationConstants.Service.Error.FieldNotEmpty)
+                .GreaterThan(0).WithMessage(ApplicationConstants.Service.Error.GreaterThanZero);
         }
     }
 }

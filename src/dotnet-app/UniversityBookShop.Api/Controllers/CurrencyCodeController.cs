@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.CurrencyCodes.Queries.Get;
 using UniversityBookShop.Application.Dto;
@@ -9,7 +11,8 @@ using UniversityBookShop.Application.Dto;
 namespace UniversityBookShop.Api.Controllers;
 
 [ApiController]
-[Route(RoutingConstants.ApiController)]
+[Route(ApiConstants.Routing.ApiController)]
+[AllowAnonymous]
 public class CurrencyCodeController : BaseController
 {
     /// <summary>

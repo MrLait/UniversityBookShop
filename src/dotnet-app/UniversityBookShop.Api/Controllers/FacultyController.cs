@@ -1,8 +1,10 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UniversityBookShop.Api.Constants;
 using UniversityBookShop.Api.Controllers.Base;
+using UniversityBookShop.Application.Common.Constants;
 using UniversityBookShop.Application.Common.Models.Pagination;
 using UniversityBookShop.Application.Common.Models.ServicesModels;
 using UniversityBookShop.Application.Cqrs.Faculties.Commands.Create;
@@ -13,12 +15,14 @@ using UniversityBookShop.Application.Dto;
 namespace UniversityBookShop.Api.Controllers
 {
     [ApiController]
-    [Route(RoutingConstants.ApiController)]
+    [Route(ApiConstants.Routing.ApiController)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FacultyController : BaseController
     {
         /// <summary>
         /// Get all Faculties.
         /// </summary>
+        [AllowAnonymous]
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
@@ -34,7 +38,8 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get faculty by id
         /// </summary>
-        [HttpGet(RoutingConstants.Faculty.FacultyId)]
+        [AllowAnonymous]
+        [HttpGet(ApiConstants.Routing.Faculty.FacultyId)]
         public async Task<ActionResult<FacultyDto>> GetByFacultyId(int facultyId)
         {
             var vm = await Mediator.Send(new GetFacultyByIdQuery(facultyId));
@@ -44,7 +49,8 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Get all faluties by university id.
         /// </summary>
-        [HttpGet(RoutingConstants.Faculty.UniversityId)]
+        [AllowAnonymous]
+        [HttpGet(ApiConstants.Routing.Faculty.UniversityId)]
         public async Task<ActionResult<PaginatedList<FacultyDto>>> GetByUniversityId(int universityId, [FromQuery] PaginationParams paginationParams)
         {
             var vm = await Mediator.Send(new GetFacultiesByUniversityIdQuery(paginationParams)
@@ -75,7 +81,7 @@ namespace UniversityBookShop.Api.Controllers
         /// <summary>
         /// Delete faculty by id.
         /// </summary>
-        [HttpDelete(RoutingConstants.Id)]
+        [HttpDelete(ApiConstants.Routing.Id)]
         public async Task<ActionResult<ServiceResult<Unit>>> Delete(int id)
         {
             var command = new DeleteFacultyCommand() { Id = id };

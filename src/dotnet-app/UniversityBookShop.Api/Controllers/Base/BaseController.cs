@@ -1,10 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using UniversityBookShop.Application.Common.Constants;
 
 namespace UniversityBookShop.Api.Controllers.Base;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route(ApiConstants.Routing.ApiControllerAction)]
 public class BaseController : ControllerBase
 {
     private IMediator _mediator;

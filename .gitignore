@@ -354,3 +354,4 @@ src/my-sql-server/library.obj.mwb.bak
 
 # User ignore folders
 mysql-data
+volumes
